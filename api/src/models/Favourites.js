@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
     
-    sequelize.define('favorite', {
+    sequelize.define('favourite', {
       id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
@@ -10,7 +10,7 @@ module.exports = (sequelize) => {
         primaryKey: true,
       },
       product: {
-        type: DataTypes.ARRAY,
+        type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: true,
       },
     }, {
