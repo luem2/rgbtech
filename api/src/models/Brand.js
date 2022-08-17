@@ -3,15 +3,16 @@ const {DataTypes} = require('sequelize')
 module.exports = (sequelize) => {
   sequelize.define('brand', {
     id : {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        type: DataTypes.STRING,
         primaryKey: true
       },
     name: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      logoImg:{
+    logo:{
         type:DataTypes.STRING,
       }
+  },{
+    timestamps: false
   })}

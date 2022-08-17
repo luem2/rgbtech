@@ -43,7 +43,6 @@ const products =[{
     "onDiscount":false,
     "discountPercentage":0,
     "freeShipping":false,
-
 }
 ,{
     "name":"Z12 RGB",
