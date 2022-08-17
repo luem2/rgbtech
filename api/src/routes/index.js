@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const ProductsMiddlewares =require('../middlewares/Product.js');
 // const dogmiddleware = require('./middlewares/dogs.js')
 // const temperamentmiddleware = require('./middlewares/temperaments.js')
 // Importar todos los routers;
@@ -6,6 +7,7 @@ const { Router } = require('express');
 
 
 const router = Router();
+router.use('/product' , ProductsMiddlewares)
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
