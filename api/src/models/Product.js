@@ -39,5 +39,7 @@ module.exports = (sequelize) => {
     freeShipping: {
       type: DataTypes.BOOLEAN
     }
+  },{
+    timestamps: false
   })
 }
