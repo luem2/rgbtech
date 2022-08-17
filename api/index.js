@@ -19,9 +19,11 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
+const getAllProduct = require('../api/src/Utils/GetProducts.js')
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
+  getAllProduct();
   server.listen(3003, () => {
     console.log('%s listening at 3003'); // eslint-disable-line no-console
   });
