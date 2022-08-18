@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getProducts } from "./productSlice";
+import { getProducts, getDetailsProductById } from "./productSlice";
 
 export const getAllProducts = () => {
 	return async (dispatch) => {
@@ -15,7 +15,7 @@ export const getAllProducts = () => {
 export const getProductByName = (name) => {
 	return async (dispatch) => {
 		try {
-			const products = await axios.get("product?name=" + name );
+			const products = await axios.get("product?name=" + name);
 			dispatch(getProducts(products.data));
 		} catch (e) {
 			console.error(e);
@@ -23,4 +23,13 @@ export const getProductByName = (name) => {
 	};
 };
 
-
+export const getProductById = (id) => {
+	return async (dispatch) => {
+		try {
+			const product = await axios.get(`product/${id}`);
+			dispatch(getDetailsProductById(product.data));
+		} catch (e) {
+			console.error(e);
+		}
+	};
+};
