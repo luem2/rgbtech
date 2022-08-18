@@ -1,8 +1,8 @@
 import React from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProductByName } from '../store/slices/products/thunks';
 import { BsSearch } from 'react-icons/bs';
+import { getProductByName } from '../../store/slices/products/thunks';
 
 export default function SearchBar() {
 
