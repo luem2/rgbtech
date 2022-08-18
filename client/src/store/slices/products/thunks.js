@@ -11,3 +11,16 @@ export const getAllProducts = () => {
 		}
 	};
 };
+
+export const getProductByName = (name) => {
+	return async (dispatch) => {
+		try {
+			const products = await axios.get("product?name=" + name );
+			dispatch(getProducts(products.data));
+		} catch (e) {
+			console.error(e);
+		}
+	};
+};
+
+
