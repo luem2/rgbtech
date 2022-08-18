@@ -1,26 +1,51 @@
 const { Router } = require('express');
 const { Product , Brand, Tag } = require('../db.js');
+const { Op } = require('sequelize');
 
 
 
 const router = Router();
 router.get("/",async(req,res)=>{
-try { 
-    let { name } = req.query;
-    let  allProduct= await Product.findAll({
-        include: {
-            model: Tag,
-            through: { attributes: [] },
-        }})
-    if (name) {
-        let productName = allProduct.filter(e => { if (e && e.name) { return e.name.toLowerCase().includes(name.toLowerCase()) } });
-            res.status(200).send(productName);
-    } else {
-    res.json(allProduct)
-    }
-} catch (error) {
-    res.send("La consulta  a la DB de Temperament salio mal")
+const {pageNumber, order, column, name} = req.query;
+const productsPerPage = 10;
+const offset = (pageNumber * productsPerPage) - productsPerPage || 0
+//orden
+let sorting = []
+!order && !column 
+? null
+: sorting.push([column, order])
+
+let findName = {}
+name 
+? findName = { name : {[Op.iLike] : `%${name}%`}}   
+: null
+
+
+//tags
+//nombre
+//marca
+
+let allProduct= await Product.findAll({
+    where : findName,
+    offset,
+    order: sorting,
+    limit: productsPerPage,
+    include: {
+        model: Tag,
+        through: { attributes: [] },
+    }})
+if (name) {
+    let productName = allProduct.filter(e => { if (e && e.name) { return e.name.toLowerCase().includes(name.toLowerCase()) } });
+        res.status(200).send(productName);
+} else {
+res.json(allProduct)
 }
+
+/* try { 
+
+} catch (error) {
+    res.send(error)
+} */
 })
 
 router.get("/:id", async (req, res) => {
