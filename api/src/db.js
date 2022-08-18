@@ -34,7 +34,7 @@ const {Brand, Comment, Product, Tag, User} = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product - Brand
-Product.hasOne(Brand, {through: "productBrand"})
+Product.belongsTo(Brand, {through: "productBrand"})
 Brand.belongsToMany(Product, {through: "productBrand"})
 // Product - Tag
 Product.belongsToMany(Tag, {through: "productTag"})

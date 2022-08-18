@@ -1,9 +1,22 @@
 const  { products } = require('./product.js') 
 const { Product } = require('../db');
-
-
 const createAllProducts = () =>{
-    Product.bulkCreate(products)
+    products.map(async (product) =>{
+        const {name, description, price, specifications, img, stock, onDiscount, discountPercentage, freeShipping, brand, tag} = product
+        const newProduct = await Product.create({
+            name,
+            description, 
+            price, 
+            specifications, 
+            img, 
+            stock, 
+            onDiscount, 
+            discountPercentage, 
+            freeShipping
+        })
+        await newProduct.setBrand(brand)
+        await newProduct.addTags(tag)
+    })
     console.log("Products added to db") 
 }
    

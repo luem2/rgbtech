@@ -110,6 +110,10 @@ const brands = [
   {
     name: 'Homail',
     logo: 'https://i.stack.imgur.com/l60Hf.png'
+  },
+  {
+    name: 'GameSir',
+    logo: 'https://i.stack.imgur.com/l60Hf.png'
   }
 ]
 

@@ -1,4 +1,5 @@
-const products =[{
+const products =[
+{ //x
     "name":"K60 RGB Pro SE",
     "price":79.99,
     "description":"Keyborad best style",
@@ -18,7 +19,10 @@ const products =[{
     "onDiscount":false,
     "discountPercentage":0,
     "freeShipping":false,
-},{
+    "brand": "57040fe2fe7a0a1e9ab043ae1f5d9845" ,
+    "tag": ["9eed85ad420e3a3c986cdc6d7e77854d", "48b773c837465a9904ae56389cd0dc9d"]
+},
+{ //x
     "name":"SK622 Wireless",
     "price":109.99,
     "description":"Low Profile Switches: A reduced travel distance and actuation point with the same signature durability and precision.Portable 60% Layout: Compact layout and design, perfect for on-the-go use with mobile devices and laptops. Hybrid Wireless: Choose between wired Type-C connectivity or Bluetooth 4.0 wireless for up to 3 devices.Ergonomic Upgrades: New ergonomic keycaps and adjustable feet allow you the comfortable typing experience you want, your way.Multiple OS Support: Use with MacOS, iOS, Android, and Windows 8 and above - and easily soft-switch between all devices with a simple keypress.RGB Backlighting: Keep the lightshow going with per-key backlighting and surrounding LED ring with endless customization.",
@@ -43,8 +47,10 @@ const products =[{
     "onDiscount":false,
     "discountPercentage":0,
     "freeShipping":false,
-}
-,{
+    "brand": "35e2a932e4d5c0cc1a3ada0e18dbaa08" ,
+    "tag": ["7beff197adfc70df7ee315bfa4b1af75","9eed85ad420e3a3c986cdc6d7e77854d","6ce4d85a628a88bbdb3ac24a8e5a9c2e" ,"889574aebacda6bfd3e534e2b49b8028" ]
+},
+{ //x
     "name":"Z12 RGB",
     "price":14.99,
     "description":"Dedicated and programmable macro keys, plus a full set of media keys give you full control at your fingertips.IP32 Spill-Resistant es capaz de soportar derrames accidentales.",
@@ -60,8 +66,10 @@ const products =[{
     "onDiscount":false,
     "discountPercentage":0,
     "freeShipping":true,
- }
-,{
+    "brand": "9484ef97caaa42c5c67671f8533f5e1c",
+    "tag": ["9eed85ad420e3a3c986cdc6d7e77854d","6ce4d85a628a88bbdb3ac24a8e5a9c2e","889574aebacda6bfd3e534e2b49b8028" ,"1a346a023e7001dff4c6467ce061e681"]
+},
+{ //x
     "name":"Vigor GK50 Elite",
     "price":59.99,
     "description":"Mechanical switches provide accuracy and endurance.The ergonomic high-low keycap design reduces strain and pain of hands and wristsBrushed metal top plate and octagonal-shaped keycaps.Stunning per-key RGB lighting and various effects.Steady Gaming Base provides incredible feedback and anti-slip performance.Fine-tune detail settings with Dragon Center.",
@@ -80,7 +88,11 @@ const products =[{
     "onDiscount":false,
     "discountPercentage":0,
     "freeShipping":false,
-},{
+    "brand": "8726e36e9d6d53646390d495b4ce9dc1",
+    "tag": ["9eed85ad420e3a3c986cdc6d7e77854d","6ce4d85a628a88bbdb3ac24a8e5a9c2e","889574aebacda6bfd3e534e2b49b8028" ,"1a346a023e7001dff4c6467ce061e681"]
+    
+},
+{ //x
     "name":"K55 RGB PRO XT",
     "price":69.99,
     "description":"Dynamic Per-Key RGB Backlighting: Light up your desktop with ten onboard lighting effects or customize your own vibrant lighting effects with CORSAIR iCUE software.Six Dedicated Macro Keys: Activate functions, shortcuts, or keypresses in just one stroke with six dedicated macro keys, easily set up through CORSAIR iCUE software, or use instant streaming commands through Elgato Stream Deck software.Dust and Spill-Resistant Design: IP42-rated protection guards against accidents so your gameplay never has to stop.",
@@ -99,8 +111,10 @@ const products =[{
     "onDiscount":false,
     "discountPercentage":0,
     "freeShipping":false,
-}
-,{
+    "brand": "5ce8b65747cd41acd3f9b9636df9a84f",
+    "tag": ["9eed85ad420e3a3c986cdc6d7e77854d","6ce4d85a628a88bbdb3ac24a8e5a9c2e","889574aebacda6bfd3e534e2b49b8028" ,"1a346a023e7001dff4c6467ce061e681"]
+},
+{ //x
     "name":"Devastator 3",
     "price":41.88,
    "description":"Ergonomic styling from top to bottom.Custom membrane design.Seven colors for customized personality.A precision mouse to elevate your game.unctional and durable",
@@ -121,7 +135,10 @@ const products =[{
     "onDiscount":false,
     "discountPercentage":0,
     "freeShipping":false,
-},{
+    "brand": "35e2a932e4d5c0cc1a3ada0e18dbaa08",
+    "tag": ["9eed85ad420e3a3c986cdc6d7e77854d","6ce4d85a628a88bbdb3ac24a8e5a9c2e","889574aebacda6bfd3e534e2b49b8028" ,"1a346a023e7001dff4c6467ce061e681", "f2a47c6809d88e175dade0ef7b16aa13"]
+},
+{//x
     "name":"G502",
     "price":98.00,
     "description":"LIGHTSPEED WirelessG502 is an icon, topping the charts through every generation, and the mouse of choice for serious gamers. Now, G502 joins the ranks of the world's most advanced wireless gaming mice with the release of G502 LIGHTSPEED. LIGHTSPEED is ultra-fast and reliable with performance trusted in competition by esports pros. G502 LIGHTSPEED also features the next-generation HERO 25K sensor and is POWERPLAY compatible. With this complete advanced technology remastering, G502 LIGHTSPEED still retains the same beloved shape - and achieves a 7-gram weight reduction.",
@@ -140,7 +157,10 @@ const products =[{
     "onDiscount":false,
     "discountPercentage":0,
     "freeShipping":false,
-},{
+    "brand": "ff70d460a420205ceeea16f1c13e51b1",
+    "tag": ["9eed85ad420e3a3c986cdc6d7e77854d","7beff197adfc70df7ee315bfa4b1af75","f2a47c6809d88e175dade0ef7b16aa13" ]
+},
+{//x
     "name":"Viper 8KHz",
     "price":49.87,
     "description":"Razer™ 8000Hz HyperPolling Technology: Sending up to 8 times more data in a second and reducing delay from 1 to 1/8th of a millisecond.",
@@ -158,8 +178,10 @@ const products =[{
     "onDiscount":false,
     "discountPercentage":0,
     "freeShipping":false,
+    "brand": "dbda74c3c1b5c97a5ebeaa044316df8d",
+    "tag": ["1a346a023e7001dff4c6467ce061e681","f2a47c6809d88e175dade0ef7b16aa13","9eed85ad420e3a3c986cdc6d7e77854d", "aee29a47b41e6ec5d352b1a515c37e82"]
 },
-{
+{//x
     "name":"DeathAdder V2 Pro",
     "price":69.99,
     "description":"",
@@ -177,8 +199,10 @@ const products =[{
     "onDiscount":false,
     "discountPercentage":0,
     "freeShipping":false,
+    "brand": "dbda74c3c1b5c97a5ebeaa044316df8d",
+    "tag": ["7beff197adfc70df7ee315bfa4b1af75" ,"f2a47c6809d88e175dade0ef7b16aa13" ,"9eed85ad420e3a3c986cdc6d7e77854d" ,"aee29a47b41e6ec5d352b1a515c37e82" ]
 },
-{
+{ //x
     "name":"Clutch GM08",
     "price":14.95,
     "description":"12400 DPI",
@@ -193,8 +217,10 @@ const products =[{
     "onDiscount":false,
     "discountPercentage":0,
     "freeShipping":false,
-}
-,{
+    "brand": "8726e36e9d6d53646390d495b4ce9dc1",
+    "tag": ["1a346a023e7001dff4c6467ce061e681","f2a47c6809d88e175dade0ef7b16aa13","9eed85ad420e3a3c986cdc6d7e77854d" ]
+},
+{ //x
     "name":"X17",
     "price":24.99,
     "description":"Tripple Sensor 3-Dimension Array Tech.Quick Responding Mechanism.On the fly DPI Settings + 5 Onboard Profiles.Ergomic Design with Sniper Button.High Speed USB Max Polling/Report Rate: 8,000Hz.Customizable Weight System",
@@ -212,8 +238,10 @@ const products =[{
     "onDiscount":false,
     "discountPercentage":0,
     "freeShipping":false,
+    "brand": "9484ef97caaa42c5c67671f8533f5e1c",
+    "tag": ["9eed85ad420e3a3c986cdc6d7e77854d","1a346a023e7001dff4c6467ce061e681","f2a47c6809d88e175dade0ef7b16aa13"]
 },
-{
+{ //x
     "name":"G27Q",
     "price":239.99,
     "description":"Safety FW update Black EqualizerAim Stabilizer Dashboard OSD Sidekick ameAssist PiP/PbP",
@@ -240,8 +268,10 @@ const products =[{
     "onDiscount":false,
     "discountPercentage":0,
     "freeShipping":false,
+    "brand": "1ec2744b3a948fae2382b1ec7bdb962b",
+    "tag": ["d2986ac8cb6bd55892099c1ffd6b1f6f", "9eed85ad420e3a3c986cdc6d7e77854d" ]
 },
-{
+{ //x
     "name":"ED270 Xbmiipx",
     "price":189.99,
     "description":`Give yourself a competitive edge in eSports gaming with this ultra-fast 240 Hz refresh rate display. This 27" monitor also boasts a curved VA screen and Full HD resolution for an immersive, crystal-clear visual. Dual HDMI and one DisplayPort inputs play nice with the latest gaming desktops/laptops and game consoles. And a speaker is built in for added convenience. `,
@@ -271,8 +301,10 @@ const products =[{
     "onDiscount":false,
     "discountPercentage":0,
     "freeShipping":false,
+    "brand": "1fafb49d0510b71e777743a9b4e9b2b6",
+    "tag": ["d2986ac8cb6bd55892099c1ffd6b1f6f", "9b9e5e2569583d95e9f6437b8c92e443", "9eed85ad420e3a3c986cdc6d7e77854d"]
 },
-{
+{ //x
     "name":"TUF GAMING VG24VQ",
     "price":179.99,
     "description":"Trace Free Technology: Yes GamePlus (modes): Yes (Crosshair/Timer/FPS Counter/Display Alignment) Low Blue Light: YesHDCP support: YesGameVisual: 7 Modes (Scenery/Racing/Cinema/RTS/RPG/FPS/sRGB Modes/MOBA Mode)FreeSync technology supported Extreme Low Motion BlurGameFast Input technologyShadow Boost",
@@ -301,8 +333,10 @@ const products =[{
     "onDiscount":false,
     "discountPercentage":0,
     "freeShipping":false,
+    "brand": "5ed0b5f41b21804e51e82664dc24e2dd",
+    "tag": ["d2986ac8cb6bd55892099c1ffd6b1f6f", "9b9e5e2569583d95e9f6437b8c92e443", "9eed85ad420e3a3c986cdc6d7e77854d"]
 },
-{
+{ //x
     "name":"Odyssey G32A LS32AG320NNXZA",
     "price":329.99,
     "description":"Eco Saving Plus Eye Saver ModeFlicker FreeGame ModeOff Timer PlusBlack Equalizer Refresh Rate Optimizor",
@@ -327,8 +361,10 @@ const products =[{
     "onDiscount":false,
     "discountPercentage":0,
     "freeShipping":false,
+    "brand": "20e1b3688e94df3f62d35b44df5f7954",
+    "tag": ["d2986ac8cb6bd55892099c1ffd6b1f6f" ,"9eed85ad420e3a3c986cdc6d7e77854d"]
 },
-{
+{ //x
     "name":"X27qc",
     "price":229.99,
     "description":"Here comes silky-smooth high definition gaming. Lagging and stuttering will be a thing of the past with VA Panel Technology, 165Hz refresh rate, 1ms response time[1], and AMD[2] FreeSync Premium[3].",
@@ -347,8 +383,10 @@ const products =[{
     "onDiscount":false,
     "discountPercentage":0,
     "freeShipping":false,
+    "brand": "e6fc8ce107f2bdf0955f021a391514ce",
+    "tag": ["d2986ac8cb6bd55892099c1ffd6b1f6f", "9b9e5e2569583d95e9f6437b8c92e443", "9eed85ad420e3a3c986cdc6d7e77854d"]
 },
-{
+{ //x
     "name":"UltraGear 24GN650-B",
     "price":249.99,
     "description":"The pinnacle of gaming monitors. Complete your battle station with a premium LG UltraGear Gaming Monitor. Built for gamers, it delivers the latest hardware, specs, ergonomics, sleek design and sensory experience. With gaming-focused features like 1ms GTG response times, pro-level customization and fast, vivid IPS panels, you're sure to gain an added edge.",
@@ -367,8 +405,10 @@ const products =[{
     "onDiscount":false,
     "discountPercentage":0,
     "freeShipping":false,
+    "brand": "3138b8e6061fdf7cfaaa79279175cbcd",
+    "tag": ["d2986ac8cb6bd55892099c1ffd6b1f6f" ,"9eed85ad420e3a3c986cdc6d7e77854d"]
 },
-{
+{ //x
     "name":"Gaming Chair",
     "price":159.99,
     "description":"Racing style gaminng chair",
@@ -388,8 +428,10 @@ const products =[{
     "onDiscount":false,
     "discountPercentage":0,
     "freeShipping":false,
+    "brand": "28c85effa7edd6ad0d7718132fffabbf",
+    "tag": ["bb3a8b2e390142074e49741a0121d623", "9eed85ad420e3a3c986cdc6d7e77854d"]
 },
-{
+{ //x
     "name":"Gaming Office Chair ",
     "price":129.99,
     "description":"Office chair",
@@ -404,8 +446,10 @@ const products =[{
     "onDiscount":false,
     "discountPercentage":0,
     "freeShipping":false,
+    "brand": "a39500424bb575b56953373955c1833c",
+    "tag": ["bb3a8b2e390142074e49741a0121d623", "9eed85ad420e3a3c986cdc6d7e77854d"]
 },
-{
+{ //x
     "name":"Gaming Desk",
     "price":84.99,
     "description":"Inch Gaming Desk Racing Style PC Computer Desk Y-shaped Home Office with Desk Large Carbon Fiber Desktop, Cup Holder, Headphone Hook, Full Mouse Pad, and Gaming Handle Rack (Black)",
@@ -421,8 +465,10 @@ const products =[{
     "onDiscount":false,
     "discountPercentage":0,
     "freeShipping":false,
+    "brand": "0185f510985b0224ce139b6238b6fe9f",
+    "tag": ["9eed85ad420e3a3c986cdc6d7e77854d", "bb3a8b2e390142074e49741a0121d623"]
 },
-{
+{ //x
     "name":"Gaming Chair",
     "price":104.99,
     "description":"This Homall Gaming Chair extends the full length of the back with support for the shoulders, head, and neck. Our chairs are crafted to perfection and designed to the bodies natural shape, you will find complete comfort with its quality PU leather.",
@@ -441,6 +487,8 @@ const products =[{
     "onDiscount":false,
     "discountPercentage":0,
     "freeShipping":false,
+    "brand": "19dfa7c0f9801222f595b3e62893ab23",
+    "tag": ["bb3a8b2e390142074e49741a0121d623", "9eed85ad420e3a3c986cdc6d7e77854d"]
 },
 {
     "name":"GF Series GF63 Thin 11UC-270",
@@ -464,6 +512,8 @@ const products =[{
     "onDiscount":false,
     "discountPercentage":0,
     "freeShipping":false,
+    "brand":"8726e36e9d6d53646390d495b4ce9dc1",
+    "tag":["9eed85ad420e3a3c986cdc6d7e77854d","48b773c837465a9904ae56389cd0dc9d","7beff197adfc70df7ee315bfa4b1af75"]
 },
 {
     "name":"TUF Gaming F17",
@@ -488,8 +538,10 @@ const products =[{
     "onDiscount":false,
     "discountPercentage":0,
     "freeShipping":false,
+    "brand":"5ed0b5f41b21804e51e82664dc24e2dd",
+    "tag":["9eed85ad420e3a3c986cdc6d7e77854d","48b773c837465a9904ae56389cd0dc9d","7beff197adfc70df7ee315bfa4b1af75"]
 },
-{
+    {
     "name":"IdeaPad Gaming 3 15IHU6",
     "price":609.99,
     "description":"Stay on the top of leaderboard with the IdeaPad Gaming 3i, a truly eye-catching gaming PC that is power-packed with beast hardware and innovative thermal design. Immersive Nahimic surround sound audio and 15.6” FHD IPS display will make you totally lost in the game world.",
@@ -508,8 +560,10 @@ const products =[{
     "onDiscount":false,
     "discountPercentage":0,
     "freeShipping":false,
+    "brand":"57040fe2fe7a0a1e9ab043ae1f5d9845",
+    "tag":["9eed85ad420e3a3c986cdc6d7e77854d","48b773c837465a9904ae56389cd0dc9d","7beff197adfc70df7ee315bfa4b1af75"]
 },
-{
+    {
     "name":"ROG Strix SCAR 15",
     "price":1899.99,
     "description":"Compete at the highest level of Windows 10 gaming with the ROG Strix SCAR 15. Take on any challenge with the powerful AMD Ryzen™ 9 5900HX CPU and GeForce RTX™ 3080 GPU. Input every strike with precision on a responsive optical mechanical keyboard. With a competitive edge this sharp, you can dominate any arena. ",
@@ -529,28 +583,9 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
     "onDiscount":false,
     "discountPercentage":0,
     "freeShipping":false,
+    "brand":"5ed0b5f41b21804e51e82664dc24e2dd",
+    "tag":["9eed85ad420e3a3c986cdc6d7e77854d","48b773c837465a9904ae56389cd0dc9d","7beff197adfc70df7ee315bfa4b1af75"]
 },
-        {
-        "name": "ROG Strix SCAR 15",
-        "price": 1899.99,
-        "description": "Stay on the top of leaderboard with the IdeaPad Gaming 3i, a truly eye-catching gaming PC that is power-packed with beast hardware and innovative thermal design. Immersive Nahimic surround sound audio and 15.6” FHD IPS display will make you totally lost in the game world.",
-        "specifications": [{"color": "black", 
-			   "operatingSystem": "Windows 10 Home 64-bit", 
-			   "cpu": "AMD Ryzen 9 5900HX 3.30 GHz", 
-			   "Screen": "15.6 300 Hz IPS", 
-			   "memory": "16 GB DDR4",
-			   "storage": "1 TB M.2 NVMe PCIe 3.0 SSD",
-			   "graphicsCard": "NVIDIA GeForce RTX 3080 Laptop GPU-With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)",
-			   "videoMemory": "8 GB GDDR6",
-			   "dimensions": "13.94 x 10.20 x 0.89-1.07",
-			   "weight": "5.07 lbs"}
-			],
-        "img": "https://c1.neweggimages.com/ProductImageCompressAll1280/34-235-896-V01.jpg",
-        "stock": 1,
-        "onDiscount": true,
-        "discountPercentage": 20,
-        "freeShipping": true
-    },
     {
         "name": "GE66 Raider 11UE-642",
         "price": 1599.00,
@@ -572,7 +607,9 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
         "stock": 523,
         "onDiscount": true,
         "discountPercentage": 11,
-        "freeShipping":true 
+        "freeShipping":true,
+        "brand":"8726e36e9d6d53646390d495b4ce9dc1",
+        "tag":["","",""] 
     },
     {
         "name": "Legion 5 Pro",
@@ -586,7 +623,9 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
         "stock": 394,
         "onDiscount": false,
         "discountPercentage": 0,
-        "freeShipping": false
+        "freeShipping": false,
+        "brand":"57040fe2fe7a0a1e9ab043ae1f5d9845",
+        "tag":["9eed85ad420e3a3c986cdc6d7e77854d","48b773c837465a9904ae56389cd0dc9d","7beff197adfc70df7ee315bfa4b1af75"]
     },
     {
         "name": "Galaxy Book Odyssey",
@@ -610,7 +649,9 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
         "stock": 482,
         "onDiscount": true,
         "discountPercentage": 5,
-        "freeShipping": false
+        "freeShipping": false,
+        "brand":"57040fe2fe7a0a1e9ab043ae1f5d9845",
+        "tag":["9eed85ad420e3a3c986cdc6d7e77854d","48b773c837465a9904ae56389cd0dc9d","7beff197adfc70df7ee315bfa4b1af75"]
     },
     {
         "name": "GameSir X2",
@@ -628,7 +669,9 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
         "stock": 365,
         "onDiscount": false,
         "discountPercentage": 0,
-        "freeShipping": true
+        "freeShipping": true,
+        "brand":"a9184c280a689c72ab2b9f2f487f6531",
+        "tag":["9eed85ad420e3a3c986cdc6d7e77854d","87d17f4624a514e81dc7c8e016a7405c"]
     },
     {
         "name": "GameSir G4pro",
@@ -650,7 +693,9 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
         "stock": 483,
         "onDiscount": false,
         "discountPercentage": 0,
-        "freeShipping": true
+        "freeShipping": true,
+        "brand":"a9184c280a689c72ab2b9f2f487f6531",
+        "tag":["9eed85ad420e3a3c986cdc6d7e77854d","87d17f4624a514e81dc7c8e016a7405c"]
     },
     {
         "name": "C8",
@@ -670,7 +715,9 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
         "stock": 461,
         "onDiscount": true,
         "discountPercentage": 15,
-        "freeShipping": false
+        "freeShipping": false,
+        "brand":"d67e0bc179e756c4b8c27314abed7876",
+        "tag":["9eed85ad420e3a3c986cdc6d7e77854d","87d17f4624a514e81dc7c8e016a7405c"]
     },
     {
         "name": "Parlante JBL Charge 5 portátil con bluetooth teal 110V/220V",
@@ -684,7 +731,9 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
         "stock": 214,
         "onDiscount": true,
         "discountPercentage": 5,
-        "freeShipping": true
+        "freeShipping": true,
+        "brand":"e94cf90cb9d45f8f433521899bc85928",
+        "tag":["b22f0418e8ac915eb66f829d262d14a2"]
     },
     {
         "name": "JBL GO 2 Portable Bluetooth Waterproof Speaker (Moss Green)",
@@ -702,7 +751,9 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
         "stock": 69,
         "onDiscount": false,
         "discountPercentage": 0,
-        "freeShipping": false
+        "freeShipping": false,
+        "brand":"e94cf90cb9d45f8f433521899bc85928",
+        "tag":["b22f0418e8ac915eb66f829d262d14a2"]
     },
     {
         "name": "JBL GO3GRN GO 3 Portable Waterproof Speaker - Green",
@@ -716,7 +767,9 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
         "stock": 321,
         "onDiscount": false,
         "discountPercentage": 0,
-        "freeShipping": true
+        "freeShipping": true,
+        "brand":"e94cf90cb9d45f8f433521899bc85928",
+        "tag":["b22f0418e8ac915eb66f829d262d14a2"]
     },
     {
         "name": "Klipsch K-100SW 10-Inch Powered Subwoofer",
@@ -735,7 +788,9 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
         "stock": 332,
         "onDiscount": false,
         "discountPercentage": 0,
-        "freeShipping": false
+        "freeShipping": false,
+        "brand":"3e52be0838c6ea8300f679da91409717",
+        "tag":["b22f0418e8ac915eb66f829d262d14a2"]
     },
     {
         "name": "LG CM4590 XBOOM 700W Bluetooth Music System",
@@ -755,7 +810,9 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
         "stock": 573,
         "onDiscount": false,
         "discountPercentage": 0,
-        "freeShipping": false
+        "freeShipping": false,
+        "brand":"3138b8e6061fdf7cfaaa79279175cbcd",
+        "tag":["b22f0418e8ac915eb66f829d262d14a2"]
     },
     {
         "name": "M-Audio M-Track Solo 2-Channel USB Audio Interface",
@@ -768,7 +825,9 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
         "stock": 304,
         "onDiscount": true,
         "discountPercentage": 3,
-        "freeShipping": true
+        "freeShipping": true,
+        "brand":"2fcaf384536bbd777590da5490c3b920",
+        "tag":["b22f0418e8ac915eb66f829d262d14a2","2cc9187af12cfb288552a94945e2576f"]
     },
     {
         "name": "Focusrite Scarlett Solo 3rd Generation Audio Interface",
@@ -781,7 +840,9 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
         "stock": 453,
         "onDiscount": false,
         "discountPercentage": 0,
-        "freeShipping": true
+        "freeShipping": true,
+        "brand":"a7ac216f37d8c7c5341c5b29f6e5e5d5",
+        "tag":["b22f0418e8ac915eb66f829d262d14a2","2cc9187af12cfb288552a94945e2576f"]
     },
     {
         "name": "MOTU M2 Audio Interface",
@@ -794,7 +855,9 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
         "stock": 343,
         "onDiscount":false ,
         "discountPercentage": 0,
-        "freeShipping": false
+        "freeShipping": false,
+        "brand":"e599bd43912f6dd581f359d2e1a6c62f",
+        "tag":["b22f0418e8ac915eb66f829d262d14a2","2cc9187af12cfb288552a94945e2576f"]
     },
     {
         "name": "Hyperx QuadCast Microphone",
@@ -810,7 +873,9 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
         "stock": 666,
         "onDiscount": false,
         "discountPercentage": 0,
-        "freeShipping": true
+        "freeShipping": true,
+        "brand":"74e125eab142894aed7a4e610dfd87ea",
+        "tag":["2cc9187af12cfb288552a94945e2576f"]
     },
     {
         "name": "Blue Yeti Microphone (Blackout) with Boom Arm Stand, Pop Filter and Shock Mount",
@@ -824,7 +889,9 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
         "stock": 342,
         "onDiscount": false,
         "discountPercentage": 0,
-        "freeShipping": true
+        "freeShipping": true,
+        "brand":"9594eec95be70e7b1710f730fdda33d9",
+        "tag":["2cc9187af12cfb288552a94945e2576f"]
     },
     {
         "name": "Shure SM7B SM-7B Dynamic Broadcast Recording Microphone NEW",
@@ -838,7 +905,9 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
         "stock": 263,
         "onDiscount": true,
         "discountPercentage": 15,
-        "freeShipping": false
+        "freeShipping": false,
+        "brand":"bc6feaec50d79e46c018c776fec22084",
+        "tag":["2cc9187af12cfb288552a94945e2576f"]
     },
     {
         "name": "Blue Yeti X Microphone - Black Out",
@@ -852,7 +921,9 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
         "stock": 163,
         "onDiscount": true,
         "discountPercentage": 20,
-        "freeShipping": false
+        "freeShipping": false,
+        "brand":"9594eec95be70e7b1710f730fdda33d9",
+        "tag":["2cc9187af12cfb288552a94945e2576f"]
     },
     {
         "name": "Sennheiser HD 201 Over Ear Headphone Gaming Wired Headset 3.5mm Computer Earphones HD Microphone",
@@ -868,7 +939,9 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
         "stock": 163,
         "onDiscount": false,
         "discountPercentage": 0,
-        "freeShipping": false
+        "freeShipping": false,
+        "brand":"ae9464b4d565248dc81b117bafedc1eb",
+        "tag":["2cc9187af12cfb288552a94945e2576f","b22f0418e8ac915eb66f829d262d14a2"]
     },
     {
         "name": "Sennheiser HD 400S Headphones",
@@ -888,7 +961,9 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
         "stock": 263,
         "onDiscount": false,
         "discountPercentage": 0,
-        "freeShipping": false
+        "freeShipping": false,
+        "brand":"ae9464b4d565248dc81b117bafedc1eb",
+        "tag":["2cc9187af12cfb288552a94945e2576f","b22f0418e8ac915eb66f829d262d14a2"]
     },
     {
         "name": "Logitech - G PRO X WIRELESS 981-000906 DTS Headphone:X 2.0 Gaming Headset for Windows with Blue VO!CE Mic Filter Tech and LIGHTSPEED Wireless - Black",
@@ -905,7 +980,9 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
         "stock": 193,
         "onDiscount": false,
         "discountPercentage": 0,
-        "freeShipping": true
+        "freeShipping": true,
+        "brand":"ff70d460a420205ceeea16f1c13e51b1",
+        "tag":["2cc9187af12cfb288552a94945e2576f","b22f0418e8ac915eb66f829d262d14a2"]
     },
     {
         "name": "Microphone" ,
@@ -919,7 +996,9 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
         "stock": 163,
         "onDiscount": true,
         "discountPercentage": 20,
-        "freeShipping": false
+        "freeShipping": false,
+        "brand":"ff70d460a420205ceeea16f1c13e51b1",
+        "tag":["2cc9187af12cfb288552a94945e2576f","b22f0418e8ac915eb66f829d262d14a2"]
     },
     {
         "name": "Corsair VOID RGB ELITE Wireless Circumaural Premium Gaming Headset with 7.1 Surround Sound, White",
@@ -938,7 +1017,9 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
         "stock": 543,
         "onDiscount": true,
         "discountPercentage": 10,
-        "freeShipping": false
+        "freeShipping": false,
+        "brand":"5ce8b65747cd41acd3f9b9636df9a84f",
+        "tag":["2cc9187af12cfb288552a94945e2576f","b22f0418e8ac915eb66f829d262d14a2","889574aebacda6bfd3e534e2b49b8028"]
     },
     {
         "name": "Corsair HS60 PRO SURROUND 3.5mm Connector Circumaural Gaming Headset, Carbon",
@@ -957,7 +1038,9 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
         "stock": 363,
         "onDiscount": true,
         "discountPercentage": 5,
-        "freeShipping": true
+        "freeShipping": true,
+        "brand":"5ce8b65747cd41acd3f9b9636df9a84f",
+        "tag":["2cc9187af12cfb288552a94945e2576f","b22f0418e8ac915eb66f829d262d14a2","889574aebacda6bfd3e534e2b49b8028"]
     },
     {
         "name": "Beyerdynamic DT 770 Pro 250 Ohm Studio Reference Closed-Back Headphones",
@@ -976,7 +1059,9 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
         "stock": 634,
         "onDiscount": false,
         "discountPercentage": 0,
-        "freeShipping": true
+        "freeShipping": true,
+        "brand":"dc7d2c0288361a414bcc81f2fa1312c2",
+        "tag":["2cc9187af12cfb288552a94945e2576f","b22f0418e8ac915eb66f829d262d14a2","889574aebacda6bfd3e534e2b49b8028"]
     }
 ]
 
