@@ -16,7 +16,6 @@ const createAllProducts = () =>{
         })
         await newProduct.setBrand(brand)
         await newProduct.addTags(tag)
-        console.log(index) 
     })
     console.log("Products added to db") 
 }
