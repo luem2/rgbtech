@@ -609,7 +609,7 @@ With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
         "discountPercentage": 11,
         "freeShipping":true,
         "brand":"8726e36e9d6d53646390d495b4ce9dc1",
-        "tag":["","",""] 
+        "tag":["9eed85ad420e3a3c986cdc6d7e77854d","48b773c837465a9904ae56389cd0dc9d","889574aebacda6bfd3e534e2b49b8028"] 
     },
     {
         "name": "Legion 5 Pro",
