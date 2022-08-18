@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { Product , Brand, Tag } = require('../db.js');
+const { Product , Brand, Tag, Comment } = require('../db.js');
 const { Op } = require('sequelize');
 
 
@@ -30,10 +30,13 @@ let allProduct= await Product.findAll({
     offset,
     order: sorting,
     limit: productsPerPage,
-    include: {
-        model: Tag,
-        through: { attributes: [] },
-    }})
+    include: [
+        {model: Tag,
+        through: { attributes: [] }},
+        {model: Comment,
+        through: { attributes: [] }}
+]
+    })
 if (name) {
     let productName = allProduct.filter(e => { if (e && e.name) { return e.name.toLowerCase().includes(name.toLowerCase()) } });
         res.status(200).send(productName);
