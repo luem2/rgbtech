@@ -2,13 +2,14 @@ import React from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProductByName } from '../store/slices/products/thunks';
-import { GrSearch } from 'react-icons/gr';
+import { BsSearch } from 'react-icons/bs';
 
 export default function SearchBar() {
 
     const [value, setValue] = useState('');
     const dispatch = useDispatch()
     const { products } = useSelector(state => state.products)
+
 
     const onChange = (e) => {
         setValue(e.target.value)
@@ -26,11 +27,11 @@ export default function SearchBar() {
 
   return (
     <div>
-        <div className='my-8 inline-block'>
-        <button className="p-2.5 bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded-l-full" onClick={(e) => onClickHandler(e)}>
-        <GrSearch/>
+        <div className='my-8 flex justify-center'>
+        <button className="btn inline-block pr-4 pl-4 pt-2.5 pb-2.5  bg-pink-600 hover:bg-pink-700  text-white rounded-l-full" onClick={(e) => onClickHandler(e)}>
+        <BsSearch/>
         </button>
-        <input  className="bg-pink-600 text-black font-bold h-8 rounded-r-full" value={value} onChange={onChange} />
+        <input  className="bg-pink-600 text-black focus:outline-none pl-4 pt-2 pb-1 font-bold rounded-r-full" value={value} onChange={onChange} />
         </div>
         
         <div>
@@ -41,14 +42,21 @@ export default function SearchBar() {
                 return searchTerm && fullname.startsWith(searchTerm) && fullname !== searchTerm;
             })
             .map((item) => (
-            <div key={item.id} onClick={() =>onSearch(item.name)}>{item.name}</div>
+            <div className='flex justify-center' key={item.id} onClick={() =>onSearch(item.name)}>
+                <ul className='bg-pink-500 mt-1 w-96 text-gray-900'>
+                    <li className='px-6 py-2  text-black cursor-pointer w-full'>
+                    {item.name}
+                    </li>
+                </ul>
+            </div>
             ))}
         </div>
     </div>
   )
 }
 
-
+/* */
+ 
 /*
 import React from 'react'
 import Autosuggest from 'react-autosuggest';
