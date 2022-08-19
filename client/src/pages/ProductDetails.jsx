@@ -2,12 +2,13 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import CircleButton from "../components/Buttons/CircleButton";
-import SquareButton from "../components/Buttons/SquareButton";
 import { getProductById } from "../store/slices/products/thunks";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { AiOutlineHeart } from "react-icons/ai";
 import Spinner from "../components/Spinner";
+import Header from "../components/Header/Header";
+import CircleButton from "../components/Buttons/CircleButton";
+import SquareButton from "../components/Buttons/SquareButton";
 
 const ProductDetails = () => {
 	const { id } = useParams();
@@ -22,6 +23,7 @@ const ProductDetails = () => {
 
 	return (
 		<div>
+			<Header />
 			{!Object.keys(productDetails).length ? (
 				<Spinner />
 			) : (
