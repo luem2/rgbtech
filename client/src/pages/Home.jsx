@@ -1,4 +1,5 @@
 import React from "react";
+import Carousel from "../components/Carousel.jsx";
 import Header from "../components/Header/Header.jsx";
 import Logo from "../components/Logo/Logo.jsx";
 import Products from "../components/Products.jsx";
@@ -11,6 +12,7 @@ const Home = () => {
 			<br />
 			<Products />
 			<br />
+			<Carousel/>
 			<Logo />
 		</div>
 	);
