@@ -10,10 +10,10 @@ const TagMiddlewares = require('../middlewares/Tag.js');
 
 
 const router = Router();
-router.use('/product' , ProductsMiddlewares)
-router.use('/user' , UserMiddlewares)
-router.use('/brand' , BrandMiddlewares)
-router.use('/tag' , TagMiddlewares)
+router.use('/products' , ProductsMiddlewares)
+router.use('/users' , UserMiddlewares)
+router.use('/brands' , BrandMiddlewares)
+router.use('/tags' , TagMiddlewares)
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);

@@ -2,16 +2,15 @@ const brands = require("./brands.js");
 const {Brand} = require("../db.js")
 const crypto = require('crypto')
 
-const addBrands = async () => {
- const result = brands.map((brand) => {
-  const brandId = crypto.createHash('md5').update(brand.name).digest('hex')
-  return {
-    ...brand,
-    id: brandId
-  }
- })
+const addBrands = () => {
  try{
-  await Brand.bulkCreate(result)
+  brands.map(async (brand) => {
+    const brandId = crypto.createHash('md5').update(brand.name).digest('hex')
+    await Brand.create({
+      ...brand,
+      id: brandId
+    }) 
+  })
   console.log('Brands added to db')
  } catch (error){
   console.error(error)

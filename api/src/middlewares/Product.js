@@ -3,70 +3,108 @@ const { Product , Brand, Tag, Comment } = require('../db.js');
 const { Op } = require('sequelize');
 
 
-
-const router = Router();
-router.get("/",async(req,res)=>{
-const {pageNumber, order, column, name} = req.query;
-const productsPerPage = 10;
-const offset = (pageNumber * productsPerPage) - productsPerPage || 0
-//orden
-let sorting = []
-!order && !column 
-? null
-: sorting.push([column, order])
-
-let findName = {}
-name 
-? findName = { name : {[Op.iLike] : `%${name}%`}}   
-: null
-
-
-//tags
-//nombre
-//marca
-
-let allProduct= await Product.findAll({
-    where : findName,
-    offset,
+function setQueryConditions (req, res, next) {
+  const {order, column, name, tag, brand} = req.query;
+  const sorting = [];
+  column && order ? sorting.push([column, order]) : null
+  //Search by name || brand
+  const whereConditions = {}
+  name ? whereConditions.name = {[Op.iLike] : `%${name}%`} : null
+  brand ? whereConditions.brandId = {[Op.eq] : brand} : null
+  //Search by tag
+  const tagQuery = {}
+  tag ? tagQuery.name = {[Op.iLike] : `%${tag}%`} : null
+  // searchConditions
+  const queryConditions = {
     order: sorting,
-    limit: productsPerPage,
-    include: [
-        {model: Tag,
-        through: { attributes: [] }},
-        {model: Comment,
-        through: { attributes: [] }}
-]
-    })
-if (name) {
-    let productName = allProduct.filter(e => { if (e && e.name) { return e.name.toLowerCase().includes(name.toLowerCase()) } });
-        res.status(200).send(productName);
-} else {
-res.json(allProduct)
+    where: whereConditions,
+    include: {
+        model: Tag,
+        through : {attributes: []},
+        where: tagQuery
+    }
+  }
+  req.body.queryConditions = queryConditions
+  next()
 }
 
-/* try { 
 
-} catch (error) {
-    res.send(error)
-} */
+
+/* 
+
+• Route.get('/products') -> retorna un array de productos(objeto) con la siguientes propiedades
+product = {
+  "name": string,
+  "id": string,
+  "price": float,
+  "description": text,
+  "specifications": array con un objeto. cada propiedad del objeto es una especificación
+  "img": string
+  "stock": integer,
+  "onDiscount": boolean,
+  "discountPercentage": float,
+  "freeShipping": boolean,
+  "brandId": string,
+  "tags": array de objetos 
+     → {id: string, name: string}
+}
+esta ruta puede recibir 5 querys:
+  column : string 
+  order : "ASC" || "DESC"
+    columna y orden, ambos query son necesarias para realizar ordenamientos.
+  name: string
+    buscar productos por nombre
+  tag: string
+    filtrar productos por tag 
+  brand: string 
+
+• Route.get('/products/:id') -> retorna un objeto similar al anterior, pero tiene una propiedad más
+  "comments": array de objetos
+*/
+
+const router = Router();
+
+router.get("/", setQueryConditions, async(req,res)=>{
+  try {
+    const products = await Product.findAll(req.body.queryConditions)
+    const count = products.length
+    const response = {
+      count,
+      data : products
+    }
+    res.status(200).send(response)
+  } catch (error) {
+    res.status(500).send({msg: error})
+  }
 })
 
 router.get("/:id", async (req, res) => {
-    try {
-        let { id } = req.params;
-            let productEspecific = await Product.findByPk(id,
-                {
-                    include: {
-                        model:Tag,
-                        through: { attributes: [] },
-                    }}
-                    )
-                    console.log(productEspecific)
-             return   res.status(201).json(productEspecific)
-    } catch (error) {
-        res.send("No se encontro el Product del  Id")
-    }
+  try {
+    const { id } = req.params;
+    let productEspecific = await Product.findByPk(id, {
+      include : [
+        {
+          model: Tag,
+          through : {attributes: []}
+        },
+        {
+          model: Comment,
+          through : {attributes: []}
+        }
+      ]
+    })
+    return res.status(201).json(productEspecific)
+  } catch (error) {
+    res.send("No se encontro el Product del  Id")
+  }
 })
+
+
+
+
+
+
+
 
 router.post("/", async (req, res) => {
     let { name, price, description, specifications, img, stock, onDiscount, discountPercentage, freeShipping,tag,brand} = req.body;
