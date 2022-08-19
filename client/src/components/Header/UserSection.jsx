@@ -8,9 +8,18 @@ import {
 const UserSection = () => {
 	return (
 		<div className="flex gap-2">
-			<AiOutlineHeart className="bg-slate-600 rounded-lg py-0.5" />
-			<AiOutlineUser className="bg-slate-600 rounded-lg py-0.5" />
-			<AiOutlineShoppingCart className="bg-slate-600 rounded-lg py-0.5" />
+			<AiOutlineHeart
+				size="30px"
+				className="bg-pink-500 rounded-2xl py-0.5 p-1"
+			/>
+			<AiOutlineUser
+				size="30px"
+				className="bg-pink-500 rounded-2xl py-0.5 p-1"
+			/>
+			<AiOutlineShoppingCart
+				size="30px"
+				className="bg-pink-500 rounded-2xl py-0.5 p-1"
+			/>
 		</div>
 	);
 };
