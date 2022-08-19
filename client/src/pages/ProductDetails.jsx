@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getProductById } from "../store/slices/products/thunks";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { AiOutlineHeart } from "react-icons/ai";
@@ -13,7 +13,6 @@ import SquareButton from "../components/Buttons/SquareButton";
 const ProductDetails = () => {
 	const { id } = useParams();
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
 	const { productDetails } = useSelector((state) => state.products);
 	const product = productDetails;
 
@@ -24,6 +23,7 @@ const ProductDetails = () => {
 	return (
 		<div>
 			<Header />
+			{/*!Object.keys(productDetails).length*/}
 			{!Object.keys(productDetails).length ? (
 				<Spinner />
 			) : (
@@ -56,8 +56,8 @@ const ProductDetails = () => {
 					<div className="bg-gradient-to-r from-blue-900 to-pink-900 p-2 mt-2 mx-4 rounded-xl flex flex-col justify-center items-center shadow-gray-700 shadow-md ">
 						<div>
 							<h2>Features:</h2>
-							{Object.entries(productDetails.specifications[0]).map((e) => (
-								<p>
+							{Object.entries(productDetails.specifications[0]).map((e, i) => (
+								<p key={i}>
 									{e[0].charAt(0).toUpperCase() + e[0].slice(1)}: {e[1]}
 								</p>
 							))}
