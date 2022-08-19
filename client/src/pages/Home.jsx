@@ -6,14 +6,9 @@ import Products from "../components/Products.jsx";
 
 const Home = () => {
 	return (
-		<div className="min-h-screen grid place-content-center">
+		<div className="min-h-screen grid">
 			<Header />
-			<br />
-			<br />
-			<Products />
-			<br />
 			<Carousel/>
-			<Logo />
 		</div>
 	);
 };
