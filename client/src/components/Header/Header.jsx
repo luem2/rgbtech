@@ -7,13 +7,13 @@ import logo from "../../assets/logo-dibujo-2.png";
 
 export default function Index() {
 	return (
-		<div className="flex w-auto justify-between flex-row items-center p-2 m-3 shadow-2xl">
+		<div className="flex w-auto justify-between flex-row items-center p-3 m-3 shadow-2xl">
+			<HamburguerMenu />
 			<div>
 				<Link to="/">
-					<img className="w-24" src={logo} alt="logo-rgbtech" />
+					<img className="w-20" src={logo} alt="logo-rgbtech" />
 				</Link>
 			</div>
-			<HamburguerMenu />
 			<SearchBar />
 			<UserSection />
 		</div>

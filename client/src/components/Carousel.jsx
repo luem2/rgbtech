@@ -6,9 +6,9 @@ import { IoMdArrowDropleft, IoMdArrowDropright } from 'react-icons/io';
 import logo from "../assets/logo-dibujo2.png"
 
 const imagnaryProducts = [
-	logo,
-    "https://c1.neweggimages.com/ProductImageCompressAll1280/34-156-088-V28.jpg",
-    "https://c1.neweggimages.com/ProductImage/A1CZD21122112FMUM24.jpg",
+	// logo,
+    "https://www8.hp.com/my/en/images/02_hero_r1_700x500_tcm193_2638293_tcm193_2638346_tcm193-2638293.png",
+    "https://th.bing.com/th/id/R.4896c93d881bb34581dc88f7f3201e88?rik=VDJiYq0VLTKefg&pid=ImgRaw&r=0",
     "https://th.bing.com/th/id/R.5de1e61a3db24af4bd4ad7dedc8da998?rik=Bi2LQWTh3yxseQ&pid=ImgRaw&r=0",
 ];
 
@@ -63,7 +63,7 @@ function Carousel() {
 	return (
 		<div ref={slideRef} className="w-auto select-none cursor-pointer">
 			<div className="aspect-w-16 aspect-h-4">
-				<img src={imagnaryProducts[currentIndex]} alt="" />
+				<img className="block w-[1200px] ml-20" src={imagnaryProducts[currentIndex]} alt="" />
 			</div>
 
 			<div
@@ -79,6 +79,7 @@ function Carousel() {
                 onClick={handleOnNextClick}><IoMdArrowDropright size={40}/>
                 </button>
 			</div>
+			
 		</div>
 	);
 }
