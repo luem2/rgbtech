@@ -27,21 +27,27 @@ function HamburguerMenu() {
 				</button>
 			) : (
 				<div
-					className="top-0 left-0 bg-white fixed h-[630px] p-12 rounded-br-[120px]"
+					className="w-80 h-full shadow-md bg-white px-5 absolute rounded-br-[120px]"
 				>
 					<button
-						className="text-[30px] text-black font-bold fixed mb-20px left-5 top-10"
+						className="text-[30px] text-black font-bold mb-20px left-5 top-10"
 						onClick={() => setOpen(!open)}
 					>
 						❌
 					</button>
-					<ul className="text-black">
-						<h1 className="text-black text-2xl pb-7 pt-20 font-bold font-mono">
+					<ul className="text-black relative">
+						<h1 className="text-black text-2xl pb-7 pt-8 font-bold font-mono">
 							Categorias
 						</h1>
 						{links.map((link) => (
 							<li className="text-black p-3 ml-3 font-mono">
-								<a href={link.link}>{link.name}</a>
+								<a className="flex items-center 
+								text-sm py-4 px-6 h-12 
+								overflow-hidden text-gray-700 
+								text-ellipsis whitespace-nowrap 
+								rounded hover:text-gray-900 hover:bg-gray-100 
+								transition duration-300 ease-in-out" 
+								href={link.link}>{link.name}</a>
 							</li>
 						))}
 					</ul>
