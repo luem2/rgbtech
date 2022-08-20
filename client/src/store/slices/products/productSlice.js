@@ -10,13 +10,13 @@ const productSlice = createSlice({
 	initialState,
 	reducers: {
 		getProducts: (state, action) => {
-			state.products = action.payload;
+			state.products = action.payload.data;
 		},
 		getProductsName: (state, action) => {
-			state.products = action.payload;
+			state.products = action.payload.data;
 		},
 		getDetailsProductById: (state, action) => {
-			state.productDetails = action.payload;
+			state.productDetails = action.payload.data;
 		},
 	},
 });

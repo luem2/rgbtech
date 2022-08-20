@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../store/slices/products/thunks";
 import { Link } from "react-router-dom";
 
-export default function Products() {
+export default function Product() {
 	const dispatch = useDispatch();
 	const { products } = useSelector((state) => state.products);
 
