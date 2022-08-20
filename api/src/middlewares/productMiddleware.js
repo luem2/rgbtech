@@ -35,17 +35,19 @@ module.exports = {
       const {pageNumber} = req.query
       let count = await Product.findAll(req.body.queryConditions);
       req.body.count = count.length;
-      req.body.paginationPages = Math.ceil(req.body.count/limit);
+      req.body.paginationPages = Math.ceil((req.body.count/limit));
       if(!pageNumber){
         req.originalUrl.includes('?') 
         ? req.originalUrl = `${req.originalUrl}&pageNumber=1`
         : req.originalUrl = `${req.originalUrl}?pageNumber=1`
         req.query.pageNumber = 1
       }
-      if (req.body.paginationPages > pageNumber) {
+      if (req.body.paginationPages > req.query.pageNumber) {
+        console.log('entro aquí')
         const nextUrl = req.originalUrl.replace(`pageNumber=${req.query.pageNumber}`, `pageNumber=${Number(req.query.pageNumber)+ 1}`)
-        req.body.next = `${req.protocol}://${req.get('host')}${nextUrl}`
-      } else if (req.body.paginationPages = pageNumber) req.body.next = null
+        req.body.nextPage = `${req.protocol}://${req.get('host')}${nextUrl}`
+        console.log(req.body.nextPage)
+      } else if (req.body.paginationPages == pageNumber) req.body.nextPage = null
       return next();
     } catch (error) {
       res.status(500).send({msg: 'middleware setPagination failed'})
