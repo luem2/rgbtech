@@ -16,7 +16,7 @@ function HamburguerMenu() {
 		<div >
 			{!open ? (
 				<button
-					className="relative z-30 flex items-center cursor-pointer left-10 "
+					className="relative z-30 flex items-center cursor-pointer"
 					onClick={() => setOpen(!open)}
 				>
 					<svg fill="#ff127e" viewBox="0 0 100 80" width="40" height="40">
@@ -30,7 +30,7 @@ function HamburguerMenu() {
 					className="top-0 left-0 bg-white fixed h-[630px] p-12 rounded-br-[120px]"
 				>
 					<button
-						className="text-[30px] text-black font-bold fixed mb-20px left-14 top-13"
+						className="text-[30px] text-black font-bold fixed mb-20px left-5 top-10"
 						onClick={() => setOpen(!open)}
 					>
 						❌
