@@ -25,42 +25,47 @@ function setQueryConditions (req, res, next) {
     }
   }
   req.body.queryConditions = queryConditions
-  next()
+  //query pagination
+  req.body.limit = 10;
+  req.body.offset = (req.body.limit * req.query.pageNumber) - req.body.limit || 0;
+
+  return next()
+}
+
+async function setPagination (req, res, next) {
+  try{
+    const {limit} = req.body
+    const {pageNumber} = req.query
+    let count = await Product.findAll(req.body.queryConditions);
+    req.body.count = count.length;
+    req.body.paginationPages = Math.ceil(req.body.count/limit);
+    if(!pageNumber){
+      req.originalUrl.includes('?') 
+      ? req.originalUrl = `${req.originalUrl}&pageNumber=1`
+      : req.originalUrl = `${req.originalUrl}?pageNumber=1`
+      req.query.pageNumber = 1
+    }
+    if (req.body.paginationPages > pageNumber) {
+      const nextUrl = req.originalUrl.replace(`pageNumber=${req.query.pageNumber}`, `pageNumber=${Number(req.query.pageNumber)+ 1}`)
+      req.body.next = `${req.protocol}://${req.get('host')}${nextUrl}`
+    } else if (req.body.paginationPages = pageNumber) req.body.next = null
+    return next();
+  } catch (error) {
+    res.status(500).send({msg: 'middleware setPagination failed'})
+  }
 }
 
 const router = Router();
 
-router.get("/", setQueryConditions, async(req,res)=>{
+router.get("/", setQueryConditions, setPagination, async(req,res)=>{
   try {
-    const limit = 10;
-    const offset =  (limit * req.query.pageNumber) - limit || 0
-    let count = await Product.findAll(req.body.queryConditions)
-    count = count.length
-    const pageNumbers = Math.ceil(count/limit)
-    
-    if(!req.query.pageNumber) {
-      if(req.originalUrl.includes('?')) req.originalUrl = `${req.originalUrl}&pageNumber=1`
-      else req.originalUrl = `${req.originalUrl}?pageNumber=1`
-      req.query.pageNumber = 1
-    }
-    let previous = null
-    let next = null
-    if(req.query.pageNumber > 1) {
-      previousUrl = req.originalUrl.replace(`pageNumber=${req.query.pageNumber}`, `pageNumber=${Number(req.query.pageNumber)- 1}`)
-      previous = `${req.protocol}://${req.get('host')}${previousUrl}`
-    }
-    if(pageNumbers > req.query.pageNumber){
-      nextUrl = req.originalUrl.replace(`pageNumber=${req.query.pageNumber}`, `pageNumber=${Number(req.query.pageNumber)+ 1}`)
-      console.log(req.originalUrl)
-      next = `${req.protocol}://${req.get('host')}${nextUrl}`
-    }
-
-    const products = await Product.findAll({...req.body.queryConditions, limit, offset})
+    const {count, next, limit, offset, queryConditions, paginationPages} = req.body
+    const products = await Product.findAll({...queryConditions, limit, offset})
     const response = {
       count,
-      data : products,
+      data: products,
       next,
-      previous
+      pageNumbers: paginationPages
     }
     res.status(200).send(response)
   } catch (error) {
