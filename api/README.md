@@ -1,10 +1,5 @@
 
-# Routes
-
-
-
-
-### Get all items
+### Get all products
 
 ```http
   GET /products
@@ -23,24 +18,35 @@ puede recibir 5 query
 resultado de la petición
 
 ```javascript
-  const singleProduct = {
-  "name": string,
-  "id": string,
-  "price": float,
-  "description": text,
-  "specifications": array de objetos,
-  "img": string,
-  "stock": integer,
-  "onDiscount": boolean,
-  "discountPercentage": float,
-  "freeShipping": boolean,
-  "brandId": string,
-  "tags": array de objetos 
+{
+    "count": integer,
+    "data": array de objetos,//¹
+    "next": url a la siguiente página//²
+    "prev": url a la página previa//²
 }
+
+
 ```
+**¹ url** El url de las propiedades next y prev, conservan todos los querys que hayan sido enviados en la petición inicial.
 
+**² data** los objetos contenidos por el array (productos), tienen el siguiente formato
+        
+        {
+            "name": string,
+            "id": string,
+            "price": float,
+            "description": text,
+            "specifications": array de objetos,
+            "img": string,
+            "stock": integer,
+            "onDiscount": boolean,
+            "discountPercentage": float,
+            "freeShipping": boolean,
+            "brandId": string,
+            "tags": array de objetos 
+        }
 
-### Get item
+### Get product
 
 ```http
   GET /products/${id}
@@ -53,19 +59,41 @@ resultado de la petición
 resultado de la petición
 
 ```javascript
-  const singleProduct = {
+{
   "name": string,
   "id": string,
   "price": float,
   "description": text,
-  "specifications": array de objetos,
+  "specifications": array de objetos,//¹
   "img": string,
   "stock": integer,
   "onDiscount": boolean,
   "discountPercentage": float,
   "freeShipping": boolean,
   "brandId": string,
-  "tags": array de objetos,
-  "comments": array de objetos
+  "tags": array de objetos,//²
+  "comments": array de objetos//³
 }
+
 ```
+**¹ Specifications**, array que contiene un objeto. este objeto posee distintas propiedades correspondiente a cada especificación
+        
+        {
+            "model" : "sasdla",
+            "color" : "white"
+        }
+**² Tags**
+
+        {
+            id: string,
+            name: string
+        }
+**³ Comments**
+        
+        {
+            id: string,
+            comment: text,
+            rating: float,
+            user: string
+        }
+
