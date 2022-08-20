@@ -1,4 +1,5 @@
 const {Product, Tag} = require('../db.js')
+const {Op} = require('sequelize')
 
 module.exports = {
   setQueryConditions : (req, res, next) => {

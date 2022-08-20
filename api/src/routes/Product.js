@@ -1,7 +1,6 @@
 const { Router } = require('express');
-const { Product , Brand, Tag, Comment } = require('../db.js');
-const { Op } = require('sequelize');
-const {setQueryConditions, setPagination, checkPost} = require('../middlewares/produtcMiddleware.js')
+const { Product , Tag, Comment } = require('../db.js');
+const {setQueryConditions, setPagination, checkPost} = require('../middlewares/productMiddleware.js')
 
 const router = Router();
 
