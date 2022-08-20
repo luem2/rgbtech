@@ -2,12 +2,14 @@ import React from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { CgArrowLeftO, CgArrowRightO } from 'react-icons/cg';
+import { IoMdArrowDropleft, IoMdArrowDropright } from 'react-icons/io';
+import logo from "../assets/logo-dibujo2.png"
 
 const imagnaryProducts = [
-    "https://www.acerstore.cl/files/imagenes/media/2022/08/nitro_red.png?size=1200x806&format=webp",
-    "https://cl.buscafs.com/www.levelup.com/public/uploads/images/712970/712970.jpeg",
-    "https://tienda.redcomputer.es/img/cms/promociones/landing-streamers/pc-pereira.png",
+	logo,
+    "https://c1.neweggimages.com/ProductImageCompressAll1280/34-156-088-V28.jpg",
+    "https://c1.neweggimages.com/ProductImage/A1CZD21122112FMUM24.jpg",
+    "https://th.bing.com/th/id/R.5de1e61a3db24af4bd4ad7dedc8da998?rik=Bi2LQWTh3yxseQ&pid=ImgRaw&r=0",
 ];
 
 let count = 0;
@@ -25,12 +27,12 @@ function Carousel() {
 	useEffect(() => {
         slideRef.current.addEventListener
         ("animationend", removeAnimation)
-        slideRef.current.addEventListener
-        ("mouseenter", pauseSlider)
-        slideRef.current.addEventListener
-        ("mouseleave", startSlider)
+        // slideRef.current.addEventListener
+        // ("mouseenter", pauseSlider)
+        // slideRef.current.addEventListener
+        // ("mouseleave", startSlider)
 		
-        startSlider();
+        // startSlider();
         return () => {
             pauseSlider();
         };
@@ -59,22 +61,22 @@ function Carousel() {
 	};
 
 	return (
-		<div ref={slideRef} className="w-full select-none relative">
-			<div className="aspect-w-16 aspect-h-9">
+		<div ref={slideRef} className="w-auto select-none cursor-pointer">
+			<div className="aspect-w-16 aspect-h-4">
 				<img src={imagnaryProducts[currentIndex]} alt="" />
 			</div>
 
 			<div
-				className="absolute w-full top-1/2 transform -translate-y-1/2 
+				className="fixed w-full top-1/2 transform -translate-y-1/2 
             px-3 flex justify-between items-center"
 			>
-				<button
+				<button className="absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
                  
-                onClick={handleOnPrevClick}><CgArrowLeftO size={40}/>
+                onClick={handleOnPrevClick}><IoMdArrowDropleft size={40}/>
                 </button>
-				<button 
+				<button className="absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
          
-                onClick={handleOnNextClick}><CgArrowRightO size={40}/>
+                onClick={handleOnNextClick}><IoMdArrowDropright size={40}/>
                 </button>
 			</div>
 		</div>

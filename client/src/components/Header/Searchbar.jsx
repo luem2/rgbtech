@@ -27,7 +27,7 @@ export default function SearchBar() {
 
   return (
     <div>
-        <div className='my-8 flex justify-center'>
+        <div className='my-4 flex justify-center'>
         <button className="btn inline-block pr-4 pl-4 pt-2.5 pb-2.5  bg-pink-600 hover:bg-pink-700  text-white rounded-l-full" onClick={(e) => onClickHandler(e)}>
         <BsSearch/>
         </button>
