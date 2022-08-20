@@ -8,7 +8,7 @@ export default function SearchBar() {
 
     const [value, setValue] = useState('');
     const dispatch = useDispatch()
-    const { products } = useSelector(state => state.products)
+    const {products}  = useSelector(state => state.products)
 
 
     const onChange = (e) => {
