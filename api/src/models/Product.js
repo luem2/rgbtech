@@ -31,13 +31,16 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     onDiscount: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     },
     discountPercentage:{
-      type: DataTypes.FLOAT
+      type: DataTypes.FLOAT,
+      defaultValue: 0
     },
     freeShipping: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
   },{
     timestamps: false

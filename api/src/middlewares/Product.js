@@ -28,53 +28,44 @@ function setQueryConditions (req, res, next) {
   next()
 }
 
-
-
-/* 
-
-• Route.get('/products') -> retorna un array de productos(objeto) con la siguientes propiedades
-product = {
-  "name": string,
-  "id": string,
-  "price": float,
-  "description": text,
-  "specifications": array con un objeto. cada propiedad del objeto es una especificación
-  "img": string
-  "stock": integer,
-  "onDiscount": boolean,
-  "discountPercentage": float,
-  "freeShipping": boolean,
-  "brandId": string,
-  "tags": array de objetos 
-     → {id: string, name: string}
-}
-esta ruta puede recibir 5 querys:
-  column : string 
-  order : "ASC" || "DESC"
-    columna y orden, ambos query son necesarias para realizar ordenamientos.
-  name: string
-    buscar productos por nombre
-  tag: string
-    filtrar productos por tag 
-  brand: string 
-
-• Route.get('/products/:id') -> retorna un objeto similar al anterior, pero tiene una propiedad más
-  "comments": array de objetos
-*/
-
 const router = Router();
 
 router.get("/", setQueryConditions, async(req,res)=>{
   try {
-    const products = await Product.findAll(req.body.queryConditions)
-    const count = products.length
+    const limit = 10;
+    const offset =  (limit * req.query.pageNumber) - limit || 0
+    let count = await Product.findAll(req.body.queryConditions)
+    count = count.length
+    const pageNumbers = Math.ceil(count/limit)
+    
+    if(!req.query.pageNumber) {
+      if(req.originalUrl.includes('?')) req.originalUrl = `${req.originalUrl}&pageNumber=1`
+      else req.originalUrl = `${req.originalUrl}?pageNumber=1`
+      req.query.pageNumber = 1
+    }
+    let previous = null
+    let next = null
+    if(req.query.pageNumber > 1) {
+      previousUrl = req.originalUrl.replace(`pageNumber=${req.query.pageNumber}`, `pageNumber=${Number(req.query.pageNumber)- 1}`)
+      previous = `${req.protocol}://${req.get('host')}${previousUrl}`
+    }
+    if(pageNumbers > req.query.pageNumber){
+      nextUrl = req.originalUrl.replace(`pageNumber=${req.query.pageNumber}`, `pageNumber=${Number(req.query.pageNumber)+ 1}`)
+      console.log(req.originalUrl)
+      next = `${req.protocol}://${req.get('host')}${nextUrl}`
+    }
+
+    const products = await Product.findAll({...req.body.queryConditions, limit, offset})
     const response = {
       count,
-      data : products
+      data : products,
+      next,
+      previous
     }
     res.status(200).send(response)
   } catch (error) {
-    res.status(500).send({msg: error})
+    console.error(error)
+    res.status(500).send(error)
   }
 })
 
@@ -99,37 +90,51 @@ router.get("/:id", async (req, res) => {
   }
 })
 
+function checkPost (req, res, next) {
+  const {
+    name,
+    price,
+    description,
+    specifications,
+    img,
+    stock,
+    onDiscount,
+    discountPercentage,
+    freeShipping,
+    tags,
+    brand
+  } = req.body;
 
-
-
-
-
-
-
-router.post("/", async (req, res) => {
-    let { name, price, description, specifications, img, stock, onDiscount, discountPercentage, freeShipping,tag,brand} = req.body;
-    if (!name || !price || !description || !specifications || !stock || !brand ) return res.status(404).send("Falta enviar datos obligatorios")
-    try {
-        console.log('entre al try')
-        let productCreated = await Product.create({
-            name,
-            price,
-            description,
-            specifications,
-            img,
-            stock,
-            onDiscount,
-            discountPercentage,
-            freeShipping,
-        })
-        await productCreated.setBrand(brand)
-        await productCreated.addTags(tag)
-        
-        return res.send("Product created successfully")
-    } catch (error) {
-        return res.status(400).send("Error en alguno de los datos provistos")
+  if(name && price && description && specifications && stock && brand && tags) {
+    let productCreate = {
+      name,
+      price,
+      description,
+      specifications,
+      stock,
+      tags,
+      brand,
+      img
     }
+    onDiscount ? productCreate = {...productCreate, onDiscount, discountPercentage}: null;
+    freeShipping ? productCreate = {...productCreate, freeShipping} : null;
+    req.body.product = productCreate
+    return next()
+  } else {
+    res.status(404).send('Falta enviar datos obligatorios')
+  }
+}
+router.post("/", checkPost, async (req, res) => {
+  try{
+    const newProduct = await Product.create(req.body.product)
+    await newProduct.setBrand(brand)
+    await newProduct.addTags(tag)
+    return res.status(201).send({msg: 'Product created successfully', statusCode : 201})
+  } catch (error) {
+    return res.status(400).send({msg: 'Ops! Something went wrong', statusCode : 400})
+  }
 });
+
 
 router.put('/:id', async(req,res,next)=>{
     try {
