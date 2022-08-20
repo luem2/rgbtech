@@ -10,7 +10,7 @@ export default function Products() {
 
 	useEffect(() => {
 		dispatch(getAllProducts());
-	}, []);
+	}, []); 
 
 	return (
 		<div>
