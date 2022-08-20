@@ -1,4 +1,5 @@
 import React from "react";
+import { IconContext } from "react-icons/lib";
 import {
 	AiOutlineUser,
 	AiOutlineHeart,
@@ -8,18 +9,25 @@ import {
 const UserSection = () => {
 	return (
 		<div className="flex gap-2">
-			<AiOutlineHeart
-				size="30px"
-				className="bg-pink-500 rounded-2xl py-0.5 p-1"
-			/>
+		<IconContext.Provider
+		value={{
+			className: 'bg-pink-500 rounded-3xl py-0.5 p-1 cursor-pointer',
+			style: {color: 'white'},
+			size: '30px'
+		}}
+		>
 			<AiOutlineUser
-				size="30px"
-				className="bg-pink-500 rounded-2xl py-0.5 p-1"
+			className="hover:bg-red-500"
 			/>
+
+			<AiOutlineHeart
+			className="hover:bg-red-500"
+			/>
+
 			<AiOutlineShoppingCart
-				size="30px"
-				className="bg-pink-500 rounded-2xl py-0.5 p-1"
+			className="hover:bg-red-500"
 			/>
+		</IconContext.Provider>
 		</div>
 	);
 };
