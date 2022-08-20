@@ -24,9 +24,9 @@ const CategoriesCarousel = () => {
 
 	const toggleActiveStyle = (i) => {
 		if (section.objects[i] === section.activeSection) {
-			return `text-lg font-medium text-white p-2 rounded-xl ${css.active}`;
+			return `text-pink-100 text-lg font-medium text-white p-2 rounded-xl ${css.active}`;
 		} else {
-			return `text-lg font-medium p-2 rounded-xl ${css.inactive}`;
+			return `text-white text-lg font-medium p-2 rounded-xl ${css.inactive}`;
 		}
 	};
 	return (
