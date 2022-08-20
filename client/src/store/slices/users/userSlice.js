@@ -1,11 +1,13 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-const initialState = {};
+const initialState = {
+};
 
 const userSlice = createSlice({
 	name: "users",
 	initialState,
-	reducers: {},
+	reducers: {
+	},
 });
 
 export const {} = userSlice.actions;
