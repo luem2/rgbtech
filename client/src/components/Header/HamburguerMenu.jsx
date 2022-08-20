@@ -13,10 +13,10 @@ function HamburguerMenu() {
 		{ name: "Audio, parlantes, audiculares, y mic", link: "./" },
 	];
 	return (
-		<div className="bg-gray-900">
+		<div >
 			{!open ? (
 				<button
-					className="fixed z-30 flex items-center cursor-pointer left-10 top-3"
+					className="relative z-30 flex items-center cursor-pointer"
 					onClick={() => setOpen(!open)}
 				>
 					<svg fill="#ff127e" viewBox="0 0 100 80" width="40" height="40">
@@ -27,17 +27,16 @@ function HamburguerMenu() {
 				</button>
 			) : (
 				<div
-					className="top-0 left-0 bg-white fixed h-[630px] p-12 rounded-br-[120px]  
-         "
+					className="top-0 left-0 bg-white fixed h-[630px] p-12 rounded-br-[120px]"
 				>
 					<button
-						className="text-[30px] text-black font-bold fixed left-10 top-2"
+						className="text-[30px] text-black font-bold fixed mb-20px left-5 top-10"
 						onClick={() => setOpen(!open)}
 					>
 						❌
 					</button>
 					<ul className="text-black">
-						<h1 className="text-black text-2xl pb-7 pt-10 font-bold font-mono">
+						<h1 className="text-black text-2xl pb-7 pt-20 font-bold font-mono">
 							Categorias
 						</h1>
 						{links.map((link) => (
