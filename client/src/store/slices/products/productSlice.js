@@ -16,7 +16,7 @@ const productSlice = createSlice({
 			state.products = action.payload.data;
 		},
 		getDetailsProductById: (state, action) => {
-			state.productDetails = action.payload.data;
+			state.productDetails = action.payload;
 		},
 	},
 });

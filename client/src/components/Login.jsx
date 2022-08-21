@@ -1,7 +1,7 @@
 import React from "react";
 import { BsGoogle } from "react-icons/bs";
 
-const Login = (closeModal) => {
+const Login = ({ closeModal }) => {
 	return (
 		<div>
 			<div className="justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50">
