@@ -69,13 +69,13 @@ function Carousel() {
 
 			<div className="flex flex-wrap justify-center">
 				<button
-					className="absolute bottom-80 flex items-center justify-center text-center left-0"
+					className="absolute bottom-80 flex items-center justify-center text-center hover:scale-110 left-0"
 					onClick={handleOnPrevClick}
 				>
 					<IoMdArrowDropleft size={40} />
 				</button>
 				<button
-					className="absolute bottom-80 flex items-center justify-center text-center right-0"
+					className="absolute bottom-80 flex items-center justify-center text-center hover:scale-110 right-0"
 					onClick={handleOnNextClick}
 				>
 					<IoMdArrowDropright size={40} />

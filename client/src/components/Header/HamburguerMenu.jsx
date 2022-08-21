@@ -5,6 +5,7 @@ import logo from "../../assets/logo-dibujo-2.png";
 function HamburguerMenu() {
 	const [open, setOpen] = useState(false);
 	let links = [
+		{ name: "All products", link: "./products" },
 		{ name: "Equipos y notebooks", link: "./" },
 		{ name: "Consolas de videojuegos", link: "./" },
 		{ name: "Procesadores y coolers cpus", link: "./" },
@@ -29,7 +30,7 @@ function HamburguerMenu() {
 				</button>
 			) : (
 				<div
-					className="w-100 pt-2 h-[640px] shadow-md bg-white px-10 absolute rounded-br-[120px] shadow-l shadow-pink-500/50"
+					className="w-100 pt-1 h-[640px] shadow-md bg-white px-8 absolute rounded-br-[120px] shadow-l shadow-pink-500/50"
 				>
 					<button
 						className="text-[30px] font-bold"
@@ -38,11 +39,11 @@ function HamburguerMenu() {
 						❌
 					</button>
 					<ul className="text-black font-bold relative pr-3">
-						<h1 className="text-black text-2xl pb-1 pt-6 font-bold font-mono">
+						<h1 className="text-black text-2xl pb-2 pt-6 font-bold font-mono">
 							Categorias
 						</h1>
 						{links.map((link, i) => (
-							<li key={i} className="text-black p-3 ml-1 font-mono">
+							<li key={i} className="text-black p-2 ml-1 font-mono">
 								<a className="flex items-center 
 								text-black py-5 px-6 h-10 
 								overflow-hidden text-gray-700 
