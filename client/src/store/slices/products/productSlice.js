@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
 	products: [],
 	productDetails: {},
+	response: {},
 };
 
 const productSlice = createSlice({
@@ -10,7 +11,9 @@ const productSlice = createSlice({
 	initialState,
 	reducers: {
 		getProducts: (state, action) => {
-			state.products = action.payload.data;
+			const {data, nextPage, pageNumbers} = action.payload
+			state.products.push(data)
+			state.response = { nextPage, pageNumbers }
 		},
 		getProductsName: (state, action) => {
 			state.products = action.payload.data;

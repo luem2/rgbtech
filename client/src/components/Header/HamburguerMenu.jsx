@@ -30,10 +30,10 @@ function HamburguerMenu() {
 				</button>
 			) : (
 				<div
-					className="w-100 pt-1 h-[640px] shadow-md bg-white px-8 absolute rounded-br-[120px] shadow-l shadow-pink-500/50"
+					className="w-100 pt-0 h-[640px] shadow-md bg-white px-8 absolute rounded-br-[120px] shadow-l shadow-blue-600/100"
 				>
 					<button
-						className="text-[30px] font-bold"
+						className="text-[30px] font-bold mt-4"
 						onClick={() => setOpen(!open)}
 					>
 						❌
@@ -48,7 +48,7 @@ function HamburguerMenu() {
 								text-black py-5 px-6 h-10 
 								overflow-hidden text-gray-700 
 								text-ellipsis whitespace-nowrap 
-								rounded hover:text-pink-500 hover:bg-gray-100 
+								rounded hover:text-blue-600/100 hover:bg-gray-100 
 								transition duration-300 ease-in-out" 
 								href={link.link}>{link.name}</a>
 							</li>

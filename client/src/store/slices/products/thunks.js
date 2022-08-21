@@ -1,10 +1,10 @@
 import axios from "axios";
 import { getProducts, getDetailsProductById } from "./productSlice";
 
-export const getAllProducts = () => {
+export const getAllProducts = (num) => {
 	return async (dispatch) => {
 		try {
-			const products = await axios.get("products");
+			const products = await axios.get(`products?pageNumber=${num}`);
 			dispatch(getProducts(products.data));
 		} catch (e) {
 			console.error(e);
