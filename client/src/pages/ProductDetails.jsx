@@ -11,6 +11,7 @@ import Spinner from "../components/Spinner";
 import Header from "../components/Header/Header";
 import CircleButton from "../components/Buttons/CircleButton";
 import SquareButton from "../components/Buttons/SquareButton";
+import { clearDetails } from "../store/slices/products/productSlice";
 
 const ProductDetails = () => {
 	const { id } = useParams();
@@ -20,6 +21,10 @@ const ProductDetails = () => {
 
 	useEffect(() => {
 		dispatch(getProductById(id));
+
+		return () => {
+			dispatch(clearDetails());
+		};
 	}, []);
 
 	return (
@@ -28,13 +33,13 @@ const ProductDetails = () => {
 			{!Object.keys(productDetails).length ? (
 				<Spinner />
 			) : (
-				<div className="flex justify-center items-center">
+				<div className="mx-10">
 					<div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-xl p-4 m-4">
 						<div className="flex justify-around p-4 mt-2 mx-4 rounded-xl text-3xl">
 							<img
 								className="w-[40rem] h-[25rem] mb-4 rounded-3xl "
 								src={
-									"http://cdn.shopify.com/s/files/1/0583/7760/1191/products/123026_A_1200x1200.jpg?v=1639160179"
+									"https://d3ugyf2ht6aenh.cloudfront.net/stores/001/067/624/products/b11-5fee2624ee5635664316210211070459-1024-1024.jpg"
 								}
 								alt={product.name}
 							/>

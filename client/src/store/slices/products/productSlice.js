@@ -18,9 +18,13 @@ const productSlice = createSlice({
 		getDetailsProductById: (state, action) => {
 			state.productDetails = action.payload;
 		},
+		clearDetails: (state) => {
+			state.productDetails = {};
+		},
 	},
 });
 
-export const { getProducts, getDetailsProductById } = productSlice.actions;
+export const { getProducts, getDetailsProductById, clearDetails } =
+	productSlice.actions;
 
 export default productSlice.reducer;

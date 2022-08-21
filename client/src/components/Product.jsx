@@ -5,7 +5,7 @@ function Product({ id, name, price, img }) {
 	return (
 		<div className="flex justify-center p-4">
 			<div className="rounded-lg shadow-lg bg-white max-w-sm">
-				<img className="rounded-t-lg " src={img} alt="Not found" />
+				<img className="rounded-t-lg " src={img} alt={name} />
 
 				<div className="p-6">
 					<h5 className="text-gray-900 text-xl font-medium mb-2">{name}</h5>
