@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import logo from "../../assets/logo-dibujo-2.png";
 
 function HamburguerMenu() {
 	const [open, setOpen] = useState(false);
@@ -10,13 +12,13 @@ function HamburguerMenu() {
 		{ name: "Almacenamiento", link: "./" },
 		{ name: "Monitores y tvs", link: "./" },
 		{ name: "Teclados y mouses", link: "./" },
-		{ name: "Audio, parlantes, audiculares, y mic", link: "./" },
+		{ name: "Audio, parlantes, etc.", link: "./" },
 	];
 	return (
-		<div >
+		<div className="z-50 flex flex-row gap-5 ">
 			{!open ? (
 				<button
-					className="relative z-30 flex items-center cursor-pointer"
+					className="relative flex cursor-pointer ml-6 mt-5"
 					onClick={() => setOpen(!open)}
 				>
 					<svg fill="#ff127e" viewBox="0 0 100 80" width="40" height="40">
@@ -27,25 +29,25 @@ function HamburguerMenu() {
 				</button>
 			) : (
 				<div
-					className="w-80 h-full shadow-md bg-white px-5 absolute rounded-br-[120px]"
+					className="w-100 pt-2 h-[640px] shadow-md bg-white px-10 absolute rounded-br-[120px] shadow-l shadow-pink-500/50"
 				>
 					<button
-						className="text-[30px] text-black font-bold mb-20px left-5 top-10"
+						className="text-[30px] font-bold"
 						onClick={() => setOpen(!open)}
 					>
 						❌
 					</button>
-					<ul className="text-black relative">
-						<h1 className="text-black text-2xl pb-7 pt-8 font-bold font-mono">
+					<ul className="text-black font-bold relative pr-3">
+						<h1 className="text-black text-2xl pb-1 pt-6 font-bold font-mono">
 							Categorias
 						</h1>
-						{links.map((link) => (
-							<li className="text-black p-3 ml-3 font-mono">
+						{links.map((link, i) => (
+							<li key={i} className="text-black p-3 ml-1 font-mono">
 								<a className="flex items-center 
-								text-sm py-4 px-6 h-12 
+								text-black py-5 px-6 h-10 
 								overflow-hidden text-gray-700 
 								text-ellipsis whitespace-nowrap 
-								rounded hover:text-gray-900 hover:bg-gray-100 
+								rounded hover:text-pink-500 hover:bg-gray-100 
 								transition duration-300 ease-in-out" 
 								href={link.link}>{link.name}</a>
 							</li>
@@ -53,6 +55,11 @@ function HamburguerMenu() {
 					</ul>
 				</div>
 			)}
+			<div>
+				<Link to="/">
+					<img className="w-20" src={logo} alt="logo-rgbtech" />
+				</Link>
+			</div>
 		</div>
 	);
 }

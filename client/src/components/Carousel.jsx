@@ -62,8 +62,8 @@ function Carousel() {
 
 	return (
 		<div ref={slideRef} className="w-auto select-none cursor-pointer">
-			<div className="aspect-w-16 aspect-h-4">
-				<img className="block w-[1200px] ml-20" src={imagnaryProducts[currentIndex]} alt="" />
+			<div className="flex flex-wrap justify-center">
+				<img className="pt-5 pb-20 hover:scale-105 transition duration-300 ease-in-out" src={imagnaryProducts[currentIndex]} alt="" />
 			</div>
 
 			<div
