@@ -31,7 +31,7 @@ const CategoriesCarousel = () => {
 	};
 	return (
 		<div>
-			<ul className="flex flex-row gap-3 mb-4">
+			<ul className="flex flex-row gap-3 mb-4 hover:cursor-pointer">
 				{section.objects.map((e, i) => (
 					<li
 						key={i}
