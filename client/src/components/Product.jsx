@@ -21,7 +21,7 @@ function Product({ id, name, price, img }) {
 					{/* <TbHeartPlus className="bg-red-200 rounded-2xl py-0.5 p-1 w-8 h-8 hover:scale-105 " /> */}
 					<h1 className="p-2 cursor-pointer w-2 hover:scale-105">🖤</h1>
 
-					<GiShoppingCart className="bg-white rounded-3xl py-1 px-1 w-full h-7 hover:scale-105 cursor-pointer" />
+					<GiShoppingCart className="flex bg-white rounded-3xl py-1 px-1 w-10 h-7 hover:scale-105 cursor-pointer" />
 				</div>
 			</div>
 		</div>
