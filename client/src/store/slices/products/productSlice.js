@@ -12,7 +12,7 @@ const productSlice = createSlice({
 	reducers: {
 		getProducts: (state, action) => {
 			const {data, nextPage, pageNumbers} = action.payload
-			state.products.push(data)
+			state.products.push(...data)
 			state.response = { nextPage, pageNumbers }
 		},
 		getProductsName: (state, action) => {
