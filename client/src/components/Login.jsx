@@ -4,7 +4,7 @@ import { BsGoogle } from "react-icons/bs";
 const Login = ({ closeModal }) => {
 	return (
 		<div>
-			<div className="justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50">
+			<div className="justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 text-black">
 				<div className="relative w-auto my-6 mx-auto max-w-3xl">
 					<div>
 						<div className="flex items-cente lg:justify-center">

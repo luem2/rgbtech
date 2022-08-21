@@ -11,7 +11,6 @@ const Home = () => {
 			<Header />
 			<Carousel />
 			<div className="flex justify-center">
-				<Products />
 				<CategoriesCarousel />
 			</div>
 			<Footer />

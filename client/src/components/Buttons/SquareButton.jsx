@@ -5,7 +5,7 @@ const Button = ({ className, type, onClick, children }) => {
 		<div className="flex space-x-2 justify-center">
 			<button
 				type={type || "button"}
-				className={`inline-block px-6 py-2.5 bg-pink-800 text-white font-medium text-xs leading-tight uppercase rounded shadow-lg hover:bg-pink-700 hover:shadow-lg focus:bg-pink-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-pink-800 active:shadow-lg transition duration-150 ease-in-out ${className}`}
+				className={`inline-block px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-lg hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out ${className}`}
 				onClick={onClick}
 			>
 				{children}
