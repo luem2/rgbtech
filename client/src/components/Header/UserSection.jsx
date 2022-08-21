@@ -21,8 +21,8 @@ const UserSection = () => {
 	return (
 		<div className="flex gap-2">
 			{modal && (
-				<ModalMircha syncFunction={() => handleCloseModal()}>
-					<Login closeModal={() => handleCloseModal()} />
+				<ModalMircha syncFunction={handleCloseModal}>
+					<Login closeModal={handleCloseModal} />
 				</ModalMircha>
 			)}
 			<IconContext.Provider
@@ -32,12 +32,7 @@ const UserSection = () => {
 					size: "30px",
 				}}
 			>
-				<AiOutlineUser
-					className="hover:bg-red-500"
-					onClick={() => {
-						handleOpenModal();
-					}}
-				/>
+				<AiOutlineUser className="hover:bg-red-500" onClick={handleOpenModal} />
 
 				<AiOutlineHeart className="hover:bg-red-500" />
 
