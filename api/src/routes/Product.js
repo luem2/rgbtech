@@ -4,6 +4,23 @@ const {setQueryConditions, setPagination, checkPost} = require('../middlewares/p
 
 const router = Router();
 
+router.get('/search', async (req, res) => {
+  console.log('estoy aquí')
+  const {name} = req.query
+  try {
+    const products = await Product.findAll({
+      where: {
+        name : {
+          [Op.iLike] : `%${name}%`
+        }
+      }
+    })
+    res.send(products)
+  } catch (error) {
+
+  }
+})
+
 router.get("/", setQueryConditions, setPagination, async(req,res)=>{
   try {
     const {count, nextPage, limit, offset, queryConditions, paginationPages} = req.body

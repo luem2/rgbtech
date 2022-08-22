@@ -4,6 +4,7 @@ const initialState = {
 	products: [],
 	productDetails: {},
 	response: {},
+	productsName: []
 };
 
 const productSlice = createSlice({
@@ -24,10 +25,13 @@ const productSlice = createSlice({
 		clearDetails: (state) => {
 			state.productDetails = {};
 		},
+		searchName: (state, action) => {
+			state.productsName = action.payload
+		}
 	},
 });
 
-export const { getProducts, getDetailsProductById, clearDetails } =
+export const { getProducts, getDetailsProductById, clearDetails, searchName} =
 	productSlice.actions;
 
 export default productSlice.reducer;

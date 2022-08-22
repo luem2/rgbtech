@@ -1,5 +1,17 @@
 import axios from "axios";
-import { getProducts, getDetailsProductById } from "./productSlice";
+import { getProducts, getDetailsProductById, searchName } from "./productSlice";
+
+
+export const searchNameAction = (input)=> {
+	return async (dispatch) => {
+		try{
+			const products = await axios.get(`products/search?name=${input}`)
+			dispatch(searchName(products.data));
+		} catch (error) {
+			console.error(e);
+		}
+	}
+}
 
 export const getAllProducts = (num) => {
 	return async (dispatch) => {
