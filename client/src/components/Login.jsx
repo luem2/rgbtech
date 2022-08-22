@@ -19,7 +19,7 @@ const Login = ({ closeModal }) => {
 									</p>
 									<p className="flex flex-col items-center justify-center mt-10 text-center">
 										<span>Don't have an account?</span>
-										<a href="#" className="underline">
+										<a href="/createUser" className="underline">
 											Get Started!
 										</a>
 									</p>
