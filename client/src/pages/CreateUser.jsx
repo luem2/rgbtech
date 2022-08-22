@@ -84,7 +84,7 @@ const createUser = () => {
             <div>
             {previewSource &&(
                     <img src={previewSource} alt="chosen"
-                    className="h-16 rounded-full ml-24"
+                    className="h-16 w-20 rounded-full ml-24"
                     />
                     )}
             </div>
