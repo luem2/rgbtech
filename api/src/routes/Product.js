@@ -22,6 +22,28 @@ router.get("/", setQueryConditions, setPagination, async(req,res)=>{
   }
 })
 
+router.get("/All", async (req,res)=>{
+  const { name } = req.query
+  try {
+    const AllProduct= await Product.findAll({
+      include: {
+          model: Tag,
+          through: {
+              attributes: [],
+          }
+      }
+  })
+    if (name) {
+      let ProductName = AllProduct.filter(e => { if (e && e.name) { return e.name.toLowerCase().includes(name.toLowerCase()) } });
+          res.status(200).send(ProductName);
+  } else {
+      res.status(200).send(AllProduct)
+  }
+  } catch (error) {
+    res.status(500).send(error)
+  }
+})
+
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
