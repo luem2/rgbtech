@@ -1,11 +1,12 @@
 const { Router } = require('express');
 const { Product , Tag, Comment } = require('../db.js');
 const {setQueryConditions, setPagination, checkPost} = require('../middlewares/productMiddleware.js')
+const {Op} = require('sequelize')
+
 
 const router = Router();
 
 router.get('/search', async (req, res) => {
-  console.log('estoy aquí')
   const {name} = req.query
   try {
     const products = await Product.findAll({
@@ -17,7 +18,7 @@ router.get('/search', async (req, res) => {
     })
     res.send(products)
   } catch (error) {
-
+    res.send(error)
   }
 })
 
