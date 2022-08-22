@@ -1,17 +1,16 @@
 import axios from "axios";
 import { getProducts, getDetailsProductById, searchName } from "./productSlice";
 
-
-export const searchNameAction = (input)=> {
+export const searchNameAction = (input) => {
 	return async (dispatch) => {
-		try{
-			const products = await axios.get(`products/search?name=${input}`)
+		try {
+			const products = await axios.get(`products/search?name=${input}`);
 			dispatch(searchName(products.data));
 		} catch (error) {
 			console.error(e);
 		}
-	}
-}
+	};
+};
 
 export const getAllProducts = (num) => {
 	return async (dispatch) => {
@@ -28,7 +27,7 @@ export const getProductByName = (name) => {
 	return async (dispatch) => {
 		try {
 			const products = await axios.get("products?name=" + name);
-			dispatch(getProducts(products.data));
+			dispatch(getProductsName(products.data));
 		} catch (e) {
 			console.error(e);
 		}

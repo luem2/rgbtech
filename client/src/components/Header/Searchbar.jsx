@@ -1,62 +1,75 @@
-import React from 'react'
-import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { BsSearch } from 'react-icons/bs';
-import { getProductByName } from '../../store/slices/products/thunks';
+import React from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { BsSearch } from "react-icons/bs";
+import {
+	searchNameAction,
+	getProductByName,
+} from "../../store/slices/products/thunks";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function SearchBar() {
+	const [value, setValue] = useState("");
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const { productsName } = useSelector((state) => state.products);
 
-    const [value, setValue] = useState('');
-    const dispatch = useDispatch()
-    const {products}  = useSelector(state => state.products)
+	const onChange = (e) => {
+		setValue(e.target.value);
+		dispatch(searchNameAction(e.target.value));
+	};
 
+	const onSearch = () => {
+		dispatch(searchNameAction(""));
+		setValue("");
+	};
 
-    const onChange = (e) => {
-        setValue(e.target.value)
-    }
+	const onClickHandler = (e) => {
+		e.preventDefault();
+		dispatch(getProductByName(value));
+		navigate("/products");
+		setValue("");
+	};
 
-    const onSearch = (SearchTerm) => {
-        setValue(SearchTerm)
-    }
+	return (
+		<div>
+			<div className="my-4 flex justify-center">
+				<button
+					className="btn inline-block pr-4 pl-4 pt-2.5 pb-2.5  bg-pink-600 hover:bg-pink-700  text-white rounded-l-full"
+					onClick={(e) => onClickHandler(e)}
+				>
+					<BsSearch />
+				</button>
+				<input
+					className="bg-pink-600 text-black focus:outline-none pl-4 pt-2 pb-1 font-bold rounded-r-full"
+					value={value}
+					onChange={onChange}
+				/>
+			</div>
 
-    const onClickHandler = (e) => {
-        e.preventDefault();
-            setValue('')
-            dispatch(getProductByName(value));
-        } 
-
-  return (
-    <div>
-        <div className='my-4 flex justify-center'>
-        <button className="btn inline-block pr-4 pl-4 pt-2.5 pb-2.5  bg-pink-600 hover:bg-pink-700  text-white rounded-l-full" onClick={(e) => onClickHandler(e)}>
-        <BsSearch/>
-        </button>
-        <input  className="bg-pink-600 text-black focus:outline-none pl-4 pt-2 pb-1 font-bold rounded-r-full" value={value} onChange={onChange} />
-        </div>
-        
-        <div>
-            {products?.filter(item => {
-                const searchTerm = value.toLowerCase();
-                const fullname = item.name?.toLowerCase();
-
-                return searchTerm && fullname.startsWith(searchTerm) && fullname !== searchTerm;
-            })
-            .map((item) => (
-            <div className='flex justify-center' key={item.id} onClick={() =>onSearch(item.name)}>
-                <ul className='bg-pink-500 mt-1 w-96 text-gray-900'>
-                    <li className='px-6 py-2  text-black cursor-pointer w-full'>
-                    {item.name}
-                    </li>
-                </ul>
-            </div>
-            ))}
-        </div>
-    </div>
-  )
+			<div>
+				{productsName?.map((item) => (
+					<div
+						className="flex justify-center"
+						key={item.id}
+						onClick={() => onSearch(item.name)}
+					>
+						<ul className="bg-pink-500 mt-1 w-96 text-gray-900">
+							<Link to={`/productDetails/${item.id}`}>
+								<li className="px-6 py-2  text-black cursor-pointer w-full">
+									{item.name}
+								</li>
+							</Link>
+						</ul>
+					</div>
+				))}
+			</div>
+		</div>
+	);
 }
 
 /* */
- 
+
 /*
 import React from 'react'
 import Autosuggest from 'react-autosuggest';
