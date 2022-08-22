@@ -35,9 +35,9 @@ export default function SearchBar() {
         </div>
         
         <div>
-            {products.filter(item => {
+            {products?.filter(item => {
                 const searchTerm = value.toLowerCase();
-                const fullname = item.name.toLowerCase();
+                const fullname = item.name?.toLowerCase();
 
                 return searchTerm && fullname.startsWith(searchTerm) && fullname !== searchTerm;
             })
