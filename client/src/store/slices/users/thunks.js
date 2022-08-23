@@ -1,8 +1,10 @@
-import axios from 'axios'
+import axios from "axios";
 
-export const getUsers = () => {
-	return async dispatch => {
+export const AuthUserLogin = (user) => {
+	return async (dispatch) => {
 		try {
+			const login = await axios.post("login", user);
+			console.log(login);
 		} catch (e) {
 			console.error(e);
 		}
@@ -10,12 +12,12 @@ export const getUsers = () => {
 };
 
 export const postUser = (userCreated) => {
-	return async () => { 
+	return async () => {
 		try {
-			const user = await axios.post('users', userCreated);
+			const user = await axios.post("users", userCreated);
 			return user;
 		} catch (e) {
-			console.error(e)
+			console.error(e);
 		}
-	 }
-}
+	};
+};
