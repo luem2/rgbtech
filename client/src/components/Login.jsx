@@ -1,37 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 import { BsGoogle } from "react-icons/bs";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import logo from "../assets/logo-dibujo-2.png";
+import { AuthUserLogin } from "../store/slices/users/thunks";
 
 const Login = ({ closeModal }) => {
+	const dispatch = useDispatch();
+
+	const [input, setInput] = useState({
+		user: "",
+		password: "",
+	});
+
+	const handleInputChange = (e) => {
+		setInput({
+			...input,
+			[e.target.name]: e.target.value,
+		});
+	};
+
+	const handleLoginSubmit = (e) => {
+		e.preventDefault();
+		// dispatch(AuthUserLogin(input));
+		setInput({ user: "", password: "" });
+	};
 	return (
 		<div>
 			<div className="justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 text-black">
 				<div className="relative w-auto my-6 mx-auto max-w-3xl">
 					<div>
-						<div className="flex items-cente lg:justify-center">
+						<div className="flex items-center lg:justify-center">
 							<div className="flex flex-col overflow-hidden bg-white rounded-md shadow-lg max md:flex-row md:flex-1 lg:max-w-screen-md">
 								<div className="p-4 py-6 text-white bg-pink-500 md:w-80 md:flex-shrink-0 md:flex md:flex-col md:items-center md:justify-evenly">
 									<div className="my-3 text-4xl font-bold tracking-wider text-center">
-										<a href="#">RGBTech</a>
+										<span>RGBTech</span>
+										<img className="w-40 pt-4" src={logo} alt="logo-rgbtech" />
 									</div>
 									<p className="mt-6 font-normal text-center text-gray-300 md:mt-0">
-										Lorem ipsum dolor sit amet consectetur sunt incidunt tempora
-										repellendus impedit voluptatum quos corporis doloremque.
+										Buy the best products, at the best price available. At
+										rgbtech, you will find everything you want..
 									</p>
 									<p className="flex flex-col items-center justify-center mt-10 text-center">
 										<span>Don't have an account?</span>
-										<a href="/createUser" className="underline">
-											Get Started!
-										</a>
-									</p>
-									<p className="mt-6 text-sm text-center text-gray-300">
-										Read our{" "}
-										<a href="#" className="underline">
-											terms
-										</a>{" "}
-										and{" "}
-										<a href="#" className="underline">
-											conditions
-										</a>
+										<span className="text-xl">
+											👨‍🚀
+											<Link
+												style={{ textDecoration: "underline" }}
+												to="/createUser"
+											>
+												Get Started!
+											</Link>
+											🚀
+										</span>
 									</p>
 								</div>
 								<div className="p-5 bg-white md:flex-1">
@@ -41,15 +62,18 @@ const Login = ({ closeModal }) => {
 									<form action="#" className="flex flex-col space-y-5">
 										<div className="flex flex-col space-y-1">
 											<label
-												htmlFor="email"
+												htmlFor="user"
 												className="text-sm font-semibold text-gray-500"
 											>
-												Email address
+												Username
 											</label>
 											<input
-												type="email"
-												id="email"
+												type="text"
+												id="user"
+												name="user"
+												value={input.user}
 												autoFocus
+												onChange={handleInputChange}
 												className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-pink-100"
 											/>
 										</div>
@@ -61,16 +85,20 @@ const Login = ({ closeModal }) => {
 												>
 													Password
 												</label>
-												<a
-													href="#"
+												<Link
+													to="/createUser"
 													className="text-sm text-blue-600 hover:underline focus:text-blue-800"
+													tabIndex={-1}
 												>
 													Forgot Password?
-												</a>
+												</Link>
 											</div>
 											<input
 												type="password"
+												name="password"
 												id="password"
+												value={input.password}
+												onChange={handleInputChange}
 												className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-pink-100"
 											/>
 										</div>
@@ -78,6 +106,7 @@ const Login = ({ closeModal }) => {
 											<button
 												type="submit"
 												className="w-full px-4 py-2 text-lg font-semibold text-white transition-colors duration-300 bg-pink-500 rounded-md shadow hover:bg-pink-600 focus:outline-none focus:ring-blue-200 focus:ring-4"
+												onClick={handleLoginSubmit}
 											>
 												Log in
 											</button>
@@ -114,7 +143,6 @@ const Login = ({ closeModal }) => {
 							</div>
 						</div>
 					</div>
-					{/*footer*/}
 				</div>
 			</div>
 			<div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
