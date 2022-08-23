@@ -7,20 +7,24 @@ const { cloudinary } =require('../Utils/cloudinary.js')
 const router = Router();
 
 router.post("/", async (req, res) => {
-    let { user,password, mail,profilePhoto } = req.body;
+    try{ let { user,password, mail,profilePhoto } = req.body;
     console.log(req.body)
 
     if (!user || !password || !mail ) return res.status(404).send("Falta enviar datos obligatorios")
     password = await bcrypt.hash(password, 10);
 
-    const uploadedResponse = await cloudinary.uploader.
+    if(profilePhoto){const uploadedResponse = await cloudinary.uploader.
     upload(profilePhoto,{
         upload_preset:'RGBtech'})
-   try{ await User.create({
+    profilePhoto = uploadedResponse.secure_url }
+        else{
+            profilePhoto = "Image_Default"
+        }
+    await User.create({
         user,
         password,
         mail,
-        profilePhoto:uploadedResponse.secure_url,
+        profilePhoto:profilePhoto,
         isAdmin:false,
     })
         return res.send("User created successfully")
