@@ -1,14 +1,15 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getAllProducts } from "../store/slices/products/thunks.js";
+// import { getAllProducts } from "../store/slices/products/thunks.js";
 import Carousel from "../components/Carousel.jsx";
 import Header from "../components/Header/Header.jsx";
 import CategoriesCarousel from "../components/CategoriesSection/CategoriesSection.jsx";
 import Footer from "../components/Footer.jsx";
+import Alert from "../components/Alert.jsx";
 
 const Home = () => {
-	const dispatch = useDispatch();
+	// const dispatch = useDispatch();
 
 	useEffect(() => {
 		dispatch(getAllProducts());
