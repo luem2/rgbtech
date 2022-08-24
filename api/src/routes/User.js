@@ -32,8 +32,9 @@ router.post("/login", checkLoginBody, checkUserRegistration, async (req, res) =>
         if (await bcrypt.compare(password, findedUser.password)) {
             const {id, user, mail, profilePhoto, isAdmin} = findedUser
             const logedUser = {id, user, mail, profilePhoto, isAdmin}
+            console.log('logedUser', logedUser);
             const accessToken = jwt.sign(logedUser, process.env.SECRET);
-            return res.header("authorized", accessToken).json({
+            return res.status(200).json({
                 mssage: "usuario autenticado",
                 token: accessToken
             })

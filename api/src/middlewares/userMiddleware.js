@@ -25,7 +25,7 @@ module.exports = {
         return res.status(400).send('Mandatory data missing')
     }
   },
-  uploadNewUserPhoto: async () => {
+  uploadNewUserPhoto: async (req, res, next) => {
     const {profilePhoto} = req.body
     if(profilePhoto){
       const uploadedResponse = await cloudinary.uploader.upload(profilePhoto,{upload_preset:'RGBtech'})
@@ -37,6 +37,7 @@ module.exports = {
       }
   },
   checkLoginBody : (req, res, next) => {
+    console.log('checkLoginBody')
     const {user , password} = req.body
     if(!user && !password) {
       return res.status(400).send('Mandatory data missing')
@@ -44,6 +45,7 @@ module.exports = {
   },
 
   checkUserRegistration : async (req, res, next) => {
+    console.log('checkUserRegistration');
     const {user} = req.body
     try {
       const findedUser = await User.findOne({
@@ -52,6 +54,7 @@ module.exports = {
         }
       })
       req.body.findedUser = findedUser
+      console.log('findedUser', findedUser);
       return Object.keys(findedUser).length
       ? next()
       : res.status(404).send('User not found')
