@@ -22,7 +22,7 @@ const Login = ({ closeModal }) => {
 
 	const handleLoginSubmit = (e) => {
 		e.preventDefault();
-		// dispatch(AuthUserLogin(input));
+		dispatch(AuthUserLogin(input));
 		setInput({ user: "", password: "" });
 	};
 	return (

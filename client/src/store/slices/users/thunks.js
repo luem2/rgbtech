@@ -1,14 +1,24 @@
 import axios from "axios";
 
 export const AuthUserLogin = (user) => {
-	return async (dispatch) => {
+	return async () => {
 		try {
-			const login = await axios.post("login", user);
-			console.log(login);
+			const response = await axios.post("/users/login", user);
+			const token = response.data.token;
+			window.localStorage.setItem("token", token);
+			setAuthToken(token);
 		} catch (e) {
 			console.error(e);
 		}
 	};
+};
+
+export const setAuthToken = (token) => {
+	if (token) {
+		axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+	} else {
+		delete axios.defaults.headers.common["Authorization"];
+	}
 };
 
 export const postUser = (userCreated) => {
