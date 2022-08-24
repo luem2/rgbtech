@@ -44,7 +44,45 @@ router.post("/login", checkLoginBody, checkUserRegistration, async (req, res) =>
     }
 });
 
+router.put('/Cart', async(req,res,next)=>{
+    try {
+        //Asegurarse de vaciar esta propiedad al ejecutar esta compra
+        const {id}=req.params
+        const{cartShop}=req.body
+        await User.update({
+            cartShop:cartShop
+        },
+        {
+            where:{
+                id:id
+            }
+        })
+        res.send("CartShop de usuario actualizado")
 
+    } catch (error) {
+        next(error)  
+    }
+} );
+
+router.put('/favorite', async(req,res,next)=>{
+    try {
+        //Asegurarse de vaciar esta propiedad al ejecutar esta compra
+        const {id}=req.params
+        const{favorite}=req.body
+        await User.update({
+            favorite:favorite
+        },
+        {
+            where:{
+                id:id
+            }
+        })
+        res.send("Favoritos de usuario actualizado")
+
+    } catch (error) {
+        next(error)  
+    }
+} )
 
 
 module.exports = router;

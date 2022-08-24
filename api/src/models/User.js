@@ -20,22 +20,26 @@ module.exports = (sequelize) => {
       mail: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
       profilePhoto: {
         type: DataTypes.STRING,
         allowNull: true,
       },
+      cartShop: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: false
+      },
+      favorite: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: false
+      },
       isAdmin: {
         type: DataTypes.BOOLEAN,
-        defaultValue: false,
         allowNull: false,
       },
-      disabled: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: true,
-      }
     }, {
         timestamps: false
     });
   };
+
