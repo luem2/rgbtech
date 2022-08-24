@@ -39,6 +39,7 @@ export default function SearchBar() {
 				<input
 					className="bg-pink-600 text-black focus:outline-none pl-4 pt-2 pb-1 font-bold rounded-r-full"
 					value={value}
+					type="text"
 					onChange={onChange}
 				/>
 			</div>
@@ -50,7 +51,7 @@ export default function SearchBar() {
 						key={item.id}
 						onClick={() => onSearch(item.name)}
 					>
-						<ul className="bg-pink-500 mt-1 w-96 text-gray-900">
+						<ul className="absolute bg-pink-500 mt-1 w-96 text-gray-900">
 							<Link to={`/productDetails/${item.id}`}>
 								<li className="px-6 py-2  text-black cursor-pointer w-full">
 									{item.name}

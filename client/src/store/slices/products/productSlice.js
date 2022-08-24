@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
 	products: [],
+	filters: [],
 	productDetails: {},
 	response: {},
 	productsName: []
@@ -14,6 +15,7 @@ const productSlice = createSlice({
 		getProducts: (state, action) => {
 			const {data, nextPage, pageNumbers} = action.payload
 			state.products.push(...data)
+			console.log(data);
 			state.response = { nextPage, pageNumbers }
 		},
 		getProductsName: (state, action) => {
@@ -27,11 +29,14 @@ const productSlice = createSlice({
 		},
 		searchName: (state, action) => {
 			state.productsName = action.payload
-		}
+		},
+		getProductsFilters: (state, action) => {
+			state.filters = action.payload.data;
+		},
 	},
 });
 
-export const { getProducts, getDetailsProductById, clearDetails, searchName} =
+export const { getProducts, getDetailsProductById, clearDetails, searchName, getProductsFilters} =
 	productSlice.actions;
 
 export default productSlice.reducer;

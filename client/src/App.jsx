@@ -7,6 +7,7 @@ import CreateUser from "./pages/CreateUser"
 import AllProducts from "./pages/AllProducts"
 import ShoppingCart from "./pages/ShoppingCart";
 import SearchProducts from './pages/SeachProduct'
+import Filters from "./pages/Filters";
 
 function App() {
 	return (
@@ -17,6 +18,7 @@ function App() {
 					<Route path="/products" element={<AllProducts />} />
 					<Route path="/Search" element={<SearchProducts />} />
 					<Route path="/createUser" element={<CreateUser />} />
+					<Route path="/filters" element={<Filters />} />
 					<Route path="/shoppingCart" element={<ShoppingCart />} />
 					<Route path="/productDetails/:id" element={<ProductDetails />} />
 					<Route path="*" element={<NotFound />} />

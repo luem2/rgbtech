@@ -3,19 +3,14 @@ import { useSelector } from "react-redux";
 // import Header from "../components/Header/Header.jsx";
 
 export default function SearchBar() {
-    const { productsName } = useSelector((state) => state.products);
+    const { filters } = useSelector((state) => state.products);
 
     return(
         <div class="flex flex-col justify-center items-center min-h-screen bg-gray-50">
 
 
-  {productsName?.map(item =>
+  {filters?.map(item =>
             <div>
-                {/* <h3>{item.name}</h3>
-                <h3>{item.price}</h3>
-                <img src={item.image}/>
-                </div>
-            )}:<h1>No se encontraron produsctos</h1> */}
 
  
   <div class="bg-white shadow-md hover:scale-105 hover:shadow-xl duration-500">

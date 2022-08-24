@@ -1,20 +1,42 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo-dibujo-2.png";
+import { searchTagAction } from "../../store/slices/products/thunks";
 
 function HamburguerMenu() {
 	const [open, setOpen] = useState(false);
-	let links = [
-		{ name: "All products", link: "./products" },
-		{ name: "Equipos y notebooks", link: "./" },
-		{ name: "Consolas de videojuegos", link: "./" },
-		{ name: "Procesadores y coolers cpus", link: "./" },
-		{ name: "Memorias ram", link: "./" },
-		{ name: "Almacenamiento", link: "./" },
-		{ name: "Monitores y tvs", link: "./" },
-		{ name: "Teclados y mouses", link: "./" },
-		{ name: "Audio, parlantes, etc.", link: "./" },
+	const dispatch = useDispatch()
+
+// 	"Wireless",
+// "Gaming",
+// "Wired",
+// "Mouse",
+// "Keyboard",
+// "Monitor",
+// "Optical",
+// "Furniture",
+// "Laptops",
+// "Mobile",
+// "Audio",
+// "Microphone",
+// "RGB",
+// "Curveds"
+
+	const url = 'http://127.0.0.1:5173/products'
+	
+	let tags = [
+		{ name: "All products", tag: "" },
+		{ name: "Monitors", tag: "?tag=Monitor" },
+		{ name: "Laptops", tag: "?tag=Laptops" },
+		{ name: "Teclados", tag: "?tag=Keyboard" },
+		{ name: "mouses", tag: "?tag=Mouse" },
+		{ name: "Chairs and gaming desk", tag: "?tag=Furniture" },
+		{ name: "Consolas de videojuegos", tag: "?name=x&tag=monitor" },
+		{ name: "Audio, parlantes, etc.", tag: "?tag=Audio" },
 	];
+
+
 	return (
 		<div className="z-50 flex flex-row gap-5 ">
 			{!open ? (
@@ -42,15 +64,15 @@ function HamburguerMenu() {
 						<h1 className="text-black text-2xl pb-2 pt-6 font-bold font-mono">
 							Categorias
 						</h1>
-						{links.map((link, i) => (
+						{tags.map((tag, i) => (
 							<li key={i} className="text-black p-2 ml-1 font-mono">
 								<a className="flex items-center 
 								text-black py-5 px-6 h-10 
-								overflow-hidden text-gray-700 
+								overflow-hidden 
 								text-ellipsis whitespace-nowrap 
 								rounded hover:text-blue-600/100 hover:bg-gray-100 
 								transition duration-300 ease-in-out" 
-								href={link.link}>{link.name}</a>
+								href={url + tag.tag}>{tag.name}</a>
 							</li>
 						))}
 					</ul>

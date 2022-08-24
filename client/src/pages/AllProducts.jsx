@@ -1,15 +1,26 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useCallback } from "react";
 // import { useEffect } from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // import { getAllProducts } from "../store/slices/products/thunks";
 import  useProducts  from "../components/useProducts"
 import Header from "../components/Header/Header.jsx";
+import { useLocation } from "react-router-dom";
+import { getAllProducts } from "../store/slices/products/thunks";
 
 
 
 function AllProducts() {
+
+	const { search } =  useLocation();
+	const dispatch = useDispatch()
+
+
+	useEffect(() => {
+		dispatch(getAllProducts(null, search))
+	}, [])
+
 
 	// const dispatch = useDispatch();
 	const { products } = useSelector((state) => state.products);
