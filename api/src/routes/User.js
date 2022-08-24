@@ -3,6 +3,9 @@ const { User } = require('../db');
 const bcrypt  = require('bcrypt')
 const jwt = require("jsonwebtoken")
 const { cloudinary } =require('../Utils/cloudinary.js')
+const {
+    validateToken
+} = require("../middlewares/userMiddleware.js");
 
 const router = Router();
 
@@ -72,20 +75,6 @@ function generateAccessToken(user) {
     return jwt.sign(user, process.env.SECRET)
 }
 
-// function validateToken(req, res, next) {
-//     const accessToken = req.headers["authorized"] || req.query.accessToken;
-//     if (!accessToken) {
-//         res.send("Access denied")
-//     }
-//     jwt.verify(accessToken, process.env.SECRET, (err, user) => {
-//         if (err) {
-//             res.send("access denied")
-//         }
-//         else {
-//             req.user = user;
-//             next()
-//         }
-//     })
-// }
+
 
 module.exports = router;
