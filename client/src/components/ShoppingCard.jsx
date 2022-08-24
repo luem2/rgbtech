@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { BsFillTrashFill } from "react-icons/bs";
 import { GrSubtractCircle, GrAddCircle } from "react-icons/gr";
 
-const ShoppingCard = ({
-	price,
-	name,
-	img,
-	addProduct,
-	subProduct,
-	delProduct,
-}) => {
+const ShoppingCard = ({ price, name, img, delProduct }) => {
+	const [units, setUnits] = useState(1);
+
+	const addUnits = () => {
+		setUnits((prev) => prev + 1);
+	};
+
+	const subUnits = () => {
+		if (units === 1) return;
+		setUnits((prev) => prev - 1);
+	};
+
+	const totalProductPrice = price * units;
+
 	return (
 		<div className="flex justify-start p-2">
 			<div className="flex flex-col md:flex-row md:max-w-xl rounded-lg bg-white shadow-lg">
@@ -24,17 +30,19 @@ const ShoppingCard = ({
 						This is a special product of our RGBtech page for all our customers
 					</p>
 					<div className="flex justify-between items-center">
-						<p className="text-gray-600 text-xl font-bold">${price}</p>
-						<p className="text-lg font-semibold">Units: 2</p>
+						<p className="text-gray-600 text-xl font-bold">
+							${totalProductPrice}
+						</p>
+						<p className="text-lg font-semibold">Units: {units}</p>
 					</div>
 					<p className="flex mt-4 gap-2 text-2xl">
 						<GrAddCircle
 							className="bg-green-500 rounded-full hover:text-green-600 cursor-pointer hover:scale-110 duration-300"
-							onClick={addProduct}
+							onClick={addUnits}
 						/>
 						<GrSubtractCircle
 							className="bg-red-500 rounded-full hover:text-green-600 cursor-pointer hover:scale-110 duration-300"
-							onClick={subProduct}
+							onClick={subUnits}
 						/>
 						<BsFillTrashFill
 							className="text-red-500 hover:text-red-600 cursor-pointer hover:scale-110 duration-300"

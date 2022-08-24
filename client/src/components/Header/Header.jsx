@@ -5,7 +5,7 @@ import UserSection from "./UserSection";
 
 export default function Index() {
 	return (
-		<div className="flex w-auto justify-between flex-row items-center p-3 m-3 shadow-md">
+		<div className="flex justify-between flex-row items-center p-3 m-3 shadow-md">
 			<HamburguerMenu />
 
 			<SearchBar />
