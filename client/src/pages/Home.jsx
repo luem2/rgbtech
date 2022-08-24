@@ -7,6 +7,7 @@ import Header from "../components/Header/Header.jsx";
 import CategoriesCarousel from "../components/CategoriesSection/CategoriesSection.jsx";
 import Footer from "../components/Footer.jsx";
 
+
 const Home = () => {
 	const dispatch = useDispatch();
 

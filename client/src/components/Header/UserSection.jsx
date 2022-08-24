@@ -7,9 +7,13 @@ import {
 } from "react-icons/ai";
 import ModalMircha from "../ModalMircha/ModalMircha";
 import Login from "../Login";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const UserSection = () => {
 	const [modal, setModal] = useState(false);
+	const navigate = useNavigate();
+	const { cart } = useSelector((state) => state.guestShoppingCart);
 
 	function handleOpenModal() {
 		setModal(true);
@@ -36,7 +40,17 @@ const UserSection = () => {
 
 				<AiOutlineHeart className="hover:bg-red-500" />
 
-				<AiOutlineShoppingCart className="hover:bg-red-500" />
+				<div>
+					{cart.length > 0 && (
+						<span className="flex absolute top-8 right-5 bg-teal-500 p-1 items-center rounded-full text-white text-sm h-5">
+							{cart.length}
+						</span>
+					)}
+					<AiOutlineShoppingCart
+						className="hover:bg-red-500"
+						onClick={() => navigate("/shoppingCart")}
+					/>
+				</div>
 			</IconContext.Provider>
 		</div>
 	);
