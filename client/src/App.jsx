@@ -3,10 +3,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import ProductDetails from "./pages/ProductDetails";
-import CreateUser from "./pages/CreateUser"
-import AllProducts from "./pages/AllProducts"
+import CreateUser from "./pages/CreateUser";
+import AllProducts from "./pages/AllProducts";
 import ShoppingCart from "./pages/ShoppingCart";
-import SearchProducts from './pages/SeachProduct'
+import SearchProducts from "./pages/SeachProduct";
+import Profile from "./pages/Profile";
 
 function App() {
 	return (
@@ -16,6 +17,7 @@ function App() {
 					<Route path="/" element={<Home />} />
 					<Route path="/products" element={<AllProducts />} />
 					<Route path="/Search" element={<SearchProducts />} />
+					<Route path="/profile" element={<Profile />} />
 					<Route path="/createUser" element={<CreateUser />} />
 					<Route path="/shoppingCart" element={<ShoppingCart />} />
 					<Route path="/productDetails/:id" element={<ProductDetails />} />

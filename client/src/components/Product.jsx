@@ -7,10 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 function Product({ id, name, price, img }) {
 	const { cart } = useSelector((state) => state.guestShoppingCart);
-	const productsAdded = [];
+	const cartIDS = cart.map((p) => p.id);
 	const dispatch = useDispatch();
+
 	const handleAddCart = () => {
-		if (productsAdded.includes(id)) return;
+		if (cartIDS.includes(id)) return;
 		else {
 			dispatch(
 				addProduct({
@@ -20,7 +21,7 @@ function Product({ id, name, price, img }) {
 					img,
 				})
 			);
-			productsAdded.push(id);
+			cartIDS.push(id);
 		}
 	};
 	return (
