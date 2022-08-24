@@ -18,14 +18,17 @@ router.post(
 	uploadNewUserPhoto,
 	async (req, res) => {
 		let { password, newUser } = req.body;
+		console.log("newUser", newUser);
 		try {
 			const hashedPassword = await bcrypt.hash(password, 10);
+			console.log("hashedPassword", hashedPassword);
 			await User.create({
 				...newUser,
 				password: hashedPassword,
 			});
 			return res.status(201).send("User created successfully");
 		} catch (error) {
+			console.log(error);
 			return res.status(500).send("Internal Server Error");
 		}
 	}
@@ -38,8 +41,9 @@ router.post(
 	async (req, res) => {
 		try {
 			const { findedUser, password } = req.body;
-			if (await bcrypt.compare(password, findedUser.password)) {
-				const { id, user, mail, profilePhoto, isAdmin } = findedUser;
+			if (bcrypt.compareSync(password, findedUser.password)) {
+				const { id, user, mail, profilePhoto, cartShop, favorite, isAdmin } =
+					findedUser;
 				const logedUser = {
 					id,
 					user,
@@ -49,7 +53,6 @@ router.post(
 					favorite,
 					isAdmin,
 				};
-				console.log("logedUser", logedUser);
 				const accessToken = jwt.sign(logedUser, process.env.SECRET);
 				return res.status(200).json({
 					mssage: "usuario autenticado",

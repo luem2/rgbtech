@@ -4,6 +4,7 @@ export const AuthUserLogin = (user) => {
 	return async () => {
 		try {
 			const response = await axios.post("/users/login", user);
+			console.log(response);
 			const token = response.data.token;
 			window.localStorage.setItem("token", token);
 			setAuthToken(token);
@@ -24,7 +25,7 @@ export const setAuthToken = (token) => {
 export const postUser = (userCreated) => {
 	return async () => {
 		try {
-			await axios.post("users", userCreated);
+			await axios.post("users/register", userCreated);
 		} catch (e) {
 			console.error(e);
 		}
