@@ -43,7 +43,6 @@ module.exports = {
         req.query.pageNumber = 1
       }
       if (req.body.paginationPages > req.query.pageNumber) {
-        console.log('entro aquí')
         const nextUrl = req.originalUrl.replace(`pageNumber=${req.query.pageNumber}`, `pageNumber=${Number(req.query.pageNumber)+ 1}`)
         req.body.nextPage = `${req.protocol}://${req.get('host')}${nextUrl}`
         console.log(req.body.nextPage)

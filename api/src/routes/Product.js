@@ -174,4 +174,27 @@ router.delete("/:id", async (req, res, next) => {
 	}
 });
 
+router.get("/Cartshop", async (req, res) => {
+	const { carrito } = req.params;
+	try {
+		const CartProduct = await Product.filter(Item => carrito.map(id=> id === Item.id)
+		)
+		res.send(CartProduct);
+	}
+catch(error){
+	
+}})
+
+router.get("/Favorite", async (req, res) => {
+	const { fav } = req.params;
+	try {
+		const FavProduct = await Product.filter(Item => fav.map(id=> id === Item.id)
+		)
+		res.send(FavProduct);
+	}
+catch(error){
+	
+}})
+
+
 module.exports = router;
