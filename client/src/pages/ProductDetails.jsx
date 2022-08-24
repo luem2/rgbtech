@@ -37,10 +37,8 @@ const ProductDetails = () => {
 					<div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-xl p-4 m-4">
 						<div className="flex justify-around p-4 mt-2 mx-4 rounded-xl text-3xl">
 							<img
-								className="w-[40rem] h-[25rem] mb-4 rounded-3xl "
-								src={
-									"https://d3ugyf2ht6aenh.cloudfront.net/stores/001/067/624/products/b11-5fee2624ee5635664316210211070459-1024-1024.jpg"
-								}
+								className="w-[25rem] h-[20rem] mb-4 rounded-3xl "
+								src={product.img}
 								alt={product.name}
 							/>
 							<div className="flex flex-col m-4 gap-4 items-center">
