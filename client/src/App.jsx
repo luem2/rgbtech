@@ -5,6 +5,7 @@ import NotFound from "./pages/NotFound";
 import ProductDetails from "./pages/ProductDetails";
 import CreateUser from "./pages/CreateUser"
 import AllProducts from "./pages/AllProducts"
+import SearchProducts from './pages/SeachProduct'
 
 function App() {
 	return (
@@ -13,6 +14,7 @@ function App() {
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="/products" element={<AllProducts />} />
+					<Route path="/Search" element={<SearchProducts />} />
 					<Route path="/createUser" element={<CreateUser />} />
 					<Route path="/productDetails/:id" element={<ProductDetails />} />
 					<Route path="*" element={<NotFound />} />

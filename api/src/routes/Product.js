@@ -26,6 +26,8 @@ router.get("/search", async (req, res) => {
 				return {
 					id: p.id,
 					name: p.name,
+					price: p.price,
+					image: p.img,
 				};
 			});
 			res.send(namesProducts);

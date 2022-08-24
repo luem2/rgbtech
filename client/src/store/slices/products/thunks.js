@@ -23,17 +23,6 @@ export const getAllProducts = (num) => {
 	};
 };
 
-export const getProductByName = (name) => {
-	return async (dispatch) => {
-		try {
-			const products = await axios.get("products?name=" + name);
-			dispatch(getProductsName(products.data));
-		} catch (e) {
-			console.error(e);
-		}
-	};
-};
-
 export const getProductById = (id) => {
 	return async (dispatch) => {
 		try {

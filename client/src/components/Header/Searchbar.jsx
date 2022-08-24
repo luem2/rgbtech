@@ -2,10 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BsSearch } from "react-icons/bs";
-import {
-	searchNameAction,
-	getProductByName,
-} from "../../store/slices/products/thunks";
+import {searchNameAction,} from "../../store/slices/products/thunks";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function SearchBar() {
@@ -26,8 +23,7 @@ export default function SearchBar() {
 
 	const onClickHandler = (e) => {
 		e.preventDefault();
-		dispatch(getProductByName(value));
-		navigate("/products");
+		navigate("/Search")
 		setValue("");
 	};
 
