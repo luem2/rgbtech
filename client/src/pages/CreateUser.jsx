@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { postUser } from "../store/slices/users/thunks.js";
 import { useDispatch } from "react-redux";
-import logo from "../assets/logo-dibujo-2.png";
 import { Link, useNavigate } from "react-router-dom";
 import { VscError } from "react-icons/vsc";
+import logo from "../assets/logo-dibujo-2.png";
 
 const createUser = () => {
 	const [previewSource, setPreviewSource] = useState("");
@@ -12,7 +12,7 @@ const createUser = () => {
 	const [input, setInput] = useState({
 		user: "",
 		password: "",
-		email: "",
+		mail: "",
 		profilePhoto: "",
 	});
 
@@ -42,16 +42,15 @@ const createUser = () => {
 		const postFinal = {
 			user: input.user,
 			password: input.password,
-			email: input.email,
-			profilePhoto:
-				previewSource ||
-				"https://kva.com.ar/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png",
+			mail: input.mail,
+			profilePhoto: previewSource,
 		};
+
 		dispatch(postUser(postFinal));
 		setInput({
 			user: "",
 			password: "",
-			email: "",
+			mail: "",
 			profilePhoto: "",
 		});
 		setPreviewSource("");
@@ -96,7 +95,7 @@ const createUser = () => {
 									onChange={(e) => handleChange(e)}
 									className="peer px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-blue-200 "
 								/>
-								<p class="flex items-center justify-center gap-2 invisible peer-invalid:visible text-pink-600 font-normal">
+								<p className="flex items-center justify-center gap-2 invisible peer-invalid:visible text-pink-600 font-normal">
 									Please enter your username
 									<VscError />
 								</p>
@@ -119,7 +118,7 @@ const createUser = () => {
 									onChange={(e) => handleChange(e)}
 									className="peer px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-blue-200 "
 								/>
-								<p class="flex items-center justify-center gap-2 invisible peer-invalid:visible text-pink-600 font-normal">
+								<p className="flex items-center justify-center gap-2 invisible peer-invalid:visible text-pink-600 font-normal">
 									Please enter your password
 									<VscError />
 								</p>
@@ -127,21 +126,21 @@ const createUser = () => {
 							{/*------------------------------------------EMAIL------------------------------------------------*/}
 							<div className="flex flex-col space-y-1">
 								<label
-									htmlFor="email"
+									htmlFor="mail"
 									className="text-sm font-semibold text-gray-500"
 								>
 									Email address
 								</label>
 								<input
-									value={input.email}
-									type="email"
+									value={input.mail}
+									type="mail"
 									required
-									name="email"
+									name="mail"
 									onChange={(e) => handleChange(e)}
 									className="peer px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-blue-200 "
 								/>
 								<p className="flex items-center justify-center gap-2 invisible peer-invalid:visible text-pink-600 font-normal">
-									Please enter a valid email address
+									Please enter a valid mail address
 									<VscError />
 								</p>
 							</div>
@@ -186,7 +185,7 @@ const createUser = () => {
 							<div className="flex justify-center gap-4">
 								<button
 									type="button"
-									class="inline-block px-6 py-2.5 bg-blue-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out"
+									className="inline-block px-6 py-2.5 bg-blue-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out"
 								>
 									<Link to="/">🏠 Back Home</Link>
 								</button>

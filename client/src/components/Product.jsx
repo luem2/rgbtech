@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 function Product({ id, name, price, img }) {
 	const { cart } = useSelector((state) => state.guestShoppingCart);
 	const productsAdded = [];
-	console.log("productsAdded", productsAdded);
 	const dispatch = useDispatch();
 	const handleAddCart = () => {
 		if (productsAdded.includes(id)) return;

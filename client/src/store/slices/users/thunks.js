@@ -14,8 +14,7 @@ export const AuthUserLogin = (user) => {
 export const postUser = (userCreated) => {
 	return async () => {
 		try {
-			const user = await axios.post("users", userCreated);
-			return user;
+			await axios.post("users", userCreated);
 		} catch (e) {
 			console.error(e);
 		}
