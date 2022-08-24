@@ -2,8 +2,28 @@ import React from "react";
 import { Link } from "react-router-dom";
 // import { TbHeartPlus } from "react-icons/tb";
 import { GiShoppingCart } from "react-icons/gi";
+import { addProduct } from "../store/slices/guestShoppingCart/guestShoppingCartSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function Product({ id, name, price, img }) {
+	const { cart } = useSelector((state) => state.guestShoppingCart);
+	const productsAdded = [];
+	console.log("productsAdded", productsAdded);
+	const dispatch = useDispatch();
+	const handleAddCart = () => {
+		if (productsAdded.includes(id)) return;
+		else {
+			dispatch(
+				addProduct({
+					id,
+					name,
+					price,
+					img,
+				})
+			);
+			productsAdded.push(id);
+		}
+	};
 	return (
 		<div className="flex flex-wrap justify-center p-10">
 			<div className="flex flex-wrap justify-center rounded-lg shadow-xl max-w-sm">
@@ -21,7 +41,10 @@ function Product({ id, name, price, img }) {
 					<h1 className="p-2 cursor-pointer w-2 hover:scale-105">🖤</h1>
 					{/* <TbHeartPlus className="bg-red-200 rounded-2xl py-0.5 p-1 w-8 h-8 hover:scale-105 " /> */}
 
-					<GiShoppingCart className="bg-white rounded-3xl py-1 px-1 w-10 h-7 hover:scale-105 cursor-pointer" />
+					<GiShoppingCart
+						className="bg-white rounded-3xl py-1 px-1 w-10 h-7 hover:scale-105 cursor-pointer"
+						onClick={handleAddCart}
+					/>
 				</div>
 			</div>
 		</div>
@@ -29,6 +52,3 @@ function Product({ id, name, price, img }) {
 }
 
 export default Product;
-				
-						
-						
