@@ -1,11 +1,11 @@
 import React, { useRef } from "react";
 import { useCallback } from "react";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from "../store/slices/products/thunks";
+import { useSelector } from "react-redux";
+// import { getAllProducts } from "../store/slices/products/thunks";
 import  useProducts  from "../components/useProducts"
-import { Link } from "react-router-dom";
+import Header from "../components/Header/Header.jsx";
 
 
 
@@ -44,10 +44,10 @@ function AllProducts() {
 
 	return (
 		<div>
-			<br />
-			<br />
-			<br />
-			
+			<Header/>
+			<h1>
+			All our products here
+			</h1>
 			{products &&
 				products.map((elem, i) => {
 					if(products.length === i+1){
@@ -98,8 +98,8 @@ function AllProducts() {
 												aria-hidden="true"
 											>
 												<path
-													fill-rule="evenodd"
-													clip-rule="evenodd"
+													fillRule="evenodd"
+													clipRule="evenodd"
 													d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
 												/>
 											</svg>
@@ -131,12 +131,13 @@ function AllProducts() {
 						// 	</div>
 						// </div>
 					return (
+						
 						<div key={i} className="flex p-12 font-mono ">
 								<div className="flex rounded-xl justify-center shadow-2xl bg-pink-600 w-48 h-[230px] relative z-10 w-full before:h-full ">
 									<img
 										src={elem.img}
 										alt=""
-										className="absolute z-10 inset-0 pt-5 w-full object-center rounded-lg"
+										className="absolute z-10 inset-0 p-3 w-full object-center rounded-lg"
 										loading="lazy"
 									/>
 								</div>
@@ -177,8 +178,8 @@ function AllProducts() {
 												aria-hidden="true"
 											>
 												<path
-													fill-rule="evenodd"
-													clip-rule="evenodd"
+													fillRule="evenodd"
+													clipRule="evenodd"
 													d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
 												/>
 											</svg>

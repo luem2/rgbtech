@@ -7,10 +7,13 @@ import logo from "../assets/logo-dibujo2.png"
 
 const imagnaryProducts = [
 	 logo,
-    "https://www8.hp.com/my/en/images/02_hero_r1_700x500_tcm193_2638293_tcm193_2638346_tcm193-2638293.png",
-    "https://th.bing.com/th/id/R.4896c93d881bb34581dc88f7f3201e88?rik=VDJiYq0VLTKefg&pid=ImgRaw&r=0",
-    "https://th.bing.com/th/id/R.5de1e61a3db24af4bd4ad7dedc8da998?rik=Bi2LQWTh3yxseQ&pid=ImgRaw&r=0",
+    "https://cdn.shopify.com/s/files/1/2227/7667/products/CA-9011204-AP-Gallery-VOID-RGB-ELITE-USB-WHITE-01_large.png?v=1581667224",
+    "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661042263/RGBtech/ImageProduct/SK622_Wireless_pojnja.png",
+    "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661131098/RGBtech/ImageProduct/C8_a72eqr.png",
+	"https://th.bing.com/th/id/R.d960b4953015ded2ff60230a1dfc4d1c?rik=JvUe4hCiXK1qow&pid=ImgRaw&r=0",
+	"https://th.bing.com/th/id/R.2d00452fc652930250bbfdd346a7402c?rik=nluTqm16LanhkQ&pid=ImgRaw&r=0",
 ];
+// MEDIDAS IMG 480x480
 
 let count = 0;
 let slideInterval;
@@ -61,7 +64,7 @@ function Carousel() {
 		<div ref={slideRef} className="w-auto select-none">
 			<div className="flex flex-wrap justify-center">
 				<img
-					className="pt-5 pb-20 cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
+					className="pt-5 pb-15 mr-10 hover:scale-105 transition duration-300 ease-in-out"
 					src={imagnaryProducts[currentIndex]}
 					alt=""
 				/>
@@ -69,16 +72,16 @@ function Carousel() {
 
 			<div className="flex flex-wrap justify-center">
 				<button
-					className="absolute bottom-80 flex items-center justify-center text-center hover:scale-110 left-0"
+					className="absolute bottom-60 flex items-center justify-center text-center hover:scale-110 left-20"
 					onClick={handleOnPrevClick}
 				>
-					<IoMdArrowDropleft size={40} />
+					<IoMdArrowDropleft size={50} />
 				</button>
 				<button
-					className="absolute bottom-80 flex items-center justify-center text-center hover:scale-110 right-0"
+					className="absolute bottom-60 flex items-center justify-center text-center hover:scale-110 right-20"
 					onClick={handleOnNextClick}
 				>
-					<IoMdArrowDropright size={40} />
+					<IoMdArrowDropright size={50} />
 				</button>
 			</div>
 		</div>
