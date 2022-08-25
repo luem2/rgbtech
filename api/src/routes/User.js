@@ -9,16 +9,40 @@ const {
 	checkLoginBody,
 	checkUserRegistration,
 } = require("../middlewares/userMiddleware.js");
+const {htmlMail} = require('../Utils/EmailTemplate.js')
+const nodemailer = require('nodemailer')
+
 
 const router = Router();
 
-router.post(
-	"/register",
-	checkSingupBody,
-	uploadNewUserPhoto,
-	async (req, res) => {
+const hashPassword = (req, res, next) => {
+
+}
+
+
+
+const sendConfirmationEmail = async (newUser) => {
+	const emailToken = jwt.sign(newUser, process.env.SECRET, {expiresIn: '1d'})
+	const url = `http://localhost:5173/confirmation/${emailToken}`
+	const transporter = nodemailer.createTransport({
+		service: 'gmail',
+		auth: {
+			user: 'rgbtechPF@gmail.com',
+			pass: 'qqilqandbimpiaxu'
+		}
+	})
+	const html = htmlMail(url)
+	await transporter.sendMail({
+		from: "rgbtech@tech.com",
+		to: newUser.mail,
+		subject: "Confirmation",
+		html
+	})
+}
+
+
+router.post("/register", checkSingupBody, uploadNewUserPhoto, async (req, res) => {
 		let { password, newUser } = req.body;
-		console.log("newUser", newUser);
 		try {
 			const hashedPassword = await bcrypt.hash(password, 10);
 			console.log("hashedPassword", hashedPassword);
@@ -26,6 +50,7 @@ router.post(
 				...newUser,
 				password: hashedPassword,
 			});
+			await sendConfirmationEmail(newUser)
 			return res.status(201).send("User created successfully");
 		} catch (error) {
 			console.log(error);
@@ -42,8 +67,7 @@ router.post(
 		try {
 			const { findedUser, password } = req.body;
 			if (bcrypt.compareSync(password, findedUser.password)) {
-				const { id, user, mail, profilePhoto, cartShop, favorite, isAdmin } =
-					findedUser;
+				const { id, user, mail, profilePhoto, cartShop, favorite, isAdmin } = findedUser;
 				const logedUser = {
 					id,
 					user,
