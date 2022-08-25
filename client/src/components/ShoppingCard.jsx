@@ -1,21 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { BsFillTrashFill } from "react-icons/bs";
 import { GrSubtractCircle, GrAddCircle } from "react-icons/gr";
 
-const ShoppingCard = ({ price, name, img, delProduct }) => {
-	const [units, setUnits] = useState(1);
-
-	const addUnits = () => {
-		setUnits((prev) => prev + 1);
-	};
-
-	const subUnits = () => {
-		if (units === 1) return;
-		setUnits((prev) => prev - 1);
-	};
-
-	const totalProductPrice = price * units;
-
+const ShoppingCard = ({
+	name,
+	img,
+	units,
+	addUnits,
+	subUnits,
+	delProduct,
+	totalProductPrice,
+}) => {
 	return (
 		<div className="flex justify-start p-2">
 			<div className="flex flex-col md:flex-row md:max-w-xl rounded-lg bg-white shadow-lg">
