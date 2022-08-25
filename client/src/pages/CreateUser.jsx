@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { postUser } from "../store/slices/users/thunks.js";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { VscError } from "react-icons/vsc";
 import logo from "../assets/logo-dibujo-2.png";
 
 const createUser = () => {
@@ -95,9 +94,8 @@ const createUser = () => {
 									onChange={(e) => handleChange(e)}
 									className="peer px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-blue-200 "
 								/>
-								<p className="flex items-center justify-center gap-2 invisible peer-invalid:visible text-pink-600 font-normal">
+								<p className="flex items-center gap-2 invisible peer-invalid:visible text-pink-600 font-normal">
 									Please enter your username
-									<VscError />
 								</p>
 							</div>
 							{/*------------------------------------------PASSWORD------------------------------------------------*/}
@@ -118,9 +116,8 @@ const createUser = () => {
 									onChange={(e) => handleChange(e)}
 									className="peer px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-blue-200 "
 								/>
-								<p className="flex items-center justify-center gap-2 invisible peer-invalid:visible text-pink-600 font-normal">
+								<p className="flex items-center gap-2 invisible peer-invalid:visible text-pink-600 font-normal">
 									Please enter your password
-									<VscError />
 								</p>
 							</div>
 							{/*------------------------------------------EMAIL------------------------------------------------*/}
@@ -139,9 +136,8 @@ const createUser = () => {
 									onChange={(e) => handleChange(e)}
 									className="peer px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-blue-200 "
 								/>
-								<p className="flex items-center justify-center gap-2 invisible peer-invalid:visible text-pink-600 font-normal">
+								<p className="flex items-center gap-2 invisible peer-invalid:visible text-pink-600 font-normal">
 									Please enter a valid mail address
-									<VscError />
 								</p>
 							</div>
 							{/*------------------------------------------PHOTO------------------------------------------------*/}
