@@ -10,6 +10,7 @@ module.exports = {
 		const whereConditions = {};
 		name ? (whereConditions.name = { [Op.iLike]: `%${name}%` }) : null;
 		brand ? (whereConditions.brandId = { [Op.eq]: brand }) : null;
+		whereConditions.stock = {[Op.gt]: 0}
 		//Search by tag
 		const tagQuery = {};
 		tag ? (tagQuery.name = { [Op.iLike]: `%${tag}%` }) : null;

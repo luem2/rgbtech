@@ -5,7 +5,7 @@ const {
 	setPagination,
 	checkPost,
 } = require("../middlewares/productMiddleware.js");
-const { Op } = require("sequelize");
+// const { Op } = require("sequelize");
 
 const router = Router();
 
