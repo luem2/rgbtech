@@ -3,13 +3,14 @@ const { Op } = require("sequelize");
 
 module.exports = {
 	setQueryConditions: (req, res, next) => {
-		const { order, column, name, tag, brand } = req.query;
+		const { order, column, name, tag, brand, price} = req.query;
 		const sorting = [];
 		column && order ? sorting.push([column, order]) : null;
 		//Search by name || brand
 		const whereConditions = {};
 		name ? (whereConditions.name = { [Op.iLike]: `%${name}%` }) : null;
 		brand ? (whereConditions.brandId = { [Op.eq]: brand }) : null;
+		price ? (whereConditions.price = {[Op.gte]: price}): null
 		whereConditions.stock = {[Op.gt]: 0}
 		//Search by tag
 		const tagQuery = {};
