@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo-dibujo-2.png";
-import { searchTagAction } from "../../store/slices/products/thunks";
 
 function HamburguerMenu() {
 	const [open, setOpen] = useState(false);
-	const dispatch = useDispatch()
 
 // 	"Wireless",
 // "Gaming",

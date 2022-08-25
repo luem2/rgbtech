@@ -13,13 +13,13 @@ import { getAllProducts } from "../store/slices/products/thunks";
 
 function AllProducts() {
 
-	const { search } =  useLocation();
-	const dispatch = useDispatch()
+	// const { search } =  useLocation();
+	// const dispatch = useDispatch()
 
 
-	useEffect(() => {
-		dispatch(getAllProducts(null, search))
-	}, [])
+	// useEffect(() => {
+	// 	dispatch(getAllProducts(null, search))
+	// }, [])
 
 
 	// const dispatch = useDispatch();
