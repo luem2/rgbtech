@@ -21,7 +21,6 @@ router.post("/register", checkSingupBody, uploadNewUserPhoto, async (req, res) =
 		let { password, newUser } = req.body;
 		try {
 			const hashedPassword = await bcrypt.hash(password, 10);
-			console.log("hashedPassword", hashedPassword);
 			await User.create({
 				...newUser,
 				password: hashedPassword,
