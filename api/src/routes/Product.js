@@ -9,33 +9,6 @@ const { Op } = require("sequelize");
 
 const router = Router();
 
-router.get("/search", async (req, res) => {
-	const { name } = req.query;
-	try {
-		if (!name) {
-			res.send([]);
-		} else {
-			const products = await Product.findAll({
-				where: {
-					name: {
-						[Op.iLike]: `%${name}%`,
-					},
-				},
-			});
-			const namesProducts = products.map((p) => {
-				return {
-					id: p.id,
-					name: p.name,
-					price: p.price,
-					image: p.img,
-				};
-			});
-			res.send(namesProducts);
-		}
-	} catch (error) {
-		res.send(error);
-	}
-});
 
 router.get("/", setQueryConditions, setPagination, async (req, res) => {
 	try {
@@ -59,31 +32,14 @@ router.get("/", setQueryConditions, setPagination, async (req, res) => {
 	}
 });
 
-router.get("/All", async (req, res) => {
-	const { name } = req.query;
+router.get("/name-list", async (req, res) => {
 	try {
-		const AllProduct = await Product.findAll({
-			include: {
-				model: Tag,
-				through: {
-					attributes: [],
-				},
-			},
-		});
-		if (name) {
-			let ProductName = AllProduct.filter((e) => {
-				if (e && e.name) {
-					return e.name.toLowerCase().includes(name.toLowerCase());
-				}
-			});
-			res.status(200).send(ProductName);
-		} else {
-			res.status(200).send(AllProduct);
-		}
+		const nameList = await Product.findAll({attributes: [['name', 'label'], ['id', 'value']]})
+		res.status(200).send(nameList)
 	} catch (error) {
-		res.status(500).send(error);
-	}
-});
+		res.status(500).send('Internal server error')
+	} 
+})
 
 router.get("/:id", async (req, res) => {
 	try {
