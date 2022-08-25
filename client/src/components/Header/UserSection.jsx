@@ -9,6 +9,7 @@ import ModalMircha from "../ModalMircha/ModalMircha";
 import Login from "../Login";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { hasJWT } from "../../store/thunks";
 
 const UserSection = () => {
 	const [modal, setModal] = useState(false);
@@ -16,7 +17,7 @@ const UserSection = () => {
 	const { cart } = useSelector((state) => state.guestShoppingCart);
 
 	function handleOpenModal() {
-		setModal(true);
+		hasJWT() ? navigate("/profile") : setModal(true);
 	}
 
 	function handleCloseModal() {

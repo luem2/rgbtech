@@ -41,7 +41,6 @@ router.get("/", setQueryConditions, setPagination, async (req, res) => {
 	try {
 		const { count, nextPage, limit, offset, queryConditions, paginationPages } =
 			req.body;
-		console.log(req.body);
 		const products = await Product.findAll({
 			...queryConditions,
 			limit,
@@ -177,24 +176,21 @@ router.delete("/:id", async (req, res, next) => {
 router.get("/Cartshop", async (req, res) => {
 	const { carrito } = req.params;
 	try {
-		const CartProduct = await Product.filter(Item => carrito.map(id=> id === Item.id)
-		)
+		const CartProduct = await Product.filter((Item) =>
+			carrito.map((id) => id === Item.id)
+		);
 		res.send(CartProduct);
-	}
-catch(error){
-	
-}})
+	} catch (error) {}
+});
 
 router.get("/Favorite", async (req, res) => {
 	const { fav } = req.params;
 	try {
-		const FavProduct = await Product.filter(Item => fav.map(id=> id === Item.id)
-		)
+		const FavProduct = await Product.filter((Item) =>
+			fav.map((id) => id === Item.id)
+		);
 		res.send(FavProduct);
-	}
-catch(error){
-	
-}})
-
+	} catch (error) {}
+});
 
 module.exports = router;
