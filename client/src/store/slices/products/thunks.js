@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getProducts, getDetailsProductById, searchName, getProductsFilters } from "./productSlice";
+import { getProducts, getDetailsProductById, searchName, getProductsFilters,getFilt } from "./productSlice";
 
 export const searchNameAction = (input) => {
 	return async (dispatch) => {
@@ -51,4 +51,43 @@ export const getProductById = (id) => {
 			console.error(e);
 		}
 	};
+};
+
+export const getProductsBestSeller = () => {
+	return async (dispatch) => {
+		try {
+			const products = await axios.get("products/BestSeller");
+			console.log(products)
+			dispatch(getFilt(products.data));
+		} catch (e) {
+			console.error(e);
+		}}
+};
+export const getProductDiscount = () => {
+	return async (dispatch) => {
+	try {
+		const products = await axios.get("products/Discount");
+		dispatch(getFilt(products.data));
+	} catch (e) {
+		console.error(e);
+	}}
+};
+
+export const getProductFreeShep = () => {
+	return async (dispatch) => {
+	try {
+		const products = await axios.get("products/FreeShipping");
+		dispatch(getFilt(products.data));
+	} catch (e) {
+		console.error(e);
+	}}
+};
+
+export const setProduct = () => {
+	try {
+		const products = [""]
+		dispatch(getFilt(products.data));
+	} catch (e) {
+		console.error(e);
+	}
 };

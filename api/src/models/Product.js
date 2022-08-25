@@ -23,6 +23,9 @@ module.exports = (sequelize) => {
       type: DataTypes.JSONB,
       allowNull: false
     },
+    sales: {
+      type: DataTypes.INTEGER,
+    },
     img:{
       type: DataTypes.STRING
     },
@@ -41,6 +44,9 @@ module.exports = (sequelize) => {
     freeShipping: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
+    },
+    rating: {
+      type: DataTypes.INTEGER,
     }
   },{
     timestamps: false

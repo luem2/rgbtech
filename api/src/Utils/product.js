@@ -15,10 +15,11 @@ const products =[
                         "Backlit":"Yes",
                         "Type":"Wired"}],
         "img": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399991/RGBtech/ImageProduct/K60_rgbPro_Mec%C3%A1nico_l6sl9q.png",
-        "stock":10,
+        "stock":1,
         "onDiscount":false,
         "discountPercentage":0,
         "freeShipping":false,
+        "sales": 300,
         "brand": "57040fe2fe7a0a1e9ab043ae1f5d9845" ,
         "tag": ["9eed85ad420e3a3c986cdc6d7e77854d", "48b773c837465a9904ae56389cd0dc9d"]
     },
@@ -43,10 +44,11 @@ const products =[
                           }],
                        
         "img":"https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399993/RGBtech/ImageProduct/SK622_Wireless_kavxg7.png",
-        "stock":10,
+        "stock":1,
         "onDiscount":false,
         "discountPercentage":0,
         "freeShipping":false,
+        "sales": 200,
         "brand": "35e2a932e4d5c0cc1a3ada0e18dbaa08" ,
         "tag": ["7beff197adfc70df7ee315bfa4b1af75","9eed85ad420e3a3c986cdc6d7e77854d","6ce4d85a628a88bbdb3ac24a8e5a9c2e" ,"889574aebacda6bfd3e534e2b49b8028" ]
     },
@@ -62,10 +64,11 @@ const products =[
                           "Dimensions":`(19.57" x 7.80" x 2.05")`,
                           "Type":"Wired"}],
         "img":"https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399990/RGBtech/ImageProduct/Z12_RGB_x65geb.png",
-        "stock":10,
+        "stock":1,
         "onDiscount":false,
         "discountPercentage":0,
         "freeShipping":true,
+        "sales": 150,
         "brand": "9484ef97caaa42c5c67671f8533f5e1c",
         "tag": ["9eed85ad420e3a3c986cdc6d7e77854d","6ce4d85a628a88bbdb3ac24a8e5a9c2e","889574aebacda6bfd3e534e2b49b8028" ,"1a346a023e7001dff4c6467ce061e681"]
     },
@@ -84,10 +87,11 @@ const products =[
                           "Dimensions":`(1.50" x 17.13" x 5.31")`,
                           "Type":"Wired"}],
         "img":"https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399993/RGBtech/ImageProduct/Vigor_GK50_Elite_j0yajg.png",
-        "stock":10,
+        "stock":1,
         "onDiscount":false,
         "discountPercentage":0,
         "freeShipping":false,
+        "sales": 100,
         "brand": "8726e36e9d6d53646390d495b4ce9dc1",
         "tag": ["9eed85ad420e3a3c986cdc6d7e77854d","6ce4d85a628a88bbdb3ac24a8e5a9c2e","889574aebacda6bfd3e534e2b49b8028" ,"1a346a023e7001dff4c6467ce061e681"]
         
@@ -107,10 +111,11 @@ const products =[
                           "Type":"Wired"}],
                           
         "img":"https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399997/RGBtech/ImageProduct/K55_RGB_PRO_XT_wg7mpa.png",
-        "stock":10,
+        "stock":1,
         "onDiscount":false,
         "discountPercentage":0,
         "freeShipping":false,
+        "sales": 50,
         "brand": "5ce8b65747cd41acd3f9b9636df9a84f",
         "tag": ["9eed85ad420e3a3c986cdc6d7e77854d","6ce4d85a628a88bbdb3ac24a8e5a9c2e","889574aebacda6bfd3e534e2b49b8028" ,"1a346a023e7001dff4c6467ce061e681"]
     },
@@ -131,10 +136,11 @@ const products =[
                         "Type ":"Wired"}],
                         
         "img":"https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399994/RGBtech/ImageProduct/Devastator_3_ieiies.png",
-        "stock":10,
+        "stock":1,
         "onDiscount":false,
         "discountPercentage":0,
         "freeShipping":false,
+        "sales": 80,
         "brand": "35e2a932e4d5c0cc1a3ada0e18dbaa08",
         "tag": ["9eed85ad420e3a3c986cdc6d7e77854d","6ce4d85a628a88bbdb3ac24a8e5a9c2e","889574aebacda6bfd3e534e2b49b8028" ,"1a346a023e7001dff4c6467ce061e681", "f2a47c6809d88e175dade0ef7b16aa13"]
     },
@@ -153,10 +159,11 @@ const products =[
                         "Scrolling Capability":"Tilt Wheel",
                         "Color":"Black"}],
         "img":"https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399993/RGBtech/ImageProduct/Vigor_GK50_Elite_j0yajg.png",
-        "stock":10,
+        "stock":1,
         "onDiscount":false,
         "discountPercentage":0,
         "freeShipping":false,
+        "sales": 70,
         "brand": "ff70d460a420205ceeea16f1c13e51b1",
         "tag": ["9eed85ad420e3a3c986cdc6d7e77854d","7beff197adfc70df7ee315bfa4b1af75","f2a47c6809d88e175dade0ef7b16aa13" ]
     },
@@ -174,10 +181,11 @@ const products =[
                         "Buttons":"8",
                         "Color":"Black"}],
         "img":"https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399321/RGBtech/ImageProduct/Viper_8KHz_tmu44j.png",
-        "stock":10,
+        "stock":1,
         "onDiscount":false,
         "discountPercentage":0,
         "freeShipping":false,
+        "sales": 90,
         "brand": "dbda74c3c1b5c97a5ebeaa044316df8d",
         "tag": ["1a346a023e7001dff4c6467ce061e681","f2a47c6809d88e175dade0ef7b16aa13","9eed85ad420e3a3c986cdc6d7e77854d", "aee29a47b41e6ec5d352b1a515c37e82"]
     },
@@ -195,10 +203,11 @@ const products =[
                         "Hand Orientation":"Right Hand",
                         "Color":"Black"}],
         "img":"https://res.cloudinary.com/ddroxn7iv/image/upload/v1661432725/RGBtech/ImageProduct/DeathAdder_V2_Pro_xrquxp.png",
-        "stock":10,
+        "stock":1,
         "onDiscount":false,
         "discountPercentage":0,
         "freeShipping":false,
+        "sales": 350,
         "brand": "dbda74c3c1b5c97a5ebeaa044316df8d",
         "tag": ["7beff197adfc70df7ee315bfa4b1af75" ,"f2a47c6809d88e175dade0ef7b16aa13" ,"9eed85ad420e3a3c986cdc6d7e77854d" ,"aee29a47b41e6ec5d352b1a515c37e82" ]
     },
@@ -213,10 +222,11 @@ const products =[
                         "Tracking Method":"Optical",
                         "Color":"Black"}],
         "img":"https://res.cloudinary.com/ddroxn7iv/image/upload/v1661432729/RGBtech/ImageProduct/Clutch_GM08_jnfaqg.png",
-        "stock":10,
-        "onDiscount":true,
-        "discountPercentage":15,
+        "stock":1,
+        "onDiscount":false,
+        "discountPercentage":0,
         "freeShipping":false,
+        "sales": 255,
         "brand": "8726e36e9d6d53646390d495b4ce9dc1",
         "tag": ["1a346a023e7001dff4c6467ce061e681","f2a47c6809d88e175dade0ef7b16aa13","9eed85ad420e3a3c986cdc6d7e77854d" ]
     },
@@ -234,10 +244,11 @@ const products =[
                         "Mouse Adjustable Weight":"Yes",
                         "Color":"Black"}],
         "img":"https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399321/RGBtech/ImageProduct/X17_kkzalg.png",
-        "stock":10,
+        "stock":1,
         "onDiscount":false,
         "discountPercentage":0,
         "freeShipping":false,
+        "sales": 40,
         "brand": "9484ef97caaa42c5c67671f8533f5e1c",
         "tag": ["9eed85ad420e3a3c986cdc6d7e77854d","1a346a023e7001dff4c6467ce061e681","f2a47c6809d88e175dade0ef7b16aa13"]
     },
@@ -264,10 +275,11 @@ const products =[
                         "Refresh Rate":"144 Hz",
                         "VESA Certified DisplayHDR":"DisplayHDR 400"}],
         "img":"https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399941/RGBtech/ImageProduct/G27Q_nl9ebk.png",
-        "stock":10,
+        "stock":1,
         "onDiscount":false,
         "discountPercentage":0,
         "freeShipping":false,
+        "sales": 30,
         "brand": "1ec2744b3a948fae2382b1ec7bdb962b",
         "tag": ["d2986ac8cb6bd55892099c1ffd6b1f6f", "9eed85ad420e3a3c986cdc6d7e77854d" ]
     },
@@ -297,10 +309,11 @@ const products =[
                         "Pixel Pitch":"0.3114mm",
                         "Curvature Radius":"1500R"}],
         "img":"https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399942/RGBtech/ImageProduct/ED270_Xbmiipx_vekewd.png",
-        "stock":10,
+        "stock":1,
         "onDiscount":false,
         "discountPercentage":0,
         "freeShipping":false,
+        "sales": 20,
         "brand": "1fafb49d0510b71e777743a9b4e9b2b6",
         "tag": ["d2986ac8cb6bd55892099c1ffd6b1f6f", "9b9e5e2569583d95e9f6437b8c92e443", "9eed85ad420e3a3c986cdc6d7e77854d"]
     },
@@ -329,10 +342,11 @@ const products =[
                         "Horizontal Refresh Rate":"30 - 185 KHz",
                         "Vertical Refresh Rate":"48 - 144 Hz"}],
         "img":"https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399941/RGBtech/ImageProduct/TUF_GAMING_VG24VQ_r9hobb.png",
-        "stock":10,
+        "stock":1,
         "onDiscount":false,
         "discountPercentage":0,
         "freeShipping":false,
+        "sales": 175,
         "brand": "5ed0b5f41b21804e51e82664dc24e2dd",
         "tag": ["d2986ac8cb6bd55892099c1ffd6b1f6f", "9b9e5e2569583d95e9f6437b8c92e443", "9eed85ad420e3a3c986cdc6d7e77854d"]
     },
@@ -357,10 +371,11 @@ const products =[
                         "Display Colors":"16.7 Million",
                         "Refresh Rate":"165 Hz (Max)"}],
         "img":"https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399941/RGBtech/ImageProduct/Odyssey_G32A_fun6rn.png",
-        "stock":10,
+        "stock":1,
         "onDiscount":false,
         "discountPercentage":0,
         "freeShipping":false,
+        "sales": 280,
         "brand": "20e1b3688e94df3f62d35b44df5f7954",
         "tag": ["d2986ac8cb6bd55892099c1ffd6b1f6f" ,"9eed85ad420e3a3c986cdc6d7e77854d"]
     },
@@ -379,10 +394,11 @@ const products =[
                         "Recommended Resolution":"2560 x 1440 (2K)",
                         "Viewing Angle":"178° (H) / 178° (V)"}],
         "img":"https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399942/RGBtech/ImageProduct/X27qc_kin3ua.png",
-        "stock":13,
+        "stock":1,
         "onDiscount":false,
         "discountPercentage":0,
         "freeShipping":false,
+        "sales": 357,
         "brand": "e6fc8ce107f2bdf0955f021a391514ce",
         "tag": ["d2986ac8cb6bd55892099c1ffd6b1f6f", "9b9e5e2569583d95e9f6437b8c92e443", "9eed85ad420e3a3c986cdc6d7e77854d"]
     },
@@ -402,9 +418,10 @@ const products =[
                         "Viewing Angle":"178° (H) / 178° (V)"}],
         "img":"https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399941/RGBtech/ImageProduct/UltraGear_24GN650-B_atrks8.png",
         "stock":1,
-        "onDiscount":true,
-        "discountPercentage":10,
+        "onDiscount":false,
+        "discountPercentage":0,
         "freeShipping":false,
+        "sales": 302,
         "brand": "3138b8e6061fdf7cfaaa79279175cbcd",
         "tag": ["d2986ac8cb6bd55892099c1ffd6b1f6f" ,"9eed85ad420e3a3c986cdc6d7e77854d"]
     },
@@ -428,6 +445,7 @@ const products =[
         "onDiscount":false,
         "discountPercentage":0,
         "freeShipping":false,
+        "sales": 333,
         "brand": "28c85effa7edd6ad0d7718132fffabbf",
         "tag": ["bb3a8b2e390142074e49741a0121d623", "9eed85ad420e3a3c986cdc6d7e77854d"]
     },
@@ -442,10 +460,11 @@ const products =[
                         "Material":"Mesh",
                         "Frame Construction":"Metal"}],
         "img":"https://res.cloudinary.com/ddroxn7iv/image/upload/v1661432702/RGBtech/ImageProduct/Gaming_Office_Chair_ohchvj.png",
-        "stock":0,
+        "stock":1,
         "onDiscount":false,
         "discountPercentage":0,
         "freeShipping":false,
+        "sales": 257,
         "brand": "a39500424bb575b56953373955c1833c",
         "tag": ["bb3a8b2e390142074e49741a0121d623", "9eed85ad420e3a3c986cdc6d7e77854d"]
     },
@@ -461,10 +480,11 @@ const products =[
                         "Surface Width":"43.3 inch",
                         "Surface Thickness":"0.6 inch"}],
         "img":"https://res.cloudinary.com/ddroxn7iv/image/upload/v1661432826/RGBtech/ImageProduct/Gaming_Desk_vr02u8.png",
-        "stock":20,
+        "stock":1,
         "onDiscount":false,
         "discountPercentage":0,
         "freeShipping":false,
+        "sales": 30,
         "brand": "0185f510985b0224ce139b6238b6fe9f",
         "tag": ["9eed85ad420e3a3c986cdc6d7e77854d", "bb3a8b2e390142074e49741a0121d623"]
     },
@@ -483,10 +503,11 @@ const products =[
                         "Swivel":"360 Degree",
                         "Ergonomic":"Yes"}],
         "img":"https://res.cloudinary.com/ddroxn7iv/image/upload/v1661432702/RGBtech/ImageProduct/Homall_Chair__T-OCRC0082_ob0upo.png",
-        "stock":11,
+        "stock":1,
         "onDiscount":false,
         "discountPercentage":0,
         "freeShipping":false,
+        "sales": 341,
         "brand": "013be00f05b0187adab42830f3102565",
         "tag": ["bb3a8b2e390142074e49741a0121d623", "9eed85ad420e3a3c986cdc6d7e77854d"]
     },
@@ -508,10 +529,11 @@ const products =[
                         "Dimensions (W x D x H)":`14.13" x 9.99" x 0.85"`,
                         "Weight":"4.10 lbs."}],
         "img":"https://res.cloudinary.com/ddroxn7iv/image/upload/v1661432782/RGBtech/ImageProduct/GF_Series_GF63_Thin_11UC-270_pl6bkv.png",
-        "stock":12,
+        "stock":1,
         "onDiscount":false,
         "discountPercentage":0,
         "freeShipping":false,
+        "sales": 246,
         "brand":"8726e36e9d6d53646390d495b4ce9dc1",
         "tag":["9eed85ad420e3a3c986cdc6d7e77854d","48b773c837465a9904ae56389cd0dc9d","7beff197adfc70df7ee315bfa4b1af75"]
     },
@@ -534,10 +556,11 @@ const products =[
                         "CPU Type":"Intel Core i5 11th Gen",
                         "CPU Speed":"11400H (2.70GHz)"}],
         "img":"https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399198/RGBtech/ImageProduct/TUF_Gaming_F17_knfdrn.png",
-        "stock":12,
+        "stock":1,
         "onDiscount":false,
         "discountPercentage":0,
         "freeShipping":false,
+        "sales": 450,
         "brand":"5ed0b5f41b21804e51e82664dc24e2dd",
         "tag":["9eed85ad420e3a3c986cdc6d7e77854d","48b773c837465a9904ae56389cd0dc9d","7beff197adfc70df7ee315bfa4b1af75"]
     },
@@ -556,10 +579,11 @@ const products =[
                         "Graphics Card":"NVIDIA GeForce GTX 1650",
                         "Video Memory":"4 GB GDDR6"}],
         "img":"https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399197/RGBtech/ImageProduct/IdeaPad_Gaming_315IHU6_yjwela.png",
-        "stock":13,
+        "stock":1,
         "onDiscount":false,
         "discountPercentage":0,
         "freeShipping":false,
+        "sales": 57,
         "brand":"57040fe2fe7a0a1e9ab043ae1f5d9845",
         "tag":["9eed85ad420e3a3c986cdc6d7e77854d","48b773c837465a9904ae56389cd0dc9d","7beff197adfc70df7ee315bfa4b1af75"]
     },
@@ -579,10 +603,11 @@ const products =[
     With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)`,
                         "Video Memory ":"8 GB GDDR6"}],
         "img":"https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399198/RGBtech/ImageProduct/ROG_Strix_SCAR_15_ur7k5y.png",
-        "stock":13,
+        "stock":1,
         "onDiscount":false,
         "discountPercentage":0,
         "freeShipping":false,
+        "sales": 155,
         "brand":"5ed0b5f41b21804e51e82664dc24e2dd",
         "tag":["9eed85ad420e3a3c986cdc6d7e77854d","48b773c837465a9904ae56389cd0dc9d","7beff197adfc70df7ee315bfa4b1af75"]
     },
@@ -608,6 +633,7 @@ const products =[
             "onDiscount": true,
             "discountPercentage": 11,
             "freeShipping":true,
+            "sales": 127,
             "brand":"8726e36e9d6d53646390d495b4ce9dc1",
             "tag":["9eed85ad420e3a3c986cdc6d7e77854d","48b773c837465a9904ae56389cd0dc9d","889574aebacda6bfd3e534e2b49b8028"] 
         },
@@ -624,6 +650,7 @@ const products =[
             "onDiscount": false,
             "discountPercentage": 0,
             "freeShipping": false,
+            "sales": 222,
             "brand":"57040fe2fe7a0a1e9ab043ae1f5d9845",
             "tag":["9eed85ad420e3a3c986cdc6d7e77854d","48b773c837465a9904ae56389cd0dc9d","7beff197adfc70df7ee315bfa4b1af75"]
         },
@@ -650,6 +677,7 @@ const products =[
             "onDiscount": true,
             "discountPercentage": 5,
             "freeShipping": false,
+            "sales": 30,
             "brand":"57040fe2fe7a0a1e9ab043ae1f5d9845",
             "tag":["9eed85ad420e3a3c986cdc6d7e77854d","48b773c837465a9904ae56389cd0dc9d","7beff197adfc70df7ee315bfa4b1af75"]
         },
@@ -670,6 +698,7 @@ const products =[
             "onDiscount": false,
             "discountPercentage": 0,
             "freeShipping": true,
+            "sales": 236,
             "brand":"a9184c280a689c72ab2b9f2f487f6531",
             "tag":["9eed85ad420e3a3c986cdc6d7e77854d","87d17f4624a514e81dc7c8e016a7405c"]
         },
@@ -694,6 +723,7 @@ const products =[
             "onDiscount": false,
             "discountPercentage": 0,
             "freeShipping": true,
+            "sales": 188,
             "brand":"a9184c280a689c72ab2b9f2f487f6531",
             "tag":["9eed85ad420e3a3c986cdc6d7e77854d","87d17f4624a514e81dc7c8e016a7405c"]
         },
@@ -716,6 +746,7 @@ const products =[
             "onDiscount": true,
             "discountPercentage": 15,
             "freeShipping": false,
+            "sales": 314,
             "brand":"d67e0bc179e756c4b8c27314abed7876",
             "tag":["9eed85ad420e3a3c986cdc6d7e77854d","87d17f4624a514e81dc7c8e016a7405c"]
         },
@@ -732,6 +763,7 @@ const products =[
             "onDiscount": true,
             "discountPercentage": 5,
             "freeShipping": true,
+            "sales": 169,
             "brand":"e94cf90cb9d45f8f433521899bc85928",
             "tag":["b22f0418e8ac915eb66f829d262d14a2"]
         },
@@ -752,6 +784,7 @@ const products =[
             "onDiscount": false,
             "discountPercentage": 0,
             "freeShipping": false,
+            "sales": 96,
             "brand":"e94cf90cb9d45f8f433521899bc85928",
             "tag":["b22f0418e8ac915eb66f829d262d14a2"]
         },
@@ -768,6 +801,7 @@ const products =[
             "onDiscount": false,
             "discountPercentage": 0,
             "freeShipping": true,
+            "sales": 180,
             "brand":"e94cf90cb9d45f8f433521899bc85928",
             "tag":["b22f0418e8ac915eb66f829d262d14a2"]
         },
@@ -789,6 +823,7 @@ const products =[
             "onDiscount": false,
             "discountPercentage": 0,
             "freeShipping": false,
+            "sales": 308,
             "brand":"3e52be0838c6ea8300f679da91409717",
             "tag":["b22f0418e8ac915eb66f829d262d14a2"]
         },
@@ -811,6 +846,7 @@ const products =[
             "onDiscount": false,
             "discountPercentage": 0,
             "freeShipping": false,
+            "sales": 268,
             "brand":"3138b8e6061fdf7cfaaa79279175cbcd",
             "tag":["b22f0418e8ac915eb66f829d262d14a2"]
         },
@@ -826,6 +862,7 @@ const products =[
             "onDiscount": true,
             "discountPercentage": 3,
             "freeShipping": true,
+            "sales": 345,
             "brand":"2fcaf384536bbd777590da5490c3b920",
             "tag":["b22f0418e8ac915eb66f829d262d14a2","2cc9187af12cfb288552a94945e2576f"]
         },
@@ -841,6 +878,7 @@ const products =[
             "onDiscount": false,
             "discountPercentage": 0,
             "freeShipping": true,
+            "sales": 86,
             "brand":"a7ac216f37d8c7c5341c5b29f6e5e5d5",
             "tag":["b22f0418e8ac915eb66f829d262d14a2","2cc9187af12cfb288552a94945e2576f"]
         },
@@ -856,6 +894,7 @@ const products =[
             "onDiscount":false ,
             "discountPercentage": 0,
             "freeShipping": false,
+            "sales": 80,
             "brand":"e599bd43912f6dd581f359d2e1a6c62f",
             "tag":["b22f0418e8ac915eb66f829d262d14a2","2cc9187af12cfb288552a94945e2576f"]
         },
@@ -874,6 +913,7 @@ const products =[
             "onDiscount": false,
             "discountPercentage": 0,
             "freeShipping": true,
+            "sales": 75,
             "brand":"74e125eab142894aed7a4e610dfd87ea",
             "tag":["2cc9187af12cfb288552a94945e2576f"]
         },
@@ -890,6 +930,7 @@ const products =[
             "onDiscount": false,
             "discountPercentage": 0,
             "freeShipping": true,
+            "sales": 79,
             "brand":"9594eec95be70e7b1710f730fdda33d9",
             "tag":["2cc9187af12cfb288552a94945e2576f"]
         },
@@ -906,6 +947,7 @@ const products =[
             "onDiscount": true,
             "discountPercentage": 15,
             "freeShipping": false,
+            "sales": 38,
             "brand":"bc6feaec50d79e46c018c776fec22084",
             "tag":["2cc9187af12cfb288552a94945e2576f"]
         },
@@ -922,6 +964,7 @@ const products =[
             "onDiscount": true,
             "discountPercentage": 20,
             "freeShipping": false,
+            "sales": 84,
             "brand":"9594eec95be70e7b1710f730fdda33d9",
             "tag":["2cc9187af12cfb288552a94945e2576f"]
         },
@@ -940,10 +983,11 @@ const products =[
             "onDiscount": false,
             "discountPercentage": 0,
             "freeShipping": false,
+            "sales": 284,
             "brand":"ae9464b4d565248dc81b117bafedc1eb",
             "tag":["2cc9187af12cfb288552a94945e2576f","b22f0418e8ac915eb66f829d262d14a2"]
         },
-        {//////XXXXXXXXXXXXXXXXXXXXXXXXXX
+        {
             "name": "Sennheiser HD 400S Headphones",
             "price": 65.91,
             "description": "Sennheiser HD 400S headphones come with a sturdy folding design that's great to be taken anywhere you go. Powered by Sennheiser dynamic drivers, it delivers an outstanding audio experience with well-extended response and dynamic bass. The closed-back design blocks unwanted background noise to keep your listening experience truly private. Also, users will enjoy easy music control and hands-free calls with the built-in remote and microphone.",
@@ -962,6 +1006,7 @@ const products =[
             "onDiscount": false,
             "discountPercentage": 0,
             "freeShipping": false,
+            "sales": 234,
             "brand":"ae9464b4d565248dc81b117bafedc1eb",
             "tag":["2cc9187af12cfb288552a94945e2576f","b22f0418e8ac915eb66f829d262d14a2"]
         },
@@ -981,6 +1026,7 @@ const products =[
             "onDiscount": false,
             "discountPercentage": 0,
             "freeShipping": true,
+            "sales": 165,
             "brand":"ff70d460a420205ceeea16f1c13e51b1",
             "tag":["2cc9187af12cfb288552a94945e2576f","b22f0418e8ac915eb66f829d262d14a2"]
         },
@@ -1002,6 +1048,7 @@ const products =[
             "onDiscount": true,
             "discountPercentage": 10,
             "freeShipping": false,
+            "sales": 122,
             "brand":"5ce8b65747cd41acd3f9b9636df9a84f",
             "tag":["2cc9187af12cfb288552a94945e2576f","b22f0418e8ac915eb66f829d262d14a2","889574aebacda6bfd3e534e2b49b8028"]
         },
@@ -1023,6 +1070,7 @@ const products =[
             "onDiscount": true,
             "discountPercentage": 5,
             "freeShipping": true,
+            "sales": 215,
             "brand":"5ce8b65747cd41acd3f9b9636df9a84f",
             "tag":["2cc9187af12cfb288552a94945e2576f","b22f0418e8ac915eb66f829d262d14a2","889574aebacda6bfd3e534e2b49b8028"]
         },
@@ -1044,6 +1092,7 @@ const products =[
             "onDiscount": false,
             "discountPercentage": 0,
             "freeShipping": true,
+            "sales": 247,
             "brand":"dc7d2c0288361a414bcc81f2fa1312c2",
             "tag":["2cc9187af12cfb288552a94945e2576f","b22f0418e8ac915eb66f829d262d14a2","889574aebacda6bfd3e534e2b49b8028"]
         }

@@ -41,26 +41,6 @@ router.get("/name-list", async (req, res) => {
 	} 
 })
 
-router.get("/:id", async (req, res) => {
-	try {
-		const { id } = req.params;
-		let productEspecific = await Product.findByPk(id, {
-			include: [
-				{
-					model: Tag,
-					through: { attributes: [] },
-				},
-				{
-					model: Comment,
-					through: { attributes: [] },
-				},
-			],
-		});
-		return res.status(201).json(productEspecific);
-	} catch (error) {
-		res.send("No se encontro el Product del  Id");
-	}
-});
 
 router.post("/", checkPost, async (req, res) => {
 	try {
@@ -147,6 +127,73 @@ router.get("/Favorite", async (req, res) => {
 		);
 		res.send(FavProduct);
 	} catch (error) {}
+});
+
+router.get("/FreeShipping", async (req, res) => {
+	try {
+		const products = await Product.findAll({
+			where: {
+				freeShipping: true,
+			},
+		});
+		res.status(200).send(products);
+	} catch (error) {
+		console.error(error);
+		res.status(500).send(error);
+	}
+});
+
+router.get("/Discount", async (req, res) => {
+	try {
+		const products = await Product.findAll({
+			where: {
+				onDiscount: true,
+			},
+		});
+		res.status(200).send(products);
+	} catch (error) {
+		console.error(error);
+		res.status(500).send(error);
+	}
+});
+
+router.get("/BestSeller", async (req, res) => {
+	try {
+		const products = await Product.findAll({order: [
+			['sales', 'DESC'],]
+			});
+BestSeller=[]
+ products.filter(p => {if(BestSeller.length < 10){
+	BestSeller.push(p)
+ }
+  })
+		res.status(200).send(BestSeller);
+	} catch (error) {
+		console.error(error);
+		res.status(500).send(error);
+	}
+});
+
+
+router.get("/:id", async (req, res) => {
+	try {
+		const { id } = req.params;
+		let productEspecific = await Product.findByPk(id, {
+			include: [
+				{
+					model: Tag,
+					through: { attributes: [] },
+				},
+				{
+					model: Comment,
+					through: { attributes: [] },
+				},
+			],
+		});
+		return res.status(201).json(productEspecific);
+	} catch (error) {
+		res.send("No se encontro el Product del  Id");
+	}
 });
 
 module.exports = router;
