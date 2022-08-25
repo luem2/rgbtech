@@ -38,7 +38,7 @@ const ProductDetails = () => {
 						<div className="flex justify-around p-4 mt-2 mx-4 rounded-xl text-3xl">
 							<img
 								className="w-[25rem] h-[20rem] mb-4 rounded-3xl "
-								src={product.img}
+								src={<Spinner /> && product.img}
 								alt={product.name}
 							/>
 							<div className="flex flex-col m-4 gap-4 items-center">

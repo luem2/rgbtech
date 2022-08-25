@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { BsGoogle } from "react-icons/bs";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo-dibujo-2.png";
 import { AuthUserLogin } from "../store/slices/users/thunks";
+import { AiOutlineClose } from "react-icons/ai";
 
 const Login = ({ closeModal }) => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const [input, setInput] = useState({
 		user: "",
@@ -129,13 +131,22 @@ const Login = ({ closeModal }) => {
 														Google
 													</span>
 												</a>
-												<button
-													className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-													type="button"
-													onClick={closeModal}
-												>
-													Close
-												</button>
+												<div className="flex justify-center gap-6">
+													<button
+														type="button"
+														className="flex w-28 items-center justify-center gap-2 px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+														onClick={closeModal}
+													>
+														<AiOutlineClose /> Close{" "}
+													</button>
+													<button
+														type="button"
+														className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+														onClick={() => navigate("/createUser")}
+													>
+														🚀 Get Started
+													</button>
+												</div>
 											</div>
 										</div>
 									</form>

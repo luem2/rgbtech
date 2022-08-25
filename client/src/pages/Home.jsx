@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../store/slices/products/thunks.js";
 import Carousel from "../components/Carousel.jsx";
 import Header from "../components/Header/Header.jsx";
@@ -9,9 +9,11 @@ import Footer from "../components/Footer.jsx";
 
 const Home = () => {
 	const dispatch = useDispatch();
+	const { products } = useSelector((state) => state.products);
 
 	useEffect(() => {
-		dispatch(getAllProducts());
+		if (products.length) return;
+		dispatch(getAllProducts(1));
 	}, []);
 
 	return (

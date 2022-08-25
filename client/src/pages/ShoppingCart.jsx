@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../components/Header/Header";
 import { BsFillCartCheckFill, BsFillTrashFill } from "react-icons/bs";
 import ShoppingCard from "../components/ShoppingCard";
 import {
+	addUnitToCart,
+	delUnitFromCart,
 	delProduct,
 	emptyCart,
 } from "../store/slices/guestShoppingCart/guestShoppingCartSlice";
@@ -12,18 +14,15 @@ import { FaMoneyCheckAlt } from "react-icons/fa";
 const ShoppingCart = () => {
 	const dispatch = useDispatch();
 	const { cart } = useSelector((state) => state.guestShoppingCart);
-	const pricesCart = cart?.map((p) => p.price);
+	const pricesCart = cart?.map((p) => p.price * p.amount);
 	const totalPrice = pricesCart?.reduce((prev, act) => prev + act, 0);
 
-	const [units, setUnits] = useState(1);
-
-	const addUnits = () => {
-		setUnits((prev) => prev + 1);
+	const addUnits = (id) => {
+		dispatch(addUnitToCart(id));
 	};
 
-	const subUnits = () => {
-		if (units === 1) return;
-		setUnits((prev) => prev - 1);
+	const subUnits = (id) => {
+		dispatch(delUnitFromCart(id));
 	};
 
 	const removeProduct = (id) => {
@@ -52,9 +51,10 @@ const ShoppingCart = () => {
 								id={i}
 								name={p.name}
 								img={p.img}
-								price={p.price}
-								addUnits={addUnits}
-								subUnits={subUnits}
+								totalProductPrice={Math.round(p.price * p.amount)}
+								units={p.amount}
+								addUnits={() => addUnits(p.id)}
+								subUnits={() => subUnits(p.id)}
 								delProduct={() => removeProduct(i)}
 							/>
 						))}
@@ -79,7 +79,9 @@ const ShoppingCart = () => {
 						</button>
 						<h2>
 							Total Price:{" "}
-							<span className="text-green-500 underline">${totalPrice}</span>
+							<span className="text-green-500 underline">
+								${Math.round(totalPrice)}
+							</span>
 						</h2>
 					</div>
 				)}
