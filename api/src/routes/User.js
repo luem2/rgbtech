@@ -6,6 +6,7 @@ const {
 	validateToken,
 	checkSingupBody,
 	uploadNewUserPhoto,
+	sendConfirmationEmail,
 	checkLoginBody,
 	checkUserRegistration,
 } = require("../middlewares/userMiddleware.js");
@@ -14,31 +15,6 @@ const nodemailer = require('nodemailer')
 
 
 const router = Router();
-
-const hashPassword = (req, res, next) => {
-
-}
-
-
-
-const sendConfirmationEmail = async (newUser) => {
-	const emailToken = jwt.sign(newUser, process.env.SECRET, {expiresIn: '1d'})
-	const url = `http://localhost:5173/confirmation/${emailToken}`
-	const transporter = nodemailer.createTransport({
-		service: 'gmail',
-		auth: {
-			user: 'rgbtechPF@gmail.com',
-			pass: 'qqilqandbimpiaxu'
-		}
-	})
-	const html = htmlMail(url)
-	await transporter.sendMail({
-		from: "rgbtech@tech.com",
-		to: newUser.mail,
-		subject: "Confirmation",
-		html
-	})
-}
 
 
 router.post("/register", checkSingupBody, uploadNewUserPhoto, async (req, res) => {

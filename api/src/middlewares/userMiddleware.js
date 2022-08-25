@@ -1,6 +1,8 @@
 const { User } = require("../db.js");
 const { cloudinary } = require("../Utils/cloudinary.js");
 const jwt = require("jsonwebtoken");
+const nodemailer = require('nodemailer')
+const {htmlMail} = require('../Utils/EmailTemplate.js')
 
 module.exports = {
 	checkSingupBody: (req, res, next) => {
@@ -35,6 +37,24 @@ module.exports = {
 			req.body.newUser.photo = "Image_Default";
 			return next();
 		}
+	},
+	sendConfirmationEmail : async (newUser) => {
+		const emailToken = jwt.sign(newUser, process.env.SECRET, {expiresIn: '1d'})
+		const url = `http://localhost:5173/confirmation/${emailToken}`
+		const transporter = nodemailer.createTransport({
+			service: 'gmail',
+			auth: {
+				user: 'rgbtechPF@gmail.com',
+				pass: 'qqilqandbimpiaxu'
+			}
+		})
+		const html = htmlMail(url)
+		await transporter.sendMail({
+			from: "rgbtech@tech.com",
+			to: newUser.mail,
+			subject: "Confirmation",
+			html
+		})
 	},
 	checkLoginBody: (req, res, next) => {
 		const { user, password } = req.body;
