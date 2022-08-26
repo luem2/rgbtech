@@ -14,6 +14,7 @@ export default function SearchBar() {
 	const onChange = (e) => {
 		setValue(e.target.value);
 		dispatch(searchNameAction(e.target.value));
+		setValue("");
 	};
 
 	const onSearch = () => {
@@ -27,34 +28,35 @@ export default function SearchBar() {
 		setValue("");
 	};
 
+
 	return (
 		<div>
-			<div className="my-4 flex justify-center">
-				<button
-					className="btn inline-block pr-4 pl-4 pt-2.5 pb-2.5  bg-pink-600 hover:bg-pink-700  text-white rounded-l-full"
-					onClick={(e) => onClickHandler(e)}
-				>
-					<BsSearch />
-				</button>
+			<div className="flex justify-center">
 				<input
-					className="bg-pink-600 text-black focus:outline-none pl-4 pt-2 pb-1 font-bold rounded-r-full"
+					className="bg-pink-500 w-80 text-blue-800 pl-4 pt-2 pb-1 mr-4 font-bold "
 					value={value}
 					type="text"
 					onChange={onChange}
 				/>
+				<button
+					className="btn inline-block pr-4 pl-4 pt-2.5 pb-2.5 bg-pink-500 hover:bg-blue-400 hover:scale-110 shadow-xl text-white rounded-r-xl"
+					onClick={(e) => onClickHandler(e)}
+				>
+					<BsSearch />
+				</button>
 			</div>
 
 			<div>
 				{productsName?.map((item) => (
 					<div
 						className="flex justify-center"
-						key={item.id}
-						onClick={() => onSearch(item.name)}
+						key={item.value}
+						onClick={() => onSearch(item.label)}
 					>
-						<ul className="absolute bg-pink-500 mt-1 w-96 text-gray-900">
-							<Link to={`/productDetails/${item.id}`}>
-								<li className="px-6 py-2  text-black cursor-pointer w-full">
-									{item.name}
+						<ul className="absolute z-40 overflow-y-scroll h-60 bg-blue-400 mt-1 w-96 text-gray-900">
+							<Link to={`/productDetails/${item.value}`}>
+								<li className="px-6 py-2 text-black cursor-pointer w-full">
+									{item.label}
 								</li>
 							</Link>
 						</ul>
