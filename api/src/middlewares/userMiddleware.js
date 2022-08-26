@@ -31,10 +31,10 @@ module.exports = {
 			const uploadedResponse = await cloudinary.uploader.upload(profilePhoto, {
 				upload_preset: "RGBtech",
 			});
-			req.body.newUser.photo = uploadedResponse.secure_url;
+			req.body.newUser.profilePhoto = uploadedResponse.secure_url;
 			return next();
 		} else {
-			req.body.newUser.photo = "Image_Default";
+			req.body.newUser.profilePhoto = "Image_Default";
 			return next();
 		}
 	},
