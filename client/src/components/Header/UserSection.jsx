@@ -24,7 +24,7 @@ const UserSection = () => {
 	const navigate = useNavigate();
 
 	return (
-		<div className="flex gap-2">
+		<div className="flex items-center gap-2">
 			{login && (
 				<Modal functionModal={setLoginFalse}>
 					<Login />
@@ -39,19 +39,19 @@ const UserSection = () => {
 			>
 				{verifiedUser ? (
 					<img
-						className="hover: cursor-pointer"
+						className="hover: cursor-pointer rounded-3xl w-8 h-8 hover:scale-110 ease-in duration-300 "
 						src="https://icons.iconarchive.com/icons/ampeross/qetto/48/icon-developer-icon.png"
 						alt=""
 						onClick={() => navigate("/profile")}
 					/>
 				) : (
 					<AiOutlineUser
-						className="hover:bg-red-500"
+						className="hover:bg-red-500 hover:scale-110 ease-in duration-300"
 						onClick={() => dispatch(setLoginTrue())}
 					/>
 				)}
 
-				<AiOutlineHeart className="hover:bg-red-500" />
+				<AiOutlineHeart className="hover:bg-red-500 hover:scale-110 ease-in duration-300" />
 
 				<div>
 					{cart.length > 0 && (
@@ -60,7 +60,9 @@ const UserSection = () => {
 						</span>
 					)}
 					<AiOutlineShoppingCart
-						className="hover:bg-red-500"
+						className={`hover:bg-red-500 ${
+							cart.length === 0 && "hover:scale-110 ease-in duration-300"
+						}`}
 						onClick={() => navigate("/shoppingCart")}
 					/>
 				</div>

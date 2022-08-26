@@ -1,7 +1,8 @@
 import axios from "axios";
+import { setErrorLoginTrue } from "../components/componentSlice";
 
 export const AuthUserLogin = (user) => {
-	return async () => {
+	return async (dispatch) => {
 		try {
 			const response = await axios.post("/users/login", user);
 			console.log(response);
@@ -9,6 +10,8 @@ export const AuthUserLogin = (user) => {
 			window.localStorage.setItem("token", token);
 			setAuthToken(token);
 		} catch (e) {
+			console.log("estoy entrando al error de Auth");
+			dispatch(setErrorLoginTrue());
 			console.error(e);
 		}
 	};

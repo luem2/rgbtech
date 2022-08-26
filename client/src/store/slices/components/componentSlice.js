@@ -8,6 +8,9 @@ const initialState = {
 		accountCreated: false,
 		welcomeUser: false,
 		errorLogin: false,
+		logout: false,
+		productAdded: false,
+		productRemoved: false,
 	},
 };
 
@@ -40,11 +43,35 @@ const componentSlice = createSlice({
 		},
 
 		setErrorLoginTrue: (state) => {
-			state.errorLogin = true;
+			state.notification.errorLogin = true;
 		},
 
 		setErrorLoginFalse: (state) => {
-			state.errorLogin = false;
+			state.notification.errorLogin = false;
+		},
+
+		setLogoutTrue: (state) => {
+			state.notification.logout = true;
+		},
+
+		setLogoutFalse: (state) => {
+			state.notification.logout = false;
+		},
+
+		setProductAddedTrue: (state) => {
+			state.notification.productAdded = true;
+		},
+
+		setProductAddedFalse: (state) => {
+			state.notification.productAdded = false;
+		},
+
+		setproductRemovedTrue: (state) => {
+			state.notification.productRemoved = true;
+		},
+
+		setproductRemovedFalse: (state) => {
+			state.notification.productRemoved = false;
 		},
 	},
 });
@@ -56,6 +83,14 @@ export const {
 	setAccCreatedFalse,
 	setWelcomeUserTrue,
 	setWelcomeUserFalse,
+	setErrorLoginTrue,
+	setErrorLoginFalse,
+	setLogoutTrue,
+	setLogoutFalse,
+	setProductAddedTrue,
+	setProductAddedFalse,
+	setproductRemovedTrue,
+	setproductRemovedFalse,
 } = componentSlice.actions;
 
 export default componentSlice.reducer;

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { GiShoppingCart } from "react-icons/gi";
 import { addProduct } from "../store/slices/guestShoppingCart/guestShoppingCartSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { setProductAddedTrue } from "../store/slices/components/componentSlice";
 
 function Product({ id, name, price, img }) {
 	const { cart } = useSelector((state) => state.guestShoppingCart);
@@ -22,6 +23,7 @@ function Product({ id, name, price, img }) {
 				})
 			);
 			cartIDS.push(id);
+			dispatch(setProductAddedTrue());
 		}
 	};
 	return (

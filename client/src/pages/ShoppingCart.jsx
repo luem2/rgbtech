@@ -9,10 +9,16 @@ import {
 	delProduct,
 	emptyCart,
 } from "../store/slices/guestShoppingCart/guestShoppingCartSlice";
+import { setproductRemovedTrue } from "../store/slices/components/componentSlice";
+import { setproductRemovedFalse } from "../store/slices/components/componentSlice";
 import { FaMoneyCheckAlt } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
 
 const ShoppingCart = () => {
 	const dispatch = useDispatch();
+	const { productRemoved } = useSelector(
+		(state) => state.components.notification
+	);
 	const { cart } = useSelector((state) => state.guestShoppingCart);
 	const pricesCart = cart?.map((p) => p.price * p.amount);
 	const totalPrice = pricesCart?.reduce((prev, act) => prev + act, 0);
@@ -27,10 +33,25 @@ const ShoppingCart = () => {
 
 	const removeProduct = (id) => {
 		dispatch(delProduct(id));
+		dispatch(setproductRemovedTrue());
+	};
+
+	const productRemovedFunction = () => {
+		toast.success("🛒 Product removed successfully!", {
+			position: "bottom-right",
+			autoClose: 2000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+		});
+		dispatch(setproductRemovedFalse());
 	};
 
 	return (
 		<div>
+			{productRemoved && productRemovedFunction()}
 			<Header />
 			<div className="flex flex-col mb-4 items-center justify-center gap-2">
 				<h1 className="flex gap-2 text-4xl">
@@ -86,6 +107,17 @@ const ShoppingCart = () => {
 					</div>
 				)}
 			</div>
+			<ToastContainer
+				position="top-right"
+				autoClose={3000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+			/>
 		</div>
 	);
 };

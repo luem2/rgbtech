@@ -5,17 +5,16 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo-dibujo-2.png";
 import { AuthUserLogin } from "../store/slices/users/thunks";
 import { AiOutlineClose } from "react-icons/ai";
-import { hasJWT } from "../store/thunks";
 import {
 	setLoginFalse,
 	setWelcomeUserTrue,
 } from "../store/slices/components/componentSlice";
 
+import { hasJWT } from "../store/thunks.js";
+
 const Login = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const userVerified = hasJWT();
-	console.log("userVerified en Componente LOGIN", userVerified);
 
 	const [input, setInput] = useState({
 		user: "",
@@ -32,14 +31,14 @@ const Login = () => {
 	const handleLoginSubmit = (e) => {
 		e.preventDefault();
 		dispatch(AuthUserLogin(input));
+
+		const userVerified = hasJWT();
+		console.log("userVerified", userVerified);
+
 		if (userVerified) {
 			setInput({ user: "", password: "" });
-			//cierro modal login
 			dispatch(setLoginFalse());
-			//notificacion de bienvenido ${user}
 			dispatch(setWelcomeUserTrue());
-		} else {
-			//notificacion datos erroneos uwu
 		}
 	};
 	return (
