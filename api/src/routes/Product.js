@@ -5,7 +5,7 @@ const {
 	setPagination,
 	checkPost,
 } = require("../middlewares/productMiddleware.js");
-// const { Op } = require("sequelize");
+const { Op } = require("sequelize");
 
 const router = Router();
 
@@ -33,8 +33,16 @@ router.get("/", setQueryConditions, setPagination, async (req, res) => {
 });
 
 router.get("/name-list", async (req, res) => {
+	const {name} = req.query
+	const whereCondition = {}
+	name ? (whereCondition.name = { [Op.iLike]: `%${name}%` }) : null;
+	console.log(name)
+	console.log(whereCondition)
 	try {
-		const nameList = await Product.findAll({attributes: [['name', 'label'], ['id', 'value']]})
+		const nameList = await Product.findAll({
+			where: whereCondition,
+			attributes: [['name', 'label'], ['id', 'value']]
+		})
 		res.status(200).send(nameList)
 	} catch (error) {
 		res.status(500).send('Internal server error')
