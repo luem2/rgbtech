@@ -64,7 +64,7 @@ function Carousel() {
 		<div ref={slideRef} className="w-auto select-none">
 			<div className="flex flex-wrap justify-center">
 				<img
-					className="pt-5 pb-15 mr-10 hover:scale-105 transition duration-300 ease-in-out"
+					className="pt-5 pb-15 mr-10 transition duration-300 ease-in-out"
 					src={imagnaryProducts[currentIndex]}
 					alt=""
 				/>

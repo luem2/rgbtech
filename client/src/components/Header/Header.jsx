@@ -1,6 +1,6 @@
 import React from "react";
 import HamburguerMenu from "./HamburguerMenu";
-import SearchBar from "./Searchbar";
+import SearchBar2 from "./SearchBar2";
 import UserSection from "./UserSection";
 
 export default function Index() {
@@ -8,7 +8,7 @@ export default function Index() {
 		<div className="flex justify-between flex-row items-center p-3 m-3 shadow-md">
 			<HamburguerMenu />
 
-			<SearchBar />
+			<SearchBar2 />
 			<UserSection />
 		</div>
 	);

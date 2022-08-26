@@ -21,11 +21,11 @@ const ProductDetails = () => {
 
 	useEffect(() => {
 		dispatch(getProductById(id));
-
+		console.log(id)
 		return () => {
 			dispatch(clearDetails());
 		};
-	}, []);
+	}, [id]);
 
 	return (
 		<div className="text-white">
