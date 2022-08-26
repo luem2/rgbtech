@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BsSearch } from "react-icons/bs";
 import {searchNameAction,} from "../../store/slices/products/thunks";
@@ -10,11 +10,11 @@ export default function SearchBar() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { productsName } = useSelector((state) => state.products);
+	const largo = Object.keys(productsName).length
 
 	const onChange = (e) => {
 		setValue(e.target.value);
 		dispatch(searchNameAction(e.target.value));
-		setValue("");
 	};
 
 	const onSearch = () => {
@@ -27,6 +27,10 @@ export default function SearchBar() {
 		navigate("/Search")
 		setValue("");
 	};
+	
+	useEffect(()=>{
+        console.log(largo)
+    }, [largo])
 
 
 	return (
@@ -53,7 +57,7 @@ export default function SearchBar() {
 						key={item.value}
 						onClick={() => onSearch(item.label)}
 					>
-						<ul className="absolute z-40 overflow-y-scroll h-60 bg-blue-400 mt-1 w-96 text-gray-900">
+						<ul className="z-40 overflow-y-scroll h-60 bg-blue-400 mt-1 w-96 text-gray-900">
 							<Link to={`/productDetails/${item.value}`}>
 								<li className="px-6 py-2 text-black cursor-pointer w-full">
 									{item.label}

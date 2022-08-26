@@ -25,7 +25,7 @@ const ProductDetails = () => {
 		return () => {
 			dispatch(clearDetails());
 		};
-	}, []);
+	}, [id]);
 
 	return (
 		<div className="text-white">
