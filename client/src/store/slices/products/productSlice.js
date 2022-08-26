@@ -6,7 +6,7 @@ const initialState = {
 	productDetails: {},
 	response: {},
 	productsName: [],
-	productosFilt:[],
+	productosFilt: [],
 };
 
 const productSlice = createSlice({
@@ -14,10 +14,9 @@ const productSlice = createSlice({
 	initialState,
 	reducers: {
 		getProducts: (state, action) => {
-			const {data, nextPage, pageNumbers} = action.payload
-			state.products.push(...data)
-			console.log(data);
-			state.response = { nextPage, pageNumbers }
+			const { data, nextPage, pageNumbers } = action.payload;
+			state.products.push(...data);
+			state.response = { nextPage, pageNumbers };
 		},
 		getProductsName: (state, action) => {
 			state.products = action.payload.data;
@@ -29,10 +28,10 @@ const productSlice = createSlice({
 			state.productDetails = {};
 		},
 		searchName: (state, action) => {
-			state.productsName = action.payload
+			state.productsName = action.payload;
 		},
 		getFilt: (state, action) => {
-			state.productosFilt = action.payload
+			state.productosFilt = action.payload;
 		},
 		getProductsFilters: (state, action) => {
 			state.filters = action.payload.data;
@@ -40,7 +39,13 @@ const productSlice = createSlice({
 	},
 });
 
-export const { getProducts, getDetailsProductById, clearDetails, searchName, getProductsFilters,getFilt} =
-	productSlice.actions;
+export const {
+	getProducts,
+	getDetailsProductById,
+	clearDetails,
+	searchName,
+	getProductsFilters,
+	getFilt,
+} = productSlice.actions;
 
 export default productSlice.reducer;

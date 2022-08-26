@@ -5,10 +5,17 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo-dibujo-2.png";
 import { AuthUserLogin } from "../store/slices/users/thunks";
 import { AiOutlineClose } from "react-icons/ai";
+import { hasJWT } from "../store/thunks";
+import {
+	setLoginFalse,
+	setWelcomeUserTrue,
+} from "../store/slices/components/componentSlice";
 
-const Login = ({ closeModal }) => {
+const Login = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const userVerified = hasJWT();
+	console.log("userVerified en Componente LOGIN", userVerified);
 
 	const [input, setInput] = useState({
 		user: "",
@@ -25,7 +32,15 @@ const Login = ({ closeModal }) => {
 	const handleLoginSubmit = (e) => {
 		e.preventDefault();
 		dispatch(AuthUserLogin(input));
-		setInput({ user: "", password: "" });
+		if (userVerified) {
+			setInput({ user: "", password: "" });
+			//cierro modal login
+			dispatch(setLoginFalse());
+			//notificacion de bienvenido ${user}
+			dispatch(setWelcomeUserTrue());
+		} else {
+			//notificacion datos erroneos uwu
+		}
 	};
 	return (
 		<div>
@@ -135,7 +150,7 @@ const Login = ({ closeModal }) => {
 													<button
 														type="button"
 														className="flex w-28 items-center justify-center gap-2 px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
-														onClick={closeModal}
+														onClick={() => dispatch(setLoginFalse())}
 													>
 														<AiOutlineClose /> Close{" "}
 													</button>
