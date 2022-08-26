@@ -34,3 +34,13 @@ export const postUser = (userCreated) => {
 		}
 	};
 };
+
+export const confirmationEmail =(payload) => {
+	return async () => {
+		try {
+			await axios.post("users/confirmation", payload )
+		} catch (error) {
+		  console.log(error);	
+		}
+	}
+}

@@ -10,26 +10,29 @@ const {
 	checkLoginBody,
 	checkUserRegistration,
 } = require("../middlewares/userMiddleware.js");
+const {htmlMail} = require('../Utils/EmailTemplate.js')
+const nodemailer = require('nodemailer')
 
 
 const router = Router();
 
 
 router.post("/register", checkSingupBody, uploadNewUserPhoto, async (req, res) => {
-		let { password, newUser } = req.body;
-		try {
-			const hashedPassword = await bcrypt.hash(password, 10);
-			await User.create({
-				...newUser,
-				password: hashedPassword,
-			});
-			await sendConfirmationEmail(newUser)
-			return res.status(201).send("User created successfully");
-		} catch (error) {
-			console.log(error);
-			return res.status(500).send("Internal Server Error");
-		}
+	let { password, newUser } = req.body;
+	try {
+		const hashedPassword = await bcrypt.hash(password, 10);
+	  const user = await User.create({
+			...newUser,
+			password: hashedPassword,
+		});
+		
+		await sendConfirmationEmail({id : user.id, mail: user.mail})
+		return res.status(201).send("User created successfully");
+	} catch (error) {
+		console.log(error);
+		return res.status(500).send("Internal Server Error");
 	}
+}
 );
 
 router.post(
@@ -113,5 +116,22 @@ router.put("/favorite", async (req, res, next) => {
 		next(error);
 	}
 });
+
+router.post("/confirmation", async(req, res) => {
+	 try {
+		const {id} = req.body;
+	  await User.update({
+		confirmation : true
+		},
+		{
+			where : {
+				id : id
+			}
+		})
+		res.json({message : "email confirmado"})
+	 } catch (error) {
+		console.log(error);
+	 }
+})
 
 module.exports = router;
