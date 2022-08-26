@@ -1,34 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
 import { IconContext } from "react-icons/lib";
 import {
 	AiOutlineUser,
 	AiOutlineHeart,
 	AiOutlineShoppingCart,
 } from "react-icons/ai";
-import ModalMircha from "../ModalMircha/ModalMircha";
+import Modal from "../Modal/Modal";
 import Login from "../Login";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { hasJWT } from "../../store/thunks";
+import {
+	setLoginTrue,
+	setLoginFalse,
+} from "../../store/slices/components/componentSlice";
 
 const UserSection = () => {
-	const [modal, setModal] = useState(false);
-	const navigate = useNavigate();
+	const { login } = useSelector((state) => state.components.modal);
 	const { cart } = useSelector((state) => state.guestShoppingCart);
+	const verifiedUser = hasJWT();
+	console.log("verifiedUser en Componente UserSection", verifiedUser);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
-	function handleOpenModal() {
-		hasJWT() ? navigate("/profile") : setModal(true);
-	}
-
-	function handleCloseModal() {
-		setModal(false);
-	}
 	return (
 		<div className="flex gap-2">
-			{modal && (
-				<ModalMircha syncFunction={handleCloseModal}>
-					<Login closeModal={handleCloseModal} />
-				</ModalMircha>
+			{login && (
+				<Modal functionModal={setLoginFalse}>
+					<Login />
+				</Modal>
 			)}
 			<IconContext.Provider
 				value={{
@@ -37,7 +37,19 @@ const UserSection = () => {
 					size: "30px",
 				}}
 			>
-				<AiOutlineUser className="hover:bg-red-500" onClick={handleOpenModal} />
+				{verifiedUser ? (
+					<img
+						className="hover: cursor-pointer"
+						src="https://icons.iconarchive.com/icons/ampeross/qetto/48/icon-developer-icon.png"
+						alt=""
+						onClick={() => navigate("/profile")}
+					/>
+				) : (
+					<AiOutlineUser
+						className="hover:bg-red-500"
+						onClick={() => dispatch(setLoginTrue())}
+					/>
+				)}
 
 				<AiOutlineHeart className="hover:bg-red-500" />
 
