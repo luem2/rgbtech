@@ -33,14 +33,14 @@ router.get("/", setQueryConditions, setPagination, async (req, res) => {
 });
 
 router.get("/name-list", async (req, res) => {
-	const {name} = req.query
-	const whereCondition = {}
-	name ? (whereCondition.name = { [Op.iLike]: `%${name}%` }) : null;
-	console.log(name)
-	console.log(whereCondition)
+	// const {name} = req.query
+	// const whereCondition = {}
+	// name ? (whereCondition.name = { [Op.iLike]: `%${name}%` }) : null;
+	// console.log(name)
+	// console.log(whereCondition)
 	try {
 		const nameList = await Product.findAll({
-			where: whereCondition,
+			// where: whereCondition,
 			attributes: [['name', 'label'], ['id', 'value']]
 		})
 		res.status(200).send(nameList)

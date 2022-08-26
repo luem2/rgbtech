@@ -50,19 +50,20 @@ export default function SearchBar() {
 				</button>
 			</div>
 
-			<div>
+			<div >
 				{productsName?.map((item) => (
 					<div
-						className="flex justify-center"
+						className="flex justify-center overflow-y-scroll h-60"
 						key={item.value}
-						onClick={() => onSearch(item.label)}
+						onClick={onChange}
 					>
-						<ul className="z-40 overflow-y-scroll h-60 bg-blue-400 mt-1 w-96 text-gray-900">
-							<Link to={`/productDetails/${item.value}`}>
-								<li className="px-6 py-2 text-black cursor-pointer w-full">
+						<ul className="z-40 bg-blue-400 mt-1 w-96 text-gray-900">
+							
+								<li className="px-6 py-2 text-black cursor-pointer w-full overflow-y-scroll h-60">
 									{item.label}
+									onClick={onChange}
 								</li>
-							</Link>
+							
 						</ul>
 					</div>
 				))}

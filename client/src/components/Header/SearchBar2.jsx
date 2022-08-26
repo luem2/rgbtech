@@ -13,6 +13,7 @@ export default function SearchBar2() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { productsName } = useSelector((state) => state.products);
+	const largo = Object.keys(productsName).length
 
 	const onChange = (value) => {
         dispatch(searchNameAction());
@@ -21,51 +22,70 @@ export default function SearchBar2() {
         console.log(value)
 	};
 
-	const onSearch = () => {
-		dispatch(searchNameAction(""));
-		setValue("");
-	};
+	// const onSearch = () => {
+	// 	dispatch(searchNameAction(""));
+	// 	setValue("");
+	// };
 
-	const onClickHandler = (e) => {
-		e.preventDefault();
-		setValue(e.target.value);
-		navigate("/productDetails/" + value);
-		setValue("");
-	};
+	// const onClickHandler = (e) => {
+	// 	e.preventDefault();
+	// 	setValue(e.target.value);
+	// 	navigate("/productDetails/" + value);
+	// 	setValue("");
+	// };
 	
 	useEffect(() => {
 		dispatch(searchNameAction());
 	}, [dispatch]);
 
+	const customStyles = {
+		option: (provided, state) => ({
+		  ...provided,
+		  borderBottom: '2px solid pink',
+		  color: state.isSelected ? 'pink' : 'black',
+		  padding: 20,
+		  cursor:'pointer',
+		  
+		}),
+		control: () => ({
+			width:2000,
+			cursor:'pointer',
+			
+		})
+	  };
+	  const colourStyles = {
+		control: styles => ({ ...styles, 
+			width:300,
+			backgroundColor:'#FF69B4',
+			cursor:'pointer',
+			borderRadius: 10,
+			borderColor:'white',
+		}),
+		option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+		  return {
+			...styles,
+			borderRadius: 5,
+			backgroundColor: isSelected ? 'red' : '#FF1493', 
+			color: 'black',
+			cursor:'pointer',
+			padding:10,
+			margin: 1
+		  };
+		},
+		
+	  };
+
 	return (
 		<div>
-			<div className="w-90 mx-2 my-2">
-                <h1 className="text-pink-500 ml-20 text-xl font-bold">🔎 Find it</h1>
-				<Select
-					className="text-blue w-80 bg-pink-300 rounded border-solid border-pink-400 pl-1 pt-1 pr-1 pb-1 font-bold"
-					placeholder="Choose..."
+			<div className="flex">
+                
+				<Select className="flex rounded pl-1 pt-1 pr-1 pb-2 font-bold"
+					placeholder=" 🔎 Look for it..."
+					styles={colourStyles}
 					options={productsName}
 					onChange={onChange}
 				/>
 			</div>
-
-			{/* <div>
-				{productsName?.map((item) => (
-					<div
-						className="flex justify-center"
-						key={item.id}
-						onClick={() => onSearch(item.name)}
-					>
-						<ul className="absolute bg-pink-500 mt-1 w-96 text-gray-900">
-							<Link to={`/productDetails/${item.id}`}>
-								<li className="px-6 py-2  text-black cursor-pointer w-full">
-									{item.name}
-								</li>
-							</Link>
-						</ul>
-					</div>
-				))}
-			</div> */}
 		</div>
 	);
 }
