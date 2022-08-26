@@ -7,20 +7,17 @@ import { useDispatch, useSelector } from "react-redux";
 import  useProducts  from "../components/useProducts"
 import Header from "../components/Header/Header.jsx";
 import { useLocation } from "react-router-dom";
-import { getAllProducts } from "../store/slices/products/thunks";
-
+import { getAllProducts,getEtiquetas, getMarcas } from "../store/slices/products/thunks";
+import Filters from "../components/Filters";
 
 
 function AllProducts() {
 
-	// const { search } =  useLocation();
-	// const dispatch = useDispatch()
-
-
-	// useEffect(() => {
-	// 	dispatch(getAllProducts(null, search))
-	// }, [])
-
+	const dispatch = useDispatch()
+	useEffect(() => {
+		dispatch(getEtiquetas())
+		dispatch(getMarcas())
+	}, [])
 
 	// const dispatch = useDispatch();
 	const { products } = useSelector((state) => state.products);
@@ -48,17 +45,15 @@ function AllProducts() {
 	  })
 
 
-
-	// useEffect(() => {
-	// 	dispatch(getAllProducts(page));
-	// }, []);
-
 	return (
 		<div>
 			<Header/>
 			<h1>
 			All our products here
 			</h1>
+			<div>
+				<Filters/>
+			</div>
 			{products &&
 				products.map((elem, i) => {
 					if(products.length === i+1){

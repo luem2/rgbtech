@@ -7,7 +7,7 @@ import CreateUser from "./pages/CreateUser";
 import AllProducts from "./pages/AllProducts";
 import ShoppingCart from "./pages/ShoppingCart";
 import SearchProducts from "./pages/SeachProduct";
-import Filters from "./pages/Filters";
+import Filters from "./components/Filters"
 import Profile from "./pages/Profile";
 import ConfirmationSingup from "./pages/ConfirmationSingup"
 

@@ -165,7 +165,7 @@ const products =[
         "freeShipping":false,
         "sales": 70,
         "brand": "ff70d460a420205ceeea16f1c13e51b1",
-        "tag": ["9eed85ad420e3a3c986cdc6d7e77854d","7beff197adfc70df7ee315bfa4b1af75","f2a47c6809d88e175dade0ef7b16aa13" ]
+        "tag": ["9eed85ad420e3a3c986cdc6d7e77854d","7beff197adfc70df7ee315bfa4b1af75"]
     },
     {//x
         "name":"Viper 8KHz",

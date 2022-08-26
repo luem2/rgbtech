@@ -4,6 +4,9 @@ import {
 	getDetailsProductById,
 	searchName,
 	getProductsFilters,
+	getTags,
+	getBrands,
+	limpiarFiltros
 } from "./productSlice";
 
 export const searchNameAction = (input) => {
@@ -99,4 +102,38 @@ export const setProduct = () => {
 	} catch (e) {
 		console.error(e);
 	}
+};
+
+export const getEtiquetas = () => {
+	return async (dispatch) => {
+		try {
+			const tag =  await axios.get(`tags`);
+			dispatch(getTags(tag.data));
+			console.log(tag);
+		} catch (error) {
+			console.error(e);
+		}
+	};
+};
+
+export const getMarcas = () => {
+	return async (dispatch) => {
+		try {
+			const brand =  await axios.get(`brands`);
+			dispatch(getBrands(brand.data));
+			console.log(brand);
+		} catch (error) {
+			console.error(e);
+		}
+	};
+};
+
+export const limpiarProductos = () => {
+	return (dispatch) => {
+		try {
+			dispatch(limpiarFiltros());
+		} catch (e) {
+			console.error(e);
+		}
+	};
 };
