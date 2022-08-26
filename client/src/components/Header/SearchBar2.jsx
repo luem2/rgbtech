@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { BsSearch } from "react-icons/bs";
 import {searchNameAction,} from "../../store/slices/products/thunks";
 import { Link, useNavigate } from "react-router-dom";
-import Select from "react-select"
+// import {Select} from "react-select"
 import { useEffect } from "react";
 
 
@@ -79,12 +79,12 @@ export default function SearchBar2() {
 		<div>
 			<div className="flex">
                 
-				<Select className="flex rounded pl-1 pt-1 pr-1 pb-2 font-bold"
+				{/* <Select className="flex rounded pl-1 pt-1 pr-1 pb-2 font-bold"
 					placeholder=" 🔎 Look for it..."
 					styles={colourStyles}
 					options={productsName}
 					onChange={onChange}
-				/>
+				/> */}
 			</div>
 		</div>
 	);

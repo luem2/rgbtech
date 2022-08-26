@@ -13,13 +13,14 @@ import {
 	setErrorLoginFalse,
 	setLogoutFalse,
 	setProductAddedFalse,
+	setemailConfirmatedFalse,
 } from "../store/slices/components/componentSlice";
 import "react-toastify/dist/ReactToastify.css";
 
 const Home = () => {
 	const dispatch = useDispatch();
 	const { products } = useSelector((state) => state.products);
-	const { accountCreated, welcomeUser, errorLogin, logout, productAdded } =
+	const { accountCreated, welcomeUser, errorLogin, logout, productAdded,emailConfirmated } =
 		useSelector((state) => state.components.notification);
 
 	const accCreated = () => {
@@ -87,6 +88,19 @@ const Home = () => {
 		dispatch(setProductAddedFalse());
 	};
 
+	const emailConfirmatedFunction =()=>{
+		toast.success("✅ email confirmed successfully!", {
+			position: "top-right",
+			autoClose: 3000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+		});
+		dispatch(setemailConfirmatedFalse());
+	}
+
 	useEffect(() => {
 		if (products.length) return;
 		dispatch(getAllProducts(1));
@@ -99,6 +113,7 @@ const Home = () => {
 			{errorLogin && errLogin()}
 			{logout && logoutFunction()}
 			{productAdded && productAddedFunction()}
+			{emailConfirmated && emailConfirmatedFunction()}
 			<Header />
 			<Carousel />
 			<div className="flex justify-center">

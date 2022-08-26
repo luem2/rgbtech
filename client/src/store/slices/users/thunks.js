@@ -1,5 +1,6 @@
 import axios from "axios";
 import { setErrorLoginTrue } from "../components/componentSlice";
+import jwt from "jwt-decode";
 
 export const AuthUserLogin = (user) => {
 	return async (dispatch) => {
@@ -35,12 +36,38 @@ export const postUser = (userCreated) => {
 	};
 };
 
-export const confirmationEmail =(payload) => {
+export const confirmationEmail =(user) => {
 	return async () => {
 		try {
-			await axios.post("users/confirmation", payload )
+			await axios.put(`users/confirmation/${user.id}`,  )
 		} catch (error) {
 		  console.log(error);	
 		}
 	}
 }
+
+export const setShoppingHistory = (shoppings) => {
+	const token = window.localStorage.getItem("token");
+	const perfil = jwt(token);
+	return async () => {
+		try {
+			await axios.put(`users/shoppingHistory/${perfil.id}`, shoppings);
+		} catch (e) {
+			console.error(e);
+		}
+	};
+};
+
+
+export const setCartShop = (cartShop) => {
+	const token = window.localStorage.getItem("token");
+	const perfil = jwt(token);
+	return async () => {
+		try {
+			console.log(perfil.id)
+			await axios.put(`users/setCart/${perfil.id}`, cartShop);
+		} catch (e) {
+			console.error(e);
+		}
+	};
+};
