@@ -23,13 +23,17 @@ module.exports = (sequelize) => {
 				allowNull: false,
 				unique: true,
 			},
+			userVerificate: {
+				type: DataTypes.BOOLEAN,
+				defaultValue: false,
+				allowNull: false,
+			},
 			profilePhoto: {
 				type: DataTypes.STRING,
 				allowNull: true,
 			},
 			cartShop: {
 				type: DataTypes.ARRAY(DataTypes.STRING),
-				allowNull: true,
 			},
 			favorite: {
 				type: DataTypes.ARRAY(DataTypes.STRING),
@@ -40,11 +44,9 @@ module.exports = (sequelize) => {
 				defaultValue: false,
 				allowNull: false,
 			},
-			confirmation:{
-				type: DataTypes.BOOLEAN,
-				defaultValue: false,
-				allowNull: false,
-			}
+			shoppingHistory: {
+				type: DataTypes.ARRAY(DataTypes.STRING),
+			},
 		},
 		{
 			timestamps: false,
