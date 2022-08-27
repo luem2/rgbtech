@@ -9,38 +9,36 @@ import {
 	setLoginFalse,
 	setWelcomeUserTrue,
 } from "../store/slices/components/componentSlice";
-
+import { useForm } from "../hooks/useForm";
 import { hasJWT } from "../store/thunks.js";
 
+
+const initialForm = {
+	user: "",
+	password: ""
+}
+const validationsForm = (form) => {
+	const errors = {}
+	if(!form.user.trim()){
+    errors.user = "Required Field"
+  }
+	if(!form.password.trim()){
+		errors.password = "Required Field"
+	}
+	return errors
+}
+
 const Login = () => {
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
 
-	const [input, setInput] = useState({
-		user: "",
-		password: "",
-	});
+	const {
+    form, 
+    errors,
+    loading,
+    response,
+    handleChange,
+    handleBlur,
+    handleSubmit} = useForm(initialForm, validationsForm)
 
-	const handleInputChange = (e) => {
-		setInput({
-			...input,
-			[e.target.name]: e.target.value,
-		});
-	};
-
-	const handleLoginSubmit = (e) => {
-		e.preventDefault();
-		dispatch(AuthUserLogin(input));
-
-		const userVerified = hasJWT();
-		console.log("userVerified", userVerified);
-
-		if (userVerified) {
-			setInput({ user: "", password: "" });
-			dispatch(setLoginFalse());
-			dispatch(setWelcomeUserTrue());
-		}
-	};
 	return (
 		<div>
 			<div className="justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 text-black">
@@ -87,11 +85,13 @@ const Login = () => {
 												type="text"
 												id="user"
 												name="user"
-												value={input.user}
+												value={form.user}
 												autoFocus
-												onChange={handleInputChange}
+												onBlur={handleBlur}
+												onChange={handleChange}
 												className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-pink-100"
 											/>
+          							{errors.user ? <p>{errors.user}</p> : null}
 										</div>
 										<div className="flex flex-col space-y-1">
 											<div className="flex items-center justify-between">
@@ -113,16 +113,18 @@ const Login = () => {
 												type="password"
 												name="password"
 												id="password"
-												value={input.password}
-												onChange={handleInputChange}
+												onBlur={handleBlur}
+												value={form.password}
+												onChange={handleChange}
 												className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-pink-100"
 											/>
+          							{errors.password ? <p>{errors.password}</p> : null}
 										</div>
 										<div>
 											<button
 												type="submit"
 												className="w-full px-4 py-2 text-lg font-semibold text-white transition-colors duration-300 bg-pink-500 rounded-md shadow hover:bg-pink-600 focus:outline-none focus:ring-blue-200 focus:ring-4"
-												onClick={handleLoginSubmit}
+												onClick={handleSubmit}
 											>
 												Log in
 											</button>
