@@ -50,15 +50,15 @@ export default function AllProducts() {
 			products &&
 			products.map((elem, i) => {
 				if(products.length === i+1){
-					<Tarjeta
+					return <Tarjeta
 					key={elem.id}
 					image={elem.img}
 					name={elem.name}
 					price={elem.price}
-					ref={lastProduct}
+					lastProduct={lastProduct}
 					/>
 				} else {
-					<Tarjeta
+					return <Tarjeta
 					key={elem.id}
 					image={elem.img}
 					name={elem.name}
