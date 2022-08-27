@@ -26,11 +26,10 @@ function HamburguerMenu() {
 		{ name: "All products", tag: "" },
 		{ name: "Monitors", tag: "?tag=Monitor" },
 		{ name: "Laptops", tag: "?tag=Laptops" },
-		{ name: "Teclados", tag: "?tag=Keyboard" },
+		{ name: "Keyboards", tag: "?tag=Keyboard" },
 		{ name: "mouses", tag: "?tag=Mouse" },
 		{ name: "Chairs and gaming desk", tag: "?tag=Furniture" },
-		{ name: "Consolas de videojuegos", tag: "?name=x&tag=monitor" },
-		{ name: "Audio, parlantes, etc.", tag: "?tag=Audio" },
+		{ name: "Audio, speakers, etc.", tag: "?tag=Audio" },
 	];
 
 
@@ -49,7 +48,7 @@ function HamburguerMenu() {
 				</button>
 			) : (
 				<div
-					className="w-100 pt-0 h-[640px] shadow-md bg-white px-8 absolute rounded-br-[120px] shadow-l shadow-blue-600/100"
+					className="w-100 pt-0 h-[550px] shadow-md bg-white px-8 absolute rounded-br-[120px] shadow-l shadow-blue-600/100"
 				>
 					<button
 						className="text-[30px] font-bold mt-4"
@@ -63,13 +62,13 @@ function HamburguerMenu() {
 						</h1>
 						{tags.map((tag, i) => (
 							<li key={i} className="text-black p-2 ml-1 font-mono">
-								<a className="flex items-center 
+								<Link className="flex items-center 
 								text-black py-5 px-6 h-10 
 								overflow-hidden 
 								text-ellipsis whitespace-nowrap 
 								rounded hover:text-blue-600/100 hover:bg-gray-100 
 								transition duration-300 ease-in-out" 
-								href={url + tag.tag}>{tag.name}</a>
+								href={url + tag.tag}>{tag.name}</Link>
 							</li>
 						))}
 					</ul>

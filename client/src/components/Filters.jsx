@@ -74,7 +74,7 @@ export default function Filters() {
     <form className='shadow-md'>
   <div>
     <h1 className='font-bold'>Brands</h1>
-    <div className="form-check overflow-y-scroll h-60">
+    <div className="form-check overflow-y-scroll h-52">
         {brands && brands.map((item) => (
             <div>
             <input className="appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" 
@@ -90,7 +90,7 @@ export default function Filters() {
     </div>
       <div>
       <h1 className='font-bold'>Tags</h1>
-      <div className="form-check overflow-y-scroll h-60">
+      <div className="form-check overflow-y-scroll h-52">
         {tags && tags.map((item) => (
             <div>
             <input className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" 
