@@ -8,11 +8,11 @@ import CategoriesCarousel from "../components/CategoriesSection/CategoriesSectio
 import Footer from "../components/Footer.jsx";
 import { ToastContainer, toast } from "react-toastify";
 import {
-	setAccCreatedFalse,
-	setWelcomeUserFalse,
-	setErrorLoginFalse,
-	setLogoutFalse,
-	setProductAddedFalse,
+	setAccCreated,
+	setWelcomeUser,
+	setErrorLogin,
+	setLogout,
+	setProductAdded,
 	setemailConfirmatedFalse,
 } from "../store/slices/components/componentSlice";
 import "react-toastify/dist/ReactToastify.css";
@@ -20,8 +20,14 @@ import "react-toastify/dist/ReactToastify.css";
 const Home = () => {
 	const dispatch = useDispatch();
 	const { products } = useSelector((state) => state.products);
-	const { accountCreated, welcomeUser, errorLogin, logout, productAdded,emailConfirmated } =
-		useSelector((state) => state.components.notification);
+	const {
+		accountCreated,
+		welcomeUser,
+		errorLogin,
+		logout,
+		productAdded,
+		emailConfirmated,
+	} = useSelector((state) => state.components.notification);
 
 	const accCreated = () => {
 		toast.success("👨‍🚀 Account created successfully check your email ✉️!", {
@@ -33,7 +39,7 @@ const Home = () => {
 			draggable: true,
 			progress: undefined,
 		});
-		dispatch(setAccCreatedFalse());
+		dispatch(setAccCreated(false));
 	};
 
 	const welcomeUserFunction = () => {
@@ -46,7 +52,7 @@ const Home = () => {
 			draggable: true,
 			progress: undefined,
 		});
-		dispatch(setWelcomeUserFalse());
+		dispatch(setWelcomeUser(false));
 	};
 
 	const errLogin = () => {
@@ -59,7 +65,7 @@ const Home = () => {
 			draggable: true,
 			progress: undefined,
 		});
-		dispatch(setErrorLoginFalse());
+		dispatch(setErrorLogin(false));
 	};
 
 	const logoutFunction = () => {
@@ -72,7 +78,7 @@ const Home = () => {
 			draggable: true,
 			progress: undefined,
 		});
-		dispatch(setLogoutFalse());
+		dispatch(setLogout(false));
 	};
 
 	const productAddedFunction = () => {
@@ -85,10 +91,10 @@ const Home = () => {
 			draggable: true,
 			progress: undefined,
 		});
-		dispatch(setProductAddedFalse());
+		dispatch(setProductAdded(false));
 	};
 
-	const emailConfirmatedFunction =()=>{
+	const emailConfirmatedFunction = () => {
 		toast.success("✅ email confirmed successfully!", {
 			position: "top-right",
 			autoClose: 3000,
@@ -99,7 +105,7 @@ const Home = () => {
 			progress: undefined,
 		});
 		dispatch(setemailConfirmatedFalse());
-	}
+	};
 
 	useEffect(() => {
 		if (products.length) return;
@@ -107,7 +113,7 @@ const Home = () => {
 	}, []);
 
 	return (
-		<div className="min-h-screen grid">
+		<div className="min-h-screen">
 			{accountCreated && accCreated()}
 			{welcomeUser && welcomeUserFunction()}
 			{errorLogin && errLogin()}

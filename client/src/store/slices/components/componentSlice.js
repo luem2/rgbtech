@@ -11,7 +11,7 @@ const initialState = {
 		logout: false,
 		productAdded: false,
 		productRemoved: false,
-		emailConfirmated:false,
+		emailConfirmated: false,
 	},
 };
 
@@ -19,60 +19,32 @@ const componentSlice = createSlice({
 	name: "components",
 	initialState,
 	reducers: {
-		setLoginTrue: (state) => {
-			state.modal.login = true;
+		setLogin: (state, action) => {
+			state.modal.login = action.payload;
 		},
 
-		setLoginFalse: (state) => {
-			state.modal.login = false;
+		setAccCreated: (state, action) => {
+			state.notification.accountCreated = action.payload;
 		},
 
-		setAccCreatedTrue: (state) => {
-			state.notification.accountCreated = true;
+		setWelcomeUser: (state, action) => {
+			state.notification.welcomeUser = action.payload;
 		},
 
-		setAccCreatedFalse: (state) => {
-			state.notification.accountCreated = false;
+		setErrorLogin: (state, action) => {
+			state.notification.errorLogin = action.payload;
 		},
 
-		setWelcomeUserTrue: (state) => {
-			state.notification.welcomeUser = true;
+		setLogout: (state, action) => {
+			state.notification.logout = action.payload;
 		},
 
-		setWelcomeUserFalse: (state) => {
-			state.notification.welcomeUser = false;
+		setProductAdded: (state, action) => {
+			state.notification.productAdded = action.payload;
 		},
 
-		setErrorLoginTrue: (state) => {
-			state.notification.errorLogin = true;
-		},
-
-		setErrorLoginFalse: (state) => {
-			state.notification.errorLogin = false;
-		},
-
-		setLogoutTrue: (state) => {
-			state.notification.logout = true;
-		},
-
-		setLogoutFalse: (state) => {
-			state.notification.logout = false;
-		},
-
-		setProductAddedTrue: (state) => {
-			state.notification.productAdded = true;
-		},
-
-		setProductAddedFalse: (state) => {
-			state.notification.productAdded = false;
-		},
-
-		setproductRemovedTrue: (state) => {
-			state.notification.productRemoved = true;
-		},
-
-		setproductRemovedFalse: (state) => {
-			state.notification.productRemoved = false;
+		setproductRemoved: (state, action) => {
+			state.notification.productRemoved = action.payload;
 		},
 		setemailConfirmatedTrue: (state) => {
 			state.notification.emailConfirmated = true;
@@ -84,20 +56,13 @@ const componentSlice = createSlice({
 });
 
 export const {
-	setLoginTrue,
-	setLoginFalse,
-	setAccCreatedTrue,
-	setAccCreatedFalse,
-	setWelcomeUserTrue,
-	setWelcomeUserFalse,
-	setErrorLoginTrue,
-	setErrorLoginFalse,
-	setLogoutTrue,
-	setLogoutFalse,
-	setProductAddedTrue,
-	setProductAddedFalse,
-	setproductRemovedTrue,
-	setproductRemovedFalse,
+	setLogin,
+	setAccCreated,
+	setWelcomeUser,
+	setErrorLogin,
+	setLogout,
+	setProductAdded,
+	setproductRemoved,
 	setemailConfirmatedTrue,
 	setemailConfirmatedFalse,
 } = componentSlice.actions;

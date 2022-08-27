@@ -9,8 +9,7 @@ import {
 	delProduct,
 	emptyCart,
 } from "../store/slices/guestShoppingCart/guestShoppingCartSlice";
-import { setproductRemovedTrue } from "../store/slices/components/componentSlice";
-import { setproductRemovedFalse } from "../store/slices/components/componentSlice";
+import { setproductRemoved } from "../store/slices/components/componentSlice";
 import { FaMoneyCheckAlt } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import {hasJWT} from "../store/thunks.js"
@@ -23,7 +22,17 @@ const ShoppingCart = () => {
 		(state) => state.components.notification
 	);
 	const { cart } = useSelector((state) => state.guestShoppingCart);
-	const pricesCart = cart?.map((p) => p.price * p.amount);
+
+	window.sessionStorage.setItem("carrito", JSON.stringify([...cart]));
+	const sessionStorageCart = JSON.parse(
+		window.sessionStorage.getItem("carrito")
+	);
+
+	const shoppingCart = !sessionStorageCart.length ? cart : sessionStorageCart;
+
+	console.log(sessionStorageCart);
+
+	const pricesCart = shoppingCart?.map((p) => p.price * p.amount);
 	const totalPrice = pricesCart?.reduce((prev, act) => prev + act, 0);
 
 	const addUnits = (id) => {
@@ -36,7 +45,7 @@ const ShoppingCart = () => {
 
 	const removeProduct = (id) => {
 		dispatch(delProduct(id));
-		dispatch(setproductRemovedTrue());
+		dispatch(setproductRemoved(true));
 	};
 
 	const productRemovedFunction = () => {
@@ -49,7 +58,7 @@ const ShoppingCart = () => {
 			draggable: true,
 			progress: undefined,
 		});
-		dispatch(setproductRemovedFalse());
+		dispatch(setproductRemoved(false));
 	};
 
 	const HandleClickBuy = ()=>{
