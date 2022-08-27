@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setErrorLoginTrue } from "../components/componentSlice";
+import { setErrorLogin } from "../components/componentSlice";
 
 export const AuthUserLogin = (user) => {
 	return async (dispatch) => {
@@ -11,7 +11,7 @@ export const AuthUserLogin = (user) => {
 			setAuthToken(token);
 		} catch (e) {
 			console.log("estoy entrando al error de Auth");
-			dispatch(setErrorLoginTrue());
+			dispatch(setErrorLogin(true));
 			console.error(e);
 		}
 	};
@@ -35,12 +35,12 @@ export const postUser = (userCreated) => {
 	};
 };
 
-export const confirmationEmail =(payload) => {
+export const confirmationEmail = (payload) => {
 	return async () => {
 		try {
-			await axios.post("users/confirmation", payload )
+			await axios.post("users/confirmation", payload);
 		} catch (error) {
-		  console.log(error);	
+			console.log(error);
 		}
-	}
-}
+	};
+};

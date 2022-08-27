@@ -8,11 +8,11 @@ import CategoriesCarousel from "../components/CategoriesSection/CategoriesSectio
 import Footer from "../components/Footer.jsx";
 import { ToastContainer, toast } from "react-toastify";
 import {
-	setAccCreatedFalse,
-	setWelcomeUserFalse,
-	setErrorLoginFalse,
-	setLogoutFalse,
-	setProductAddedFalse,
+	setAccCreated,
+	setWelcomeUser,
+	setErrorLogin,
+	setLogout,
+	setProductAdded,
 } from "../store/slices/components/componentSlice";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -32,7 +32,7 @@ const Home = () => {
 			draggable: true,
 			progress: undefined,
 		});
-		dispatch(setAccCreatedFalse());
+		dispatch(setAccCreated(false));
 	};
 
 	const welcomeUserFunction = () => {
@@ -45,7 +45,7 @@ const Home = () => {
 			draggable: true,
 			progress: undefined,
 		});
-		dispatch(setWelcomeUserFalse());
+		dispatch(setWelcomeUser(false));
 	};
 
 	const errLogin = () => {
@@ -58,7 +58,7 @@ const Home = () => {
 			draggable: true,
 			progress: undefined,
 		});
-		dispatch(setErrorLoginFalse());
+		dispatch(setErrorLogin(false));
 	};
 
 	const logoutFunction = () => {
@@ -71,7 +71,7 @@ const Home = () => {
 			draggable: true,
 			progress: undefined,
 		});
-		dispatch(setLogoutFalse());
+		dispatch(setLogout(false));
 	};
 
 	const productAddedFunction = () => {
@@ -84,7 +84,7 @@ const Home = () => {
 			draggable: true,
 			progress: undefined,
 		});
-		dispatch(setProductAddedFalse());
+		dispatch(setProductAdded(false));
 	};
 
 	useEffect(() => {
@@ -93,7 +93,7 @@ const Home = () => {
 	}, []);
 
 	return (
-		<div className="min-h-screen grid">
+		<div className="min-h-screen">
 			{accountCreated && accCreated()}
 			{welcomeUser && welcomeUserFunction()}
 			{errorLogin && errLogin()}
