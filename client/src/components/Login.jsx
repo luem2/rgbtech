@@ -9,7 +9,6 @@ import {
 	setLogin,
 	setWelcomeUser,
 } from "../store/slices/components/componentSlice";
-
 import { hasJWT } from "../store/thunks.js";
 
 const Login = () => {
@@ -41,6 +40,7 @@ const Login = () => {
 			dispatch(setWelcomeUser(true));
 		}
 	};
+
 	return (
 		<div>
 			<div className="justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 text-black">
@@ -62,9 +62,9 @@ const Login = () => {
 										<span className="text-xl">
 											👨‍🚀
 											<Link
-												style={{ textDecoration: "underline" }}
 												to="/createUser"
-												onClick={() => dispatch(setLoginFalse())}
+												style={{ textDecoration: "underline" }}
+												onClick={() => dispatch(setLogin(false))}
 											>
 												Get Started!
 											</Link>

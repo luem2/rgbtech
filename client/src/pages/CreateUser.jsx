@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo-dibujo-2.png";
 import { setAccCreated } from "../store/slices/components/componentSlice";
+import Logo from "../components/Logo/Logo.jsx";
 
 const createUser = () => {
 	const [previewSource, setPreviewSource] = useState("");
@@ -64,9 +65,10 @@ const createUser = () => {
 				<div className="flex flex-col overflow-hidden bg-white rounded-md shadow-lg max md:flex-row md:flex-1 lg:max-w-screen-md">
 					<div className="p-4 py-6 text-white bg-blue-300 md:w-80 md:flex-shrink-0 md:flex md:flex-col md:items-center md:justify-evenly">
 						<div className="my-3 text-4xl font-bold tracking-wider text-center">
-							<a href="#">RGBTech</a>
+							<img src={logo} alt="" />
+							<Logo />
+							<p className="text-lg">Best products here!</p>
 						</div>
-						<img src={logo} alt="" />
 					</div>
 					<div className="p-5 bg-white md:flex-1">
 						<div className="flex items-stretch">

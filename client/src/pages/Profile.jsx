@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setLogout } from "../store/slices/components/componentSlice";
 import Header from "../components/Header/Header";
+import defaultImage from "../assets/defaultImage.png";
 
 const Profile = () => {
 	const token = window.localStorage.getItem("token");
@@ -16,6 +17,7 @@ const Profile = () => {
 		window.localStorage.removeItem("token");
 		navigate("/");
 		dispatch(setLogout(true));
+		setTimeout(() => window.location.reload(true), 2000);
 	};
 
 	return (
@@ -25,7 +27,11 @@ const Profile = () => {
 				<div className="flex flex-col bg-sky-600 justify-center items-center rounded-3xl my-10 p-4 text-xl">
 					<h1>{perfil.isAdmin ? "Admin" : "User"}</h1>
 					<p>👨‍🚀{perfil.user}</p>
-					<img src={perfil.profilePhoto} alt={`profilePhoto-${perfil.user}`} />
+					<img
+						className="rounded-full my-4 h-32 w-32 shadow-lg"
+						src={perfil.profilePhoto || defaultImage}
+						alt={`profilePhoto-${perfil.user}`}
+					/>
 					<p>ID User:</p>
 					<p>{perfil.id}</p>
 					<p className="mb-4">Email: {perfil.mail}</p>

@@ -71,8 +71,8 @@ const Home = () => {
 	const logoutFunction = () => {
 		toast.success("See you soon user! 🤗", {
 			position: "top-right",
-			autoClose: 4000,
-			hideProgressBar: false,
+			autoClose: 2000,
+			hideProgressBar: true,
 			closeOnClick: true,
 			pauseOnHover: true,
 			draggable: true,
