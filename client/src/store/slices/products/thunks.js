@@ -6,7 +6,8 @@ import {
 	getProductsFilters,
 	getTags,
 	getBrands,
-	limpiarFiltros
+	limpiarFiltros,
+	getFilt,
 } from "./productSlice";
 
 export const searchNameAction = (input) => {

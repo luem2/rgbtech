@@ -13,6 +13,9 @@ import { setproductRemovedTrue } from "../store/slices/components/componentSlice
 import { setproductRemovedFalse } from "../store/slices/components/componentSlice";
 import { FaMoneyCheckAlt } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
+import {hasJWT} from "../store/thunks.js"
+import { setShoppingHistory,setCartShop } from "../store/slices/users/thunks";
+import { useEffect } from "react";
 
 const ShoppingCart = () => {
 	const dispatch = useDispatch();
@@ -48,6 +51,26 @@ const ShoppingCart = () => {
 		});
 		dispatch(setproductRemovedFalse());
 	};
+
+	const HandleClickBuy = ()=>{
+		const productsId= cart.map(p=> ({id:p.id,date:Date()}))
+		console.log(productsId)
+		dispatch(setShoppingHistory(productsId))
+	}
+	
+	useEffect(() => {
+	
+	if(hasJWT()){
+        return () => {
+			if(cart.length!== 0){
+				const productsId = cart.map(p=> p.id)
+				dispatch(setCartShop(productsId))
+			}else{
+				const productsId= [""]
+				dispatch(setCartShop(productsId))
+			}
+        }}
+    }, [])
 
 	return (
 		<div>
@@ -95,15 +118,17 @@ const ShoppingCart = () => {
 						<button
 							type="button"
 							className="flex gap-2 px-6 py-2.5 bg-pink-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-pink-700 hover:shadow-lg focus:bg-pink-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-pink-800 active:shadow-lg transition duration-150 ease-in-out"
-						>
+							onClick={() => {
+								HandleClickBuy();
+							}}>
 							<FaMoneyCheckAlt /> Buy Now!
 						</button>
-						<h2>
-							Total Price:{" "}
-							<span className="text-green-500 underline">
-								${Math.round(totalPrice)}
-							</span>
-						</h2>
+						<h2 className="flex flex-col justify-center items-center bg-slate-100 rounded-lg p-3">
+                            🛒 Total Price:
+                            <span className="text-green-500 underline">
+                                ${Math.round(totalPrice)}
+                            </span>
+                        </h2>
 					</div>
 				)}
 			</div>

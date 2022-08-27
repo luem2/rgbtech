@@ -65,24 +65,13 @@ router.post(
 	}
 );
 
-
-
-
-
-
-
-
-
-
-
-router.put("/Cart", async (req, res, next) => {
+router.put("/shoppingHistory/:id", async (req, res, next) => {
 	try {
-		//Asegurarse de vaciar esta propiedad al ejecutar esta compra
 		const { id } = req.params;
-		const { cartShop } = req.body;
+		const {shopping} = req.body;
 		await User.update(
 			{
-				cartShop: cartShop,
+				shoppingHistory: shoppingHistory.push(shopping),
 			},
 			{
 				where: {
@@ -90,7 +79,7 @@ router.put("/Cart", async (req, res, next) => {
 				},
 			}
 		);
-		res.send("CartShop de usuario actualizado");
+		res.send("updated shopping History");
 	} catch (error) {
 		next(error);
 	}
@@ -117,21 +106,43 @@ router.put("/favorite", async (req, res, next) => {
 	}
 });
 
-router.post("/confirmation", async(req, res) => {
-	 try {
-		const {id} = req.body;
-	  await User.update({
-		confirmation : true
-		},
-		{
-			where : {
-				id : id
+router.put("/confirmation/:id", async (req, res, next) => {
+	try {
+		const { id } = req.params;
+		await User.update(
+			{
+				userVerificate:true
+			},
+			{
+				where: {
+					id: id,
+				},
 			}
-		})
-		res.json({message : "email confirmado"})
-	 } catch (error) {
-		console.log(error);
-	 }
-})
+		);
+		res.send("User Confirmations");
+	} catch (error) {
+		next(error);
+	}
+});
+
+router.put("/setCart/:id", async (req, res, next) => {
+	try {
+		const { id } = req.params;
+		const {cartShop} =req.body;
+		await User.update(
+			{
+				cartShop:cartShop
+			},
+			{
+				where: {
+					id: id,
+				},
+			}
+		);
+		res.send("User Confirmations");
+	} catch (error) {
+		next(error);
+	}
+});
 
 module.exports = router;
