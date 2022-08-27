@@ -13,7 +13,7 @@ import {
 	setErrorLogin,
 	setLogout,
 	setProductAdded,
-	setemailConfirmatedFalse,
+	setEmailConfirmated,
 } from "../store/slices/components/componentSlice";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -30,7 +30,7 @@ const Home = () => {
 	} = useSelector((state) => state.components.notification);
 
 	const accCreated = () => {
-		toast.success("👨‍🚀 Account created successfully check your email ✉️!", {
+		toast.success("👨‍🚀 Account created successfully check your email! ✉️", {
 			position: "top-right",
 			autoClose: 5000,
 			hideProgressBar: false,
@@ -43,7 +43,7 @@ const Home = () => {
 	};
 
 	const welcomeUserFunction = () => {
-		toast("🏠 Welcome User to RGBTech!", {
+		toast("Welcome User to RGBTech! 🏠", {
 			position: "top-right",
 			autoClose: 4000,
 			hideProgressBar: false,
@@ -56,7 +56,7 @@ const Home = () => {
 	};
 
 	const errLogin = () => {
-		toast.error("❌ There are errors in the data", {
+		toast.error("There are errors in the data ❌", {
 			position: "top-right",
 			autoClose: 5000,
 			hideProgressBar: false,
@@ -69,7 +69,7 @@ const Home = () => {
 	};
 
 	const logoutFunction = () => {
-		toast.success("🤗See you soon user!", {
+		toast.success("See you soon user! 🤗", {
 			position: "top-right",
 			autoClose: 4000,
 			hideProgressBar: false,
@@ -82,7 +82,7 @@ const Home = () => {
 	};
 
 	const productAddedFunction = () => {
-		toast.success("✅ Product added successfully!", {
+		toast.success("Product added successfully! ✅", {
 			position: "bottom-right",
 			autoClose: 2000,
 			hideProgressBar: false,
@@ -95,7 +95,7 @@ const Home = () => {
 	};
 
 	const emailConfirmatedFunction = () => {
-		toast.success("✅ email confirmed successfully!", {
+		toast.success("Email confirmed successfully! ✅", {
 			position: "top-right",
 			autoClose: 3000,
 			hideProgressBar: false,
@@ -104,7 +104,7 @@ const Home = () => {
 			draggable: true,
 			progress: undefined,
 		});
-		dispatch(setemailConfirmatedFalse());
+		dispatch(setEmailConfirmated(false));
 	};
 
 	useEffect(() => {

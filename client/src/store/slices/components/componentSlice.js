@@ -12,6 +12,7 @@ const initialState = {
 		productAdded: false,
 		productRemoved: false,
 		emailConfirmated: false,
+		cartCleaned: false,
 	},
 };
 
@@ -46,11 +47,13 @@ const componentSlice = createSlice({
 		setproductRemoved: (state, action) => {
 			state.notification.productRemoved = action.payload;
 		},
-		setemailConfirmatedTrue: (state) => {
-			state.notification.emailConfirmated = true;
+
+		setEmailConfirmated: (state, action) => {
+			state.notification.emailConfirmated = action.payload;
 		},
-		setemailConfirmatedFalse: (state) => {
-			state.notification.emailConfirmated = false;
+
+		setCartCleaned: (state, action) => {
+			state.notification.cartCleaned = action.payload;
 		},
 	},
 });
@@ -63,8 +66,8 @@ export const {
 	setLogout,
 	setProductAdded,
 	setproductRemoved,
-	setemailConfirmatedTrue,
-	setemailConfirmatedFalse,
+	setEmailConfirmated,
+	setCartCleaned,
 } = componentSlice.actions;
 
 export default componentSlice.reducer;
