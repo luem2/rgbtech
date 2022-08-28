@@ -49,13 +49,7 @@ router.post(
 				const { id, user, mail, profilePhoto, cartShop, favorite, isAdmin } =
 					findedUser;
 				const logedUser = {
-					id,
-					user,
-					mail,
-					profilePhoto,
-					cartShop,
-					favorite,
-					isAdmin,
+					id
 				};
 				const accessToken = jwt.sign(logedUser, process.env.SECRET);
 				return res.status(200).json({
@@ -68,6 +62,29 @@ router.post(
 		}
 	}
 );
+
+router.get("/profile/:id", validateToken, async (req, res) => {
+	try {
+		const { id } = req.params;
+
+		const user = await User.findByPk({ id })
+		if (!Object.keys(user).length) {
+			res.sendStatus(404)
+		}
+		const profile = {
+			user: user.user,
+			mail: user.mail,
+			profilePhoto: user.profilePhoto,
+			cartShop: user.cartShop,
+			favorite: user.favorite,
+			isAdmin: user.isAdmin,
+		}
+		res.json(profile)
+	} catch (error) {
+		res.send(error)
+	}
+
+});
 
 router.put("/shoppingHistory/:id", async (req, res, next) => {
 	try {
