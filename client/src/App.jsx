@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import ProductDetails from "./pages/ProductDetails";
 import CreateUser from "./pages/CreateUser";
-import AllProducts from "./pages/AllProducts";
+import AllProductsD2 from './pages/AllProductsD2'
 import ShoppingCart from "./pages/ShoppingCart";
 import SearchProducts from "./pages/SeachProduct";
 import Filters from "./components/Filters";
@@ -12,13 +12,15 @@ import Profile from "./pages/Profile";
 import ConfirmationSignup from "./pages/ConfirmationSignup";
 import Favorites from "./pages/Favorites";
 
+
 function App() {
 	return (
 		<>
 			<Router>
 				<Routes>
 					<Route path="/" element={<Home />} />
-					<Route path="/products" element={<AllProducts />} />
+					<Route path="/products" element={<AllProductsD2 />} />
+					{/* <Route path="/filtersandproducts" element={<FiltersAndAllproducts/>} /> */}
 					<Route path="/Search" element={<SearchProducts />} />
 					<Route path="/createUser" element={<CreateUser />} />
 					<Route path="/filters" element={<Filters />} />

@@ -18,6 +18,7 @@ export default function Filters() {
             price: ''
         }
     )
+    
 
     useEffect(() => {
         console.log(tags);
@@ -48,6 +49,8 @@ export default function Filters() {
             console.log(state);
         };
 
+
+
     let string = '?'
 
     function handleSubmit(e) {
@@ -66,6 +69,13 @@ export default function Filters() {
         dispatch(limpiarProductos())
         dispatch(getAllProducts(1, string))
         console.log(string);
+        
+    }
+
+    function handleReset(e) {
+        e.preventDefault();
+       
+        console.log(state);
     }
 
 
@@ -74,14 +84,16 @@ export default function Filters() {
     <form className='shadow-md'>
   <div>
     <h1 className='font-bold'>Brands</h1>
-    <div className="form-check overflow-y-scroll h-60">
+    <div className="form-check overflow-y-scroll h-52">
         {brands && brands.map((item) => (
             <div>
             <input className="appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" 
             type="radio" 
             name='brands'
             onClick={handleClickBrand} 
-            value={item.id}/>
+            value={item.id}
+            // checked={true}
+            />
             <label className="form-check-label inline-block text-gray-800">
             {item.name}
           </label>
@@ -90,7 +102,7 @@ export default function Filters() {
     </div>
       <div>
       <h1 className='font-bold'>Tags</h1>
-      <div className="form-check overflow-y-scroll h-60">
+      <div className="form-check overflow-y-scroll h-52">
         {tags && tags.map((item) => (
             <div>
             <input className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" 
@@ -130,6 +142,8 @@ export default function Filters() {
 </div>
   </div>
   <button onClick={handleSubmit}>Filtrar</button>
+  <br />
+  <button onClick={handleReset}>reset</button>
   </form>
 </div>
   )
