@@ -11,6 +11,7 @@ import Filters from "./components/Filters";
 import Profile from "./pages/Profile";
 import ConfirmationSignup from "./pages/ConfirmationSignup";
 import Favorites from "./pages/Favorites";
+import DashBoardAdmin from "./pages/DashBoardAdmin";
 
 function App() {
 	return (
@@ -18,6 +19,7 @@ function App() {
 			<Router>
 				<Routes>
 					<Route path="/" element={<Home />} />
+					<Route path="/admin" element={<DashBoardAdmin />} />
 					<Route path="/products" element={<AllProducts />} />
 					<Route path="/Search" element={<SearchProducts />} />
 					<Route path="/createUser" element={<CreateUser />} />
