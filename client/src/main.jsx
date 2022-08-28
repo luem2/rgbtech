@@ -5,6 +5,7 @@ import { store } from "./store";
 import { Provider } from "react-redux";
 import axios from "axios";
 import "./index.css";
+import "swiper/css/bundle";
 
 axios.defaults.baseURL = "http://localhost:3003/";
 window.sessionStorage.setItem("carrito", JSON.stringify([]));

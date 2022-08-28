@@ -16,9 +16,9 @@ const Profile = () => {
 
 	const handleSignOut = () => {
 		window.localStorage.removeItem("token");
-		navigate("/");
 		dispatch(setLogout(true));
 		dispatch(clearUser());
+		navigate("/");
 	};
 
 	return (

@@ -12,9 +12,11 @@ import {
 import { getLoggedUser } from "../store/slices/users/userSlice";
 import { useDispatch } from "react-redux";
 import { setAuthToken } from "../store/slices/users/thunks";
+import { useNavigate } from "react-router-dom";
 
 export const useForm = (initalForm) => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const [form, setForm] = useState(initalForm);
 	const [loading, setLoading] = useState(false);
 	const [response, setResponse] = useState(null);
@@ -45,6 +47,7 @@ export const useForm = (initalForm) => {
 				dispatch(getLoggedUser(user));
 				dispatch(setLogin(false));
 				dispatch(setWelcomeUser(true));
+				navigate("/");
 				setForm(initalForm);
 			})
 			.catch((error) => {
@@ -63,6 +66,7 @@ export const useForm = (initalForm) => {
 					? dispatch(setErrorLoginNotFound(true))
 					: null;
 
+				// se está enviando mal la info del usuario
 				error.response.status === 403
 					? dispatch(setErrorLoginBadData(true))
 					: null;
