@@ -2,35 +2,36 @@ import React from 'react'
 
 export default function Tarjeta({key, image, name, price, lastProduct}){
     return (
-        <div ref={lastProduct || null} key={key} className="flex bg-blue-300  p-6 font-mono">
-								<div className="flex rounded-xl justify-center shadow-2xl bg-pink-600  h-[230px] relative z-10 w-full before:h-full ">
+        <div ref={lastProduct || null} key={key} className="flex bg-white p-10 font-mono border-b-2">
+								<div className="flex rounded justify-center shadow-2xl bg-pink-600 h-60 relative z-10 w-30 before:h-full ">
 									<img
 										src={image}
 										alt=""
-										className="absolute z-10 inset-0 pt-5 w-full h-full object-cover rounded-lg"
-										loading="lazy"
+										className="z-3 w-auto h-full object-cover rounded"
+					
 									/>
+									
 								</div>
-								<form className="flex-auto pl-6">
-								<div className="relative flex flex-wrap items-baseline pb-6 before:bg-white shadow-xl before:absolute before:-top-6 before:bottom-0 before:-left-60 before:-right-6">
-										<h1 className="relative w-full flex-none mb-2 text-2xl font-semibold text-pink-600">
+								<div className="flex-auto pb-2 pl-6">
+								<div className="flex w-[830px] rounded flex-wrap items-baseline mb-4 pb-4 before:bg-white shadow-xl">
+										<h1 className="relative w-full flex-none mb-2 text-2xl font-semibold text-pink-600 pl-6">
 										{name}
 										</h1>
-										<div className="relative text-lg text-black shadow-xl rounded-2xl">${price}</div>
-										<div className="relative uppercase text-pink-600 ml-10 shadow-xl">
+										<div className="relative text-lg text-black p-2 rounded-2xl">${price}</div>
+										<div className="relative uppercase text-pink-600 ml-10 ">
 											In stock
 										</div>
 									</div>
 									<div className="flex space-x-2 mb-4 text-sm font-medium">
 										<div className="flex space-x-4">
 											<button
-												className="px-6 h-12 uppercase font-semibold tracking-wider border-2 border-black bg-blue-400 hover:bg-pink-600 text-black"
+												className="px-6 h-12 uppercase font-semibold tracking-wider border-2 border-pink-700 bg-blue-400 hover:bg-pink-600 text-black"
 												type="submit"
 											>
 												Buy now
 											</button>
 											<button
-												className="px-6 h-12 uppercase font-semibold tracking-wider border border-slate-200 text-slate-900"
+												className="px-6 h-12 rounded font-semibold border border-blue-400 hover:scale-95 text-slate-900"
 												type="button"
 											>
 												Add to cart
@@ -44,7 +45,7 @@ export default function Tarjeta({key, image, name, price, lastProduct}){
 											<svg
 												width="20"
 												height="20"
-												fill="currentColor"
+												fill="red"
 												aria-hidden="true"
 											>
 												<path
@@ -58,7 +59,7 @@ export default function Tarjeta({key, image, name, price, lastProduct}){
 									<p className="text-xs leading-6 text-slate-500">
 									Earn points by shopping at RGBtech
 									</p>
-								</form>
+								</div>
 							</div>
     )
 }
