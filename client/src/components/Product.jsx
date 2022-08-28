@@ -68,7 +68,7 @@ function Product({
 							<p className="font-bold text-black text-base">${price}</p>
 						)}
 						{freeShipping ? (
-							<p className="text-green-500 ml-3">Free Shipping</p>
+							<p className="text-green-500 ml-3">( Free Shipping )</p>
 						) : null}
 					</div>
 					<div className="flex items-center justify-between">
