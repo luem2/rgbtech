@@ -10,10 +10,13 @@ import { ToastContainer, toast } from "react-toastify";
 import {
 	setAccCreated,
 	setWelcomeUser,
-	setErrorLogin,
+	setErrorLoginBadData,
+	setErrorLoginNotFound,
+	setLoginIncomplete,
+	setConfirmYourEmailError,
 	setLogout,
 	setProductAdded,
-	setEmailConfirmated,
+	setEmailConfirm,
 } from "../store/slices/components/componentSlice";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -23,7 +26,10 @@ const Home = () => {
 	const {
 		accountCreated,
 		welcomeUser,
-		errorLogin,
+		errorLoginBadData,
+		errorLoginNotFound,
+		loginIncomplete,
+		confirmYourEmailError,
 		logout,
 		productAdded,
 		emailConfirmated,
@@ -55,8 +61,21 @@ const Home = () => {
 		dispatch(setWelcomeUser(false));
 	};
 
-	const errLogin = () => {
-		toast.error("There are errors in the data ❌", {
+	const errLoginBadDataFunction = () => {
+		toast.error("The data provided its wrong! ❌", {
+			position: "top-right",
+			autoClose: 4000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+		});
+		dispatch(setErrorLoginBadData(false));
+	};
+
+	const errLoginAccNotFound = () => {
+		toast.error("The account not found 404 ❌", {
 			position: "top-right",
 			autoClose: 5000,
 			hideProgressBar: false,
@@ -65,7 +84,35 @@ const Home = () => {
 			draggable: true,
 			progress: undefined,
 		});
-		dispatch(setErrorLogin(false));
+		//no existe el usuario
+		dispatch(setErrorLoginNotFound(false));
+	};
+
+	const errLoginIncompleteFunction = () => {
+		toast.error("Please, complete the fields required ❌", {
+			position: "top-right",
+			autoClose: 5000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+		});
+		// el usuario puso datos erroneos
+		dispatch(setLoginIncomplete(false));
+	};
+
+	const errLoginEmailNotConfirmed = () => {
+		toast.info("You must confirm your email to log in! ✉️", {
+			position: "top-right",
+			autoClose: 5000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+		});
+		dispatch(setConfirmYourEmailError(false));
 	};
 
 	const logoutFunction = () => {
@@ -104,7 +151,7 @@ const Home = () => {
 			draggable: true,
 			progress: undefined,
 		});
-		dispatch(setEmailConfirmated(false));
+		dispatch(setEmailConfirm(false));
 	};
 
 	useEffect(() => {
@@ -116,7 +163,10 @@ const Home = () => {
 		<div className="min-h-screen">
 			{accountCreated && accCreated()}
 			{welcomeUser && welcomeUserFunction()}
-			{errorLogin && errLogin()}
+			{errorLoginBadData && errLoginBadDataFunction()}
+			{errorLoginNotFound && errLoginAccNotFound()}
+			{loginIncomplete && errLoginIncompleteFunction()}
+			{confirmYourEmailError && errLoginEmailNotConfirmed()}
 			{logout && logoutFunction()}
 			{productAdded && productAddedFunction()}
 			{emailConfirmated && emailConfirmatedFunction()}

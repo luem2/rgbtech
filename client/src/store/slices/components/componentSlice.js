@@ -7,11 +7,14 @@ const initialState = {
 	notification: {
 		accountCreated: false,
 		welcomeUser: false,
-		errorLogin: false,
+		errorLoginBadData: false,
+		errorLoginNotFound: false,
+		confirmYourEmailError: false,
+		loginIncomplete: false,
 		logout: false,
 		productAdded: false,
 		productRemoved: false,
-		emailConfirmated: false,
+		emailConfirm: false,
 		cartCleaned: false,
 	},
 };
@@ -32,8 +35,20 @@ const componentSlice = createSlice({
 			state.notification.welcomeUser = action.payload;
 		},
 
-		setErrorLogin: (state, action) => {
-			state.notification.errorLogin = action.payload;
+		setErrorLoginBadData: (state, action) => {
+			state.notification.errorLoginBadData = action.payload;
+		},
+
+		setErrorLoginNotFound: (state, action) => {
+			state.notification.errorLoginNotFound = action.payload;
+		},
+
+		setConfirmYourEmailError: (state, action) => {
+			state.notification.confirmYourEmailError = action.payload;
+		},
+
+		setLoginIncomplete: (state, action) => {
+			state.notification.loginIncomplete = action.payload;
 		},
 
 		setLogout: (state, action) => {
@@ -44,16 +59,16 @@ const componentSlice = createSlice({
 			state.notification.productAdded = action.payload;
 		},
 
+		setCartCleaned: (state, action) => {
+			state.notification.cartCleaned = action.payload;
+		},
+
 		setproductRemoved: (state, action) => {
 			state.notification.productRemoved = action.payload;
 		},
 
-		setEmailConfirmated: (state, action) => {
-			state.notification.emailConfirmated = action.payload;
-		},
-
-		setCartCleaned: (state, action) => {
-			state.notification.cartCleaned = action.payload;
+		setEmailConfirm: (state, action) => {
+			state.notification.emailConfirm = action.payload;
 		},
 	},
 });
@@ -62,12 +77,15 @@ export const {
 	setLogin,
 	setAccCreated,
 	setWelcomeUser,
-	setErrorLogin,
+	setErrorLoginBadData,
+	setErrorLoginNotFound,
+	setConfirmYourEmailError,
+	setLoginIncomplete,
 	setLogout,
 	setProductAdded,
-	setproductRemoved,
-	setEmailConfirmated,
 	setCartCleaned,
+	setproductRemoved,
+	setEmailConfirm,
 } = componentSlice.actions;
 
 export default componentSlice.reducer;

@@ -1,8 +1,9 @@
 const { User } = require("../db.js");
 const { cloudinary } = require("../Utils/cloudinary.js");
 const jwt = require("jsonwebtoken");
-const nodemailer = require('nodemailer')
-const {htmlMail} = require('../Utils/EmailTemplate.js')
+const nodemailer = require("nodemailer");
+const { htmlMail } = require("../Utils/EmailTemplate.js");
+const bcrypt = require("bcrypt");
 
 module.exports = {
 	checkSingupBody: (req, res, next) => {
@@ -38,46 +39,58 @@ module.exports = {
 			return next();
 		}
 	},
-	sendConfirmationEmail : async (newUser) => {
-		let emailToken = jwt.sign(newUser, process.env.SECRET, {expiresIn: '1d'})
-		emailToken = emailToken.replaceAll(".", "'")
-		let url = `http://127.0.0.1:5173/confirmation/${emailToken}`
+	sendConfirmationEmail: async (newUser) => {
+		let emailToken = jwt.sign(newUser, process.env.SECRET, { expiresIn: "1d" });
+		emailToken = emailToken.replaceAll(".", "'");
+		let url = `http://127.0.0.1:5173/confirmation/${emailToken}`;
 		const transporter = nodemailer.createTransport({
-			service: 'gmail',
+			service: "gmail",
 			auth: {
-				user: 'rgbtechPF@gmail.com',
-				pass: 'qqilqandbimpiaxu'
-			}
-		})
-		const html = htmlMail(url)
+				user: "rgbtechPF@gmail.com",
+				pass: "qqilqandbimpiaxu",
+			},
+		});
+		const html = htmlMail(url);
 		await transporter.sendMail({
 			from: "rgbtech@tech.com",
 			to: newUser.mail,
 			subject: "Confirmation",
-			html
-		})
+			html,
+		});
 	},
+
 	checkLoginBody: (req, res, next) => {
 		const { user, password } = req.body;
-		if (!user && !password) {
+		if (!user || !password) {
 			return res.status(400).send("Mandatory data missing");
 		} else return next();
 	},
 
 	checkUserRegistration: async (req, res, next) => {
-		const { user } = req.body;
+		const { user, password } = req.body;
 		try {
 			const findedUser = await User.findOne({
 				where: {
 					user: user,
 				},
 			});
+
+			if (findedUser === null) return res.sendStatus(404);
+
+			if (!bcrypt.compareSync(password, findedUser.password)) {
+				return res.sendStatus(403);
+			}
+
+			req.body.logged = true;
+			console.log("findedUser linea 84", Boolean(findedUser));
+
+			if (!findedUser?.userVerificate) {
+				return res.sendStatus(401);
+			}
 			req.body.findedUser = findedUser;
-			return Object.keys(findedUser).length
-				? next()
-				: res.status(404).send("User not found");
+			return Object.keys(findedUser).length ? next() : res.sendStatus(404);
 		} catch {
-			return res.status(500).send("Internal Server Error");
+			return res.sendStatus(500);
 		}
 	},
 

@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { setLogout } from "../store/slices/components/componentSlice";
 import Header from "../components/Header/Header";
 import defaultImage from "../assets/defaultImage.png";
+import { clearUser } from "../store/slices/users/userSlice";
 
 const Profile = () => {
 	const token = window.localStorage.getItem("token");
@@ -17,7 +18,7 @@ const Profile = () => {
 		window.localStorage.removeItem("token");
 		navigate("/");
 		dispatch(setLogout(true));
-		setTimeout(() => window.location.reload(true), 2000);
+		dispatch(clearUser());
 	};
 
 	return (
@@ -29,7 +30,11 @@ const Profile = () => {
 					<p>👨‍🚀{perfil.user}</p>
 					<img
 						className="rounded-full my-4 h-32 w-32 shadow-lg"
-						src={perfil.profilePhoto || defaultImage}
+						src={
+							perfil.profilePhoto === "Image_Default"
+								? defaultImage
+								: perfil.profilePhoto
+						}
 						alt={`profilePhoto-${perfil.user}`}
 					/>
 					<p>ID User:</p>

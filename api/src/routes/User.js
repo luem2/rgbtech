@@ -10,29 +10,31 @@ const {
 	checkLoginBody,
 	checkUserRegistration,
 } = require("../middlewares/userMiddleware.js");
-const {htmlMail} = require('../Utils/EmailTemplate.js')
-const nodemailer = require('nodemailer')
-
+const { htmlMail } = require("../Utils/EmailTemplate.js");
+const nodemailer = require("nodemailer");
 
 const router = Router();
 
+router.post(
+	"/register",
+	checkSingupBody,
+	uploadNewUserPhoto,
+	async (req, res) => {
+		let { password, newUser } = req.body;
+		try {
+			const hashedPassword = await bcrypt.hash(password, 10);
+			const user = await User.create({
+				...newUser,
+				password: hashedPassword,
+			});
 
-router.post("/register", checkSingupBody, uploadNewUserPhoto, async (req, res) => {
-	let { password, newUser } = req.body;
-	try {
-		const hashedPassword = await bcrypt.hash(password, 10);
-	  const user = await User.create({
-			...newUser,
-			password: hashedPassword,
-		});
-		
-		await sendConfirmationEmail({id : user.id, mail: user.mail})
-		return res.status(201).send("User created successfully");
-	} catch (error) {
-		console.log(error);
-		return res.status(500).send("Internal Server Error");
+			await sendConfirmationEmail({ id: user.id, mail: user.mail });
+			return res.status(201).send("User created successfully");
+		} catch (error) {
+			console.log(error);
+			return res.status(500).send("Internal Server Error");
+		}
 	}
-}
 );
 
 router.post(
@@ -41,9 +43,11 @@ router.post(
 	checkUserRegistration,
 	async (req, res) => {
 		try {
-			const { findedUser, password } = req.body;
-			if (bcrypt.compareSync(password, findedUser.password)) {
-				const { id, user, mail, profilePhoto, cartShop, favorite, isAdmin } = findedUser;
+			const { findedUser, logged } = req.body;
+			console.log("logged", logged);
+			if (logged) {
+				const { id, user, mail, profilePhoto, cartShop, favorite, isAdmin } =
+					findedUser;
 				const logedUser = {
 					id,
 					user,
@@ -58,7 +62,7 @@ router.post(
 					mssage: "usuario autenticado",
 					token: accessToken,
 				});
-			} else return res.json({ message: "contraseña incorrecta" });
+			}
 		} catch (error) {
 			res.json({ message: error });
 		}
@@ -68,7 +72,7 @@ router.post(
 router.put("/shoppingHistory/:id", async (req, res, next) => {
 	try {
 		const { id } = req.params;
-		const {shopping} = req.body;
+		const { shopping } = req.body;
 		await User.update(
 			{
 				shoppingHistory: shoppingHistory.push(shopping),
@@ -111,7 +115,7 @@ router.put("/confirmation/:id", async (req, res, next) => {
 		const { id } = req.params;
 		await User.update(
 			{
-				userVerificate:true
+				userVerificate: true,
 			},
 			{
 				where: {
@@ -128,10 +132,10 @@ router.put("/confirmation/:id", async (req, res, next) => {
 router.put("/setCart/:id", async (req, res, next) => {
 	try {
 		const { id } = req.params;
-		const {cartShop} =req.body;
+		const { cartShop } = req.body;
 		await User.update(
 			{
-				cartShop:cartShop
+				cartShop: cartShop,
 			},
 			{
 				where: {

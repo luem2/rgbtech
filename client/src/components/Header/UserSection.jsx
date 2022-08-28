@@ -9,21 +9,15 @@ import Modal from "../Modal/Modal";
 import Login from "../Login";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { hasJWT } from "../../store/thunks";
-import {
-	setLogin,
-	// setLoginTrue,
-	// setLoginFalse,
-} from "../../store/slices/components/componentSlice";
+import { setLogin } from "../../store/slices/components/componentSlice";
+import defaultImage from "../../assets/defaultImage.png";
 
 const UserSection = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { login } = useSelector((state) => state.components.modal);
 	const { cart } = useSelector((state) => state.guestShoppingCart);
-	const verifiedUser = hasJWT();
-	console.log("verifiedUser en Componente UserSection", verifiedUser);
-
+	const { user } = useSelector((state) => state.user);
 	return (
 		<div className="flex items-center gap-2">
 			{login && (
@@ -38,10 +32,14 @@ const UserSection = () => {
 					size: "30px",
 				}}
 			>
-				{verifiedUser ? (
+				{user && Boolean(Object.keys(user).length) ? (
 					<img
-						className="hover: cursor-pointer rounded-3xl w-8 h-8 hover:scale-110 ease-in duration-300 "
-						src="https://icons.iconarchive.com/icons/ampeross/qetto/48/icon-developer-icon.png"
+						className="hover: cursor-pointer rounded-3xl w-8 h-8 hover:scale-110 ease-in duration-300"
+						src={
+							user.profilePhoto === "Image_Default"
+								? defaultImage
+								: user.profilePhoto
+						}
 						alt=""
 						onClick={() => navigate("/profile")}
 					/>
