@@ -9,13 +9,14 @@ import {
 	setLogin,
 	setWelcomeUser,
 } from "../store/slices/components/componentSlice";
-import { getUserProfile } from "../store/slices/users/thunks"
-import { useDispatch } from "react-redux";
+import { getUserProfile, setCartShop } from "../store/slices/users/thunks"
+import { useDispatch, useSelector } from "react-redux";
 import { setAuthToken } from "../store/slices/users/thunks";
 import { useNavigate } from "react-router-dom";
 
 export const useForm = (initalForm) => {
-	// const { cart } = useSelector((state) => state.guestShoppingCart);
+	const { cart } = useSelector((state) => state.guestShoppingCart);
+	const cartsId = cart.map((product) => product.id)
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [form, setForm] = useState(initalForm);
@@ -46,9 +47,11 @@ export const useForm = (initalForm) => {
 				window.localStorage.setItem("token", token);
 				setAuthToken(token);
 				const user = jwt_decode(token);
-				console.log(user, "form user")
-				dispatch(getUserProfile(user.id));
-				// setCartShop(cart)
+				if(cart.length) {
+					dispatch(setCartShop(user.id, cartsId))
+					// dispatch(clearCart())
+				}
+				dispatch(getUserProfile(user.id));	
 				dispatch(setLogin(false));
 				dispatch(setWelcomeUser(true));
 				setForm(initalForm);
