@@ -11,7 +11,6 @@ const {
 	checkUserRegistration,
 } = require("../middlewares/userMiddleware.js");
 const { htmlMail } = require("../Utils/EmailTemplate.js");
-const nodemailer = require("nodemailer");
 
 const router = Router();
 
@@ -44,7 +43,6 @@ router.post(
 	async (req, res) => {
 		try {
 			const { findedUser, logged } = req.body;
-			console.log("logged", logged);
 			if (logged) {
 				const { id, user, mail, profilePhoto, cartShop, favorite, isAdmin } =
 					findedUser;
@@ -68,7 +66,6 @@ router.get("/profile/:id", validateToken, async (req, res) => {
 		const { id } = req.params;
 
 		const user = await User.findByPk( id )
-		console.log(user,"User encontrado")
 		if (!Object.keys(user).length) {
 			res.sendStatus(404)
 		}
@@ -86,6 +83,18 @@ router.get("/profile/:id", validateToken, async (req, res) => {
 	}
 
 });
+
+router.put("/setCart/:id", validateToken, async(req, res)=>{
+	try {
+		console.log('entro al body')
+		const {id} = req.params
+		const user = await User.findByPk(id)
+		user.cartShop = [...user.cartShop, ...req.params] 
+		res.sendStatus(201)
+	} catch (error) {
+		res.send(error)
+	}
+})
 
 router.put("/shoppingHistory/:id", async (req, res, next) => {
 	try {
