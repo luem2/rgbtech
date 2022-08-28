@@ -14,10 +14,7 @@ import Tarjeta from "../components/Tarjeta";
 export default function AllProducts() {
 
 	const dispatch = useDispatch()
-		useEffect(() => {
-			dispatch(getEtiquetas())
-			dispatch(getMarcas())
-		}, [])
+		
 	
 		// const dispatch = useDispatch();
 		const { products } = useSelector((state) => state.products);
@@ -44,26 +41,39 @@ export default function AllProducts() {
 			if(node) observer.current.observe(node)
 		  })
 
+		  useEffect(() => {
+			dispatch(getEtiquetas())
+			dispatch(getMarcas())
+		}, [])
+
+		useEffect(() => {
+		}, [products])
+
   return (
 	<div>
 		{
 			products &&
 			products.map((elem, i) => {
 				if(products.length === i+1){
-					return <Tarjeta
+					return(
+						<Tarjeta
 					key={elem.id}
 					image={elem.img}
 					name={elem.name}
 					price={elem.price}
 					lastProduct={lastProduct}
 					/>
+					)
 				} else {
-					return <Tarjeta
+					return (
+					<Tarjeta
 					key={elem.id}
 					image={elem.img}
 					name={elem.name}
 					price={elem.price}
 					/>
+					)
+					
 				}
 			})
 		}
@@ -301,4 +311,3 @@ export default function AllProducts() {
 // // </div>
 
 // export default AllProducts;
-

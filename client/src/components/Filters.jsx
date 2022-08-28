@@ -18,6 +18,7 @@ export default function Filters() {
             price: ''
         }
     )
+    
 
     useEffect(() => {
         console.log(tags);
@@ -48,6 +49,8 @@ export default function Filters() {
             console.log(state);
         };
 
+
+
     let string = '?'
 
     function handleSubmit(e) {
@@ -66,6 +69,13 @@ export default function Filters() {
         dispatch(limpiarProductos())
         dispatch(getAllProducts(1, string))
         console.log(string);
+        
+    }
+
+    function handleReset(e) {
+        e.preventDefault();
+       
+        console.log(state);
     }
 
 
@@ -81,7 +91,9 @@ export default function Filters() {
             type="radio" 
             name='brands'
             onClick={handleClickBrand} 
-            value={item.id}/>
+            value={item.id}
+            // checked={true}
+            />
             <label className="form-check-label inline-block text-gray-800">
             {item.name}
           </label>
@@ -130,6 +142,8 @@ export default function Filters() {
 </div>
   </div>
   <button onClick={handleSubmit}>Filtrar</button>
+  <br />
+  <button onClick={handleReset}>reset</button>
   </form>
 </div>
   )

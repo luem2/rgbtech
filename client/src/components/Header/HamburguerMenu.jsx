@@ -62,13 +62,13 @@ function HamburguerMenu() {
 						</h1>
 						{tags.map((tag, i) => (
 							<li key={i} className="text-black p-2 ml-1 font-mono">
-								<Link className="flex items-center 
+								<a className="flex items-center 
 								text-black py-5 px-6 h-10 
 								overflow-hidden 
 								text-ellipsis whitespace-nowrap 
 								rounded hover:text-blue-600/100 hover:bg-gray-100 
 								transition duration-300 ease-in-out" 
-								href={url + tag.tag}>{tag.name}</Link>
+								href={url + tag.tag}>{tag.name}</a>
 							</li>
 						))}
 					</ul>

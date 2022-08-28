@@ -14,7 +14,7 @@ export default function AllProductsD2() {
         <div className=' w-44'>
             <Filters/>
         </div>
-        <div className='ml-48  absolute left-0 top-20 border-solid'>
+        <div className=' ml-48  absolute left-0 top-20'>
             <AllProducts/>
         </div>
         </div>

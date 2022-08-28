@@ -1,12 +1,11 @@
 import React from 'react'
 
-export default function Tarjeta(props) {
-console.log(props, 'jhads');
-  return (
-    <div ref={props.lastProduct || null} className="flex p-6 font-mono">
-								<div className="flex rounded-xl justify-center shadow-2xl bg-pink-600 w-48 h-[230px] relative z-10 w-full before:h-full ">
+export default function Tarjeta({key, image, name, price, lastProduct}){
+    return (
+        <div ref={lastProduct || null} key={key} className="flex bg-blue-300  p-6 font-mono">
+								<div className="flex rounded-xl justify-center shadow-2xl bg-pink-600  h-[230px] relative z-10 w-full before:h-full ">
 									<img
-										src={props.img}
+										src={image}
 										alt=""
 										className="absolute z-10 inset-0 pt-5 w-full h-full object-cover rounded-lg"
 										loading="lazy"
@@ -15,9 +14,9 @@ console.log(props, 'jhads');
 								<form className="flex-auto pl-6">
 								<div className="relative flex flex-wrap items-baseline pb-6 before:bg-white shadow-xl before:absolute before:-top-6 before:bottom-0 before:-left-60 before:-right-6">
 										<h1 className="relative w-full flex-none mb-2 text-2xl font-semibold text-pink-600">
-										{props.name}
+										{name}
 										</h1>
-										<div className="relative text-lg text-black shadow-xl rounded-2xl">${props.price}</div>
+										<div className="relative text-lg text-black shadow-xl rounded-2xl">${price}</div>
 										<div className="relative uppercase text-pink-600 ml-10 shadow-xl">
 											In stock
 										</div>
@@ -61,6 +60,6 @@ console.log(props, 'jhads');
 									</p>
 								</form>
 							</div>
-						);
-						}
+    )
+}
 				
