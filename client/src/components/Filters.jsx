@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllProducts, limpiarProductos } from '../store/slices/products/thunks'
 
+
 export default function Filters() {
 
     
@@ -19,6 +20,8 @@ export default function Filters() {
         }
     )
     
+
+    const [checked, setChecked] = useState(true)
 
     useEffect(() => {
         console.log(tags);
@@ -69,12 +72,17 @@ export default function Filters() {
         dispatch(limpiarProductos())
         dispatch(getAllProducts(1, string))
         console.log(string);
-        
     }
 
     function handleReset(e) {
         e.preventDefault();
-       
+        setState(
+          {
+            brand: '',
+            tag: '',
+            price: ''
+          }
+        )
         console.log(state);
     }
 
@@ -88,11 +96,10 @@ export default function Filters() {
         {brands && brands.map((item) => (
             <div>
             <input className="appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" 
-            type="radio" 
+            type="checkbox" 
             name='brands'
             onClick={handleClickBrand} 
             value={item.id}
-            // checked={true}
             />
             <label className="form-check-label inline-block text-gray-800">
             {item.name}
