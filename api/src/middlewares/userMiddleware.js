@@ -95,14 +95,15 @@ module.exports = {
 	},
 
 	validateToken: (req, res, next) => {
-		const accessToken = req.headers["authorized"];
-		if (!accessToken) {
-			return res.status(401).send("Access denied");
-		} else {
-			jwt.verify(accessToken, process.env.SECRET, (err, user) => {
+		const authHeader = req.headers["authorization"];
+		const token = authHeader && authHeader.split(' ')[1]
+		if (token === null) return res.sendStatus(401)
+		else {
+			jwt.verify(token, process.env.SECRET, (err, user) => {
 				if (err) {
 					return res.status(403).send("Access denied");
 				} else {
+					console.log('exito')
 					req.body.user = user;
 					return next();
 				}
