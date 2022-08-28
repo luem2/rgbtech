@@ -25,7 +25,7 @@ export default function Tarjeta({key, image, name, price, lastProduct}){
 									<div className="flex space-x-2 mb-4 text-sm font-medium">
 										<div className="flex space-x-4">
 											<button
-												className="px-6 h-12 uppercase font-semibold tracking-wider border-2 border-pink-700 bg-blue-400 hover:bg-pink-600 text-black"
+												className="px-6 h-12 font-semibold tracking-wider border-2 border-blue-400 hover:scale-95 text-black"
 												type="submit"
 											>
 												Buy now
