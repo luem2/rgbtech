@@ -68,6 +68,7 @@ router.get("/profile/:id", validateToken, async (req, res) => {
 		const { id } = req.params;
 
 		const user = await User.findByPk({ id })
+		console.log(user,"User encontrado")
 		if (!Object.keys(user).length) {
 			res.sendStatus(404)
 		}

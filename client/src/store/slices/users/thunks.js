@@ -1,5 +1,6 @@
 import axios from "axios";
 import jwt from "jwt-decode";
+import {getLoggedUser} from "../users/userSlice"
 
 export const setAuthToken = (token) => {
 	if (token) {
@@ -28,6 +29,18 @@ export const confirmationEmail = (user) => {
 		}
 	};
 };
+
+export const getUserProfile = (id) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.get(`users/profile/${id}`)
+			console.log(response.data)
+            dispatch(getLoggedUser(response.data))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
 
 export const setShoppingHistory = (shoppings) => {
 	const token = window.localStorage.getItem("token");

@@ -9,17 +9,19 @@ import {
 	setLogin,
 	setWelcomeUser,
 } from "../store/slices/components/componentSlice";
-import { getLoggedUser } from "../store/slices/users/userSlice";
+import { getUserProfile } from "../store/slices/users/thunks"
 import { useDispatch } from "react-redux";
 import { setAuthToken } from "../store/slices/users/thunks";
 import { useNavigate } from "react-router-dom";
 
 export const useForm = (initalForm) => {
+	// const { cart } = useSelector((state) => state.guestShoppingCart);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [form, setForm] = useState(initalForm);
 	const [loading, setLoading] = useState(false);
 	const [response, setResponse] = useState(null);
+
 
 	const handleChange = (event) => {
 		const { name, value } = event.target;
@@ -44,11 +46,13 @@ export const useForm = (initalForm) => {
 				window.localStorage.setItem("token", token);
 				setAuthToken(token);
 				const user = jwt_decode(token);
-				dispatch(getLoggedUser(user));
+				console.log(user, "form user")
+				dispatch(getUserProfile(user.id));
+				// setCartShop(cart)
 				dispatch(setLogin(false));
 				dispatch(setWelcomeUser(true));
-				navigate("/");
 				setForm(initalForm);
+				navigate("/");
 			})
 			.catch((error) => {
 				// no envian toda la información. User pero no la pass
