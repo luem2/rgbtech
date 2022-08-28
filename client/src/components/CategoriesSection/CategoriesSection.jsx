@@ -84,25 +84,31 @@ const CategoriesCarousel = () => {
 				</ul>
 				{/* grid-cols-5 o grid-cols-4 */}
 				<div className="grid grid-cols-4 rounded-2xl m-2">
-					{productosFilt.length !== 0
-						? productosFilt.map((p, i) => (
-								<Product
-									key={i}
-									id={p.id}
-									name={p.name}
-									img={p.img}
-									price={p.price}
-								></Product>
-						  ))
-						: products.map((p, i) => (
-								<Product
-									key={i}
-									id={p.id}
-									name={p.name}
-									img={p.img}
-									price={p.price}
-								></Product>
-						  ))}
+				{productosFilt.length !== 0
+                        ? productosFilt.map((product) => (
+                                <Product
+                                    key={product.id}
+                                    id={product.id}
+                                    name={product.name}
+                                    img={product.img}
+                                    price={product.price}
+                                    onDiscount={product.onDiscount}
+                                    freeShipping={product.freeShipping}
+                                    discountPercentage={product.discountPercentage}
+                                ></Product>
+                          ))
+                        : products.map((product) => (
+                                <Product
+                                    key={product.id}
+                                    id={product.id}
+                                    name={product.name}
+                                    img={product.img}
+                                    price={product.price}
+                                    onDiscount={product.onDiscount}
+                                    freeShipping={product.freeShipping}
+                                    discountPercentage={product.discountPercentage}
+                                ></Product>
+                          ))}
 				</div>
 			</div>
 		</div>
