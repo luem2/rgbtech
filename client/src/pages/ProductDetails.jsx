@@ -77,7 +77,7 @@ const ProductDetails = () => {
 								alt={product.name}
 							/>
 							<div className="flex flex-col m-4 gap-4 items-center">
-								<h1 className="text-5xl font-extrabold text-white-600 drop-shadow-lg shadow-black">
+								<h1 className="text-5xl font-extrabold text-white-600 drop-shadow-lg shadow-black text-center">
 									{product.name}
 								</h1>
 								<AiFillStar />
