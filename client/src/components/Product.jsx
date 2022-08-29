@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { BsSuitHeart } from "react-icons/bs";
+// import { BsSuitHeart } from "react-icons/bs";
+import { GiTechnoHeart } from "react-icons/gi"
 import { addProduct } from "../store/slices/guestShoppingCart/guestShoppingCartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteProductFav,addProductsFav} from "../store/slices/products/productSlice";
@@ -113,8 +114,11 @@ function Product({
 						>
 							Add to cart
 						</button>
-						{ favoriteId && favoriteId.includes(id) ? (<button onClick={handleDeleteCartFav}>❤️</button>) : (<button onClick={handleAddCartFav} className="text-red cursor-pointer hover:scale-110 text-xl font-semibold mr-2 px-2.5 py-0.5 ml-3">
-							<BsSuitHeart size={30} />
+						{ favoriteId && favoriteId.includes(id) ? (<button onClick={handleDeleteCartFav} className="text-2xl text-red cursor-pointer hover:scale-110 font-bold mr-2 px-2.5 py-0.5 ml-3">
+							<GiTechnoHeart color="red" size={35}/>
+							</button>) 
+						: (<button onClick={handleAddCartFav} className="text-red cursor-pointer hover:scale-110 text-xl font-semibold mr-2 px-2.5 py-0.5 ml-3">
+							<GiTechnoHeart size={25} />
 						</button>)}
 					</div>
 				</div>
