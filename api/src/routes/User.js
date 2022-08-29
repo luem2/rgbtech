@@ -176,4 +176,24 @@ router.put("/setCart/:id", async (req, res, next) => {
 	}
 });
 
+router.post("/addComment", async (req, res) => {
+    try {
+        const { comment, rating, user, profilePhoto, product } = req.body;
+        console.log(product)
+        if (!comment || !rating || !user || !profilePhoto) {
+            res.send("informacion insuficiente para agregar un comentario")
+        }
+        const newComment = await Comment.create({
+            comment,
+            rating,
+            user,
+            profilePhoto
+        })
+        await newComment.addProduct(product)
+        res.send("Comentario agregado correctamente")
+    } catch (error) {
+        res.send(error)
+    }
+});
+
 module.exports = router;
