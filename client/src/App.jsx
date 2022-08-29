@@ -11,6 +11,7 @@ import Filters from "./components/Filters";
 import Profile from "./pages/Profile/";
 import ConfirmationSignup from "./pages/ConfirmationSignup";
 import Favorites from "./pages/Favorites";
+import DashBoardAdmin from "./pages/DashBoardAdmin";
 
 function App() {
 	return (
@@ -20,6 +21,7 @@ function App() {
 					<Route path="/" element={<Home />} />
 					<Route path="/products" element={<AllProductsD2 />} />
 					{/* <Route path="/filtersandproducts" element={<FiltersAndAllproducts/>} /> */}
+					<Route path="/admin" element={<DashBoardAdmin />} />
 					<Route path="/Search" element={<SearchProducts />} />
 					<Route path="/createUser" element={<CreateUser />} />
 					<Route path="/filters" element={<Filters />} />
