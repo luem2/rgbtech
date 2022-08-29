@@ -68,7 +68,7 @@ const CategoriesCarousel = () => {
 								HandleClickDiscount();
 							}}
 						>
-							OnDiscount
+							On Discount
 						</button>
 					</li>
 					<li>
@@ -78,7 +78,7 @@ const CategoriesCarousel = () => {
 								HandleClickFreeShep();
 							}}
 						>
-							FreeShep
+							Free Shipping
 						</button>
 					</li>
 					<li>
@@ -88,7 +88,7 @@ const CategoriesCarousel = () => {
 								HandleClickFreeShep();
 							}}
 						>
-							High Riting
+							High Rating
 						</button>
 					</li>
 				</ul>
@@ -96,10 +96,10 @@ const CategoriesCarousel = () => {
 					<Swiper
 						spaceBetween={30}
 						slidesPerView={3}
-						autoplay={{
-							delay: 2500,
-							disableOnInteraction: false,
-						}}
+						// autoplay={{
+						// 	delay: 2500,
+						// 	disableOnInteraction: false,
+						// }}
 						pagination={{ clickable: true }}
 						navigation={true}
 						modules={[Autoplay, Pagination, Navigation]}
