@@ -137,6 +137,137 @@ router.put("/favorite", async (req, res, next) => {
 	}
 });
 
+router.put("/favorite/:id", async (req, res, next) => {
+	try {
+		//Asegurarse de vaciar esta propiedad al ejecutar esta compra
+		const { id } = req.params;
+		console.log(id,"id user")
+		const { newfavorite } = req.body;
+		console.log(req.body,"body")
+		console.log(newfavorite,"favortis¿")
+		const user = await User.findByPk(id) 
+		let fav = user.favorite
+		console.log(fav,"fav")
+		if(fav){fav = [fav,newfavorite].flat()}
+		else{fav = newfavorite}
+		
+		console.log(fav,"fav");
+
+		await User.update(
+			{
+				favorite: fav
+			},
+			{
+				where: {
+					id: id,
+				},
+			}
+		);
+		res.send("Favoritos de usuario actualizado");
+	} catch (error) {
+		next(error);
+	}
+});
+router.put("/deletefavorite/:id", async (req, res, next) => {
+	try {
+		//Asegurarse de vaciar esta propiedad al ejecutar esta compra
+		const { id } = req.params;
+		const { deletefavorite } = req.body;
+		console.log(req.body,"body delete");
+		console.log(deletefavorite,"favorite delete")
+		await User.update(
+			{
+				favorite: deletefavorite
+			},
+			{
+				where: {
+					id: id,
+				},
+			}
+		);
+		res.send("Favoritos de usuario actualizado");
+	} catch (error) {
+		next(error);
+	}
+});
+
+router.put("/newproductcart/:id", async (req, res, next) => {
+	try {
+		//Asegurarse de vaciar esta propiedad al ejecutar esta compra
+		const { id } = req.params;
+		console.log(id,"id user")
+		const { newproductcart} = req.body;
+		console.log(req.body,"body")
+		console.log(newproductcart,"favortis¿")
+		const user = await User.findByPk(id) 
+		let fav = user.cartShop
+		console.log(fav,"fav")
+		if(fav){fav = [fav,newproductcart].flat()}
+		else{fav = newproductcart}
+		
+		console.log(fav,"fav");
+
+		await User.update(
+			{
+				cartShop: fav
+			},
+			{
+				where: {
+					id: id,
+				},
+			}
+		);
+		res.send("Favoritos de usuario actualizado");
+	} catch (error) {
+		next(error);
+	}
+});
+router.put("/deleteproductcart/:id", async (req, res, next) => {
+	try {
+		//Asegurarse de vaciar esta propiedad al ejecutar esta compra
+		const { id } = req.params;
+		const { deleteproductcart } = req.body;
+		console.log(req.body,"body delete");
+		console.log(deleteproductcart,"favorite delete")
+		await User.update(
+			{
+				cartShop: deleteproductcart
+			},
+			{
+				where: {
+					id: id,
+				},
+			}
+		);
+		res.send("Favoritos de usuario actualizado");
+	} catch (error) {
+		next(error);
+	}
+});
+
+router.put("/clearCart/:id", async (req, res, next) => {
+	try {
+		//Asegurarse de vaciar esta propiedad al ejecutar esta compra
+		const { id } = req.params;
+		const { clearCart } = req.body;
+		console.log(req.body,"body delete");
+		console.log(clearCart,"favorite delete")
+		await User.update(
+			{
+				cartShop: clearCart
+			},
+			{
+				where: {
+					id: id,
+				},
+			}
+		);
+		res.send("Favoritos de usuario actualizado");
+	} catch (error) {
+		next(error);
+	}
+});
+
 router.put("/confirmation/:id", async (req, res, next) => {
 	try {
 		const { id } = req.params;
@@ -156,24 +287,24 @@ router.put("/confirmation/:id", async (req, res, next) => {
 	}
 });
 
-router.put("/setCart/:id", async (req, res, next) => {
-	try {
-		const { id } = req.params;
-		const { cartShop } = req.body;
-		await User.update(
-			{
-				cartShop: cartShop,
-			},
-			{
-				where: {
-					id: id,
-				},
-			}
-		);
-		res.send("User Confirmations");
-	} catch (error) {
-		next(error);
-	}
-});
+// router.put("/setCart/:id", async (req, res, next) => {
+// 	try {
+// 		const { id } = req.params;
+// 		const { cartShop } = req.body;
+// 		await User.update(
+// 			{
+// 				cartShop: cartShop,
+// 			},
+// 			{
+// 				where: {
+// 					id: id,
+// 				},
+// 			}
+// 		);
+// 		res.send("User Confirmations");
+// 	} catch (error) {
+// 		next(error);
+// 	}
+// });
 
 module.exports = router;

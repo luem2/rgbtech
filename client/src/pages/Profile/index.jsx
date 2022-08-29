@@ -10,6 +10,7 @@ import { HiOutlineShoppingCart } from "react-icons/hi";
 import { RiHistoryLine } from "react-icons/ri";
 import defaultImage from "../../assets/defaultImage.png";
 import ShoppingHistory from "./ShoppingHistory";
+import { clearFavorite }from "../../store/slices/products/productSlice"
 import LastVisited from "./LastVisited";
 import ModifyProfile from "./ModifyProfile";
 
@@ -23,6 +24,7 @@ const Profile = () => {
 		window.localStorage.removeItem("token");
 		dispatch(setLogout(true));
 		dispatch(clearUser());
+		dispatch(clearFavorite())
 		navigate("/");
 	};
 

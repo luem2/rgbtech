@@ -13,6 +13,7 @@ import { getUserProfile, setCartShop } from "../store/slices/users/thunks"
 import { useDispatch, useSelector } from "react-redux";
 import { setAuthToken } from "../store/slices/users/thunks";
 import { useNavigate } from "react-router-dom";
+import { setFavorite } from "../store/slices/products/productSlice"
 
 export const useForm = (initalForm) => {
 	const { cart } = useSelector((state) => state.guestShoppingCart);
@@ -48,10 +49,12 @@ export const useForm = (initalForm) => {
 				setAuthToken(token);
 				const user = jwt_decode(token);
 				if(cart.length) {
-					dispatch(setCartShop(user.id, cartsId))
+					dispatch(setCartShop( cartsId))
 					// dispatch(clearCart())
 				}
-				dispatch(getUserProfile(user.id));	
+				dispatch(getUserProfile(user.id));
+				if(user.favorite){
+				dispatch(setFavorite(user.favorite))}	
 				dispatch(setLogin(false));
 				dispatch(setWelcomeUser(true));
 				setForm(initalForm);
