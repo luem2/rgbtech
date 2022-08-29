@@ -4,14 +4,13 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import ProductDetails from "./pages/ProductDetails";
 import CreateUser from "./pages/CreateUser";
-import AllProductsD2 from './pages/AllProductsD2'
+import AllProductsD2 from "./pages/AllProductsD2";
 import ShoppingCart from "./pages/ShoppingCart";
 import SearchProducts from "./pages/SeachProduct";
 import Filters from "./components/Filters";
-import Profile from "./pages/Profile";
+import Profile from "./pages/Profile/";
 import ConfirmationSignup from "./pages/ConfirmationSignup";
 import Favorites from "./pages/Favorites";
-
 
 function App() {
 	return (
