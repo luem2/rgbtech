@@ -1,12 +1,48 @@
 import React, { useRef, useState } from "react";
-import SideNavAdmin from "../components/SideNavAdmin";
-
+import HeaderAdmin from "../components/DashBoardAdmin/HeaderAdmin";
+import LeftSizeAdmin from "../components/DashBoardAdmin/LeftSizeAdmin";
+import ProductsAdmin from "../components/DashBoardAdmin/ProductsAdmin";
+import RightSizeAdmin from "../components/DashBoardAdmin/RightSizeAdmin";
+import SideNavAdmin from "../components/DashBoardAdmin/SideNavAdmin";
+import Users from "../components/DashBoardAdmin/Users";
 //import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar, BarChart, ResponsiveContainer, PieChart, Pie} from 'recharts';
 
 function DashBoardAdmin() {
+
+  const [selection, setSelection] = useState("loading")
+
 	return (
-		<div className="grid bg-gray-500">
-			<SideNavAdmin />
+		<div className="bg-white">
+			<HeaderAdmin />
+			<div className="w-full min-h-[90vh] grid grid-cols-12">
+				<SideNavAdmin 
+            selection={setSelection}
+        />
+				<div className="grid grid-cols-1 xl:grid-cols-5 col-span-10 w-full">
+
+          { selection === "loading" ?
+            <h1>Select some OPTION</h1>
+            :null
+          }
+          { selection === "Dashboard" ?
+            
+            <>
+            <LeftSizeAdmin />
+            <RightSizeAdmin />
+            </>
+            : null
+          } 
+          { selection === "Users" ? 
+            <Users/>
+            :null  
+          }
+          {
+            selection === "Products" ? 
+            <ProductsAdmin/>
+            :null  
+          }
+				</div>
+			</div>
 		</div>
 	);
 }
@@ -32,8 +68,8 @@ function App() {
 
 
 <button onClick={() => setChart('componente1')}>Ventas por mes</button>
-          <button onClick={() => setChart('componente2')}>Marcas más vendidas</button>
-          <button onClick={() => setChart('componente3')}>Tags más populares</button>
+<button onClick={() => setChart('componente2')}>Marcas más vendidas</button>
+<button onClick={() => setChart('componente3')}>Tags más populares</button>
 
 chart === 'loading'  ? <componenteDeCarga/ : null
 chart === 'componente1' ? <componente1/ : null
