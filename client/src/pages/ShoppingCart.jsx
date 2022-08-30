@@ -16,8 +16,13 @@ import {
 import { FaMoneyCheckAlt } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import { hasJWT } from "../store/thunks.js";
-import { setShoppingHistory, deleteProductCart,clearCartShop } from "../store/slices/users/thunks";
+import {
+	setShoppingHistory,
+	deleteProductCart,
+	clearCartShop,
+} from "../store/slices/users/thunks";
 import { useEffect } from "react";
+import { checkoutPaypal } from "../components/Paypal/";
 
 const ShoppingCart = () => {
 	const dispatch = useDispatch();
@@ -26,7 +31,6 @@ const ShoppingCart = () => {
 	);
 
 	const { cart } = useSelector((state) => state.guestShoppingCart);
-	
 
 	window.sessionStorage.setItem("carrito", JSON.stringify([...cart]));
 	const sessionStorageCart = JSON.parse(
@@ -80,9 +84,18 @@ const ShoppingCart = () => {
 	};
 
 	const HandleClickBuy = () => {
-		const productsId = cart.map((p) => ({ id: p.id, date: Date() }));
-		console.log(productsId);
-		dispatch(setShoppingHistory(productsId));
+		// const productsId = cart.map((p) => ({ id: p.id, date: Date() }));
+		// console.log(productsId);
+		// dispatch(setShoppingHistory(productsId));
+		const cartBuy = cart.map((p) => ({
+			amount: {
+				currency_code: "USD",
+				value: p.amount * p.price,
+			},
+			description: p.name,
+		}));
+		console.log("cartBuy", cartBuy);
+		dispatch(checkoutPaypal(cartBuy));
 	};
 
 	useEffect(() => {
@@ -156,9 +169,10 @@ const ShoppingCart = () => {
 								subUnits={() => subUnits(p.id)}
 								delProduct={() => {
 									removeProduct(i);
-									let producDelete =	cart.map(a => a.id)
-			                        producDelete = producDelete.filter(a => a !== p.id)
-									dispatch(deleteProductCart(producDelete))}}
+									let producDelete = cart.map((a) => a.id);
+									producDelete = producDelete.filter((a) => a !== p.id);
+									dispatch(deleteProductCart(producDelete));
+								}}
 							/>
 						))}
 					</div>
@@ -171,7 +185,7 @@ const ShoppingCart = () => {
 							onClick={() => {
 								dispatch(emptyCart());
 								dispatch(setCartCleaned(true));
-								dispatch(clearCartShop())
+								dispatch(clearCartShop());
 							}}
 						>
 							<BsFillTrashFill /> Clear Cart
