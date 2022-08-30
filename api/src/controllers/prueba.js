@@ -14,13 +14,6 @@ module.exports = {
           },
           description: "teclado"
         },
-        {
-          amount: {
-            currency_code: "USD",
-            value: "105.80"
-          },
-          description: "monitor"
-        },
         ],
         application_context: {
           brand_name: "rgbtech",
@@ -48,7 +41,7 @@ module.exports = {
           Authorization: `Bearer ${access_token}`
         }
       })
-      res.json(response.data)
+      res.json(response.data.links[1].href)
     } catch (error) {
       console.log(error, "---e---")
       res.send(error)
