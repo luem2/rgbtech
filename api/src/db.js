@@ -53,6 +53,9 @@ Brand.belongsToMany(Sale, {through: "saleBrand"})
 Sale.belongsToMany(Tag, {through: "saleTags"})
 Tag.belongsToMany(Sale, {through: "saleTags"})
 
+Sale.belongsToMany(Product, {through: "saleProduct"})
+Product.belongsToMany(Sale, {through: "saleProduct"})
+
 Sale.belongsTo(User, {through: "saleUser"})
 User.belongsToMany(Sale, {through: "saleUser"})
 
