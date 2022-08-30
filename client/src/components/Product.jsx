@@ -87,11 +87,11 @@ function Product({
 				</Link>
 				<div className="place-content-center ml-2 px-5 pb-5">
 					<h3 className="text-black font-semibold text-xl tracking-tight mt-3">
-						{name.slice(0, 17)}...
+						{name.slice(0, 17)} ...
 					</h3>
 					<div className="flex items-center mt-3 mb-5">
 						{onDiscount ? (
-							<span className="flex text-xl font-bold text-gray-900 dark:text-white justify-between">
+							<span className="flex text-xl text-gray-900 dark:text-white justify-between">
 								<p className="line-through text-gray-400 mr-1 text-sm">
 									${price} 
 								</p>
@@ -99,13 +99,12 @@ function Product({
 									{discountPercentage}%OFF 
 								</p>
 					
-								<p className="text-green-500 text-2xl">
-									{" "}
-									${discountFunction(price, discountPercentage)}{" "}
+								<p className="text-black text-3xl ml-4">
+									${discountFunction(price, discountPercentage)}
 								</p>
 							</span>
 						) : (
-							<p className="font-bold text-black text-base">${price}</p>
+							<p className="text-black text-3xl ml-4">${price}</p>
 						)}
 						{freeShipping ? (
 							<p className="text-green-500 ml-2">( Free Shipping )</p>
@@ -118,10 +117,10 @@ function Product({
 						>
 							Add to cart
 						</button>
-						{ favoriteId && favoriteId.includes(id) ? (<button onClick={handleDeleteCartFav} className="text-2xl text-red cursor-pointer hover:scale-110 font-bold mr-2 px-2.5 py-0.5 ml-3">
-							<GiTechnoHeart color="red" size={35}/>
+						{ favoriteId && favoriteId.includes(id) ? (<button onClick={handleDeleteCartFav} className="cursor-pointer hover:scale-110 mr-2 px-2.5 py-0.5 ml-3">
+							<GiTechnoHeart color="blue" size={35}/>
 							</button>) 
-						: (<button onClick={handleAddCartFav} className="text-red cursor-pointer hover:scale-110 text-xl font-semibold mr-2 px-2.5 py-0.5 ml-3">
+						: (<button onClick={handleAddCartFav} className="cursor-pointer hover:scale-110 mr-2 px-2.5 py-0.5 ml-3">
 							<GiTechnoHeart size={25} />
 						</button>)}
 					</div>
