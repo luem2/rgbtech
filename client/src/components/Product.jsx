@@ -89,13 +89,17 @@ function Product({
 					<h3 className="text-black font-semibold text-xl tracking-tight mt-3">
 						{name.slice(0, 17)}...
 					</h3>
-					<div className="flex items-center mt-2.5 mb-5">
+					<div className="flex items-center mt-3 mb-5">
 						{onDiscount ? (
 							<span className="flex text-xl font-bold text-gray-900 dark:text-white justify-between">
-								<p className="line-through text-gray-400 mr-3 text-base">
-									${price}
+								<p className="line-through text-gray-400 mr-1 text-sm">
+									${price} 
 								</p>
-								<p className="text-green-500 text-lg">
+								<p className="text-red-600 text-xs mr-2 border border-red-600 p-1.5 rounded-full">
+									{discountPercentage}%OFF 
+								</p>
+					
+								<p className="text-green-500 text-2xl">
 									{" "}
 									${discountFunction(price, discountPercentage)}{" "}
 								</p>
@@ -104,7 +108,7 @@ function Product({
 							<p className="font-bold text-black text-base">${price}</p>
 						)}
 						{freeShipping ? (
-							<p className="text-green-500 ml-3">( Free Shipping )</p>
+							<p className="text-green-500 ml-2">( Free Shipping )</p>
 						) : null}
 					</div>
 					<div className="flex items-center justify-between">
