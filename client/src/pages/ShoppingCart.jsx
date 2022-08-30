@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 import Header from "../components/Header/Header";
 import { BsFillCartCheckFill, BsFillTrashFill } from "react-icons/bs";
 import ShoppingCard from "../components/ShoppingCard";
@@ -29,7 +30,7 @@ const ShoppingCart = () => {
 	const { productRemoved, cartCleaned } = useSelector(
 		(state) => state.components.notification
 	);
-
+ const [link , setLink] = useState("")
 	const { cart } = useSelector((state) => state.guestShoppingCart);
 
 	window.sessionStorage.setItem("carrito", JSON.stringify([...cart]));
@@ -83,7 +84,7 @@ const ShoppingCart = () => {
 		dispatch(setCartCleaned(false));
 	};
 
-	const HandleClickBuy = () => {
+	const HandleClickBuy = async() => {
 		// const productsId = cart.map((p) => ({ id: p.id, date: Date() }));
 		// console.log(productsId);
 		// dispatch(setShoppingHistory(productsId));
@@ -95,7 +96,11 @@ const ShoppingCart = () => {
 			description: p.name,
 		}));
 		console.log("cartBuy", cartBuy);
-		dispatch(checkoutPaypal(cartBuy));
+		const {data} = await checkoutPaypal(cartBuy)
+		console.log(data, "data")
+		setLink(data)
+		console.log(link, "link");
+		// dispatch(checkoutPaypal(cartBuy));
 	};
 
 	useEffect(() => {
