@@ -99,10 +99,17 @@ router.put("/setCart/:id", validateToken, async(req, res)=>{
 router.put("/shoppingHistory/:id", async (req, res, next) => {
 	try {
 		const { id } = req.params;
-		const { shopping } = req.body;
+		const { shoppings } = req.body;
+		const user = await User.findByPk(id) 
+		let history = user.shoppingHistory
+		console.log(history,"fav")
+		if(history){history = history,shoppings
+		console.log(history)}
+		else{history = shoppings}
+
 		await User.update(
 			{
-				shoppingHistory: shoppingHistory.push(shopping),
+				shoppingHistory: history
 			},
 			{
 				where: {
@@ -141,10 +148,7 @@ router.put("/favorite/:id", async (req, res, next) => {
 	try {
 		//Asegurarse de vaciar esta propiedad al ejecutar esta compra
 		const { id } = req.params;
-		console.log(id,"id user")
 		const { newfavorite } = req.body;
-		console.log(req.body,"body")
-		console.log(newfavorite,"favortis¿")
 		const user = await User.findByPk(id) 
 		let fav = user.favorite
 		console.log(fav,"fav")
@@ -326,5 +330,19 @@ router.post("/addComment", async (req, res) => {
         res.send(error)
     }
 });
+
+router.get("/cartShop", async (req, res) => {
+    try {
+        const {cartShop} = req.body
+        console.log(cartShop)
+        const products = await Product.findAll({
+            where:{id: cartShop},
+            attributes: {exclude: ['specifications', 'sales']}
+        })
+        res.send(products)
+    } catch(error) {
+        res.sendStatus(500)
+    }
+})
 
 module.exports = router;
