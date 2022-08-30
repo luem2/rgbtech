@@ -12,7 +12,7 @@ const router = Router();
 
 router.get("/", setQueryConditions, setPagination, async (req, res) => {
 	try {
-		const { count, nextPage, limit, offset, queryConditions, paginationPages } =
+		const { count, nextPage, limit, offset, queryConditions, totalPages } =
 			req.body;
 		const products = await Product.findAll({
 			...queryConditions,
@@ -23,7 +23,7 @@ router.get("/", setQueryConditions, setPagination, async (req, res) => {
 			count,
 			data: products,
 			nextPage,
-			pageNumbers: paginationPages,
+			pageNumbers: totalPages,
 		};
 		res.status(200).send(response);
 	} catch (error) {

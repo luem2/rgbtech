@@ -1,89 +1,52 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { getAllProducts, limpiarProductos } from '../store/slices/products/thunks'
 
 
-export default function Filters() {
+export default function Filters({setPage, page}) {
 
     
-    const { tags } = useSelector((state) => state.products)
-    const { brands } = useSelector((state) => state.products)
-    const dispatch = useDispatch()
+  const { tags } = useSelector((state) => state.products)
+  const { brands } = useSelector((state) => state.products)
+  const dispatch = useDispatch()
     
 
-    const [state, setState] = useState(
-        {
-            brand: '',
-            tag: '',
-            price: ''
-        }
-    )
-    
+  const [state, setState] = useState(
+    {
+      brand: '',
+      tag: '',
+      price: ''
+    }
+  )
+  
 
-    const [checked, setChecked] = useState(true)
+    const handleSelect = (e) => {
+      const {value, name} = e.target
+      setState({
+        ...state,
+        [name]: value
+      })
+    }
 
-    useEffect(() => {
-        console.log(tags);
-        console.log(brands);
-    }, [tags, brands])
-
-    const handleClickBrand = (e) => {
-		setState({
-            ...state,
-            brand: e.target.value
-		});
-        console.log(state);
-	};
-
-    const handleClickTag = (e) => {
-		setState({
-            ...state,
-            tag: e.target.value
-		});
-        console.log(state);
-	}
-
-    const handleChangePrice = (e) => {
-        	setState({
-                ...state,
-                price: e.target.value
-        	});
-            console.log(state);
-        };
-
-
-
-    let string = '?'
 
     function handleSubmit(e) {
         e.preventDefault();
-        if(state.brand !== '' && state.tag !== '' && state.price !== ''){
-            string = string + `brand=${state.brand}&tag=${state.tag}&price=${state.price}`
-        } else if (state.brand !== ''){
-            string = string + `brand=${state.brand}`
-        } else if (state.tag !== '') {
-          string = string + `tag=${state.tag}`
-        } else if (state.price !== ''){
-          string = string + `price=${state.price}`
-        } else{
-          string = ''
-        }
         dispatch(limpiarProductos())
-        dispatch(getAllProducts(1, string))
-        console.log(string);
-    }
-
-    function handleReset(e) {
-        e.preventDefault();
-        setState(
-          {
-            brand: '',
-            tag: '',
-            price: ''
+        let string = '?'
+        const entries = Object.entries(state)
+        const busqueda = entries.filter((entrie) => {return entrie[1] !== ""})
+        busqueda.map((filtro, index) => {
+          if(index === 0){
+            string = `${string}${filtro[0]}=${filtro[1]}` 
+          } else {
+            string = `${string}&${filtro[0]}=${filtro[1]}`
           }
-        )
-        console.log(state);
+        })
+        setPage(1)
+		    dispatch(limpiarProductos())
+        dispatch(getAllProducts(1, string))
     }
 
 
@@ -93,36 +56,22 @@ export default function Filters() {
   <div>
     <h1 className='font-bold'>Brands</h1>
     <div className="form-check overflow-y-scroll h-52">
-        {brands && brands.map((item) => (
-            <div>
-            <input className="appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" 
-            type="checkbox" 
-            name='brands'
-            onClick={handleClickBrand} 
-            value={item.id}
-            />
-            <label className="form-check-label inline-block text-gray-800">
-            {item.name}
-          </label>
-          </div>
-        ))}
+      <select multiple name='brand' onChange={handleSelect}>
+        <option value=''>All brands</option>
+          {brands && brands.map((item)=> {
+            return <option key ={item.id} value={item.id}>{item.name}</option>
+          })}
+      </select>
     </div>
       <div>
       <h1 className='font-bold'>Tags</h1>
       <div className="form-check overflow-y-scroll h-52">
-        {tags && tags.map((item) => (
-            <div>
-            <input className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" 
-            type="radio" 
-            name='tags'
-            onClick={handleClickTag}
-            value={item.name}
-            />
-            <label className="form-check-label inline-block text-gray-800" >
-            {item.name}
-          </label>
-          </div>
-        ))}
+      <select multiple name='tag' onChange={handleSelect}>
+        <option value=''>All tags</option>
+          {tags && tags.map((item)=> {
+            return <option key ={item.name} value={item.name}>{item.name}</option>
+          })}
+      </select>
     </div>
       </div>
       <div className="relative pt-1">
@@ -131,12 +80,12 @@ export default function Filters() {
   <input
     type="range"
     id="vol" 
-    name="vol" 
+    name="price" 
     min="0" 
     max="2500" 
     step='1'
     value={state.value} 
-    onChange={handleChangePrice}
+    onChange={handleSelect}
     className="
         form-range
         w-full
@@ -150,7 +99,6 @@ export default function Filters() {
   </div>
   <button onClick={handleSubmit}>Filtrar</button>
   <br />
-  <button onClick={handleReset}>reset</button>
   </form>
 </div>
   )

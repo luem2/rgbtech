@@ -38,14 +38,23 @@ export const getAllProducts = (num, search) => {
 		search = "?";
 	} else {
 		search = search + "&";
-		console.log(search, "&");
 	}
 	return async (dispatch) => {
 		try {
-			const products = await axios.get(
-				`products${search}pageNumber=${num || 1}`
-			);
-			dispatch(getProducts(products.data));
+			if(search.includes('pageNumber')){
+				console.log(search.slice(0, search.length -1),'dispatch con page')
+				const products = await axios.get(
+					`products${search.slice(0, search.length -1)}`
+				);
+				dispatch(getProducts(products.data));
+			} else {
+				console.log('dispatch con sin page')
+				const products = await axios.get(
+					`products${search}pageNumber=${num || 1}`
+				);
+				dispatch(getProducts(products.data));
+			}
+
 		} catch (e) {
 			console.error(e);
 		}

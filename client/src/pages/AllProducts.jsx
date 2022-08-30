@@ -11,43 +11,43 @@ import { getAllProducts,getEtiquetas, getMarcas } from "../store/slices/products
 import Filters from "../components/Filters";
 import Tarjeta from "../components/Tarjeta";
 
-export default function AllProducts() {
+export default function AllProducts({setPage, page}) {
 
 	const dispatch = useDispatch()
 		
-	
-		// const dispatch = useDispatch();
+		const [loading, setLoading] = useState(false)
 		const { products } = useSelector((state) => state.products);
-		const [page, setPage] = useState(1)
-		const response = useSelector(state => state.response);
+		const {response} = useSelector((state) => state.products);
 		const observer = useRef();
-		const {loading, error} = useProducts(page)
-		console.log(response?.pageNumbers);
-		response ? console.log(response) : undefined
 		const lastProduct = useCallback(node => {
 			if(loading)return 
 			if(observer.current) observer.current.disconnect()
 			observer.current = new IntersectionObserver(entries => {
+				console.log(entries)
 			  if(entries[0].isIntersecting) {
-				console.log("VISIBLE")
-				if(5 > page){
-				  setPage(page + 1)
-				  console.log(page)
-				}
+					if( response.pageNumbers > page){
+						setTimeout(() => {
+							setPage(page + 1)
+						}, 1000);
+					}
 			  }
 			},{
 			  threshold : 0
-			}, [loading, response?.nextPage])
+			}, [loading, response])
 			if(node) observer.current.observe(node)
-		  })
+		})
 
-		  useEffect(() => {
+		useEffect(() => {
 			dispatch(getEtiquetas())
 			dispatch(getMarcas())
 		}, [])
 
 		useEffect(() => {
-		}, [products])
+			console.log(page)
+			setLoading(true)
+			dispatch(getAllProducts(page, response?.nextPage))
+			setLoading(false)
+		}, [page])
 
   return (
 	<div>
@@ -57,7 +57,7 @@ export default function AllProducts() {
 				if(products.length === i+1){
 					return(
 						<Tarjeta
-					key={elem.id}
+					key={elem.name}
 					image={elem.img}
 					name={elem.name}
 					price={elem.price}
@@ -67,7 +67,7 @@ export default function AllProducts() {
 				} else {
 					return (
 					<Tarjeta
-					key={elem.id}
+					key={elem.name}
 					image={elem.img}
 					name={elem.name}
 					price={elem.price}

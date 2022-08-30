@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo-dibujo-2.png";
+import { getAllProducts, limpiarProductos } from '../../store/slices/products/thunks'
+
 
 function HamburguerMenu() {
 	const [open, setOpen] = useState(false);
-
+	const dispatch = useDispatch()
 // 	"Wireless",
 // "Gaming",
 // "Wired",
@@ -32,6 +35,10 @@ function HamburguerMenu() {
 		{ name: "Audio, speakers, etc.", tag: "?tag=Audio" },
 	];
 
+	const quickFilters = (tag) => {
+		dispatch(limpiarProductos())
+		dispatch(getAllProducts(1, tag))
+	}
 
 	return (
 		<div className="z-50 flex flex-row gap-5 ">
@@ -62,13 +69,13 @@ function HamburguerMenu() {
 						</h1>
 						{tags.map((tag, i) => (
 							<li key={i} className="text-black p-2 ml-1 font-mono">
-								<a className="flex items-center 
+								<Link to='/products' onClick={()=>quickFilters(tag.tag)} className="flex items-center 
 								text-black py-5 px-6 h-10 
 								overflow-hidden 
 								text-ellipsis whitespace-nowrap 
 								rounded hover:text-blue-600/100 hover:bg-gray-100 
 								transition duration-300 ease-in-out" 
-								href={url + tag.tag}>{tag.name}</a>
+								>{tag.name}</Link>
 							</li>
 						))}
 					</ul>
