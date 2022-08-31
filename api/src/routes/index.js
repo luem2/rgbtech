@@ -3,6 +3,7 @@ const productsRoute = require('./Product');
 const usersRoute = require('./User.js');
 const brandsRoute = require('./Brand.js');
 const tagsRoute = require('./Tag.js');
+const adminRoute = require('./Admin.js')
 const {cancel, create, capture} = require("../controllers/prueba")
 // const dogmiddleware = require('./middlewares/dogs.js')
 // const temperamentmiddleware = require('./middlewares/temperaments.js')
@@ -11,16 +12,15 @@ const {cancel, create, capture} = require("../controllers/prueba")
 
 
 const router = Router();
-router.use('/products', productsRoute)
-router.use('/users', usersRoute)
-router.use('/brands', brandsRoute)
-router.use('/tags', tagsRoute)
+router.use('/products' , productsRoute)
+router.use('/users' , usersRoute)
+router.use('/brands' , brandsRoute)
+router.use('/tags' , tagsRoute)
+
 
 router.post("/create-order", create)
 router.get("/capture-order", capture)
 router.get("/cancel-order", cancel)
-
-
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 

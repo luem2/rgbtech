@@ -12,6 +12,7 @@ module.exports = {
 		brand ? (whereConditions.brandId = { [Op.eq]: brand }) : null;
 		price ? (whereConditions.price = {[Op.gte]: price}): null
 		whereConditions.stock = {[Op.gt]: 0}
+		console.log(whereConditions)
 		//Search by tag
 		const tagQuery = {};
 		tag ? (tagQuery.name = { [Op.iLike]: `%${tag}%` }) : null;
@@ -36,26 +37,24 @@ module.exports = {
 		try {
 			const { limit } = req.body;
 			const { pageNumber } = req.query;
-			let count = await Product.findAll(req.body.queryConditions);
-			req.body.count = count.length;
-			req.body.paginationPages = Math.ceil(req.body.count / limit);
-			if (!pageNumber) {
-				req.originalUrl.includes("?")
-					? (req.originalUrl = `${req.originalUrl}&pageNumber=1`)
-					: (req.originalUrl = `${req.originalUrl}?pageNumber=1`);
-				req.query.pageNumber = 1;
-			}
-			if (req.body.paginationPages > req.query.pageNumber) {
-				const nextUrl = req.originalUrl.replace(
+			//count = total de productos que coinciden con el query)
+			let queryProducts = await Product.findAll(req.body.queryConditions);
+			req.body.count = queryProducts.length;
+			//totalPages = determina el número de paginas - 10 productos por pagina
+			req.body.totalPages = Math.ceil(req.body.count/ limit);	
+
+			if (req.body.totalPages > req.query.pageNumber) {
+				let prueba = req.originalUrl.slice(9, req.originalUrl.length)
+				const nextUrl = prueba.replace(
 					`pageNumber=${req.query.pageNumber}`,
 					`pageNumber=${Number(req.query.pageNumber) + 1}`
 				);
-				req.body.nextPage = `${req.protocol}://${req.get("host")}${nextUrl}`;
-			} else if (req.body.paginationPages == pageNumber)
-				req.body.nextPage = null;
-			return next();
+				req.body.nextPage = nextUrl;
+			} else if (req.body.totalPages == pageNumber) {
+				req.body.nextPage = null;}
+				return next();
 		} catch (error) {
-			res.status(500).send({ msg: "middleware setPagination failed" });
+			res.status(501).send({ msg: "middleware setPagination failed" });
 		}
 	},
 	checkPost: (req, res, next) => {
