@@ -82,7 +82,6 @@ module.exports = {
 			}
 
 			req.body.logged = true;
-			console.log("findedUser linea 84", Boolean(findedUser));
 
 			if (!findedUser?.userVerificate) {
 				return res.sendStatus(401);

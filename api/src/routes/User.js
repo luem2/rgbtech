@@ -19,14 +19,21 @@ router.post(
 	checkSingupBody,
 	uploadNewUserPhoto,
 	async (req, res) => {
-		let { password, newUser } = req.body;
+		let { password, newUser, test } = req.body;
 		try {
 			const hashedPassword = await bcrypt.hash(password, 10);
-			const user = await User.create({
-				...newUser,
-				password: hashedPassword,
-			});
-
+			if(test) {
+				const user = await User.create({
+					...newUser,
+					password: hashedPassword,
+					userVerificate: true
+				});
+			} else {
+				const user = await User.create({
+					...newUser,
+					password: hashedPassword,
+				});
+			}
 			await sendConfirmationEmail({ id: user.id, mail: user.mail });
 			return res.status(201).send("User created successfully");
 		} catch (error) {
