@@ -88,9 +88,12 @@ function Product({
 				<div className="place-content-center ml-2 px-5 pb-5">
 					<h3 className="text-black font-semibold text-xl tracking-tight mt-3">
 						{name.slice(0, 17)} ...
+						{onDiscount?
 								<p className="text-red-600 text-lg mt-2 p-1.5 rounded-full">
 									 {discountPercentage}% OFF 
 								</p>
+						:null
+						}
 					</h3>
 					<div className="flex items-center mt-3 mb-5">
 						{onDiscount ? (
