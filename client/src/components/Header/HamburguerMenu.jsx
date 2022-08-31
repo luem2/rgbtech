@@ -5,23 +5,23 @@ import logo from "../../assets/logo-dibujo-2.png";
 function HamburguerMenu() {
 	const [open, setOpen] = useState(false);
 
-// 	"Wireless",
-// "Gaming",
-// "Wired",
-// "Mouse",
-// "Keyboard",
-// "Monitor",
-// "Optical",
-// "Furniture",
-// "Laptops",
-// "Mobile",
-// "Audio",
-// "Microphone",
-// "RGB",
-// "Curveds"
+	// 	"Wireless",
+	// "Gaming",
+	// "Wired",
+	// "Mouse",
+	// "Keyboard",
+	// "Monitor",
+	// "Optical",
+	// "Furniture",
+	// "Laptops",
+	// "Mobile",
+	// "Audio",
+	// "Microphone",
+	// "RGB",
+	// "Curveds"
 
-	const url = 'http://127.0.0.1:5173/products'
-	
+	const url = "http://127.0.0.1:5173/products";
+
 	let tags = [
 		{ name: "All products", tag: "" },
 		{ name: "Monitors", tag: "?tag=Monitor" },
@@ -31,7 +31,6 @@ function HamburguerMenu() {
 		{ name: "Chairs and gaming desk", tag: "?tag=Furniture" },
 		{ name: "Audio, speakers, etc.", tag: "?tag=Audio" },
 	];
-
 
 	return (
 		<div className="z-50 flex flex-row gap-5 ">
@@ -47,9 +46,7 @@ function HamburguerMenu() {
 					</svg>
 				</button>
 			) : (
-				<div
-					className="w-100 pt-0 h-[550px] shadow-md bg-white px-8 absolute rounded-br-[120px] shadow-l shadow-blue-600/100"
-				>
+				<div className="w-100 pt-0 h-[550px] shadow-md bg-white px-8 absolute rounded-br-[120px] shadow-l shadow-blue-600/100">
 					<button
 						className="text-[30px] font-bold mt-4"
 						onClick={() => setOpen(!open)}
@@ -62,13 +59,17 @@ function HamburguerMenu() {
 						</h1>
 						{tags.map((tag, i) => (
 							<li key={i} className="text-black p-2 ml-1 font-mono">
-								<a className="flex items-center 
+								<a
+									className="flex items-center 
 								text-black py-5 px-6 h-10 
 								overflow-hidden 
 								text-ellipsis whitespace-nowrap 
 								rounded hover:text-blue-600/100 hover:bg-gray-100 
-								transition duration-300 ease-in-out" 
-								href={url + tag.tag}>{tag.name}</a>
+								transition duration-300 ease-in-out"
+									href={url + tag.tag}
+								>
+									{tag.name}
+								</a>
 							</li>
 						))}
 					</ul>
@@ -77,6 +78,13 @@ function HamburguerMenu() {
 			<div>
 				<Link to="/">
 					<img className="w-20" src={logo} alt="logo-rgbtech" />
+				</Link>
+			</div>
+			<div>
+				<Link to="/about">
+					<button className="mt-3 bg-pink-400 rounded-full w-20 font-bold text-white hover:scale-105">
+						About Team
+					</button>
 				</Link>
 			</div>
 		</div>
