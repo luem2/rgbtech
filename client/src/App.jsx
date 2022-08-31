@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
@@ -14,6 +14,19 @@ import Favorites from "./pages/Favorites";
 import DashBoardAdmin from "./pages/DashBoardAdmin";
 
 function App() {
+
+function handleCallbackResponse(response){
+		console.log("Encoded JWT ID token:"+response.credential);
+	  }
+
+	useEffect(()=>{
+		/*global google*/
+		google.accounts.id.initialize({
+		   client_id:"319669614492-i7e6o766ctapimibesbnj4g2c9fkvk80.apps.googleusercontent.com",
+		   callback:handleCallbackResponse
+		});
+	   },[]);
+
 	return (
 		<>
 			<Router>
