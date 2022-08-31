@@ -76,7 +76,7 @@ module.exports = {
 			});
 
 			if (findedUser === null) return res.sendStatus(404);
-
+			console.log(findedUser, 'encontré el usuario')
 			if (!bcrypt.compareSync(password, findedUser.password)) {
 				return res.sendStatus(403);
 			}
