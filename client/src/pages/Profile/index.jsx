@@ -13,12 +13,16 @@ import ShoppingHistory from "./ShoppingHistory";
 import { clearFavorite } from "../../store/slices/products/productSlice";
 import LastVisited from "./LastVisited";
 import ModifyProfile from "./ModifyProfile";
+import { userProfile } from "../../store/thunks";
 
 const Profile = () => {
 	const [section, setSection] = useState("shoppingHistory");
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const { user } = useSelector((state) => state.user);
+	// const { user } = useSelector((state) => state.user);
+	// console.log("user", user);
+	const user = userProfile();
+	console.log("user", user);
 
 	const handleSignOut = () => {
 		window.localStorage.removeItem("token");

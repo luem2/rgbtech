@@ -5,7 +5,7 @@ export const checkoutPaypal = async (cartBuy) => {
 	return response;
 };
 
-export const paymentAcepted = async () => {
-	const response = await axios.post("/capture-order");
-	console.log("response.data", response.data);
-};
+// export const paymentAcepted = async () => {
+// 	const response = await axios.post("/capture-order");
+// 	console.log("response.data", response.data);
+// };

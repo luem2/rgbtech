@@ -33,7 +33,7 @@ const ShoppingCart = () => {
 		(state) => state.components.notification
 	);
 	const { cart } = useSelector((state) => state.guestShoppingCart);
-	const user = useSelector((state) => state.user);
+	const { user } = useSelector((state) => state.user);
 
 	window.sessionStorage.setItem("carrito", JSON.stringify([...cart]));
 	const sessionStorageCart = JSON.parse(
@@ -42,7 +42,7 @@ const ShoppingCart = () => {
 
 	const shoppingCart = !sessionStorageCart.length ? cart : sessionStorageCart;
 
-	console.log(sessionStorageCart);
+	// console.log(sessionStorageCart);
 
 	const pricesCart = shoppingCart?.map((p) => p.price * p.amount);
 	const totalPrice = pricesCart?.reduce((prev, act) => prev + act, 0);
@@ -107,6 +107,7 @@ const ShoppingCart = () => {
 		if (Boolean(!Object.keys(user).length)) {
 			return dispatch(setLoginValidation(true));
 		}
+
 		const cartBuy = cart.map((p) => ({
 			reference_id: p.id,
 			amount: {

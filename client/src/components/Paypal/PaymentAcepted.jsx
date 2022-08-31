@@ -1,10 +1,10 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { paymentAcepted } from "../Paypal/index";
+// import { paymentAcepted } from "../Paypal/index";
 import logo from "../../assets/logo-dibujo-2.png";
 import { useNavigate } from "react-router-dom";
-import { emptyCart } from "../../store/slices/guestShoppingCart/guestShoppingCartSlice";
+// import { emptyCart } from "../../store/slices/guestShoppingCart/guestShoppingCartSlice";
 import { setShoppingHistory } from "../../store/slices/users/thunks";
 import "animate.css";
 
@@ -17,7 +17,7 @@ const PaymentAcepted = () => {
 		const productsId = cart.map((p) => ({ id: p.id, date: Date() }));
 		console.log(productsId);
 		dispatch(setShoppingHistory(productsId));
-		dispatch(emptyCart());
+		// dispatch(emptyCart());
 		// dispatch(paymentAcepted());
 	}, []);
 
