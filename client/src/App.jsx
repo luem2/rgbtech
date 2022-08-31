@@ -12,6 +12,7 @@ import Profile from "./pages/Profile/";
 import ConfirmationSignup from "./pages/ConfirmationSignup";
 import Favorites from "./pages/Favorites";
 import DashBoardAdmin from "./pages/DashBoardAdmin";
+import PaymentAcepted from "./components/Paypal/PaymentAcepted";
 
 function App() {
 	return (
@@ -30,6 +31,7 @@ function App() {
 					<Route path="/shoppingCart" element={<ShoppingCart />} />
 					<Route path="/productDetails/:id" element={<ProductDetails />} />
 					<Route path="/confirmation/:token" element={<ConfirmationSignup />} />
+					<Route path="/order-successfully" element={<PaymentAcepted />} />
 					<Route path="*" element={<NotFound />} />
 				</Routes>
 			</Router>

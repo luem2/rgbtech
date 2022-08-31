@@ -6,11 +6,6 @@ export const checkoutPaypal = async (cartBuy) => {
 };
 
 export const paymentAcepted = async () => {
-	const response = await axios.post("/create-order");
-	console.log("response.data", response.data);
-};
-
-export const paymentCanceled = async () => {
-	const response = await axios.post("/create-order");
+	const response = await axios.post("/capture-order");
 	console.log("response.data", response.data);
 };

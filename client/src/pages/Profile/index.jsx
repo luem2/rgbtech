@@ -10,7 +10,7 @@ import { HiOutlineShoppingCart } from "react-icons/hi";
 import { RiHistoryLine } from "react-icons/ri";
 import defaultImage from "../../assets/defaultImage.png";
 import ShoppingHistory from "./ShoppingHistory";
-import { clearFavorite }from "../../store/slices/products/productSlice"
+import { clearFavorite } from "../../store/slices/products/productSlice";
 import LastVisited from "./LastVisited";
 import ModifyProfile from "./ModifyProfile";
 
@@ -24,7 +24,7 @@ const Profile = () => {
 		window.localStorage.removeItem("token");
 		dispatch(setLogout(true));
 		dispatch(clearUser());
-		dispatch(clearFavorite())
+		dispatch(clearFavorite());
 		navigate("/");
 	};
 
@@ -77,7 +77,6 @@ const Profile = () => {
 							type="button"
 							className="flex gap-2 justify-center items-center px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-48"
 						>
-							<button />
 							<RiHistoryLine /> Last visited
 						</button>
 						<button

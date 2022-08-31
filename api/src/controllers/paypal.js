@@ -2,34 +2,26 @@ const axios = require("axios");
 const {
 	PAYPAL_API_ClientID,
 	PAYPAL_API_SECRET,
-	PAYPAL_API_Url,
+	PAYPAL_API_URL,
 } = require("../../config");
 
 module.exports = {
 	create: async (req, res) => {
 		console.log("req.body", req.body);
-		// ? para varias compras se hacen varios amount
 		try {
 			const order = {
 				intent: "CAPTURE",
 				purchase_units: req.body,
-				// purchase_units: [
-				// 	{
-				// 		amount: {
-				// 			currency_code: "USD",
-				// 			value: "105.70",
-				// 		},
-				// 		description: "teclado",
-				// 	},
-				// ],
 				application_context: {
-					brand_name: "rgbtech",
-					landing_page: "LOGIN",
+					brand_name: "RGBTech",
+					locale: "en-US",
+					landing_page: "NO_PREFERENCE", //LOGIN
 					user_action: "PAY_NOW",
-					return_url: "http://localhost:3003/capture-order",
-					cancel_url: "http://localhost:3003/cancel-order",
+					return_url: "http://127.0.0.1:5173/order-successfully",
+					cancel_url: "http://127.0.0.1:5173/",
 				},
 			};
+
 			const params = new URLSearchParams();
 			params.append("grant_type", "client_credentials");
 
@@ -48,8 +40,9 @@ module.exports = {
 					},
 				}
 			);
+
 			const response = await axios.post(
-				`${PAYPAL_API_Url}/v2/checkout/orders`,
+				`${PAYPAL_API_URL}/v2/checkout/orders`,
 				order,
 				{
 					headers: {
@@ -57,6 +50,8 @@ module.exports = {
 					},
 				}
 			);
+
+			// console.log("response", response);
 			res.json(response.data.links[1].href);
 		} catch (error) {
 			console.log(error, "---e---");
@@ -78,6 +73,7 @@ module.exports = {
 					},
 				}
 			);
+			console.log("response.data", response.data);
 			res.json(response.data);
 		} catch (error) {
 			console.log(error, "error");
