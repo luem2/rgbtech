@@ -13,6 +13,7 @@ import ConfirmationSignup from "./pages/ConfirmationSignup";
 import Favorites from "./pages/Favorites";
 import DashBoardAdmin from "./pages/DashBoardAdmin";
 import AboutTeam from "./pages/AboutTeam";
+import ModalHome from "./components/ModalHome";
 
 function App() {
 
@@ -45,6 +46,7 @@ function handleCallbackResponse(response){
 					<Route path="/shoppingCart" element={<ShoppingCart />} />
 					<Route path="/productDetails/:id" element={<ProductDetails />} />
 					<Route path="/confirmation/:token" element={<ConfirmationSignup />} />
+					<Route path="/modalhome" element={<ModalHome />} />
 					<Route path="*" element={<NotFound />} />
 				</Routes>
 			</Router>

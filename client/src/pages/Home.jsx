@@ -8,6 +8,7 @@ import CategoriesCarousel from "../components/CategoriesCarousel/CategoriesCarou
 import Footer from "../components/Footer.jsx";
 import Notifications from "../components/Notifications.jsx";
 import "react-toastify/dist/ReactToastify.css";
+import ModalHome from "../components/ModalHome.jsx";
 
 const Home = () => {
 	const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const Home = () => {
 	useEffect(() => {
 		if (products.length) return;
 		dispatch(getAllProducts(1));
+		
 	}, []);
 
 	return (
