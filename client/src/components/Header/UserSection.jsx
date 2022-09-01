@@ -38,11 +38,7 @@ const UserSection = () => {
 				{hasJWT() ? (
 					<img
 						className="hover: cursor-pointer rounded-3xl w-8 h-8 hover:scale-110 ease-in duration-300"
-						src={
-							user.profilePhoto === "Image_Default"
-								? defaultImage
-								: user.profilePhoto
-						}
+						src={user.profilePhoto === null ? defaultImage : user.profilePhoto}
 						alt=""
 						onClick={() => navigate("/profile")}
 					/>

@@ -43,9 +43,7 @@ const Profile = () => {
 						<img
 							className="rounded-full my-4 h-32 w-32 shadow-lg"
 							src={
-								user.profilePhoto === "Image_Default"
-									? defaultImage
-									: user.profilePhoto
+								user.profilePhoto === null ? defaultImage : user.profilePhoto
 							}
 							alt={`profilePhoto-${user.user}`}
 						/>
