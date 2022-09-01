@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useEffect ,useState } from "react";
 import { BsGoogle } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,6 +6,7 @@ import logo from "../assets/logo-dibujo-2.png";
 import { AiOutlineClose } from "react-icons/ai";
 import { setLogin } from "../store/slices/components/componentSlice";
 import { useForm } from "../hooks/useForm";
+import LoguinGoogle from "../components/Buttons/LoguinGoogle"
 
 const initialForm = {
 	user: "",
@@ -16,7 +17,6 @@ const Login = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const { form, handleChange, handleBlur, handleSubmit } = useForm(initialForm);
-
 	return (
 		<div>
 			<div className="justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 text-black">
@@ -117,7 +117,7 @@ const Login = () => {
 												<span className="h-px bg-gray-400 w-14"></span>
 											</span>
 											<div className="flex flex-col space-y-4">
-												<a
+												{/* <a
 													href="#"
 													className="flex items-center justify-center px-4 py-2 space-x-2 transition-colors duration-300 border border-gray-800 rounded-md group focus:outline-none"
 												>
@@ -125,7 +125,12 @@ const Login = () => {
 													<span className="text-sm font-medium text-black ">
 														Google
 													</span>
-												</a>
+												</a> */}
+												<div>
+												<LoguinGoogle 
+													className="flex items-center justify-center px-4 py-2 space-x-2 transition-colors duration-300 border border-gray-800 rounded-md group focus:outline-none"
+												/>
+												</div>
 												<div className="flex justify-center gap-6">
 													<button
 														type="button"

@@ -16,17 +16,24 @@ import AboutTeam from "./pages/AboutTeam";
 
 function App() {
 
-function handleCallbackResponse(response){
-		console.log("Encoded JWT ID token:"+response.credential);
-	  }
+// 	useEffect(() => {
+// 		/*global google*/
+// 		google.accounts.id.initialize({
+// 			client_id:"319669614492-i7e6o766ctapimibesbnj4g2c9fkvk80.apps.googleusercontent.com",
+// 			callback: handleCallbackResponse,
+// 		});
+// 	}, []);
+// function handleCallbackResponse(response){
+// 		console.log("Encoded JWT ID token:"+response.credential);
+// 	  }
 
-	useEffect(()=>{
-		/*global google*/
-		google.accounts.id.initialize({
-		   client_id:"319669614492-i7e6o766ctapimibesbnj4g2c9fkvk80.apps.googleusercontent.com",
-		   callback:handleCallbackResponse
-		});
-	   },[]);
+// 	useEffect(()=>{
+// 		/*global google*/
+// 		google.accounts.id.initialize({
+// 		   client_id:"319669614492-i7e6o766ctapimibesbnj4g2c9fkvk80.apps.googleusercontent.com",
+// 		   callback:handleCallbackResponse
+// 		});
+// 	   },[]);
 
 	return (
 		<>
