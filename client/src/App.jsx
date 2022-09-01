@@ -12,6 +12,9 @@ import Profile from "./pages/Profile/";
 import ConfirmationSignup from "./pages/ConfirmationSignup";
 import Favorites from "./pages/Favorites";
 import DashBoardAdmin from "./pages/DashBoardAdmin";
+import PaymentAcepted from "./components/Paypal/PaymentAcepted";
+import AboutTeam from "./pages/AboutTeam";
+import ModalHome from "./components/ModalHome";
 
 function App() {
 	return (
@@ -19,6 +22,7 @@ function App() {
 			<Router>
 				<Routes>
 					<Route path="/" element={<Home />} />
+					<Route path="/about" element={<AboutTeam />} />
 					<Route path="/products" element={<AllProductsD2 />} />
 					{/* <Route path="/filtersandproducts" element={<FiltersAndAllproducts/>} /> */}
 					<Route path="/admin" element={<DashBoardAdmin />} />
@@ -30,6 +34,8 @@ function App() {
 					<Route path="/shoppingCart" element={<ShoppingCart />} />
 					<Route path="/productDetails/:id" element={<ProductDetails />} />
 					<Route path="/confirmation/:token" element={<ConfirmationSignup />} />
+					<Route path="/order-successfully" element={<PaymentAcepted />} />
+					<Route path="/modalhome" element={<ModalHome />} />
 					<Route path="*" element={<NotFound />} />
 				</Routes>
 			</Router>

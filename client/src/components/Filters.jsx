@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { getAllProducts, limpiarProductos } from '../store/slices/products/thunks'
+import { RiMoneyDollarCircleLine} from 'react-icons/ri';
 
 
 export default function Filters({setPage, page}) {
@@ -18,9 +19,15 @@ export default function Filters({setPage, page}) {
       brand: '',
       tag: '',
       price: '',
+<<<<<<< HEAD
+=======
+      order: '',
+>>>>>>> 6c0914bd370fa490dd96161748168f0a09acd4d3
       column: ''
     }
   )
+
+
   
 
     const handleSelect = (e) => {
@@ -29,6 +36,7 @@ export default function Filters({setPage, page}) {
         ...state,
         [name]: value
       })
+      console.log(value, name);
     }
 
     function handleSubmit(e) {
@@ -43,60 +51,67 @@ export default function Filters({setPage, page}) {
           } else {
             string = `${string}&${filtro[0]}=${filtro[1]}`
           }
+          
         })
         setPage(1)
+        console.log(string);
 		    dispatch(limpiarProductos())
         dispatch(getAllProducts(1, string))
     }
 
   return (
-    <div className="flex justify-center  w-40 ml-4">
+    <div className="flex justify-center  w- ml-4 mt-11 ">
     <form className='shadow-md'>
-  <div>
-    <h1 className='font-bold'>Brands</h1>
-    <div className="form-check overflow-y-scroll h-52">
-      <select multiple name='brand' onChange={handleSelect}>
-        <option value=''>All brands</option>
+      {/* <div>
+        <h1>Filtros</h1>
+      </div> */}
+  <div className='ml-4'>
+    <h1 className='mb-1 text-xl'>Brands:</h1>
+    <div className="form-check ">
+      <select className='h-52 w-44 cursor-pointer' multiple name='brand' onChange={handleSelect}>
+        <option className='hover:text-blue-400 hover:font-bold' value=''>All brands</option>
           {brands && brands.map((item)=> {
-            return <option key ={item.id} value={item.id}>{item.name}</option>
+            return <option className='hover:text-blue-400 hover:font-bold' key ={item.id} value={item.id}>{item.name}</option>
           })}
       </select>
     </div>
-      <div>
-      <h1 className='font-bold'>Tags</h1>
-      <div className="form-check overflow-y-scroll h-52">
-      <select multiple name='tag' onChange={handleSelect}>
-        <option value=''>All tags</option>
+      <div className='mt-4'>
+      <h1 className='mb-1 text-xl'>Tags:</h1>
+      <div className="form-check ">
+      <select className='h-52 w-44 cursor-pointer' multiple name='tag' onChange={handleSelect}>
+        <option className='hover:text-pink-400 hover:font-bold' value=''>All tags</option>
           {tags && tags.map((item)=> {
-            return <option key ={item.name} value={item.name}>{item.name}</option>
+            return <option className='hover:text-pink-400 hover:font-bold' key ={item.name} value={item.name}>{item.name}</option>
           })}
       </select>
     </div>
       </div>
-      <div className="relative pt-1">
-  <h2 className="font-bold">Price</h2>
-  <label>{state.price}</label>
-  <input
-    type="range"
-    id="vol" 
-    name="price" 
-    min="0" 
-    max="2500" 
-    step='1'
-    value={state.value} 
-    onChange={handleSelect}
-    className="
-        form-range
-        w-full
-        h-6
-        p-0
-        bg-red
-        focus:outline-none focus:ring-0 focus:shadow-none
-    "
-  />
-</div>
+      <div className='mt-4 mb-1 text-xl'>
+        <label>Filtra Precio:</label>
+      </div>
+      <div className="flex flex-end ">
+        <div className='mr-1'>
+          <input className='border border-black rounded-lg w-32 placeholder:pl-3' type="text" placeholder='Precio minimo' />
+        </div>
+        <div>
+          <RiMoneyDollarCircleLine size={26}/>
+        </div>
+      </div>
+      <div className='mt-4 '>
+      <h1 className=' mb-1 text-xl'>Orden productos:</h1>
+      <div>
+        <select className='h-24 w-44 cursor-pointer' name="column" multiple onChange={handleSelect}>
+          <option className='hover:text-blue-400 hover:font-bold' value="price&order=ASC">Precio ascendente</option>
+          <option className='hover:text-pink-400 hover:font-bold' value="price&order=DESC">Precio descendente</option>
+          <option className='hover:text-blue-400 hover:font-bold' value="=rating&order=ASC">Rating ascendente</option>
+          <option className='hover:text-pink-400 hover:font-bold' value="=rating&order=DESC">Rating descendente</option>
+        </select>
+      </div>
+      </div>
   </div>
-  <button onClick={handleSubmit}>Filtrar</button>
+  <button
+    className='mt-4 ml-14 mb-4 bg-transparent hover:bg-blue-200 text-pink-700 font-semibold hover:text-white py-1 px-4 border border-pink-500 hover:border-transparent rounded'
+    onClick={handleSubmit}>Filtrar</button>
   <br />
   </form>
 </div>
