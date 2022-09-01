@@ -1,12 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
 // import { BsSuitHeart } from "react-icons/bs";
-import { GiTechnoHeart } from "react-icons/gi"
+import { GiTechnoHeart } from "react-icons/gi";
 import { addProduct } from "../store/slices/guestShoppingCart/guestShoppingCartSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProductFav,addProductsFav} from "../store/slices/products/productSlice";
+import {
+	deleteProductFav,
+	addProductsFav,
+} from "../store/slices/products/productSlice";
 import { setProductAdded } from "../store/slices/components/componentSlice";
-import { updateFavoriteUser,deleteFavoriteUser,updateProductCart} from "../store/slices/users/thunks"
+import {
+	updateFavoriteUser,
+	deleteFavoriteUser,
+	updateProductCart,
+} from "../store/slices/users/thunks";
+
 function Product({
 	id,
 	name,
@@ -34,7 +42,7 @@ function Product({
 			);
 			dispatch(setProductAdded(true));
 		}
-		 dispatch(updateProductCart([id]))
+		dispatch(updateProductCart([id]));
 	};
 
 	const discountFunction = (price, discount) => {
@@ -55,32 +63,29 @@ function Product({
 					img,
 				})
 			);
-			console.log(id,"id en product")
-			dispatch(updateFavoriteUser(id))
+			console.log(id, "id en product");
+			dispatch(updateFavoriteUser(id));
 			favoriteId.push(id);
-			
 		}
-		console.log(favorito)
+		console.log(favorito);
 	};
 	const handleDeleteCartFav = () => {
-		if (favoriteId.includes(id)) {const i =favoriteId.findIndex(p=>p === id)
-			console.log(i,"ada")
-			dispatch(deleteProductFav(i))
-			let favDelete =	favorito.map(p => p.id)
-			favDelete = favDelete.filter(p => p !== id)
-			dispatch(deleteFavoriteUser(favDelete))
+		if (favoriteId.includes(id)) {
+			const i = favoriteId.findIndex((p) => p === id);
+			console.log(i, "ada");
+			dispatch(deleteProductFav(i));
+			let favDelete = favorito.map((p) => p.id);
+			favDelete = favDelete.filter((p) => p !== id);
+			dispatch(deleteFavoriteUser(favDelete));
 		}
-	
-		
-		
-	}
+	};
 
 	return (
-		<div className="flex flex-wrap justify-center p-6 mb-5">
-			<div className="shadow-xl w-96 bg-white rounded-md">
+		<div className="flex flex-wrap justify-center p-6">
+			<div className="shadow-xl w-96 bg-white rounded-md relative overflow-hidden bg-no-repeat bg-cover max-w-xs">
 				<Link to={`/productDetails/${id}`}>
 					<img
-						className="cursor-pointer rounded-t-lg shadow-2xl hover:opacity-80 hover:scale-105 transition duration-300 ease-in-out bg-pink-700"
+						className="bg-pink-700 cursor-pointer rounded-t-lg shadow-2xl hover:opacity-80 max-w-xs hover:scale-105 transition duration-300 ease-in-out"
 						src={img}
 						alt={name}
 					/>
@@ -88,20 +93,17 @@ function Product({
 				<div className="place-content-center ml-2 px-5 pb-5">
 					<h3 className="text-black font-semibold text-xl tracking-tight mt-3">
 						{name.slice(0, 17)} ...
-						{onDiscount?
-								<p className="text-red-600 text-lg mt-2 p-1.5 rounded-full">
-									 {discountPercentage}% OFF 
-								</p>
-						:null
-						}
 					</h3>
 					<div className="flex items-center mt-3 mb-5">
 						{onDiscount ? (
 							<span className="flex text-xl text-gray-900 dark:text-white justify-between">
-								<p className="line-through text-gray-400 mr-1 text-2xl">
-									${price} 
+								<p className="line-through text-gray-400 mr-1 text-sm">
+									${price}
 								</p>
-					
+								<p className="text-red-600 text-xs mr-2 border border-red-600 p-1.5 rounded-full">
+									{discountPercentage}%OFF
+								</p>
+
 								<p className="text-black text-3xl ml-4">
 									${discountFunction(price, discountPercentage)}
 								</p>
@@ -120,12 +122,21 @@ function Product({
 						>
 							Add to cart
 						</button>
-						{ favoriteId && favoriteId.includes(id) ? (<button onClick={handleDeleteCartFav} className="cursor-pointer hover:scale-110 mr-2 px-2.5 py-0.5 ml-3">
-							<GiTechnoHeart color="#1E90FF" size={35}/>
-							</button>) 
-						: (<button onClick={handleAddCartFav} className="cursor-pointer hover:scale-110 mr-2 px-2.5 py-0.5 ml-3">
-							<GiTechnoHeart size={25} />
-						</button>)}
+						{favoriteId && favoriteId.includes(id) ? (
+							<button
+								onClick={handleDeleteCartFav}
+								className="cursor-pointer hover:scale-110 mr-2 px-2.5 py-0.5 ml-3"
+							>
+								<GiTechnoHeart color="blue" size={35} />
+							</button>
+						) : (
+							<button
+								onClick={handleAddCartFav}
+								className="cursor-pointer hover:scale-110 mr-2 px-2.5 py-0.5 ml-3"
+							>
+								<GiTechnoHeart size={25} />
+							</button>
+						)}
 					</div>
 				</div>
 			</div>

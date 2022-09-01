@@ -18,6 +18,7 @@ const UserSection = () => {
 	const { login } = useSelector((state) => state.components.modal);
 	const { cart } = useSelector((state) => state.guestShoppingCart);
 	const { user } = useSelector((state) => state.user);
+
 	return (
 		<div className="flex items-center gap-2">
 			{login && (

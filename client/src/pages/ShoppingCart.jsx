@@ -12,21 +12,28 @@ import {
 import {
 	setproductRemoved,
 	setCartCleaned,
+	setBuying,
+	setLoginValidation,
 } from "../store/slices/components/componentSlice";
 import { FaMoneyCheckAlt } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import { hasJWT } from "../store/thunks.js";
-import { setShoppingHistory, deleteProductCart,clearCartShop } from "../store/slices/users/thunks";
+import {
+	setShoppingHistory,
+	deleteProductCart,
+	clearCartShop,
+} from "../store/slices/users/thunks";
 import { useEffect } from "react";
+import { checkoutPaypal } from "../components/Paypal/";
+import loadingBuy from "../assets/loading.gif";
 
 const ShoppingCart = () => {
 	const dispatch = useDispatch();
-	const { productRemoved, cartCleaned } = useSelector(
+	const { productRemoved, cartCleaned, loginValidation, buying } = useSelector(
 		(state) => state.components.notification
 	);
-
 	const { cart } = useSelector((state) => state.guestShoppingCart);
-	
+	const { user } = useSelector((state) => state.user);
 
 	window.sessionStorage.setItem("carrito", JSON.stringify([...cart]));
 	const sessionStorageCart = JSON.parse(
@@ -35,7 +42,7 @@ const ShoppingCart = () => {
 
 	const shoppingCart = !sessionStorageCart.length ? cart : sessionStorageCart;
 
-	console.log(sessionStorageCart);
+	// console.log(sessionStorageCart);
 
 	const pricesCart = shoppingCart?.map((p) => p.price * p.amount);
 	const totalPrice = pricesCart?.reduce((prev, act) => prev + act, 0);
@@ -79,10 +86,41 @@ const ShoppingCart = () => {
 		dispatch(setCartCleaned(false));
 	};
 
-	const HandleClickBuy = () => {
-		const productsId = cart.map((p) => ({ id: p.id, date: Date() }));
-		console.log(productsId);
-		dispatch(setShoppingHistory(productsId));
+	const youAreUnloggedFunction = () => {
+		toast.info("You must be logged to buy products 🔒", {
+			position: "bottom-right",
+			autoClose: 2000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+		});
+		dispatch(setLoginValidation(false));
+	};
+
+	const HandleClickBuy = async () => {
+		// const productsId = cart.map((p) => ({ id: p.id, date: Date() }));
+		// console.log(productsId);
+		// dispatch(setShoppingHistory(productsId));
+
+		if (Boolean(!Object.keys(user).length)) {
+			return dispatch(setLoginValidation(true));
+		}
+
+		const cartBuy = cart.map((p) => ({
+			reference_id: p.id,
+			amount: {
+				currency_code: "USD",
+				value: p.amount * p.price,
+			},
+			description: p.name,
+		}));
+
+		dispatch(setBuying(true));
+		const { data } = await checkoutPaypal(cartBuy);
+		window.location.href = data;
+		dispatch(setBuying(false));
 	};
 
 	useEffect(() => {
@@ -103,6 +141,7 @@ const ShoppingCart = () => {
 		<div>
 			{productRemoved && productRemovedFunction()}
 			{cartCleaned && cartCleanedFunction()}
+			{loginValidation && youAreUnloggedFunction()}
 			<Header />
 			<div className="flex flex-col mb-4 items-center justify-center gap-2">
 				<h1 className="flex gap-2 text-4xl">
@@ -156,9 +195,10 @@ const ShoppingCart = () => {
 								subUnits={() => subUnits(p.id)}
 								delProduct={() => {
 									removeProduct(i);
-									let producDelete =	cart.map(a => a.id)
-			                        producDelete = producDelete.filter(a => a !== p.id)
-									dispatch(deleteProductCart(producDelete))}}
+									let producDelete = cart.map((a) => a.id);
+									producDelete = producDelete.filter((a) => a !== p.id);
+									dispatch(deleteProductCart(producDelete));
+								}}
 							/>
 						))}
 					</div>
@@ -171,7 +211,7 @@ const ShoppingCart = () => {
 							onClick={() => {
 								dispatch(emptyCart());
 								dispatch(setCartCleaned(true));
-								dispatch(clearCartShop())
+								dispatch(clearCartShop());
 							}}
 						>
 							<BsFillTrashFill /> Clear Cart
@@ -183,8 +223,15 @@ const ShoppingCart = () => {
 								HandleClickBuy();
 							}}
 						>
-							<FaMoneyCheckAlt /> Buy Now!
+							{console.log(buying)}
+							{buying ? (
+								<img className="h-4 w-4" src={loadingBuy} alt="buying" />
+							) : (
+								<FaMoneyCheckAlt />
+							)}{" "}
+							Buy Now!
 						</button>
+
 						<h2 className="flex flex-col justify-center items-center bg-slate-100 rounded-lg p-3">
 							🛒 Total Price:
 							<span className="text-green-500 underline">

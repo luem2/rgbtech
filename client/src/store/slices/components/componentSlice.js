@@ -16,6 +16,8 @@ const initialState = {
 		productRemoved: false,
 		emailConfirm: false,
 		cartCleaned: false,
+		buying: false,
+		loginValidation: false,
 	},
 };
 
@@ -70,6 +72,14 @@ const componentSlice = createSlice({
 		setEmailConfirm: (state, action) => {
 			state.notification.emailConfirm = action.payload;
 		},
+
+		setBuying: (state, action) => {
+			state.notification.buying = action.payload;
+		},
+
+		setLoginValidation: (state, action) => {
+			state.notification.loginValidation = action.payload;
+		},
 	},
 });
 
@@ -86,6 +96,8 @@ export const {
 	setCartCleaned,
 	setproductRemoved,
 	setEmailConfirm,
+	setBuying,
+	setLoginValidation,
 } = componentSlice.actions;
 
 export default componentSlice.reducer;
