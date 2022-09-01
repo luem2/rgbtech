@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLogin } from "../../store/slices/components/componentSlice";
 import defaultImage from "../../assets/defaultImage.png";
+import { hasJWT } from "../../store/thunks";
 
 const UserSection = () => {
 	const dispatch = useDispatch();
@@ -33,7 +34,8 @@ const UserSection = () => {
 					size: "30px",
 				}}
 			>
-				{user && Boolean(Object.keys(user).length) ? (
+				{/* user && Boolean(Object.keys(user).length) */}
+				{hasJWT() ? (
 					<img
 						className="hover: cursor-pointer rounded-3xl w-8 h-8 hover:scale-110 ease-in duration-300"
 						src={

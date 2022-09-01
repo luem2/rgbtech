@@ -9,8 +9,8 @@ const userSlice = createSlice({
 	initialState,
 	reducers: {
 		getLoggedUser: (state, action) => {
-			console.log(action.payload);
 			state.user = action.payload;
+			window.localStorage.setItem("user", JSON.stringify(action.payload));
 		},
 		clearUser: (state) => {
 			state.user = {};
