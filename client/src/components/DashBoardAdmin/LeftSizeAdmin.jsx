@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMarcas } from "../../store/slices/products/thunks";
 import {
@@ -14,6 +14,7 @@ import {
 
 
 
+
 const brands = [
 	{ marca: "razer", total: 8108, cantidad: 14 },
 	{ marca: "logitech", total: 1089, cantidad: 29 },
@@ -23,13 +24,13 @@ const brands = [
 
 function LeftSizeAdmin() {
 
-	// const tags = useSelector(state=> state.tags)
-	const brands = useSelector(state=> state.brands)
+	const [infoAdmin, setInfoAdmin] = useState()
+	// const admin = useSelector(state=> state.admin)
 	const dispatch = useDispatch()
 
-	useEffect(() => {
-		dispatch(getMarcas());
-	}, [dispatch]);
+	// useEffect(() => {
+	// 	dispatch(getMarcas());
+	// }, [dispatch]);
 
 
 	return (

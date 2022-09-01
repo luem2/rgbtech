@@ -37,7 +37,7 @@ router.post('/sale', async(req, res) => {
   res.send('producto comprado')
 })
 
-router.get('/', async(req, res) => {
+router.get('/dashboard', async(req, res) => {
   const {year} = req.query
   const conditions = {}
   year ? conditions.year = year : null
@@ -79,7 +79,11 @@ router.get('/', async(req, res) => {
     }
   }) 
 
+  const tags = await Tag.findAll()
+  const brands = await Brand.findAll()
   res.json({
+    tags,
+    brands,
     monthSales,
     productSale,
     sales,
@@ -87,6 +91,17 @@ router.get('/', async(req, res) => {
     stock,
     users
   })
+})
+router.get('/products', async (req, res) => {
+  try {
+    const products = await Product.findAll({include: {
+      model: Tag,
+      through: { attributes: [] }
+    }})
+    res.status(200).send(products)
+  } catch (error) {
+    res.sendStatus(500)
+  }
 })
 
 
