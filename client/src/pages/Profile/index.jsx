@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setLogout } from "../../store/slices/components/componentSlice";
 import Header from "../../components/Header/Header";
 import { clearUser } from "../../store/slices/users/userSlice";
@@ -20,7 +20,6 @@ const Profile = () => {
 	const dispatch = useDispatch();
 
 	const user = JSON.parse(window.localStorage.getItem("user"));
-	console.log("user", user);
 
 	const handleSignOut = () => {
 		window.localStorage.removeItem("token");

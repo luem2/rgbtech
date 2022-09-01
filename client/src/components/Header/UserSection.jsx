@@ -19,6 +19,18 @@ const UserSection = () => {
 	const { login } = useSelector((state) => state.components.modal);
 	const { cart } = useSelector((state) => state.guestShoppingCart);
 	const { user } = useSelector((state) => state.user);
+	const userLocalStorage = JSON.parse(window.localStorage.getItem("user"));
+
+	let userProfile;
+	function setUserProfile() {
+		if (Object.keys(user).length) {
+			userProfile = user;
+		} else {
+			userProfile = userLocalStorage;
+		}
+	}
+
+	setUserProfile();
 
 	return (
 		<div className="flex items-center gap-2">
@@ -35,10 +47,14 @@ const UserSection = () => {
 				}}
 			>
 				{/* user && Boolean(Object.keys(user).length) */}
-				{hasJWT() ? (
+				{userProfile && Object.keys(userProfile).length ? (
 					<img
 						className="hover: cursor-pointer rounded-3xl w-8 h-8 hover:scale-110 ease-in duration-300"
-						src={user.profilePhoto === null ? defaultImage : user.profilePhoto}
+						src={
+							userProfile?.profilePhoto === null
+								? defaultImage
+								: userProfile?.profilePhoto
+						}
 						alt=""
 						onClick={() => navigate("/profile")}
 					/>
@@ -52,7 +68,7 @@ const UserSection = () => {
 				<AiOutlineHeart
 					className="hover:bg-red-500 hover:scale-110 ease-in duration-300"
 					onClick={() => {
-						navigate("/favorites");
+						hasJWT() ? navigate("/favorites") : alert("You must Login");
 					}}
 				/>
 

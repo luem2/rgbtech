@@ -34,6 +34,18 @@ const ShoppingCart = () => {
 	);
 	const { cart } = useSelector((state) => state.guestShoppingCart);
 	const { user } = useSelector((state) => state.user);
+	const userLocalStorage = JSON.parse(window.localStorage.getItem("user"));
+
+	let userProfile;
+	function setUserProfile() {
+		if (Object.keys(user).length) {
+			userProfile = user;
+		} else {
+			userProfile = userLocalStorage;
+		}
+	}
+
+	setUserProfile();
 
 	window.sessionStorage.setItem("carrito", JSON.stringify([...cart]));
 	const sessionStorageCart = JSON.parse(
@@ -104,7 +116,7 @@ const ShoppingCart = () => {
 		// console.log(productsId);
 		// dispatch(setShoppingHistory(productsId));
 
-		if (Boolean(!Object.keys(user).length)) {
+		if (Boolean(!Object.keys(userProfile).length)) {
 			return dispatch(setLoginValidation(true));
 		}
 

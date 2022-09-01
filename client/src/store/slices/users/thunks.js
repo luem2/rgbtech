@@ -34,7 +34,6 @@ export const getUserProfile = (id) => {
 	return async (dispatch) => {
 		try {
 			const response = await axios.get(`users/profile/${id}`);
-			console.log(response.data);
 			dispatch(getLoggedUser(response.data));
 		} catch (error) {
 			console.log(error);
