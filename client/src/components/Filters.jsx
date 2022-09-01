@@ -19,10 +19,6 @@ export default function Filters({setPage, page}) {
       brand: '',
       tag: '',
       price: '',
-<<<<<<< HEAD
-=======
-      order: '',
->>>>>>> 6c0914bd370fa490dd96161748168f0a09acd4d3
       column: ''
     }
   )
