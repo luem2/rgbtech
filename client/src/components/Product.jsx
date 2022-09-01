@@ -86,15 +86,15 @@ function Product({
 					/>
 				</Link>
 				<div className="place-content-center ml-2 px-5 pb-5">
-					<h3 className="text-black font-semibold text-xl tracking-tight mt-3">
-						{name.slice(0, 17)} ...
-						{onDiscount?
-								<p className="text-red-600 text-lg mt-2 p-1.5 rounded-full">
+					
+					<h3 className="text-black font-semibold text-xl tracking-tight mt-3 flex flex-row justify-around">
+						{name.slice(0, 17)} ... {onDiscount? <p className="text-red-600 text-base border border-red-600 rounded-sm px-1">
 									 {discountPercentage}% OFF 
 								</p>
 						:null
 						}
 					</h3>
+					
 					<div className="flex items-center mt-3 mb-5">
 						{onDiscount ? (
 							<span className="flex text-xl text-gray-900 dark:text-white justify-between">
@@ -102,12 +102,12 @@ function Product({
 									${price} 
 								</p>
 					
-								<p className="text-black text-3xl ml-4">
+								<p className="text-black text-2xl ml-4">
 									${discountFunction(price, discountPercentage)}
 								</p>
 							</span>
 						) : (
-							<p className="text-black text-3xl ml-4">${price}</p>
+							<p className="text-black text-2xl ml-4">${price}</p>
 						)}
 						{freeShipping ? (
 							<p className="text-green-500 ml-2">( Free Shipping )</p>
