@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMarcas } from "../../store/slices/products/thunks";
+import { dashboardInfo } from "../../store/slices/admin/adminSlice";
 import {
 	CartesianGrid,
 	XAxis,
@@ -24,13 +25,13 @@ const brands = [
 
 function LeftSizeAdmin() {
 
-	const [infoAdmin, setInfoAdmin] = useState()
-	// const admin = useSelector(state=> state.admin)
+	// const [infoAdmin, setInfoAdmin] = useState()
+	// const adminInfo = useSelector(state=> state.dashboard)
 	const dispatch = useDispatch()
 
-	// useEffect(() => {
-	// 	dispatch(getMarcas());
-	// }, [dispatch]);
+	useEffect(() => {
+		dispatch(dashboardInfo());
+	}, []);
 
 
 	return (

@@ -27,7 +27,7 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     month: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
       },
     year: {

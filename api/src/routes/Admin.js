@@ -25,14 +25,14 @@ router.post('/sale', async(req, res) => {
     await newSale.setBrand(brand)
     await newSale.setUser(userId)
 
-    const stockProduct = await Product.findByPk(productId)
-    const updatedStock = stockProduct.stock - amount
-    await Product.update({
-      stock: updatedStock
-    },
-    {
-      where:{id:productId}
-    })
+    // const stockProduct = await Product.findByPk(productId)
+    // const updatedStock = stockProduct.stock - amount
+    // await Product.update({
+    //   stock: updatedStock
+    // },
+    // {
+    //   where:{id:productId}
+    // })
     })
   res.send('producto comprado')
 })
