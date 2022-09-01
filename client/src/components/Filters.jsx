@@ -19,7 +19,6 @@ export default function Filters({setPage, page}) {
       brand: '',
       tag: '',
       price: '',
-      order: '',
       column: ''
     }
   )
@@ -35,7 +34,6 @@ export default function Filters({setPage, page}) {
       })
       console.log(value, name);
     }
-
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -56,7 +54,6 @@ export default function Filters({setPage, page}) {
 		    dispatch(limpiarProductos())
         dispatch(getAllProducts(1, string))
     }
-
 
   return (
     <div className="flex justify-center  w- ml-4 mt-11 ">
