@@ -14,12 +14,12 @@ import {
 
 
 
-// const brands = [
-// 	{ marca: "razer", total: 8108, cantidad: 14 },
-// 	{ marca: "logitech", total: 1089, cantidad: 29 },
-// 	{ marca: "lg", total: 4002, cantidad: 5 },
-// 	{ marca: "samsung", total: 9831, cantidad: 7 },
-// ];
+const brands = [
+	{ marca: "razer", total: 8108, cantidad: 14 },
+	{ marca: "logitech", total: 1089, cantidad: 29 },
+	{ marca: "lg", total: 4002, cantidad: 5 },
+	{ marca: "samsung", total: 9831, cantidad: 7 },
+];
 
 function LeftSizeAdmin() {
 

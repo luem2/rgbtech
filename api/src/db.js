@@ -56,8 +56,8 @@ User.belongsToMany(Sale, {through: "saleUser"})
 Sale.belongsToMany(Tag, {through: "saleTags"})
 Tag.belongsToMany(Sale, {through: "saleTags"})
 
-Sale.belongsToMany(Product, {through: "saleProduct"})
-Product.belongsToMany(Sale, {through: "saleProduct"})
+/* Sale.belongsToMany(Product, {through: "saleProduct"})
+Product.belongsToMany(Sale, {through: "saleProduct"}) */
 
 
 

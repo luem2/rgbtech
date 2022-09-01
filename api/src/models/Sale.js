@@ -7,22 +7,33 @@ module.exports = (sequelize) => {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
       },
+    productId: {
+        type: DataTypes.STRING
+    },
     name: {
         type: DataTypes.STRING,
         allowNull: false
       },
-    price:{
+    productPrice:{
         type:DataTypes.FLOAT,
         allowNull:false
-      },
-    date: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
       },
     amount : {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    totalPrice: {
+      type: DataTypes.FLOAT,
+      allowNull: false
+    },
+    month: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+    year: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    }
   },{
     timestamps: false
   })}
