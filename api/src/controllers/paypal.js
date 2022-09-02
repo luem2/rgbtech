@@ -19,7 +19,7 @@ module.exports = {
 					landing_page: "NO_PREFERENCE", //LOGIN
 					user_action: "PAY_NOW",
 					return_url: "http://localhost:3003/capture-order",
-					cancel_url: "http://127.0.0.1:5173/",
+					cancel_url: "http://localhost:3003/cancel-order",
 				},
 			};
 
@@ -82,6 +82,6 @@ module.exports = {
 		}
 	},
 	cancel: (req, res) => {
-		res.redirect("http://127.0.0.1:5173/");
+		res.redirect("http://127.0.0.1:5173/order-canceled");
 	},
 };

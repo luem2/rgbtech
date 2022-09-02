@@ -15,6 +15,7 @@ import DashBoardAdmin from "./pages/DashBoardAdmin";
 import PaymentAcepted from "./components/Paypal/PaymentAcepted";
 import AboutTeam from "./pages/AboutTeam";
 import ModalHome from "./components/ModalHome";
+import PaymentCanceled from "./components/Paypal/PaymentCanceled";
 
 function App() {
 	return (
@@ -35,6 +36,7 @@ function App() {
 					<Route path="/productDetails/:id" element={<ProductDetails />} />
 					<Route path="/confirmation/:token" element={<ConfirmationSignup />} />
 					<Route path="/order-successfully" element={<PaymentAcepted />} />
+					<Route path="/order-canceled" element={<PaymentCanceled />} />
 					<Route path="/modalhome" element={<ModalHome />} />
 					<Route path="*" element={<NotFound />} />
 				</Routes>

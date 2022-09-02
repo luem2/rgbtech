@@ -132,6 +132,7 @@ const ShoppingCart = () => {
 
 		dispatch(setBuying(true));
 		const { data } = await checkoutPaypal(cartBuy);
+		window.localStorage.setItem("productsPaypal", JSON.stringify(cart));
 		window.location.href = data;
 		dispatch(setBuying(false));
 	};
