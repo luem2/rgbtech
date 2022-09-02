@@ -1,6 +1,6 @@
 import axios from "axios";
 import jwt from "jwt-decode";
-import { getLoggedUser,checkMailGoogle } from "../users/userSlice"
+import { getLoggedUser } from "../users/userSlice"
 
 export const setAuthToken = (token) => {
 	if (token) {
@@ -153,19 +153,6 @@ export const clearCartShop = () => {
 	};
 };
 
-
-export const checkEmailGoogle = (email) => {
-	return async (dispatch) => {
-		try {
-			
-	 let response =	await axios.post("users/checkemail", {email});
-	 console.log(response.data,"reponsee");
-	await dispatch(checkMailGoogle(response.data)) 
-		} catch (e) {
-			console.error(e);
-		}
-	};
-};
 
 
 

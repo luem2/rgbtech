@@ -1,6 +1,6 @@
 import React, { useEffect ,useState } from "react";
 import jwt_decode from "jwt-decode";
-import { getUserProfile, setCartShop,postUserGoogle,checkEmailGoogle} from "../../store/slices/users/thunks"
+import { getUserProfile, setCartShop,postUserGoogle} from "../../store/slices/users/thunks"
 import { LoguinG } from "../../hooks/logGoogle"
 import {useDispatch, useSelector} from "react-redux"
 import { useNavigate } from "react-router-dom";
@@ -21,7 +21,6 @@ import { setFavorite } from "../../store/slices/products/productSlice"
 		setUser(userObj);
 		document.getElementById("signInDiv").hidden = true;
 		 let name = userObj.given_name +" "+ userObj.family_name
-		 dispatch(checkEmailGoogle(userObj.email))
 			const postFinal = {
 				user: name,
 				mail: userObj.email,

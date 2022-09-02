@@ -75,6 +75,7 @@ router.post(
 					findedUser;
 				const logedUser = {
 					id,
+					
 				};
 				const accessToken = jwt.sign(logedUser, process.env.SECRET);
 				return res.status(200).json({
@@ -101,7 +102,7 @@ router.post("/loginGoogle",async (req, res) => {
 			console.log(user,"user")
 			if (user) {
 				const { id } = user.dataValues
-				const logedUser = {id}
+				const logedUser = {id,}
 				const accessToken = jwt.sign(logedUser, process.env.SECRET);
 				console.log(accessToken)
 				return res.status(200).json({
@@ -406,33 +407,6 @@ router.get("/cartShop", async (req, res) => {
 		res.sendStatus(500);
 	}
 });
-
-router.post("/checkemail", async (req, res) => {
-    try {
-        const {email} = req.body
-		// console.log(email,"email")
-		// console.log(req.body,"adassa")
-    
-        const coincidencias = await User.findOne({
-            where:{mail: email},
-        })
-		console.log(coincidencias,"asdsadasdasdas");
-		if(coincidencias == null){
-
-			let rest = ["1"]
-			res.send(null)
-		
-		}else{
-			
-			let rest = ["1"]
-			res.send(["2"])
-		}
-    } catch(error) {
-        res.sendStatus(500)
-    }
-})
-
-
 
 
 module.exports = router;
