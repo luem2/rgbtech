@@ -50,7 +50,7 @@ module.exports = (sequelize) => {
 			},
 			shoppingHistory: {
 				type: DataTypes.JSONB,
-			},
+			}
 		},
 		{
 			timestamps: false,

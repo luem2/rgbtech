@@ -9,15 +9,15 @@ import {
 	setLogin,
 	setWelcomeUser,
 } from "../store/slices/components/componentSlice";
-import { getUserProfile, setCartShop } from "../store/slices/users/thunks"
+import { getUserProfile, setCartShop } from "../store/slices/users/thunks";
 import { useDispatch, useSelector } from "react-redux";
 import { setAuthToken } from "../store/slices/users/thunks";
 import { useNavigate } from "react-router-dom";
-import { setFavorite } from "../store/slices/products/productSlice"
+import { setFavorite } from "../store/slices/products/productSlice";
 
 export const useForm = (initalForm) => {
 	const { cart } = useSelector((state) => state.guestShoppingCart);
-	const cartsId = cart.map((product) => product.id)
+	const cartsId = cart.map((product) => product.id);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [form, setForm] = useState(initalForm);
@@ -47,13 +47,15 @@ export const useForm = (initalForm) => {
 				window.localStorage.setItem("token", token);
 				setAuthToken(token);
 				const user = jwt_decode(token);
-				if(cart.length) {
-					dispatch(setCartShop( cartsId))
+				if (cart.length) {
+					dispatch(setCartShop(cartsId));
 					// dispatch(clearCart())
 				}
 				dispatch(getUserProfile(user.id));
-				if(user.favorite){
-				dispatch(setFavorite(user.favorite))}	
+
+				if (user.favorite) {
+					dispatch(setFavorite(user.favorite));
+				}
 				dispatch(setLogin(false));
 				dispatch(setWelcomeUser(true));
 				setForm(initalForm);

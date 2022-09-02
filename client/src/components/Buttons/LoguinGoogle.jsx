@@ -35,7 +35,7 @@ import { setFavorite } from "../../store/slices/products/productSlice"
 		}
 		const token_jwt = window.localStorage.getItem("token");
 		const perfil = jwt_decode(token_jwt);
-		console.log
+		console.log 
 		dispatch(getUserProfile());
 		if(user.favorite){
 		dispatch(setFavorite(user.favorite))

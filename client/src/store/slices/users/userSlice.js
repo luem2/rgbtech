@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-	user:{},
-	check:[],
+	user: {},
 };
 
 const userSlice = createSlice({
@@ -10,13 +9,11 @@ const userSlice = createSlice({
 	initialState,
 	reducers: {
 		getLoggedUser: (state, action) => {
-			state.user.push(action.payload)
+			state.user = action.payload;
+			window.localStorage.setItem("user", JSON.stringify(action.payload));
 		},
 		clearUser: (state) => {
 			state.user = {};
-		},
-		checkMailGoogle: (state, action) => {
-			state.check = action.payload
 		},
 	},
 });

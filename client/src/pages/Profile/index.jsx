@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setLogout } from "../../store/slices/components/componentSlice";
 import Header from "../../components/Header/Header";
 import { clearUser } from "../../store/slices/users/userSlice";
@@ -10,7 +10,7 @@ import { HiOutlineShoppingCart } from "react-icons/hi";
 import { RiHistoryLine } from "react-icons/ri";
 import defaultImage from "../../assets/defaultImage.png";
 import ShoppingHistory from "./ShoppingHistory";
-import { clearFavorite }from "../../store/slices/products/productSlice"
+import { clearFavorite } from "../../store/slices/products/productSlice";
 import LastVisited from "./LastVisited";
 import ModifyProfile from "./ModifyProfile";
 
@@ -18,14 +18,14 @@ const Profile = () => {
 	const [section, setSection] = useState("shoppingHistory");
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const { user } = useSelector((state) => state.user);
-	console.log(user,"asdsads")
+	const user = JSON.parse(window.localStorage.getItem("user"));
 
 	const handleSignOut = () => {
 		window.localStorage.removeItem("token");
+		window.localStorage.removeItem("user");
 		dispatch(setLogout(true));
 		dispatch(clearUser());
-		dispatch(clearFavorite())
+		dispatch(clearFavorite());
 		navigate("/");
 	};
 
@@ -41,9 +41,7 @@ const Profile = () => {
 						<img
 							className="rounded-full my-4 h-32 w-32 shadow-lg"
 							src={
-								user.profilePhoto === "Image_Default"
-									? defaultImage
-									: user.profilePhoto
+								user.profilePhoto === null ? defaultImage : user.profilePhoto
 							}
 							alt={`profilePhoto-${user.user}`}
 						/>
@@ -78,7 +76,6 @@ const Profile = () => {
 							type="button"
 							className="flex gap-2 justify-center items-center px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-48"
 						>
-							<button />
 							<RiHistoryLine /> Last visited
 						</button>
 						<button

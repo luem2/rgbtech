@@ -118,11 +118,11 @@ import { Link } from "react-router-dom";
 										Luciano Pinol
 									</p>
 									<p className="text-xl text-gray-500 dark:text-gray-200 font-light">
-										Front-end
+										Front-end leader
 									</p>
 									<p className="text-md text-gray-500 dark:text-gray-400 max-w-xs py-4 font-light">
-										Luciano Pinol is a leader front-team, born November 14, 1953
-										in Pontivy.
+										Luciano Pinol, born August 2, 1996
+										in Entre Rios, Argentina.
 									</p>
 								</div>
 								<div className="pt-8 flex border-t border-gray-200 w-44 mx-auto text-gray-500 items-center justify-around">
@@ -170,8 +170,7 @@ import { Link } from "react-router-dom";
 										Full Stack 
 									</p>
 									<p className="text-md text-gray-500 dark:text-gray-400 max-w-xs py-4 font-light">
-										Esteban Pilchuman, born November 4, 1993 in Saint hilaire de
-										riez.
+										Esteban Pilchuman, born June 17, 1996 in Neuquen, Argentina.
 									</p>
 								</div>
 								<div className="pt-8 flex border-t border-gray-200 w-44 mx-auto text-gray-500 items-center justify-around">
@@ -206,7 +205,7 @@ import { Link } from "react-router-dom";
 									<a className="block relative">
 										<img
 											alt="profil"
-											src="https://ca.slack-edge.com/TPRS7H4PN-U03BBNKCU2Z-ebd4c5f44d2e-512"
+											src="https://ca.slack-edge.com/TPRS7H4PN-U039W4VU2CV-bd3d38864e21-512"
 											className="mx-auto object-cover rounded-full h-40 w-40 "
 										/>
 									</a>
@@ -270,8 +269,7 @@ import { Link } from "react-router-dom";
 										Back-end
 									</p>
 									<p className="text-md text-gray-500 dark:text-gray-400 max-w-xs py-4 font-light">
-                                        Andres Rodriguez, born November 4, 1993 in Saint hilaire de
-										riez.
+                                        Andres Rodriguez, born August 16, 2002 in Santa Marta, Colombia.
 									</p>
 								</div>
 								<div className="pt-8 flex border-t border-gray-200 w-44 mx-auto text-gray-500 items-center justify-around">
@@ -355,7 +353,7 @@ import { Link } from "react-router-dom";
 									<a className="block relative">
 										<img
 											alt="profil"
-											src="https://th.bing.com/th/id/R.8ad1b3306f4f8aff143b0ba8c576055c?rik=2g9R5%2b%2bIew%2fseg&pid=ImgRaw&r=0"
+											src="https://ca.slack-edge.com/TPRS7H4PN-U037V4Z56H0-a5ae62277c3a-512"
 											className="mx-auto object-cover rounded-full h-40 w-40 "
 										/>
 									</a>
@@ -368,8 +366,7 @@ import { Link } from "react-router-dom";
 										Front-end 
 									</p>
 									<p className="text-md text-gray-500 dark:text-gray-400 max-w-xs py-4 font-light">
-										Esteban Pilchuman, born November 4, 1993 in Saint hilaire de
-										riez.
+										Facundo Maciel, born April 10, 1992 in Corrientes, Argentina.
 									</p>
 								</div>
 								<div className="pt-8 flex border-t border-gray-200 w-44 mx-auto text-gray-500 items-center justify-around">

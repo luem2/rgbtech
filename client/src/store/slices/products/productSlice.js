@@ -9,7 +9,7 @@ const initialState = {
 	productosFilt: [],
 	tags: [],
 	brands: [],
-	favorito:[],
+	favorito: [],
 };
 
 const productSlice = createSlice({
@@ -58,17 +58,21 @@ const productSlice = createSlice({
 			state.products = [];
 			state.response = {};
 		},
+
 		addProductsFav: (state, action) => {
 			state.favorito.push({
 				...action.payload,
 			});
 		},
+
 		deleteProductFav: (state, action) => {
 			state.favorito.splice(action.payload, 1);
 		},
-		setFavorite:(state, action) => {
+
+		setFavorite: (state, action) => {
 			state.favorito = action.payload;
 		},
+
 		clearFavorite: (state) => {
 			state.favorito = [];
 		},

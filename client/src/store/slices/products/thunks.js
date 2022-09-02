@@ -41,20 +41,18 @@ export const getAllProducts = (num, search) => {
 	}
 	return async (dispatch) => {
 		try {
-			if(search.includes('pageNumber')){
-				console.log(search.slice(0, search.length -1),'dispatch con page')
+			if (search.includes("pageNumber")) {
+				console.log(search.slice(0, search.length - 1), "dispatch con page");
 				const products = await axios.get(
-					`products${search.slice(0, search.length -1)}`
+					`products${search.slice(0, search.length - 1)}`
 				);
 				dispatch(getProducts(products.data));
 			} else {
-				console.log('dispatch con sin page')
 				const products = await axios.get(
 					`products${search}pageNumber=${num || 1}`
 				);
 				dispatch(getProducts(products.data));
 			}
-
 		} catch (e) {
 			console.error(e);
 		}
@@ -117,7 +115,7 @@ export const setProduct = () => {
 export const getEtiquetas = () => {
 	return async (dispatch) => {
 		try {
-			const tag =  await axios.get(`tags`);
+			const tag = await axios.get(`tags`);
 			dispatch(getTags(tag.data));
 			console.log(tag);
 		} catch (error) {
@@ -129,7 +127,7 @@ export const getEtiquetas = () => {
 export const getMarcas = () => {
 	return async (dispatch) => {
 		try {
-			const brand =  await axios.get(`brands`);
+			const brand = await axios.get(`brands`);
 			dispatch(getBrands(brand.data));
 			console.log(brand);
 		} catch (error) {

@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
@@ -12,29 +12,11 @@ import Profile from "./pages/Profile/";
 import ConfirmationSignup from "./pages/ConfirmationSignup";
 import Favorites from "./pages/Favorites";
 import DashBoardAdmin from "./pages/DashBoardAdmin";
+import PaymentAcepted from "./components/Paypal/PaymentAcepted";
 import AboutTeam from "./pages/AboutTeam";
+import ModalHome from "./components/ModalHome";
 
 function App() {
-
-// 	useEffect(() => {
-// 		/*global google*/
-// 		google.accounts.id.initialize({
-// 			client_id:"319669614492-i7e6o766ctapimibesbnj4g2c9fkvk80.apps.googleusercontent.com",
-// 			callback: handleCallbackResponse,
-// 		});
-// 	}, []);
-// function handleCallbackResponse(response){
-// 		console.log("Encoded JWT ID token:"+response.credential);
-// 	  }
-
-// 	useEffect(()=>{
-// 		/*global google*/
-// 		google.accounts.id.initialize({
-// 		   client_id:"319669614492-i7e6o766ctapimibesbnj4g2c9fkvk80.apps.googleusercontent.com",
-// 		   callback:handleCallbackResponse
-// 		});
-// 	   },[]);
-
 	return (
 		<>
 			<Router>
@@ -52,6 +34,8 @@ function App() {
 					<Route path="/shoppingCart" element={<ShoppingCart />} />
 					<Route path="/productDetails/:id" element={<ProductDetails />} />
 					<Route path="/confirmation/:token" element={<ConfirmationSignup />} />
+					<Route path="/order-successfully" element={<PaymentAcepted />} />
+					<Route path="/modalhome" element={<ModalHome />} />
 					<Route path="*" element={<NotFound />} />
 				</Routes>
 			</Router>

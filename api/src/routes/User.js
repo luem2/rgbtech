@@ -74,7 +74,7 @@ router.post(
 				const { id, user, mail, profilePhoto, cartShop, favorite, isAdmin } =
 					findedUser;
 				const logedUser = {
-					id
+					id,
 				};
 				const accessToken = jwt.sign(logedUser, process.env.SECRET);
 				return res.status(200).json({
@@ -119,9 +119,9 @@ router.get("/profile/:id", validateToken, async (req, res) => {
 	try {
 		const { id } = req.params;
 
-		const user = await User.findByPk( id )
+		const user = await User.findByPk(id);
 		if (!Object.keys(user).length) {
-			res.sendStatus(404)
+			res.sendStatus(404);
 		}
 		const profile = {
 			user: user.user,
@@ -130,40 +130,42 @@ router.get("/profile/:id", validateToken, async (req, res) => {
 			cartShop: user.cartShop,
 			favorite: user.favorite,
 			isAdmin: user.isAdmin,
-		}
-		res.json(profile)
+		};
+		res.json(profile);
 	} catch (error) {
-		res.send(error)
+		res.send(error);
 	}
-
 });
 
-router.put("/setCart/:id", validateToken, async(req, res)=>{
+router.put("/setCart/:id", validateToken, async (req, res) => {
 	try {
-		console.log('entro al body')
-		const {id} = req.params
-		const user = await User.findByPk(id)
-		user.cartShop = [...user.cartShop, ...req.params] 
-		res.sendStatus(201)
+		console.log("entro al body");
+		const { id } = req.params;
+		const user = await User.findByPk(id);
+		user.cartShop = [...user.cartShop, ...req.params];
+		res.sendStatus(201);
 	} catch (error) {
-		res.send(error)
+		res.send(error);
 	}
-})
+});
 
 router.put("/shoppingHistory/:id", async (req, res, next) => {
 	try {
 		const { id } = req.params;
 		const { shoppings } = req.body;
-		const user = await User.findByPk(id) 
-		let history = user.shoppingHistory
-		console.log(history,"fav")
-		if(history){history = history,shoppings
-		console.log(history)}
-		else{history = shoppings}
+		const user = await User.findByPk(id);
+		let history = user.shoppingHistory;
+		console.log(history, "fav");
+		if (history) {
+			(history = history), shoppings;
+			console.log(history);
+		} else {
+			history = shoppings;
+		}
 
 		await User.update(
 			{
-				shoppingHistory: history
+				shoppingHistory: history,
 			},
 			{
 				where: {
@@ -203,17 +205,20 @@ router.put("/favorite/:id", async (req, res, next) => {
 		//Asegurarse de vaciar esta propiedad al ejecutar esta compra
 		const { id } = req.params;
 		const { newfavorite } = req.body;
-		const user = await User.findByPk(id) 
-		let fav = user.favorite
-		console.log(fav,"fav")
-		if(fav){fav = [fav,newfavorite].flat()}
-		else{fav = newfavorite}
-		
-		console.log(fav,"fav");
+		const user = await User.findByPk(id);
+		let fav = user.favorite;
+		console.log(fav, "fav");
+		if (fav) {
+			fav = [fav, newfavorite].flat();
+		} else {
+			fav = newfavorite;
+		}
+
+		console.log(fav, "fav");
 
 		await User.update(
 			{
-				favorite: fav
+				favorite: fav,
 			},
 			{
 				where: {
@@ -231,11 +236,11 @@ router.put("/deletefavorite/:id", async (req, res, next) => {
 		//Asegurarse de vaciar esta propiedad al ejecutar esta compra
 		const { id } = req.params;
 		const { deletefavorite } = req.body;
-		console.log(req.body,"body delete");
-		console.log(deletefavorite,"favorite delete")
+		console.log(req.body, "body delete");
+		console.log(deletefavorite, "favorite delete");
 		await User.update(
 			{
-				favorite: deletefavorite
+				favorite: deletefavorite,
 			},
 			{
 				where: {
@@ -253,21 +258,24 @@ router.put("/newproductcart/:id", async (req, res, next) => {
 	try {
 		//Asegurarse de vaciar esta propiedad al ejecutar esta compra
 		const { id } = req.params;
-		console.log(id,"id user")
-		const { newproductcart} = req.body;
-		console.log(req.body,"body")
-		console.log(newproductcart,"favortis¿")
-		const user = await User.findByPk(id) 
-		let fav = user.cartShop
-		console.log(fav,"fav")
-		if(fav){fav = [fav,newproductcart].flat()}
-		else{fav = newproductcart}
-		
-		console.log(fav,"fav");
+		console.log(id, "id user");
+		const { newproductcart } = req.body;
+		console.log(req.body, "body");
+		console.log(newproductcart, "favortis¿");
+		const user = await User.findByPk(id);
+		let fav = user.cartShop;
+		console.log(fav, "fav");
+		if (fav) {
+			fav = [fav, newproductcart].flat();
+		} else {
+			fav = newproductcart;
+		}
+
+		console.log(fav, "fav");
 
 		await User.update(
 			{
-				cartShop: fav
+				cartShop: fav,
 			},
 			{
 				where: {
@@ -285,11 +293,11 @@ router.put("/deleteproductcart/:id", async (req, res, next) => {
 		//Asegurarse de vaciar esta propiedad al ejecutar esta compra
 		const { id } = req.params;
 		const { deleteproductcart } = req.body;
-		console.log(req.body,"body delete");
-		console.log(deleteproductcart,"favorite delete")
+		console.log(req.body, "body delete");
+		console.log(deleteproductcart, "favorite delete");
 		await User.update(
 			{
-				cartShop: deleteproductcart
+				cartShop: deleteproductcart,
 			},
 			{
 				where: {
@@ -308,11 +316,11 @@ router.put("/clearCart/:id", async (req, res, next) => {
 		//Asegurarse de vaciar esta propiedad al ejecutar esta compra
 		const { id } = req.params;
 		const { clearCart } = req.body;
-		console.log(req.body,"body delete");
-		console.log(clearCart,"favorite delete")
+		console.log(req.body, "body delete");
+		console.log(clearCart, "favorite delete");
 		await User.update(
 			{
-				cartShop: clearCart
+				cartShop: clearCart,
 			},
 			{
 				where: {
@@ -366,38 +374,38 @@ router.put("/confirmation/:id", async (req, res, next) => {
 // });
 
 router.post("/addComment", async (req, res) => {
-    try {
-        const { comment, rating, user, profilePhoto, product } = req.body;
-        console.log(product)
-        if (!comment || !rating || !user || !profilePhoto) {
-            res.send("informacion insuficiente para agregar un comentario")
-        }
-        const newComment = await Comment.create({
-            comment,
-            rating,
-            user,
-            profilePhoto
-        })
-        await newComment.addProduct(product)
-        res.send("Comentario agregado correctamente")
-    } catch (error) {
-        res.send(error)
-    }
+	try {
+		const { comment, rating, user, profilePhoto, product } = req.body;
+		console.log(product);
+		if (!comment || !rating || !user || !profilePhoto) {
+			res.send("informacion insuficiente para agregar un comentario");
+		}
+		const newComment = await Comment.create({
+			comment,
+			rating,
+			user,
+			profilePhoto,
+		});
+		await newComment.addProduct(product);
+		res.send("Comentario agregado correctamente");
+	} catch (error) {
+		res.send(error);
+	}
 });
 
 router.get("/cartShop", async (req, res) => {
-    try {
-        const {cartShop} = req.body
-        console.log(cartShop)
-        const products = await Product.findAll({
-            where:{id: cartShop},
-            attributes: {exclude: ['specifications', 'sales']}
-        })
-        res.send(products)
-    } catch(error) {
-        res.sendStatus(500)
-    }
-})
+	try {
+		const { cartShop } = req.body;
+		console.log(cartShop);
+		const products = await Product.findAll({
+			where: { id: cartShop },
+			attributes: { exclude: ["specifications", "sales"] },
+		});
+		res.send(products);
+	} catch (error) {
+		res.sendStatus(500);
+	}
+});
 
 router.post("/checkemail", async (req, res) => {
     try {

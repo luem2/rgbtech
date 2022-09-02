@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLogin } from "../../store/slices/components/componentSlice";
 import defaultImage from "../../assets/defaultImage.png";
+import { hasJWT } from "../../store/thunks";
 
 const UserSection = () => {
 	const dispatch = useDispatch();
@@ -18,6 +19,19 @@ const UserSection = () => {
 	const { login } = useSelector((state) => state.components.modal);
 	const { cart } = useSelector((state) => state.guestShoppingCart);
 	const { user } = useSelector((state) => state.user);
+	const userLocalStorage = JSON.parse(window.localStorage.getItem("user"));
+
+	let userProfile;
+	function setUserProfile() {
+		if (Object.keys(user).length) {
+			userProfile = user;
+		} else {
+			userProfile = userLocalStorage;
+		}
+	}
+
+	setUserProfile();
+
 	return (
 		<div className="flex items-center gap-2">
 			{login && (
@@ -32,13 +46,14 @@ const UserSection = () => {
 					size: "30px",
 				}}
 			>
-				{user && Boolean(Object.keys(user).length) ? (
+				{/* user && Boolean(Object.keys(user).length) */}
+				{userProfile && Object.keys(userProfile).length ? (
 					<img
 						className="hover: cursor-pointer rounded-3xl w-8 h-8 hover:scale-110 ease-in duration-300"
 						src={
-							user.profilePhoto === "Image_Default"
+							userProfile?.profilePhoto === null
 								? defaultImage
-								: user.profilePhoto
+								: userProfile?.profilePhoto
 						}
 						alt=""
 						onClick={() => navigate("/profile")}
@@ -53,7 +68,7 @@ const UserSection = () => {
 				<AiOutlineHeart
 					className="hover:bg-red-500 hover:scale-110 ease-in duration-300"
 					onClick={() => {
-						navigate("/favorites");
+						hasJWT() ? navigate("/favorites") : alert("You must Login");
 					}}
 				/>
 

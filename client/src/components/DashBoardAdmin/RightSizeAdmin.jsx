@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineUser } from "react-icons/ai";
 import { MdOutlineInventory } from "react-icons/md";
 import { FcSalesPerformance } from "react-icons/fc";
@@ -12,19 +13,30 @@ import {
 	Legend,
 	ResponsiveContainer,
 } from "recharts";
+import { dashboardAction } from "../../store/slices/admin/thunk";
 
-const data = [
-	{ mes: "enero", ventas: 100 },
-	{ mes: "febrero", ventas: 500 },
-	{ mes: "marzo", ventas: 75 },
-	{ mes: "abril", ventas: 167 },
-	{ mes: "Mayo", ventas: 300 },
-	{ mes: "Junio", ventas: 100 },
-	{ mes: "Julio", ventas: 500 },
-	{ mes: "Agosto", ventas: 75 },
-];
+
+
+// const data = [
+// 	{ mes: "enero", ventas: 100 },
+// 	{ mes: "febrero", ventas: 500 },
+// 	{ mes: "marzo", ventas: 75 },
+// 	{ mes: "abril", ventas: 167 },
+// 	{ mes: "Mayo", ventas: 300 },
+// 	{ mes: "Junio", ventas: 100 },
+// 	{ mes: "Julio", ventas: 500 },
+// 	{ mes: "Agosto", ventas: 75 },
+// ];
 
 function RightSizeAdmin() {
+
+	const { dashboard }  = useSelector((state) => state.admin)
+	const dispatch = useDispatch()
+
+	useEffect(() => {
+		dispatch(dashboardAction());
+	}, []);
+
 	return (
 		<div className="col-span-3 items-start justify-start flex flex-col w-full pt-12 pb-6">
 			<div className="md:flex items-center justify-center w-full lg:space-y-0 space-y-4  lg:space-x-4  px-12">
@@ -33,7 +45,7 @@ function RightSizeAdmin() {
 						<AiOutlineUser className="text-black" size={30} />
 						<h3> Users </h3>
 						<h1 className="text-black font-bold text-xl 2xl:text-3xl">
-							30
+						{ dashboard?.users }
 						</h1>
 					</span>
 				</div>
@@ -42,7 +54,7 @@ function RightSizeAdmin() {
 						<MdOutlineInventory className="text-black" size={30} />
 						<h3> Stock </h3>
 						<h1 className="text-black font-bold text-xl 2xl:text-3xl">
-							6000
+						{ dashboard?.stock }
 						</h1>
 					</span>
 				</div>
@@ -51,7 +63,7 @@ function RightSizeAdmin() {
 						<FcSalesPerformance className="text-black" size={30} />
 						<h3> Products sold </h3>
 						<h1 className="text-black font-bold text-xl 2xl:text-3xl">
-							3000
+						{ dashboard?.sales }
 						</h1>
 					</span>
 				</div>
@@ -64,16 +76,16 @@ function RightSizeAdmin() {
 			</div>
 			
 				<ResponsiveContainer width="100%">
-					<LineChart data={data}>
+					<LineChart data={dashboard?.monthSales}>
 						<CartesianGrid strokeDasharray="3 3" />
-						<XAxis dataKey="mes" />
+						<XAxis dataKey="month" />
 						<YAxis
-							label={{ value: "price", angle: -90, position: "insideLeft" }}
+							label={{ value: "amount", angle: -90, position: "insideLeft" }}
 							padding={{ left: 10 }}
 						/>
 						<Tooltip />
 						<Legend />
-						<Line type="monotone" dataKey="ventas" stroke="#FF69B4" />
+						<Line type="monotone" dataKey="amount" stroke="#FF69B4" />
 					</LineChart>
 				</ResponsiveContainer>
 		</div>
