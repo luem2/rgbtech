@@ -19,6 +19,7 @@ const Profile = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const { user } = useSelector((state) => state.user);
+	console.log(user,"asdsads")
 
 	const handleSignOut = () => {
 		window.localStorage.removeItem("token");

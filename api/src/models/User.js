@@ -16,7 +16,6 @@ module.exports = (sequelize) => {
 			},
 			password: {
 				type: DataTypes.STRING,
-				allowNull: false,
 			},
 			mail: {
 				type: DataTypes.STRING,
@@ -40,6 +39,11 @@ module.exports = (sequelize) => {
 				allowNull: true,
 			},
 			isAdmin: {
+				type: DataTypes.BOOLEAN,
+				defaultValue: false,
+				allowNull: false,
+			},
+			LogGoogle: {
 				type: DataTypes.BOOLEAN,
 				defaultValue: false,
 				allowNull: false,

@@ -1,6 +1,6 @@
 import axios from "axios";
 import jwt from "jwt-decode";
-import { getLoggedUser } from "../users/userSlice"
+import { getLoggedUser,checkMailGoogle } from "../users/userSlice"
 
 export const setAuthToken = (token) => {
 	if (token) {
@@ -14,6 +14,16 @@ export const postUser = (userCreated) => {
 	return async () => {
 		try {
 			await axios.post("users/register", userCreated);
+		} catch (e) {
+			console.error(e);
+		}
+	};
+};
+
+export const postUserGoogle = (userCreated) => {
+	return async () => {
+		try {
+			await axios.post("users/registerGoogle", userCreated);
 		} catch (e) {
 			console.error(e);
 		}
@@ -131,6 +141,19 @@ export const clearCartShop = () => {
 		try {
 			await axios.put(`users/clearCart/${perfil.id}`,  {clearCart: [] });
 			dispatch(getUserProfile(perfil.id));
+		} catch (e) {
+			console.error(e);
+		}
+	};
+};
+
+export const checkEmailGoogle = (email) => {
+	return async (dispatch) => {
+		try {
+			
+	 let response =	await axios.post("users/checkemail", {email});
+	 console.log(response.data,"reponsee");
+	await dispatch(checkMailGoogle(response.data)) 
 		} catch (e) {
 			console.error(e);
 		}

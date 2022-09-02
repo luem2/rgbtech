@@ -24,7 +24,6 @@ export const useForm = (initalForm) => {
 	const [loading, setLoading] = useState(false);
 	const [response, setResponse] = useState(null);
 
-
 	const handleChange = (event) => {
 		const { name, value } = event.target;
 		setForm({

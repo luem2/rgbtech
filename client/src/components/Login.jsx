@@ -117,19 +117,12 @@ const Login = () => {
 												<span className="h-px bg-gray-400 w-14"></span>
 											</span>
 											<div className="flex flex-col space-y-4">
-												{/* <a
+												<a
 													href="#"
-													className="flex items-center justify-center px-4 py-2 space-x-2 transition-colors duration-300 border border-gray-800 rounded-md group focus:outline-none"
+													className="flex items-center justify-center px-4 py-2 space-x-2 transition-colors duration-300 border  rounded-md group focus:outline-none"
 												>
-													<BsGoogle />
-													<span className="text-sm font-medium text-black ">
-														Google
-													</span>
-												</a> */}
-												<div>
-												<LoguinGoogle 
-												/>
-												</div>
+													<LoguinGoogle />
+												</a>
 												<div className="flex justify-center gap-6">
 													<button
 														type="button"

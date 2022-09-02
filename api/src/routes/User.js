@@ -9,6 +9,7 @@ const {
 	sendConfirmationEmail,
 	checkLoginBody,
 	checkUserRegistration,
+	checkUserRegistrationGoogle,
 } = require("../middlewares/userMiddleware.js");
 const { htmlMail } = require("../Utils/EmailTemplate.js");
 
@@ -35,6 +36,33 @@ router.post(
 	}
 );
 
+router.post("/registerGoogle", async (req, res) => {
+		let { user,mail ,profilePhoto,id} = req.body;
+		// console.log(req.body,"body")
+		try { const coincidencias = await User.findOne({
+            where:{mail: mail},
+        })
+		if(coincidencias == null){
+			const userr = await User.create({
+				user:user,
+				mail: mail,
+				profilePhoto:profilePhoto,
+				LogGoogle:true
+				
+			});
+			
+			return res.status(201).send("User created successfully");
+		
+		}
+		return res.status(201).send("User existente");
+
+		} catch (error) {
+			console.log(error);
+			return res.status(500).send("Internal Server Error");
+		}
+	}
+);
+
 router.post(
 	"/login",
 	checkLoginBody,
@@ -49,6 +77,33 @@ router.post(
 					id
 				};
 				const accessToken = jwt.sign(logedUser, process.env.SECRET);
+				return res.status(200).json({
+					mssage: "usuario autenticado",
+					token: accessToken,
+				});
+			}
+		} catch (error) {
+			res.json({ message: error });
+		}
+	}
+);
+
+
+router.post("/loginGoogle",async (req, res) => {
+		try {
+			const { mail } = req.body;
+			console.log(req.body,"ee")
+			const user = await User.findOne({
+				where: {
+					mail: mail,
+				},
+			});
+			console.log(user,"user")
+			if (user) {
+				const { id } = user.dataValues
+				const logedUser = {id}
+				const accessToken = jwt.sign(logedUser, process.env.SECRET);
+				console.log(accessToken)
 				return res.status(200).json({
 					mssage: "usuario autenticado",
 					token: accessToken,
@@ -343,5 +398,33 @@ router.get("/cartShop", async (req, res) => {
         res.sendStatus(500)
     }
 })
+
+router.post("/checkemail", async (req, res) => {
+    try {
+        const {email} = req.body
+		// console.log(email,"email")
+		// console.log(req.body,"adassa")
+    
+        const coincidencias = await User.findOne({
+            where:{mail: email},
+        })
+		console.log(coincidencias,"asdsadasdasdas");
+		if(coincidencias == null){
+
+			let rest = ["1"]
+			res.send(null)
+		
+		}else{
+			
+			let rest = ["1"]
+			res.send(["2"])
+		}
+    } catch(error) {
+        res.sendStatus(500)
+    }
+})
+
+
+
 
 module.exports = router;
