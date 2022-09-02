@@ -1,9 +1,22 @@
-import React from 'react';
-import { FaUserAstronaut } from 'react-icons/fa';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { usersTableAction } from "../../store/slices/admin/thunk";
+// import { FaUserAstronaut } from 'react-icons/fa';
 
 function Users() {
-  return (
-	<>
+	const { users } = useSelector((state) => state.admin);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(usersTableAction());
+	}, []);
+
+	const makeAdmin = (id) => {
+		console.log(id);
+	};
+
+	return (
+		<>
 			<table className="border-collapse w-[800px] mx-10">
 				<thead>
 					<tr>
@@ -19,46 +32,78 @@ function Users() {
 						<th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
 							Is-Admin
 						</th>
+						<th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+							Make-Admin
+						</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr className="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-						<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-							<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
-								Product
-							</span>
-							K60 RGB Pro SE
-						</td>
-						<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-							<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
-								Brand
-							</span>
-							Keyboard
-						</td>
-						<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-							<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
-								Tag
-							</span>
-							<span className="rounded bg-red-400 py-1 px-3 text-xs font-bold">
-								Corsair
-							</span>
-						</td>
-						<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-							<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
-								Actions
-							</span>
-							<a  className="text-blue-400 hover:text-blue-600 underline">
-								Edit
-							</a>
-							<a
-								
-								className="text-blue-400 hover:text-blue-600 underline pl-6"
-							>
-								Remove
-							</a>
-						</td>
-					</tr>
-					<tr className="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
+					{users
+						? users.rows?.map((element) => (
+								<tr className="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
+									<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+										<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Name
+										</span>
+										{element.user}
+									</td>
+									<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+										<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Mail
+										</span>
+										{element.mail}
+									</td>
+									<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+										<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Is-Verificated
+										</span>
+										<span>
+											{element.userVerificate === true ? (
+												<p className="text-green-600">Yes</p>
+											) : (
+												<p className="text-red-600">No</p>
+											)}
+										</span>
+									</td>
+									<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+										<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Is-Admin
+										</span>
+										{element.isAdmin === true ? (
+											<p className="text-green-600">Yes</p>
+										) : (
+											<p className="text-red-600">No</p>
+										)}
+									</td>
+									<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+										{element.isAdmin ? 
+										<>
+										<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Remove admin
+										</span>
+										<button className="text-blue-500 font-bold hover:underline w-full h-full hover:scale-110" onClick={() => removeAdmin(element.id)}>
+											Remove admin
+										</button>
+
+										</> : 
+										<>
+										<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Make Admin
+										</span>
+										<button className="text-blue-500 font-bold hover:underline w-full h-full hover:scale-110" onClick={() => makeAdmin(element.id)}>
+											Make Admin
+										</button>
+										</>} 
+									</td>
+								</tr>
+						  ))
+						: null}
+				</tbody>
+			</table>
+		</>
+
+		/*
+		  <tr className="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
 						<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
 							<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
 								Product
@@ -130,9 +175,8 @@ function Users() {
 							</a>
 						</td>
 					</tr>
-				</tbody>
-			</table>
-            </>
+		 
+		 */
 		// <div>
 		// 	<table className="min-w-full table-auto">
 		// 		<thead className="justify-between">
@@ -160,7 +204,7 @@ function Users() {
 		// 				<td className="px-16 py-2 flex flex-row items-center">
 		// 					<FaUserAstronaut
 		// 						className="h-8 w-8 mt-5 rounded-full object-cover text-pink-700"
-								
+
 		// 					/>
 		// 				</td>
 		// 				<td>
@@ -174,7 +218,6 @@ function Users() {
 		// 				<td className="px-16 py-2">
 		// 					<span>pepe@gmail.com</span>
 		// 				</td>
-						
 
 		// 				<td className="px-16 py-2">
 		// 					<span className="text-green-500">
@@ -184,9 +227,9 @@ function Users() {
 		// 			</tr>
 		// 			<tr className="bg-white border-4 border-gray-200">
 		// 				<td className="px-16 py-2 flex flex-row items-center">
-        //                 <FaUserAstronaut
+		//                 <FaUserAstronaut
 		// 						className="h-8 w-8 mt-5 rounded-full object-cover text-pink-700"
-								
+
 		// 					/>
 		// 				</td>
 		// 				<td>
@@ -194,13 +237,12 @@ function Users() {
 		// 				</td>
 		// 				<td className="px-16 py-2">
 		// 					<button className="bg-pink-700 text-white px-4 py-2 border rounded-md hover:bg-white hover:border-indigo-500 hover:text-black ">
-        //                     Make Admin
+		//                     Make Admin
 		// 					</button>
 		// 				</td>
 		// 				<td className="px-16 py-2">
 		// 					<span>05/06/2020</span>
 		// 				</td>
-						
 
 		// 				<td className="px-16 py-2">
 		// 					<span className="text-yellow-500">
@@ -210,9 +252,9 @@ function Users() {
 		// 			</tr>
 		// 			<tr className="bg-white border-4 border-gray-200">
 		// 				<td className="px-16 py-2 flex flex-row items-center">
-        //                 <FaUserAstronaut
+		//                 <FaUserAstronaut
 		// 						className="h-8 w-8 mt-5 rounded-full object-cover text-pink-700"
-								
+
 		// 					/>
 		// 				</td>
 		// 				<td>
@@ -220,13 +262,12 @@ function Users() {
 		// 				</td>
 		// 				<td className="px-16 py-2">
 		// 					<button className="bg-pink-700 text-white px-4 py-2 border rounded-md hover:bg-white hover:border-indigo-500 hover:text-black ">
-        //                     Make Admin
+		//                     Make Admin
 		// 					</button>
 		// 				</td>
 		// 				<td className="px-16 py-2">
 		// 					<span>05/06/2020</span>
 		// 				</td>
-						
 
 		// 				<td className="px-16 py-2">
 		// 					<span className="text-yellow-500">
@@ -238,6 +279,6 @@ function Users() {
 		// 	</table>
 		// </div>
 	);
-};
+}
 
-export default Users
+export default Users;

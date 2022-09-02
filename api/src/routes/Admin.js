@@ -69,29 +69,37 @@ router.get('/dashboard', async(req, res) => {
     }
    })
 
-  const productSale = {}
-  sales.forEach((sale)=> {
-    const month = sale.month
-    if(!productSale.hasOwnProperty(month)){
-      productSale[month] = sale.amount
-    } else {
-      productSale[month] = productSale[month] + sale.amount
-    }
-  }) 
+   const monthProducts = {}
+   sales.forEach((sale)=> {
+     const month = sale.month
+     if(!monthProducts.hasOwnProperty(month)){
+       monthProducts[month] = sale.amount
+     } else {
+       monthProducts[month] = monthProducts[month] + sale.amount
+     }
+     
+   }) 
 
-  const tags = await Tag.findAll()
-  const brands = await Brand.findAll()
+   const ventasMes = []
+  for (const mes in monthSales) {
+    ventasMes.push({month: mes, amount: monthSales[mes] })
+  }
+
+  const productosMes = []
+  for (const mes in monthProducts) {
+    productosMes.push({month: mes, amount: monthProducts[mes] })
+  }
+
   res.json({
-    tags,
-    brands,
-    monthSales,
-    productSale,
-    sales,
-    totalSales,
-    stock,
-    users
+    monthSales : ventasMes,
+    monthProducts: productosMes,
+    sales: sales.length,
+    totalSales: totalSales.dataValues.totalSales,
+    stock: stock.dataValues.totalStock,
+    users: users.count
   })
 })
+
 router.get('/products', async (req, res) => {
   try {
     const products = await Product.findAll({include: {
@@ -99,6 +107,32 @@ router.get('/products', async (req, res) => {
       through: { attributes: [] }
     }})
     res.status(200).send(products)
+  } catch (error) {
+    res.sendStatus(500)
+  }
+});
+
+router.get('/tags', async (req, res)=>{
+  try {
+    const tags = await Tag.findAll({
+      attributes: ['id', 'name']
+    })
+    const brands = await Brand.findAll({
+      attributes: ['id', 'name']
+    })
+    const response = {
+      brands, tags
+    }
+    res.status(200).send(response)
+  } catch (error) {
+    res.status(500).send('Internal error server')
+  }
+});
+
+router.get('/users', async (req, res) => {
+  try {
+    const users = await User.findAndCountAll({attributes: {exclude:['password', 'cartShop', 'favorite', 'shoppingHistory']} })
+    res.json(users)
   } catch (error) {
     res.sendStatus(500)
   }
