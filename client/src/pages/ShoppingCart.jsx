@@ -116,7 +116,8 @@ const ShoppingCart = () => {
 		// console.log(productsId);
 		// dispatch(setShoppingHistory(productsId));
 
-		if (Boolean(!Object.keys(userProfile).length)) {
+		console.log("userProfile", userProfile);
+		if (userProfile === null || Boolean(!Object.keys(userProfile).length)) {
 			return dispatch(setLoginValidation(true));
 		}
 
