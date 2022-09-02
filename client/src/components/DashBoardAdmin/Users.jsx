@@ -1,18 +1,41 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { usersTableAction } from "../../store/slices/admin/thunk";
-// import { FaUserAstronaut } from 'react-icons/fa';
+import { changeRoleAction, usersTableAction } from "../../store/slices/admin/thunk";
+
+import Swal from "sweetalert2"
 
 function Users() {
 	const { users } = useSelector((state) => state.admin);
 	const dispatch = useDispatch();
 
+	const theAlert = (id, isAdmin) =>
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You will be able to revert this!",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, change it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+		dispatch(changeRoleAction({id, isAdmin}))
+          Swal.fire(
+            'Change!',
+            'Updated successfully.',
+            'success'
+          )
+        }
+      })
+
 	useEffect(() => {
 		dispatch(usersTableAction());
 	}, []);
 
-	const makeAdmin = (id) => {
-		console.log(id);
+	const makeAdmin = (id, isAdmin) => {
+		theAlert(id, isAdmin)
+		
+		
 	};
 
 	return (
@@ -81,7 +104,7 @@ function Users() {
 										<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
 											Remove admin
 										</span>
-										<button className="text-blue-500 font-bold hover:underline w-full h-full hover:scale-110" onClick={() => removeAdmin(element.id)}>
+										<button className="text-blue-500 font-bold hover:underline w-full h-full hover:scale-110" onClick={() => makeAdmin(element.id, element.isAdmin)}>
 											Remove admin
 										</button>
 
@@ -90,7 +113,7 @@ function Users() {
 										<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
 											Make Admin
 										</span>
-										<button className="text-blue-500 font-bold hover:underline w-full h-full hover:scale-110" onClick={() => makeAdmin(element.id)}>
+										<button className="text-blue-500 font-bold hover:underline w-full h-full hover:scale-110" onClick={() => makeAdmin(element.id, element.isAdmin)}>
 											Make Admin
 										</button>
 										</>} 

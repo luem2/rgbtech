@@ -1,138 +1,169 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+	productsAction,
+	changeProductStateAction,
+} from "../../store/slices/admin/thunk";
+import Swal from "sweetalert2";
 
 function ProductsAdmin() {
+	const { products } = useSelector((state) => state.admin);
+
+	const dispatch = useDispatch();
+
+	const theAlert = (id, disabled) =>
+		Swal.fire({
+			title: "Are you sure?",
+			text: "You won't be able to revert this!",
+			icon: "question",
+			showCancelButton: true,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Yes, delete it!",
+		}).then((result) => {
+			if (result.isConfirmed) {
+				dispatch(changeProductStateAction({ id, disabled }));
+				Swal.fire("Deleted!", "Your file has been deleted.", "success");
+			}
+		});
+
+	const removeProduct = (id, disabled) => {
+		theAlert(id, disabled);
+	};
+
+	useEffect(() => {
+		dispatch(productsAction());
+	}, []);
+
 	return (
 		<>
 			<table className="border-collapse w-[800px] mx-10">
 				<thead>
 					<tr>
 						<th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
-							Product
+							Name
 						</th>
 						<th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
 							Brand
 						</th>
 						<th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
-							tag
+							Price
 						</th>
 						<th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
-							Actions
+							On-Discount
 						</th>
+						<th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+							Discount-%
+						</th>
+						<th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+							Free-Shipping
+						</th>
+						<th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+							Stock
+						</th>
+						{/* <th className="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">
+							Actions
+						</th> */}
 					</tr>
 				</thead>
 				<tbody>
-					<tr className="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-						<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-							<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
-								Product
-							</span>
-							K60 RGB Pro SE
-						</td>
-						<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-							<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
-								Brand
-							</span>
-							Keyboard
-						</td>
-						<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-							<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
-								Tag
-							</span>
-							<span className="rounded bg-red-400 py-1 px-3 text-xs font-bold">
-								Corsair
-							</span>
-						</td>
-						<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-							<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
-								Actions
-							</span>
-							<a  className="text-blue-400 hover:text-blue-600 underline">
-								Edit
-							</a>
-							<a
-								
-								className="text-blue-400 hover:text-blue-600 underline pl-6"
-							>
-								Remove
-							</a>
-						</td>
-					</tr>
-					<tr className="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-						<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-							<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
-								Product
-							</span>
-							Legion 4 Pro
-						</td>
-						<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-							<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
-								Brand
-							</span>
-							Laptop
-						</td>
-						<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-							<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
-								Tag
-							</span>
-							<span className="rounded bg-green-400 py-1 px-3 text-xs font-bold">
-								Lenovo
-							</span>
-						</td>
-						<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-							<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
-								Actions
-							</span>
-							<a  className="text-blue-400 hover:text-blue-600 underline">
-								Edit
-							</a>
-							<a
-								
-								className="text-blue-400 hover:text-blue-600 underline pl-6"
-							>
-								Remove
-							</a>
-						</td>
-					</tr>
-					<tr className="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-						<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-							<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
-								Product
-							</span>
-							Gaming Office Chair
-						</td>
-						<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-							<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
-								Brand
-							</span>
-							Chairs
-						</td>
-						<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-							<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
-								Tag
-							</span>
-							<span className="rounded bg-yellow-400 py-1 px-3 text-xs font-bold">
-								Down x
-							</span>
-						</td>
-						<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-							<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
-								Actions
-							</span>
-							<a  className="text-blue-400 hover:text-blue-600 underline">
-								Edit
-							</a>
-							<a
-								
-								className="text-blue-400 hover:text-blue-600 underline pl-6"
-							>
-								Remove
-							</a>
-						</td>
-					</tr>
+					{products
+						? products?.map((element) => (
+								<tr
+									key={element.id}
+									className="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0"
+								>
+									<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+										<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Name
+										</span>
+										{element.name}
+									</td>
+									<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+										<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Brand
+										</span>
+										{element.brand.name}
+									</td>
+									<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+										<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Price
+										</span>
+										{element.price}
+									</td>
+									<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+										<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											On-Discount
+										</span>
+										{element.onDiscount === true ? (
+											<p className="text-green-600">Yes</p>
+										) : (
+											<p className="text-red-600">No</p>
+										)}
+									</td>
+									<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+										<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Discount-%
+										</span>
+										{element.onDiscount === true ? (
+											<p className="text-green-600">
+												{element.discountPercentage}%
+											</p>
+										) : (
+											<p className="text-gray-400">No discount</p>
+										)}
+									</td>
+									<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+										<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Free-Shipping
+										</span>
+										{element.freeShipping ? (
+											<>
+												<p className="text-green-600">Yes</p>
+											</>
+										) : (
+											<>
+												<p className="text-red-600">No</p>
+											</>
+										)}
+									</td>
+									<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+										<span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Stock
+										</span>
+										{element.stock}
+									</td>
+									<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+										{/* <span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Actions
+										</span> */}
+										<button
+											onClick={() => editProduct(element.id)}
+											className="text-blue-500 font-bold hover:underline w-full h-full hover:scale-110"
+										>
+											Edit
+										</button>
+									</td>
+									<td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+										{/* <span className="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
+											Actions
+										</span> */}
+										<button
+											onClick={() =>
+												removeProduct(element.id, element.disabled)
+											}
+											className="text-blue-500 font-bold hover:underline w-full h-full hover:scale-110"
+										>
+											Remove
+										</button>
+									</td>
+								</tr>
+						  ))
+						: null}
 				</tbody>
 			</table>
-            </>
+		</>
 	);
 }
 
-export default ProductsAdmin
+export default ProductsAdmin;
