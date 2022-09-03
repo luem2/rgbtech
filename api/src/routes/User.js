@@ -99,10 +99,17 @@ router.post("/loginGoogle", findOrCreate,async (req, res) => {
 					mail: mail,
 				},
 			});
-			console.log(user,"user")
 			if (user) {
 				const { id } = user.dataValues
-				const logedUser = {id,}
+				const logedUser = {id
+					// id,
+					// user, 
+					// mail, 
+					// profilePhoto, 
+					// cartShop, 
+					// favorite, 
+					// isAdmin,
+				}
 				const accessToken = jwt.sign(logedUser, process.env.SECRET);
 				console.log(accessToken)
 				return res.status(200).json({

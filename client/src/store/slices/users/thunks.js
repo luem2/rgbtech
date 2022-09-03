@@ -43,7 +43,13 @@ export const confirmationEmail = (user) => {
 export const getUserProfile = (id) => {
 	return async (dispatch) => {
 		try {
+			if(!id){
+		const token_jwt = window.localStorage.getItem("token");
+		const perfil = jwt_decode(token_jwt);
+		id = perfil.id
+			}
 			const response = await axios.get(`users/profile/${id}`);
+			console.log(response.data,"thunk userProfile")
 			dispatch(getLoggedUser(response.data));
 		} catch (error) {
 			console.log(error);
