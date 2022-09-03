@@ -9,6 +9,7 @@ const ShoppingCard = ({
 	addUnits,
 	subUnits,
 	delProduct,
+	stock,
 	totalProductPrice,
 }) => {
 	return (
@@ -30,20 +31,23 @@ const ShoppingCard = ({
 						</p>
 						<p className="text-lg font-semibold">Units: {units}</p>
 					</div>
-					<p className="flex mt-4 gap-2 text-2xl">
-						<GrAddCircle
-							className="bg-green-500 rounded-full hover:text-green-600 cursor-pointer hover:scale-110 duration-300"
-							onClick={addUnits}
-						/>
-						<GrSubtractCircle
-							className="bg-red-500 rounded-full hover:text-green-600 cursor-pointer hover:scale-110 duration-300"
-							onClick={subUnits}
-						/>
-						<BsFillTrashFill
-							className="text-red-500 hover:text-red-600 cursor-pointer hover:scale-110 duration-300"
-							onClick={delProduct}
-						/>
-					</p>
+					<div className="flex justify-between items-center justify-center">
+						<p className="flex mt-4 gap-2 text-2xl">
+							<GrAddCircle
+								className="bg-green-500 rounded-full hover:text-green-600 cursor-pointer hover:scale-110 duration-300"
+								onClick={addUnits}
+							/>
+							<GrSubtractCircle
+								className="bg-red-500 rounded-full hover:text-green-600 cursor-pointer hover:scale-110 duration-300"
+								onClick={subUnits}
+							/>
+							<BsFillTrashFill
+								className="text-red-500 hover:text-red-600 cursor-pointer hover:scale-110 duration-300"
+								onClick={delProduct}
+							/>
+						</p>
+						<p className="flex font-semibold">{stock}</p>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -38,6 +38,7 @@ const products =[
                           "Backlit":"RGB",
                           "Dimensions":`Standard: (1.19" x 11.54" x 4.06"
                            Feet Open: 1.69" x 11.54" x 4.06")`,
+<<<<<<< Updated upstream
                           "Type":"Wired / Bluetooth 4.0",
                           "Power Supply":"4000 mAh (2 x 2000 mAh)",
                           "Operating System Supported":"",
@@ -131,6 +132,135 @@ const products =[
                         "Key Switch Type ":"Membrane",
                         "Keyboard Color":"Black",
                         "Dimensions":`Keyboard: (1.40" x 17.70" x 5.84"
+=======
+				Type: "Wired / Bluetooth 4.0",
+				"Power Supply": "4000 mAh (2 x 2000 mAh)",
+				"Operating System Supported": "",
+			},
+		],
+
+		img: "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399993/RGBtech/ImageProduct/SK622_Wireless_kavxg7.png",
+		stock: 420,
+		onDiscount: false,
+		discountPercentage: 0,
+		freeShipping: false,
+		sales: 200,
+		brand: "35e2a932e4d5c0cc1a3ada0e18dbaa08",
+		tag: [
+			"7beff197adfc70df7ee315bfa4b1af75",
+			"9eed85ad420e3a3c986cdc6d7e77854d",
+			"6ce4d85a628a88bbdb3ac24a8e5a9c2e",
+			"889574aebacda6bfd3e534e2b49b8028",
+		],
+	},
+	{
+		name: "Z12 RGB",
+		price: 14.99,
+		description:
+			"Dedicated and programmable macro keys, plus a full set of media keys give you full control at your fingertips.IP32 Spill-Resistant es capaz de soportar derrames accidentales.",
+		specifications: [
+			{
+				model: "834-W0-12US-KR",
+				"Keyboard Interface": "USB 2.0",
+				"Key Switch Type": "Membrane",
+				"Keyboard Color": "Black",
+				Dimensions: `(19.57" x 7.80" x 2.05")`,
+				Type: "Wired",
+			},
+		],
+		img: "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399990/RGBtech/ImageProduct/Z12_RGB_x65geb.png",
+		stock: 5,
+		onDiscount: false,
+		discountPercentage: 0,
+		freeShipping: true,
+		sales: 150,
+		brand: "9484ef97caaa42c5c67671f8533f5e1c",
+		tag: [
+			"9eed85ad420e3a3c986cdc6d7e77854d",
+			"6ce4d85a628a88bbdb3ac24a8e5a9c2e",
+			"889574aebacda6bfd3e534e2b49b8028",
+			"1a346a023e7001dff4c6467ce061e681",
+		],
+	},
+	{
+		name: "Vigor GK50 Elite",
+		price: 59.99,
+		description:
+			"Mechanical switches provide accuracy and endurance.The ergonomic high-low keycap design reduces strain and pain of hands and wristsBrushed metal top plate and octagonal-shaped keycaps.Stunning per-key RGB lighting and various effects.Steady Gaming Base provides incredible feedback and anti-slip performance.Fine-tune detail settings with Dragon Center.",
+		specifications: [
+			{
+				model: "?S11-04US256-CLA",
+				"Keyboard Interface": "USB 2.0",
+				"Design Style": "Gaming",
+				"Palm Rest": "No",
+				"Mechanical Keyboard": "Yes",
+				"Key Switch Type": "Kailh Blue",
+				Backlit: "Per-key RGB Mystic Light",
+				Dimensions: `(1.50" x 17.13" x 5.31")`,
+				Type: "Wired",
+			},
+		],
+		img: "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399993/RGBtech/ImageProduct/Vigor_GK50_Elite_j0yajg.png",
+		stock: 251,
+		onDiscount: false,
+		discountPercentage: 0,
+		freeShipping: false,
+		sales: 100,
+		brand: "8726e36e9d6d53646390d495b4ce9dc1",
+		tag: [
+			"9eed85ad420e3a3c986cdc6d7e77854d",
+			"6ce4d85a628a88bbdb3ac24a8e5a9c2e",
+			"889574aebacda6bfd3e534e2b49b8028",
+			"1a346a023e7001dff4c6467ce061e681",
+		],
+	},
+	{
+		name: "K55 RGB PRO XT",
+		price: 69.99,
+		description:
+			"Dynamic Per-Key RGB Backlighting: Light up your desktop with ten onboard lighting effects or customize your own vibrant lighting effects with CORSAIR iCUE software.Six Dedicated Macro Keys: Activate functions, shortcuts, or keypresses in just one stroke with six dedicated macro keys, easily set up through CORSAIR iCUE software, or use instant streaming commands through Elgato Stream Deck software.Dust and Spill-Resistant Design: IP42-rated protection guards against accidents so your gameplay never has to stop.",
+		specifications: [
+			{
+				model: "CH-9226715-NA",
+				"Keyboard Interface": "USB 3.0 Type-A",
+				"Design Style": "Gaming",
+				"Palm Rest": "Detachable",
+				"Keyboard Color": "Black",
+				Backlit: " 	RGB, 16.8 million colors",
+				Dimensions: `(1.42" x 19.00" x 6.58")`,
+				Type: "Wired",
+			},
+		],
+
+		img: "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399997/RGBtech/ImageProduct/K55_RGB_PRO_XT_wg7mpa.png",
+		stock: 884,
+		onDiscount: false,
+		discountPercentage: 0,
+		freeShipping: false,
+		sales: 50,
+		brand: "5ce8b65747cd41acd3f9b9636df9a84f",
+		tag: [
+			"9eed85ad420e3a3c986cdc6d7e77854d",
+			"6ce4d85a628a88bbdb3ac24a8e5a9c2e",
+			"889574aebacda6bfd3e534e2b49b8028",
+			"1a346a023e7001dff4c6467ce061e681",
+		],
+	},
+	{
+		name: "Devastator 3",
+		price: 41.88,
+		description:
+			"Ergonomic styling from top to bottom.Custom membrane design.Seven colors for customized personality.A precision mouse to elevate your game.unctional and durable",
+		specifications: [
+			{
+				model: "SGB-3000-KKMF1-US",
+				"Keyboard Interface": "USB 1.1",
+				"Design Style": "Gaming",
+				"Palm Rest": "Yes",
+				"Key Switch Type ": "Membrane",
+				"Keyboard Color": "Black",
+				Dimensions: `Keyboard: (1.40" x 17.70" x 5.84"
+>>>>>>> Stashed changes
                         Mouse: 1.44" x 2.54" x 4.69")`,
                         "Backlit":"7-Color RGB",
                         "Type ":"Wired"}],
