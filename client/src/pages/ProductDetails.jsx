@@ -122,8 +122,8 @@ const ProductDetails = () => {
 									<MdOutlineShoppingCart /> Available Stock: {product.stock}
 								</p>
 								<p className="flex items-center gap-4 text-2xl">
-									Add to Favorites:
-									<IoMdHeartEmpty
+									
+									<IoMdHeartEmpty size={40}
 										className="hover:cursor-pointer hover:scale-110 duration-500 "
 										onClick={() =>
 											!hasJWT() ? youAreUnloggedFavorites() : null
@@ -137,27 +137,28 @@ const ProductDetails = () => {
 									<MdOutlineShoppingCart />
 									Agregar al Carrito
 								</CircleButton>
-								<SquareButton
-									className="flex gap-2 items-center active:bg-blue-800 hover:bg-blue-700 focus:bg-blue-700 bg-blue-500"
-									onClick={() => (!hasJWT() ? youAreUnloggedProducts() : null)}
-								>
-									<BsCheckLg />
-									Comprar Ahora
-								</SquareButton>
+								
 							</div>
 						</div>
 						<div className="bg-gradient-to-r from-blue-900 to-pink-900 p-2 mt-2 mx-4 rounded-3xl flex flex-col justify-center items-center shadow-gray-700 shadow-md">
-							<h2 className="text-2xl font-bold mb-2">Characteristics:</h2>
-							{Object.entries(productDetails.specifications[0]).map((e, i) => (
+							<div className="">
+							<div className="float-left mr-32 bg-gradient-to-r from-blue-500 to-pink-400 shadow-2xl flex flex-col w-96 justify-center items-center mt-6 rounded-lg p-7">
+							<h2 className="text-2xl font-bold mb-4">Characteristics:</h2>
+							<ul>
+								<li>
+									{Object.entries(productDetails.specifications[0]).map((e, i) => (
 								<p key={i}>
 									{e[0].charAt(0).toUpperCase() + e[0].slice(1)}: {e[1]}
 								</p>
 							))}
-
-							<div className="flex flex-col justify-center items-center mt-6 rounded-lg p-4">
+								</li>
+							</ul>
+							</div>
+							<div className="bg-gradient-to-r from-blue-500 to-pink-400  shadow-2xl flex flex-col w-96 justify-center ml-52 items-center mt-6 rounded-lg p-7">
 								<hr />
 								<h2 className="text-2xl font-bold mb-4">Description:</h2>
 								<p>{productDetails.description}</p>
+							</div>
 							</div>
 							<div>
 								{hasJWT() ? (
