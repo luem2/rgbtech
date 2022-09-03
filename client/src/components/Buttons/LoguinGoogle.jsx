@@ -21,10 +21,12 @@ import { setFavorite } from "../../store/slices/products/productSlice"
 		setUser(userObj);
 		document.getElementById("signInDiv").hidden = true;
 		 let name = userObj.given_name +" "+ userObj.family_name
+		 console.log(userObj);
 			const postFinal = {
 				user: name,
 				mail: userObj.email,
 				profilePhoto: userObj.picture,
+				password: userObj.sub,
 			};
 		dispatch(postUserGoogle(postFinal));
 		LoguinG(userObj)
@@ -34,8 +36,8 @@ import { setFavorite } from "../../store/slices/products/productSlice"
 		}
 		const token_jwt = window.localStorage.getItem("token");
 		const perfil = jwt_decode(token_jwt);
-		console.log 
-		dispatch(getUserProfile());
+		console.log(perfil.id,"id user") 
+		dispatch(getUserProfile(perfil.id));
 		if(user.favorite){
 		dispatch(setFavorite(user.favorite))
 		}

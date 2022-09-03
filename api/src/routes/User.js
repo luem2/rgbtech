@@ -37,18 +37,19 @@ router.post(
 );
 
 router.post("/registerGoogle", async (req, res) => {
-		let { user,mail ,profilePhoto,id} = req.body;
-		// console.log(req.body,"body")
+		let { user,mail ,profilePhoto,password,id} = req.body;
 		try { const coincidencias = await User.findOne({
             where:{mail: mail},
         })
 		if(coincidencias == null){
+			const hashedPassword = await bcrypt.hash(password, 10);
 			const userr = await User.create({
 				user:user,
 				mail: mail,
 				profilePhoto:profilePhoto,
-				LogGoogle:true
-				
+				password:hashedPassword,
+				LogGoogle:true,
+				userVerificate:true
 			});
 			
 			return res.status(201).send("User created successfully");
@@ -99,10 +100,17 @@ router.post("/loginGoogle",async (req, res) => {
 					mail: mail,
 				},
 			});
-			console.log(user,"user")
 			if (user) {
 				const { id } = user.dataValues
-				const logedUser = {id,}
+				const logedUser = {id
+					// id,
+					// user, 
+					// mail, 
+					// profilePhoto, 
+					// cartShop, 
+					// favorite, 
+					// isAdmin,
+				}
 				const accessToken = jwt.sign(logedUser, process.env.SECRET);
 				console.log(accessToken)
 				return res.status(200).json({

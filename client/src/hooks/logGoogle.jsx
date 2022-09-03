@@ -23,23 +23,5 @@ const requestBody = {
 			window.localStorage.setItem("token", token);
 			setAuthToken(token);
 			const user = jwt_decode(token);
-			// if(cart.length) {
-			// 	dispatch(setCartShop( cartsId))
-			// 	// dispatch(clearCart())
-			// }
-			// dispatch(getUserProfile(user.id));
-			// if(user.favorite){
-			// dispatch(setFavorite(user.favorite))}	
-			// dispatch(setLogin(false));
-			// dispatch(setWelcomeUser(true));
-			// setForm(initalForm);
-			// navigate("/");
-			
 		})
-		.catch((error) => {
-			// no envian toda la información. User pero no la pass
-			// error.response.status === 400
-			// 	? dispatch(setLoginIncomplete(true))
-			// 	: null;
-			console.log(error)
-		})}
+		}
