@@ -10,8 +10,16 @@ router.post("/sale", async (req, res) => {
 	const { userId, products } = req.body;
 
 	products.map(async (product) => {
-		const { productId, name, productPrice, tags, brand, month, year, amount } =
+		const { productId, name, productPrice, month, year, amount } =
 			product;
+
+    const productDetails = await Product.findByPk(productId, {
+      include: {
+        model: Tag,
+        through: { attributes: [] },
+      }
+    })
+    const {brand, tags} = productDetails
 		const newSale = await Sale.create({
 			productId,
 			name,
@@ -21,6 +29,7 @@ router.post("/sale", async (req, res) => {
 			amount,
 			totalPrice: productPrice * amount,
 		});
+
 		await newSale.addTags(tags);
 		await newSale.setBrand(brand);
 		await newSale.setUser(userId);
