@@ -13,10 +13,9 @@ import {
 	setLoginIncomplete,
 	setLogin,
 	setWelcomeUser,
-} from "../store/slices/components/componentSlice";
-import { setAuthToken } from "../store/slices/users/thunks";
-import { useNavigate } from "react-router-dom";
-import { setFavorite } from "../store/slices/products/productSlice";
+} from "../../store/slices/components/componentSlice";
+import { setAuthToken } from "../../store/slices/users/thunks";
+
 
 
  function  LoguinGoogle() {
@@ -28,13 +27,13 @@ import { setFavorite } from "../store/slices/products/productSlice";
 		
 		const token = response.credential
 		// console.log(" Encoded JWT ID token : " + token);
-		const {email, picture, given_name, family_name} = jwt_decode(token);
-
+		const {email, picture, given_name, family_name,sub} = jwt_decode(token);
 		document.getElementById("signInDiv").hidden = true;
 		const bodyPost = {
 			user: `${given_name} ${family_name}`,
 			mail: email,
 			profilePhoto: picture,
+			password: sub,
 		};
 		axios.post("/users/registerGoogle", bodyPost)
 		.then(response => {
@@ -42,6 +41,7 @@ import { setFavorite } from "../store/slices/products/productSlice";
 			window.localStorage.setItem("token", token);
 			setAuthToken(token);
 			const user = jwt_decode(token);
+			console.log(user,"userrr")
 			if (cart.length) {
 				dispatch(setCartShop(cartsId));
 			}
@@ -55,41 +55,42 @@ import { setFavorite } from "../store/slices/products/productSlice";
 			navigate("/");
 		})
 		.catch(error => {
-			error.response.status === 400
-				? dispatch(setLoginIncomplete(true))
-				: null;
+			console.log(error)
+			// error.response.status === 400
+			// 	? dispatch(setLoginIncomplete(true))
+			// 	: null;
 
-			// está creado, pero no verificó el correo
-			error.response.status === 401
-				? dispatch(setConfirmYourEmailError(true))
-				: null;
+			// // está creado, pero no verificó el correo
+			// error.response.status === 401
+			// 	? dispatch(setConfirmYourEmailError(true))
+			// 	: null;
 
-			// no se encontró el usuario porque no existe
-			error.response.status === 404
-				? dispatch(setErrorLoginNotFound(true))
-				: null;
+			// // no se encontró el usuario porque no existe
+			// error.response.status === 404
+			// 	? dispatch(setErrorLoginNotFound(true))
+			// 	: null;
 
-			// se está enviando mal la info del usuario
-			error.response.status === 403
-				? dispatch(setErrorLoginBadData(true))
-				: null;
+			// // se está enviando mal la info del usuario
+			// error.response.status === 403
+			// 	? dispatch(setErrorLoginBadData(true))
+			// 	: null;
 		})
 
 
-		dispatch(postUserGoogle(bodyPost));
-		LoguinG(userObj)
-		if(cart.length) {
-			dispatch(setCartShop( cartsId))
-			// dispatch(clearCart())
-		}
-		const token_jwt = window.localStorage.getItem("token");
-		const perfil = jwt_decode(token_jwt);
-		console.log(perfil.id,"id user") 
-		dispatch(getUserProfile(perfil.id));
-		if(user.favorite){
-		dispatch(setFavorite(user.favorite))
-		}
-		navigate("/");
+		// dispatch(postUserGoogle(bodyPost));
+		// LoguinG(userObj)
+		// if(cart.length) {
+		// 	dispatch(setCartShop( cartsId))
+		// 	// dispatch(clearCart())
+		// }
+		// const token_jwt = window.localStorage.getItem("token");
+		// const perfil = jwt_decode(token_jwt);
+		// console.log(perfil.id,"id user") 
+		// dispatch(getUserProfile(perfil.id));
+		// if(user.favorite){
+		// dispatch(setFavorite(user.favorite))
+		// }
+		// navigate("/");
 	}
 	
 	

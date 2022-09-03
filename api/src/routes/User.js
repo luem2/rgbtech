@@ -39,13 +39,12 @@ router.post(
 router.post("/registerGoogle", async (req, res) => {
 	try {
 		let { user, mail, profilePhoto, password} = req.body;
-		const findedUser = User.findOne({
+		const findedUser =await  User.findOne({
 			where: {
 				mail: mail
 			}
 		})
-		const {id} = findedUser.dataValues
-		if(!id) {
+		if(!findedUser) {
 			const hashedPassword = await bcrypt.hash(password, 10);
 			const newUser = await User.create({
 				user,
@@ -55,16 +54,23 @@ router.post("/registerGoogle", async (req, res) => {
 				userVerificate : true
 			})
 			const { id } = newUser;
-			const accessToken = jwt.sign(id, process.env.SECRET);
+			const accessToken = jwt.sign({id:id}, process.env.SECRET);
+			console.log(accessToken)
 			return res.status(200).json({
 				mssage: "usuario autenticado",
 				token: accessToken,
 			});
 		} else {
-			return res.sendStatus(200)
+			const { id } =findedUser.dataValues ;
+			const accessToken = jwt.sign({id:id}, process.env.SECRET);
+			console.log(accessToken)
+			return res.status(200).json({
+				mssage: "usuario autenticado",
+				token: accessToken,
+			});
 		}
 	} catch (error) {
-		return res.sendStatus(500)
+		return res.send(error)
 	}
 });
 
@@ -77,51 +83,51 @@ router.post(
 			const { findedUser, logged } = req.body;
 			if (logged) {
 				const { id } = findedUser;
-				const accessToken = jwt.sign(id, process.env.SECRET);
+				const accessToken = jwt.sign({id:id}, process.env.SECRET);
 				return res.status(200).json({
 					mssage: "usuario autenticado",
 					token: accessToken,
 				});
 			}
 		} catch (error) {
-			res.json({ message: error });
+			res.json({ message: error })
 		}
 	}
 );
 
 
-router.post("/loginGoogle", findOrCreate,async (req, res) => {
-		try {
-			const { mail } = req.body;
-			console.log(req.body,"ee")
-			const user = await User.findOne({
-				where: {
-					mail: mail,
-				},
-			});
-			if (user) {
-				const { id } = user.dataValues
-				const logedUser = {id
-					// id,
-					// user, 
-					// mail, 
-					// profilePhoto, 
-					// cartShop, 
-					// favorite, 
-					// isAdmin,
-				}
-				const accessToken = jwt.sign(logedUser, process.env.SECRET);
-				console.log(accessToken)
-				return res.status(200).json({
-					mssage: "usuario autenticado",
-					token: accessToken,
-				});
-			}
-		} catch (error) {
-			res.json({ message: error });
-		}
-	}
-);
+// router.post("/loginGoogle", findOrCreate,async (req, res) => {
+// 		try {
+// 			const { mail } = req.body;
+// 			console.log(req.body,"ee")
+// 			const user = await User.findOne({
+// 				where: {
+// 					mail: mail,
+// 				},
+// 			});
+// 			if (user) {
+// 				const { id } = user.dataValues
+// 				const logedUser = {id
+// 					// id,
+// 					// user, 
+// 					// mail, 
+// 					// profilePhoto, 
+// 					// cartShop, 
+// 					// favorite, 
+// 					// isAdmin,
+// 				}
+// 				const accessToken = jwt.sign(logedUser, process.env.SECRET);
+// 				console.log(accessToken)
+// 				return res.status(200).json({
+// 					mssage: "usuario autenticado",
+// 					token: accessToken,
+// 				});
+// 			}
+// 		} catch (error) {
+// 			res.json({ message: error });
+// 		}
+// 	}
+// );
 
 router.get("/profile/:id", validateToken, async (req, res) => {
 	try {
