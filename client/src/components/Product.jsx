@@ -23,6 +23,7 @@ function Product({
 	onDiscount,
 	discountPercentage,
 	freeShipping,
+	stock,
 }) {
 	const { cart } = useSelector((state) => state.guestShoppingCart);
 	const { favorito } = useSelector((state) => state.products);
@@ -38,6 +39,7 @@ function Product({
 					name,
 					price,
 					img,
+					stock,
 				})
 			);
 			dispatch(setProductAdded(true));

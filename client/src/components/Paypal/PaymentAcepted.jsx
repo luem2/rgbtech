@@ -15,24 +15,27 @@ const PaymentAcepted = () => {
 	const perfil = jwt(token);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const buyingDate = new Date();
-	const monthBuying = buyingDate.getMonth() + 1;
-	const yearBuying = buyingDate.getUTCFullYear();
+	const buyingDate = Date().split(" ");
+	// const monthBuying = (buyingDate.getMonth() + 1).toString();
+	// console.log("monthBuying", monthBuying);
+	// const yearBuying = buyingDate.getUTCFullYear();
 
 	const paypalCart = JSON.parse(
 		window.localStorage.getItem("productsPaypal")
 	).map((p) => ({
 		productId: p.id,
 		name: p.name,
-		month: monthBuying,
-		year: yearBuying,
-		price: p.price,
+		month: buyingDate[1],
+		year: buyingDate[3],
+		productPrice: p.price,
 		amount: p.amount,
 	}));
 
+	console.log("paypalCart", paypalCart);
+
 	useEffect(() => {
-		const productsId = paypalCart.map((p) => ({ id: p.id, date: Date() }));
-		dispatch(setShoppingHistory(productsId));
+		// const productsId = paypalCart.map((p) => ({ id: p.id, date: Date() }));
+		// dispatch(setShoppingHistory(productsId));
 		dispatch(setShoppingUserHistory(perfil.id, paypalCart));
 		// dispatch(emptyCart());
 		// dispatch(paymentAcepted());

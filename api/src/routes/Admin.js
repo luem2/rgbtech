@@ -10,8 +10,17 @@ router.post("/sale", async (req, res) => {
 	const { userId, products } = req.body;
 
 	products.map(async (product) => {
-		const { productId, name, productPrice, tags, brand, month, year, amount } =
-			product;
+		const { productId, name, productPrice, month, year, amount } = product;
+
+		const productDetails = await Product.findByPk(productId, {
+			include: {
+				model: Tag,
+				through: { attributes: [] },
+			},
+		});
+		const { brandId, tags } = productDetails.dataValues;
+		const tagsId = [];
+		tags.map((t) => tagsId.push(t.dataValues.id));
 		const newSale = await Sale.create({
 			productId,
 			name,
@@ -21,18 +30,22 @@ router.post("/sale", async (req, res) => {
 			amount,
 			totalPrice: productPrice * amount,
 		});
-		await newSale.addTags(tags);
-		await newSale.setBrand(brand);
+
+		console.log("tagsId", tagsId);
+		await newSale.addTags(tagsId);
+		await newSale.setBrand(brandId);
 		await newSale.setUser(userId);
 
-		// const stockProduct = await Product.findByPk(productId)
-		// const updatedStock = stockProduct.stock - amount
-		// await Product.update({
-		//   stock: updatedStock
-		// },
-		// {
-		//   where:{id:productId}
-		// })
+		const stockProduct = await Product.findByPk(productId);
+		const updatedStock = stockProduct.stock - amount;
+		await Product.update(
+			{
+				stock: updatedStock,
+			},
+			{
+				where: { id: productId },
+			}
+		);
 	});
 	res.send("producto comprado");
 });

@@ -205,6 +205,7 @@ const ShoppingCart = () => {
 								img={p.img}
 								totalProductPrice={Math.round(p.price * p.amount)}
 								units={p.amount}
+								stock={p.stock}
 								addUnits={() => addUnits(p.id)}
 								subUnits={() => subUnits(p.id)}
 								delProduct={() => {
