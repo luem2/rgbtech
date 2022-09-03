@@ -3,16 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setLogout } from "../../store/slices/components/componentSlice";
 import Header from "../../components/Header/Header";
-import { clearUser } from "../../store/slices/users/userSlice";
+import { clearUser, modifyProfile } from "../../store/slices/users/userSlice";
+import ShoppingHistory from "./ShoppingHistory";
+import { clearFavorite } from "../../store/slices/products/productSlice";
+import LastVisited from "./LastVisited";
+import ModifyProfile from "./ModifyProfile";
 import { RiLogoutBoxFill } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { RiHistoryLine } from "react-icons/ri";
 import defaultImage from "../../assets/defaultImage.png";
-import ShoppingHistory from "./ShoppingHistory";
-import { clearFavorite } from "../../store/slices/products/productSlice";
-import LastVisited from "./LastVisited";
-import ModifyProfile from "./ModifyProfile";
 
 const Profile = () => {
 	const [section, setSection] = useState("shoppingHistory");
@@ -49,9 +49,8 @@ const Profile = () => {
 						<p className="flex font-extrabold gap-2 text-xl text-white-600">
 							Profile:
 						</p>
-						<p className="font-semibold mt-4">👦Username: {user.user}</p>
-						<p className="font-semibold">🔒Password: **************</p>
-						<p className="font-semibold">✉️Email: {user.mail}</p>
+						<p className="font-semibold mt-4">Username: {user.user}</p>
+						<p className="font-semibold">Email: {user.mail}</p>
 						<p className="font-semibold">
 							RGBTech Points: <b>4000🪙</b>{" "}
 						</p>
@@ -65,7 +64,8 @@ const Profile = () => {
 							className="flex gap-2 justify-center items-center mt-3 px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-48"
 							onClick={() => setSection("Profile")}
 						>
-							<CgProfile /> Modify profile
+							<CgProfile onClick={() => dispatch(modifyProfile(true))} /> Modify
+							profile
 						</button>
 						<button
 							type="button"
@@ -88,7 +88,8 @@ const Profile = () => {
 						</button>
 					</div>
 				</div>
-				{section === "shoppingHistory" ? <ShoppingHistory /> : null}
+				{modifyProfile && <ModifyProfile />}
+				{section === "shoppingHistory" ? <ShoppingHistory /> : <LastVisited />}
 			</div>
 		</div>
 	);
