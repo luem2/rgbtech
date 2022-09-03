@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
 	cart: [],
+	buying: false,
 };
 
 const guestShoppingCartSlice = createSlice({
@@ -34,6 +35,10 @@ const guestShoppingCartSlice = createSlice({
 		emptyCart: (state) => {
 			state.cart = [];
 		},
+
+		setBuying: (state, action) => {
+			state.buying = action.payload;
+		},
 	},
 });
 
@@ -43,6 +48,7 @@ export const {
 	delUnitFromCart,
 	emptyCart,
 	delProduct,
+	setBuying,
 } = guestShoppingCartSlice.actions;
 
 export default guestShoppingCartSlice.reducer;

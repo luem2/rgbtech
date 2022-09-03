@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setProductAdded } from "../store/slices/components/componentSlice";
 import { updateProductCart } from "../store/slices/users/thunks";
 import { addProduct } from "../store/slices/guestShoppingCart/guestShoppingCartSlice";
+import { productAddedNotification } from "./Notifications";
 
 export default function Tarjeta({ id, image, name, price, lastProduct }) {
 	const { cart } = useSelector((state) => state.guestShoppingCart);
@@ -19,7 +19,7 @@ export default function Tarjeta({ id, image, name, price, lastProduct }) {
 					image,
 				})
 			);
-			dispatch(setProductAdded(true));
+			productAddedNotification();
 		}
 		dispatch(updateProductCart([id]));
 	};

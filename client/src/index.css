@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .fade-anim img {
 	animation: fadeAnim 1s ease-out;
 }
@@ -9,10 +13,6 @@
 		opacity: 1;
 	}
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 * {
 	padding: 0;

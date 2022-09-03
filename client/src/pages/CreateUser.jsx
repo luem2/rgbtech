@@ -3,8 +3,8 @@ import { postUser } from "../store/slices/users/thunks.js";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo-dibujo-2.png";
-import { setAccCreated } from "../store/slices/components/componentSlice";
 import Logo from "../components/Logo/Logo.jsx";
+import { accCreatedNotification } from "../components/Notifications.js";
 
 const createUser = () => {
 	const [previewSource, setPreviewSource] = useState("");
@@ -56,7 +56,7 @@ const createUser = () => {
 		});
 		setPreviewSource("");
 		navigate("/");
-		dispatch(setAccCreated(true));
+		accCreatedNotification();
 	}
 
 	return (

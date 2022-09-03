@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getProductById } from "../store/slices/products/thunks";
 import { MdOutlineShoppingCart } from "react-icons/md";
-import { AiOutlineHeart } from "react-icons/ai";
+import { IoMdHeartEmpty, IoMdHeart } from "react-icons/io";
 import { AiFillStar } from "react-icons/ai";
 import { BsCheckLg } from "react-icons/bs";
 import Spinner from "../components/Spinner";
@@ -13,11 +13,14 @@ import CircleButton from "../components/Buttons/CircleButton";
 import SquareButton from "../components/Buttons/SquareButton";
 import { clearDetails } from "../store/slices/products/productSlice";
 import { addProduct } from "../store/slices/guestShoppingCart/guestShoppingCartSlice";
-import { setProductAdded } from "../store/slices/components/componentSlice";
-import { ToastContainer, toast } from "react-toastify";
 import Comment from "../components/Comment";
-import { useState } from "react";
 import { hasJWT } from "../store/thunks/";
+import {
+	productAddedNotification,
+	youAreUnloggedFavorites,
+	youAreUnloggedProducts,
+} from "../components/Notifications";
+import { ToastContainer } from "react-toastify";
 
 const testComments = [
 	{
@@ -56,16 +59,11 @@ const ProductDetails = () => {
 	const { cart } = useSelector((state) => state.guestShoppingCart);
 	const [comment, setComment] = useState("");
 	const [rating, setRating] = useState("");
-	const { productAdded } = useSelector(
-		(state) => state.components.notification
-	);
 	const { productDetails } = useSelector((state) => state.products);
 	const product = productDetails;
-	console.log("product", product);
 
 	const handleAddCart = () => {
 		if (Boolean(cart.find((p) => p.id === id))) return;
-		if (!hasJWT()) return alert("no estas logeado");
 		else {
 			dispatch(
 				addProduct({
@@ -76,21 +74,8 @@ const ProductDetails = () => {
 					stock: product.stock,
 				})
 			);
-			dispatch(setProductAdded(true));
+			productAddedNotification();
 		}
-	};
-
-	const productAddedFunction = () => {
-		toast.success("✅ Product added successfully!", {
-			position: "bottom-right",
-			autoClose: 2000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
-		});
-		dispatch(setProductAdded(false));
 	};
 
 	useEffect(() => {
@@ -115,7 +100,6 @@ const ProductDetails = () => {
 
 	return (
 		<div className="text-white">
-			{productAdded && productAddedFunction()}
 			<Header />
 			{!Object.keys(productDetails).length ? (
 				<Spinner />
@@ -129,17 +113,22 @@ const ProductDetails = () => {
 								alt={product.name}
 							/>
 							<div className="flex flex-col m-4 gap-4 items-center">
-								<h1 className="text-5xl font-extrabold text-white-600 drop-shadow-lg shadow-black">
+								<h1 className="text-5xl font-extrabold text-white-600 drop-shadow-lg shadow-black text-center">
 									{product.name}
 								</h1>
-								<AiFillStar />
+								<AiFillStar className="text-amber-400" />
 								<p>${product.price}</p>
 								<p className="flex gap-2 items-center text-xl drop-shadow-lg shadow-black">
 									<MdOutlineShoppingCart /> Available Stock: {product.stock}
 								</p>
 								<p className="flex items-center gap-4 text-2xl">
 									Add to Favorites:
-									<AiOutlineHeart />
+									<IoMdHeartEmpty
+										className="hover:cursor-pointer hover:scale-110 duration-500 "
+										onClick={() =>
+											!hasJWT() ? youAreUnloggedFavorites() : null
+										}
+									/>
 								</p>
 								<CircleButton
 									className="flex gap-2 items-center active:bg-pink-800 focus:bg-pink-700 hover:bg-pink-700 bg-pink-600"
@@ -148,7 +137,10 @@ const ProductDetails = () => {
 									<MdOutlineShoppingCart />
 									Agregar al Carrito
 								</CircleButton>
-								<SquareButton className="flex gap-2 items-center active:bg-blue-800 hover:bg-blue-700 focus:bg-blue-700 bg-blue-500">
+								<SquareButton
+									className="flex gap-2 items-center active:bg-blue-800 hover:bg-blue-700 focus:bg-blue-700 bg-blue-500"
+									onClick={() => (!hasJWT() ? youAreUnloggedProducts() : null)}
+								>
 									<BsCheckLg />
 									Comprar Ahora
 								</SquareButton>
@@ -253,10 +245,11 @@ const ProductDetails = () => {
 									</form>
 								) : null}
 
-								{testComments?.map((comment) => {
+								{testComments?.map((comment, i) => {
 									//productDetails.comments(id, comment, rating, user, profilePhoto)
 									return (
 										<Comment
+											key={i}
 											rating={comment.rating}
 											profilePhoto={comment.profilePhoto}
 											user={comment.user}
@@ -279,6 +272,7 @@ const ProductDetails = () => {
 				pauseOnFocusLoss
 				draggable
 				pauseOnHover
+				false
 			/>
 		</div>
 	);

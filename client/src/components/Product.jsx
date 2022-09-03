@@ -8,12 +8,16 @@ import {
 	deleteProductFav,
 	addProductsFav,
 } from "../store/slices/products/productSlice";
-import { setProductAdded } from "../store/slices/components/componentSlice";
 import {
 	updateFavoriteUser,
 	deleteFavoriteUser,
 	updateProductCart,
 } from "../store/slices/users/thunks";
+import {
+	productAddedNotification,
+	youAreUnloggedProducts,
+} from "./Notifications";
+import { hasJWT } from "../store/thunks";
 
 function Product({
 	id,
@@ -42,7 +46,7 @@ function Product({
 					stock,
 				})
 			);
-			dispatch(setProductAdded(true));
+			productAddedNotification();
 		}
 		dispatch(updateProductCart([id]));
 	};
@@ -56,7 +60,9 @@ function Product({
 
 	const handleAddCartFav = () => {
 		if (favoriteId.includes(id)) return;
-		else {
+		if (!hasJWT()) {
+			youAreUnloggedProducts();
+		} else {
 			dispatch(
 				addProductsFav({
 					id,
@@ -69,7 +75,6 @@ function Product({
 			dispatch(updateFavoriteUser(id));
 			favoriteId.push(id);
 		}
-		console.log(favorito);
 	};
 	const handleDeleteCartFav = () => {
 		if (favoriteId.includes(id)) {
@@ -127,7 +132,7 @@ function Product({
 						{favoriteId && favoriteId.includes(id) ? (
 							<button
 								onClick={handleDeleteCartFav}
-								className="cursor-pointer hover:scale-110 mr-2 px-2.5 py-0.5 ml-3"
+								className="cursor-pointer hover:scale-110 mr-2 px-2.5 py-0.5 ml-3 duration-300"
 							>
 								<GiTechnoHeart color="blue" size={35} />
 							</button>

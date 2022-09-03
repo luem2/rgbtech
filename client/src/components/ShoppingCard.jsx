@@ -31,7 +31,7 @@ const ShoppingCard = ({
 						</p>
 						<p className="text-lg font-semibold">Units: {units}</p>
 					</div>
-					<div className="flex justify-between items-center justify-center">
+					<div className="flex justify-between items-center">
 						<p className="flex mt-4 gap-2 text-2xl">
 							<GrAddCircle
 								className="bg-green-500 rounded-full hover:text-green-600 cursor-pointer hover:scale-110 duration-300"
@@ -46,7 +46,16 @@ const ShoppingCard = ({
 								onClick={delProduct}
 							/>
 						</p>
-						<p className="flex font-semibold">{stock}</p>
+						<h2 className="flex font-semibold">
+							Stock available:{" "}
+							<p
+								className={`ml-1 ${
+									stock < 100 ? "text-orange-500" : "text-green-500"
+								}`}
+							>
+								{stock}
+							</p>
+						</h2>
 					</div>
 				</div>
 			</div>

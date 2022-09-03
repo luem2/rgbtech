@@ -4,7 +4,6 @@ import { GoPrimitiveDot } from "react-icons/go";
 import { AiOutlineClose } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setLogin } from "../store/slices/components/componentSlice";
 import { useState } from "react";
 
 export default function ModalHome({ showModal, setShowModal }) {

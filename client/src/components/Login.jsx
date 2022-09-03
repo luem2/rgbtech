@@ -1,10 +1,8 @@
 import React from "react";
 import { BsGoogle } from "react-icons/bs";
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo-dibujo-2.png";
 import { AiOutlineClose } from "react-icons/ai";
-import { setLogin } from "../store/slices/components/componentSlice";
 import { useForm } from "../hooks/useForm";
 
 const initialForm = {
@@ -12,10 +10,12 @@ const initialForm = {
 	password: "",
 };
 
-const Login = () => {
+const Login = ({ closeModal }) => {
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
-	const { form, handleChange, handleBlur, handleSubmit } = useForm(initialForm);
+	const { form, handleChange, handleBlur, handleSubmit } = useForm(
+		initialForm,
+		closeModal
+	);
 
 	return (
 		<div>
@@ -40,7 +40,7 @@ const Login = () => {
 											<Link
 												to="/createUser"
 												style={{ textDecoration: "underline" }}
-												onClick={() => dispatch(setLogin(false))}
+												onClick={() => closeModal()}
 											>
 												Get Started!
 											</Link>
@@ -130,7 +130,7 @@ const Login = () => {
 													<button
 														type="button"
 														className="flex w-28 items-center justify-center gap-2 px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
-														onClick={() => dispatch(setLogin(false))}
+														onClick={() => closeModal()}
 													>
 														<AiOutlineClose /> Close{" "}
 													</button>
@@ -139,7 +139,7 @@ const Login = () => {
 														className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
 														onClick={() => {
 															navigate("/createUser");
-															dispatch(setLogin(false));
+															closeModal();
 														}}
 													>
 														🚀 Get Started
