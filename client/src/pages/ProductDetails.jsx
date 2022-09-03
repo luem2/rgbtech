@@ -21,37 +21,9 @@ import {
 	youAreUnloggedProducts,
 } from "../components/Notifications";
 import { ToastContainer } from "react-toastify";
+import CarruselComments from "../components/CarruselComments";
 
-const testComments = [
-	{
-		rating: 4.3,
-		profilePhoto:
-			"https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg",
-		user: "Pablo",
-		comment: "tienen que mejorar",
-	},
-	{
-		rating: 3.4,
-		profilePhoto:
-			"https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg",
-		user: "Carlos",
-		comment: "Muy bonito me parecio todo",
-	},
-	{
-		rating: 5,
-		profilePhoto:
-			"https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg",
-		user: "Luis",
-		comment: "Que buen pf",
-	},
-	{
-		rating: 1,
-		profilePhoto:
-			"https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg",
-		user: "Marciana",
-		comment: "Inolvidable",
-	},
-];
+
 
 const ProductDetails = () => {
 	const { id } = useParams();
@@ -142,7 +114,7 @@ const ProductDetails = () => {
 						</div>
 						<div className="bg-gradient-to-r from-blue-900 to-pink-900 p-2 mt-2 mx-4 rounded-3xl flex flex-col justify-center items-center shadow-gray-700 shadow-md">
 							<div className="">
-							<div className="float-left mr-32 bg-gradient-to-r from-blue-500 to-pink-400 shadow-2xl flex flex-col w-96 justify-center items-center mt-6 rounded-lg p-7">
+							<div className="float-left bg-gradient-to-r from-blue-500 to-pink-400  flex flex-col w-96 justify-center items-center mt-6 rounded-l-2xl	 p-7">
 							<h2 className="text-2xl font-bold mb-4">Characteristics:</h2>
 							<ul>
 								<li>
@@ -154,12 +126,13 @@ const ProductDetails = () => {
 								</li>
 							</ul>
 							</div>
-							<div className="bg-gradient-to-r from-blue-500 to-pink-400  shadow-2xl flex flex-col w-96 justify-center ml-52 items-center mt-6 rounded-lg p-7">
+							<div className="bg-gradient-to-r from-pink-400 to-blue-500  shadow-2xl flex flex-col w-96 justify-center ml-52 items-center mt-6 rounded-r-2xl p-7">
 								<hr />
 								<h2 className="text-2xl font-bold mb-4">Description:</h2>
 								<p>{productDetails.description}</p>
 							</div>
 							</div>
+							
 							<div>
 								{hasJWT() ? (
 									<form
@@ -246,18 +219,14 @@ const ProductDetails = () => {
 									</form>
 								) : null}
 
-								{testComments?.map((comment, i) => {
-									//productDetails.comments(id, comment, rating, user, profilePhoto)
-									return (
-										<Comment
-											key={i}
-											rating={comment.rating}
-											profilePhoto={comment.profilePhoto}
-											user={comment.user}
-											comment={comment.comment}
-										/>
-									);
-								})}
+								
+
+								<div className="max-w-6xl">
+									<CarruselComments/>
+								</div>
+										
+										
+									
 							</div>
 						</div>
 					</div>

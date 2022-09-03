@@ -24,6 +24,9 @@ export default function Footer() {
         <p className="mb-4">
           <a href="#!" className="text-gray-600">Servicioalcliente@rgbtech.com</a>
         </p>
+        <p className="mb-4">
+          <a href="#!" className="text-gray-600">About team</a>
+        </p>
         
       </div>
       <div className="ml-12">
@@ -48,7 +51,7 @@ export default function Footer() {
         <h6 className="uppercase font-semibold mb-4  flex justify-center md:justify-start">
           Siguenos
         </h6>
-        <div className="flex gap-2 w-28 border bg-indigo-800 text-white rounded-lg hover:bg-gray-100 hover:border-2 border-indigo-800 hover:text-indigo-800">
+        <div className="">
           <Link to='/about'>
           <p className='ml-4'>About team</p>
           </Link>
