@@ -4,7 +4,8 @@ const usersRoute = require("./User.js");
 const brandsRoute = require("./Brand.js");
 const tagsRoute = require("./Tag.js");
 const adminRoute = require("./Admin.js");
-const awardsRoute = require("./awards")
+const awardsRoute = require("./awards.js")
+
 const { cancel, create, capture } = require("../controllers/paypal");
 // const dogmiddleware = require('./middlewares/dogs.js')
 // const temperamentmiddleware = require('./middlewares/temperaments.js')
