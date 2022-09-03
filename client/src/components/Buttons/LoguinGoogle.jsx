@@ -1,32 +1,82 @@
 import React, { useEffect ,useState } from "react";
 import jwt_decode from "jwt-decode";
-import { getUserProfile, setCartShop,postUserGoogle} from "../../store/slices/users/thunks"
+import { getUserProfile, setCartShop} from "../../store/slices/users/thunks"
 import { LoguinG } from "../../hooks/logGoogle"
 import {useDispatch, useSelector} from "react-redux"
 import { useNavigate } from "react-router-dom";
 import { setFavorite } from "../../store/slices/products/productSlice"
+import axios from "axios";
+import {
+	setConfirmYourEmailError,
+	setErrorLoginBadData,
+	setErrorLoginNotFound,
+	setLoginIncomplete,
+	setLogin,
+	setWelcomeUser,
+} from "../store/slices/components/componentSlice";
+import { setAuthToken } from "../store/slices/users/thunks";
+import { useNavigate } from "react-router-dom";
+import { setFavorite } from "../store/slices/products/productSlice";
 
 
  function  LoguinGoogle() {
 	const navigate = useNavigate();
 	const { cart } = useSelector((state) => state.guestShoppingCart);
 	const cartsId = cart.map((product) => product.id)
-	const [user, setUser] = useState({})
 	const dispatch = useDispatch()
 	function handleCallbackResponse (response) {
 		
 		const token = response.credential
 		// console.log(" Encoded JWT ID token : " + token);
-		const userObj = jwt_decode(token);
-		setUser(userObj);
+		const {email, picture, given_name, family_name} = jwt_decode(token);
+
 		document.getElementById("signInDiv").hidden = true;
-		 let name = userObj.given_name +" "+ userObj.family_name
-			const postFinal = {
-				user: name,
-				mail: userObj.email,
-				profilePhoto: userObj.picture,
-			};
-		dispatch(postUserGoogle(postFinal));
+		const bodyPost = {
+			user: `${given_name} ${family_name}`,
+			mail: email,
+			profilePhoto: picture,
+		};
+		axios.post("/users/registerGoogle", bodyPost)
+		.then(response => {
+			const token = response.data.token;
+			window.localStorage.setItem("token", token);
+			setAuthToken(token);
+			const user = jwt_decode(token);
+			if (cart.length) {
+				dispatch(setCartShop(cartsId));
+			}
+			dispatch(getUserProfile(user.id));
+
+			if (user.favorite) {
+				dispatch(setFavorite(user.favorite));
+			}
+			dispatch(setLogin(false));
+			dispatch(setWelcomeUser(true));
+			navigate("/");
+		})
+		.catch(error => {
+			error.response.status === 400
+				? dispatch(setLoginIncomplete(true))
+				: null;
+
+			// está creado, pero no verificó el correo
+			error.response.status === 401
+				? dispatch(setConfirmYourEmailError(true))
+				: null;
+
+			// no se encontró el usuario porque no existe
+			error.response.status === 404
+				? dispatch(setErrorLoginNotFound(true))
+				: null;
+
+			// se está enviando mal la info del usuario
+			error.response.status === 403
+				? dispatch(setErrorLoginBadData(true))
+				: null;
+		})
+
+
+		dispatch(postUserGoogle(bodyPost));
 		LoguinG(userObj)
 		if(cart.length) {
 			dispatch(setCartShop( cartsId))
@@ -71,17 +121,6 @@ import { setFavorite } from "../../store/slices/products/productSlice"
 	return (
 		<div>
 			<div div id="signInDiv"></div>
-			
-			{Object.keys(user).length != 0 && 
-				<button onClick={(e) =>handleSignOut(e)}> Sign Out </button>
-			}
-			{user && (
-				<div>
-					<img src={user.picture} />
-					<h3>{user.name}</h3>
-				</div>
-			)}
-			
 		</div>
 	);
 }

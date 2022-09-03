@@ -37,31 +37,36 @@ router.post(
 );
 
 router.post("/registerGoogle", async (req, res) => {
-		let { user,mail ,profilePhoto,id} = req.body;
-		// console.log(req.body,"body")
-		try { const coincidencias = await User.findOne({
-            where:{mail: mail},
-        })
-		if(coincidencias == null){
-			const userr = await User.create({
-				user:user,
-				mail: mail,
-				profilePhoto:profilePhoto,
-				LogGoogle:true
-				
+	try {
+		let { user, mail, profilePhoto, password} = req.body;
+		const findedUser = User.findOne({
+			where: {
+				mail: mail
+			}
+		})
+		const {id} = findedUser.dataValues
+		if(!id) {
+			const hashedPassword = await bcrypt.hash(password, 10);
+			const newUser = await User.create({
+				user,
+				profilePhoto,
+				mail,
+				password: hashedPassword,
+				userVerificate : true
+			})
+			const { id } = newUser;
+			const accessToken = jwt.sign(id, process.env.SECRET);
+			return res.status(200).json({
+				mssage: "usuario autenticado",
+				token: accessToken,
 			});
-			
-			return res.status(201).send("User created successfully");
-		
+		} else {
+			return res.sendStatus(200)
 		}
-		return res.status(201).send("User existente");
-
-		} catch (error) {
-			console.log(error);
-			return res.status(500).send("Internal Server Error");
-		}
+	} catch (error) {
+		return res.sendStatus(500)
 	}
-);
+});
 
 router.post(
 	"/login",
@@ -71,13 +76,8 @@ router.post(
 		try {
 			const { findedUser, logged } = req.body;
 			if (logged) {
-				const { id, user, mail, profilePhoto, cartShop, favorite, isAdmin } =
-					findedUser;
-				const logedUser = {
-					id,
-					
-				};
-				const accessToken = jwt.sign(logedUser, process.env.SECRET);
+				const { id } = findedUser;
+				const accessToken = jwt.sign(id, process.env.SECRET);
 				return res.status(200).json({
 					mssage: "usuario autenticado",
 					token: accessToken,
@@ -90,7 +90,7 @@ router.post(
 );
 
 
-router.post("/loginGoogle",async (req, res) => {
+router.post("/loginGoogle", findOrCreate,async (req, res) => {
 		try {
 			const { mail } = req.body;
 			console.log(req.body,"ee")
