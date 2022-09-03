@@ -8,7 +8,6 @@ router.post("/", async (req, res) => {
 
   try {
     const { name, stock, points, description, specifications, img, freeShipping } = req.body
-
     if (!name || !stock || !points || !description || !specifications || !img || !freeShipping) {
       return res.send("mandatory information is missing to continue")
     }
@@ -23,7 +22,7 @@ router.post("/", async (req, res) => {
     })
     res.send("creating correctly")
   } catch (error) {
-   res.json({error: error})
+    res.json({ error: error })
   }
 })
 module.exports = router;
