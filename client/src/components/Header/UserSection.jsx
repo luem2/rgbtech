@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { IconContext } from "react-icons/lib";
 import {
 	AiOutlineUser,
@@ -8,15 +8,14 @@ import {
 import Modal from "../Modal/Modal";
 import Login from "../Login";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { setLogin } from "../../store/slices/components/componentSlice";
+import { useSelector } from "react-redux";
 import defaultImage from "../../assets/defaultImage.png";
 import { hasJWT } from "../../store/thunks";
+import { youAreUnloggedFavorites } from "../Notifications";
 
 const UserSection = () => {
-	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const { login } = useSelector((state) => state.components.modal);
+	const [login, setLogin] = useState(false);
 	const { cart } = useSelector((state) => state.guestShoppingCart);
 	const { user } = useSelector((state) => state.user);
 	const userLocalStorage = JSON.parse(window.localStorage.getItem("user"));
@@ -35,8 +34,8 @@ const UserSection = () => {
 	return (
 		<div className="flex items-center gap-2">
 			{login && (
-				<Modal functionModal={() => dispatch(setLogin(false))}>
-					<Login />
+				<Modal closeModal={() => setLogin(false)}>
+					<Login closeModal={() => setLogin(false)} />
 				</Modal>
 			)}
 			<IconContext.Provider
@@ -49,7 +48,7 @@ const UserSection = () => {
 				{/* user && Boolean(Object.keys(user).length) */}
 				{userProfile && Object.keys(userProfile).length ? (
 					<img
-						className="hover: cursor-pointer rounded-3xl w-8 h-8 hover:scale-110 ease-in duration-300"
+						className="hover: cursor-pointer rounded-3xl w-8 h-8 hover:scale-105 ease-in duration-300"
 						src={
 							userProfile?.profilePhoto === null
 								? defaultImage
@@ -60,15 +59,15 @@ const UserSection = () => {
 					/>
 				) : (
 					<AiOutlineUser
-						className="hover:bg-red-500 hover:scale-110 ease-in duration-300"
-						onClick={() => dispatch(setLogin(true))}
+						className="hover:bg-red-500 hover:scale-105 ease-in duration-300"
+						onClick={() => setLogin(true)}
 					/>
 				)}
 
 				<AiOutlineHeart
-					className="hover:bg-red-500 hover:scale-110 ease-in duration-300"
+					className="hover:bg-red-500 hover:scale-105 ease-in duration-300"
 					onClick={() => {
-						hasJWT() ? navigate("/favorites") : alert("You must Login");
+						hasJWT() ? navigate("/favorites") : youAreUnloggedFavorites();
 					}}
 				/>
 
@@ -80,7 +79,7 @@ const UserSection = () => {
 					)}
 					<AiOutlineShoppingCart
 						className={`hover:bg-red-500 ${
-							cart.length === 0 && "hover:scale-110 ease-in duration-300"
+							cart.length === 0 && "hover:scale-105 ease-in duration-300 mr-1"
 						}`}
 						onClick={() => navigate("/shoppingCart")}
 					/>

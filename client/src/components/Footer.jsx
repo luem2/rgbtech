@@ -1,6 +1,7 @@
 import React from 'react'
 import { FaTwitter, FaInstagram, FaFacebook } from 'react-icons/fa';
 import { BsTelephone} from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
@@ -19,16 +20,11 @@ export default function Footer() {
           ">
           Contacto
         </h6>
-        <p className="flex items-center justify-center md:justify-start mb-4">
-          <BsTelephone/> 
-          <a href="#!" className="text-gray-600 ml-2">+57 3144048308</a>
-        </p>
+        
         <p className="mb-4">
           <a href="#!" className="text-gray-600">Servicioalcliente@rgbtech.com</a>
         </p>
-        <p className="mb-4">
-          <a href="#!" className="text-gray-600">Escribenos</a>
-        </p>
+        
       </div>
       <div className="ml-12">
         <h6 className="uppercase font-semibold mb-4 flex justify-center md:justify-start">
@@ -37,33 +33,26 @@ export default function Footer() {
         <p className="mb-4">
           <a href="#!" className="text-gray-600">Medios de pago</a>
         </p>
-        <p className="mb-4">
-          <a href="#!" className="text-gray-600">Envios</a>
-        </p>
-        <p className="mb-4">
-          <a href="#!" className="text-gray-600">Devoluciones</a>
-        </p>
+        
       </div>
       <div className="mr-10">
         <h6 className="uppercase font-semibold mb-4 flex justify-center md:justify-start">
           Te puede interesar
         </h6>
         <p className="mb-4">
-          <a href="#!" className="text-gray-600">Equipo gamer</a>
+          <a href="#!" className="text-gray-600">Henry Bootcamp</a>
         </p>
-        <p className="mb-4">
-          <a href="#!" className="text-gray-600">Productos de Apple</a>
-        </p>
-        <p className="mb-4">
-          <a href="#!" className="text-gray-600">Accesorios</a>
-        </p>
+        
       </div>
-      <div className="ml-20 mt-4">
+      <div className="ml-20 ">
         <h6 className="uppercase font-semibold mb-4  flex justify-center md:justify-start">
           Siguenos
         </h6>
-        <div className="flex gap-2 ml-1 mt-8">
-        <p className="flex items-center justify-center md:justify-start mb-4 mr-1">
+        <div className="flex gap-2 w-28 border">
+          <Link to='/about'>
+          <p className='ml-4'>About team</p>
+          </Link>
+        {/* <p className="flex items-center justify-center md:justify-start mb-4 mr-1">
           <FaTwitter/>
         </p>
         <p className="flex items-center justify-center md:justify-start mb-4 mr-1">
@@ -71,7 +60,7 @@ export default function Footer() {
         </p>
         <p className="flex items-center justify-center md:justify-start mb-4 mr-1">
             <FaFacebook/>
-        </p>
+        </p> */}
         </div>
         <p className="flex items-center justify-center md:justify-start">
         </p>
