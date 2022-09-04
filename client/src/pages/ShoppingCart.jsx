@@ -1,7 +1,9 @@
 import React from "react";
 import Header from "../components/Header/Header";
 import { useDispatch, useSelector } from "react-redux";
-import { BsFillCartCheckFill, BsFillTrashFill } from "react-icons/bs";
+import Header from "../components/Header/Header";
+import { BsFillTrashFill } from "react-icons/bs";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 import ShoppingCard from "../components/ShoppingCard";
 import {
 	addUnitToCart,
@@ -112,16 +114,17 @@ const ShoppingCart = () => {
 	return (
 		<div>
 			<Header />
-			<div className="flex flex-col mb-4 items-center justify-center gap-2">
-				<h1 className="flex gap-2 text-4xl">
-					<BsFillCartCheckFill />
-					Your Shopping Cart:
+			<div className="flex flex-col items-center justify-center gap-2">
+				{cart.length === 0 ?
+				<h1 className="flex gap-2 text-4xl justify-center font-bold text-gray-400 mt-10 ml-12">
+					
+					Your <AiOutlineShoppingCart /> its empty! 
 				</h1>
-				{cart.length === 0 && (
-					<h2 className="text-2xl mt-6">Your Cart its empty! 😥</h2>
-				)}
+					
+				: null}
 			</div>
-			<div className="flex flex-row justify-around items-start ">
+			{cart.length !== 0 ? 
+			<div className="flex flex-row justify-around items-start border-2 m-1">
 				<section className="flex flex-row justify-around items-center">
 					<div className="mt-4">
 						{/* RENDER de cartas de productos */}
@@ -160,6 +163,9 @@ const ShoppingCart = () => {
 								img={p.img}
 								totalProductPrice={Math.round(p.price * p.amount)}
 								units={p.amount}
+								price={p.price}
+								onDiscount={p.onDiscount}
+								discountPercentage={p.discountPercentage}
 								stock={p.stock}
 								addUnits={() => addUnits(p.id)}
 								subUnits={() => subUnits(p.id)}
@@ -207,9 +213,15 @@ const ShoppingCart = () => {
 								${Math.round(totalPrice)}
 							</span>
 						</h2>
+						<h2 className="flex flex-col justify-center items-center bg-slate-100 rounded-lg p-3">
+							🛒 For you:
+							<span className="text-green-500 underline">
+								${Math.round(totalPrice)}
+							</span>
+						</h2>
 					</div>
 				)}
-			</div>
+			</div> : null } 
 			<ToastContainer
 				position="top-right"
 				autoClose={3000}
@@ -223,6 +235,7 @@ const ShoppingCart = () => {
 				false
 			/>
 		</div>
+		
 	);
 };
 
