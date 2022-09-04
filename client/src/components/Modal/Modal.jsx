@@ -1,18 +1,15 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import css from "./Modal.module.css";
 
-const Modal = ({ children, functionModal, syncFunction }) => {
-	const dispatch = useDispatch();
+const Modal = ({ children, closeModal, tailwindCSS }) => {
 	const handleModalContainerClick = (e) => e.stopPropagation();
 
-	const closeModalFunction = () => {
-		dispatch(functionModal());
-	};
-
 	return (
-		<article onClick={syncFunction || closeModalFunction} className={css.modal}>
-			<div className={css.container} onClick={handleModalContainerClick}>
+		<article onClick={closeModal} className={css.modal}>
+			<div
+				className={`${css.container} ${tailwindCSS}`}
+				onClick={handleModalContainerClick}
+			>
 				{children}
 			</div>
 		</article>

@@ -1,17 +1,12 @@
 import React from "react";
-import { useEffect } from "react";
 import { GoPrimitiveDot } from "react-icons/go";
 import { AiOutlineClose } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setLogin } from "../store/slices/components/componentSlice";
-import { useState } from "react";
 
-export default function ModalHome({ showModal, setShowModal }) {
-	const dispatch = useDispatch();
+export default function ModalHome({ showModal, setShowModal, login, setLogin}) {
 
 	function handleClick() {
-		dispatch(setLogin(true));
+		setLogin(true);
 		setShowModal(false);
 	}
 
@@ -66,17 +61,17 @@ export default function ModalHome({ showModal, setShowModal }) {
 															<div className="flex flex-wrap mb-6">
 																<div className="w-full lg:w-6/12 xl:w-4/12 mb-4">
 																	<p className="flex items-center justify-center md:justify-start">
-																		{/* <div className="mr-2"> */}
+																		<div className="mr-2">
 																		<GoPrimitiveDot />
-																		{/* </div> */}
+																		</div>
 																		Guarda tus productos favoritos
 																	</p>
 																</div>
 																<div className="w-full lg:w-6/12 xl:w-4/12 mb-4">
 																	<p className="flex items-center justify-center md:justify-start">
-																		{/* <div className="mr-2"> */}
+																		<div className="mr-2">
 																		<GoPrimitiveDot />
-																		{/* </div>rapido y sencillo */}
+																		</div>rapido y sencillo
 																	</p>
 																</div>
 																<div className="w-full lg:w-6/12 xl:w-4/12 mb-4">
@@ -89,9 +84,9 @@ export default function ModalHome({ showModal, setShowModal }) {
 																</div>
 																<div className="w-full lg:w-6/12   mb-4">
 																	<p className="flex items-center justify-center md:justify-start">
-																		{/* <div className="mr-2"> */}
+																		<div className="mr-2">
 																		<GoPrimitiveDot />
-																		{/* </div> */}
+																		</div>
 																		Los ultimos productos de tecnologia en un
 																		solo lugar.
 																	</p>

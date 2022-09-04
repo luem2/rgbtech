@@ -1,19 +1,18 @@
 import React, { useEffect ,useState } from "react";
 import jwt_decode from "jwt-decode";
 import { getUserProfile, setCartShop} from "../../store/slices/users/thunks"
-import { LoguinG } from "../../hooks/logGoogle"
 import {useDispatch, useSelector} from "react-redux"
 import { useNavigate } from "react-router-dom";
 import { setFavorite } from "../../store/slices/products/productSlice"
 import axios from "axios";
-import {
-	setConfirmYourEmailError,
-	setErrorLoginBadData,
-	setErrorLoginNotFound,
-	setLoginIncomplete,
-	setLogin,
-	setWelcomeUser,
-} from "../../store/slices/components/componentSlice";
+// import {
+// 	setConfirmYourEmailError,
+// 	setErrorLoginBadData,
+// 	setErrorLoginNotFound,
+// 	setLoginIncomplete,
+// 	setLogin,
+// 	setWelcomeUser,
+// } from "../../store/slices/admin/adminSlice";
 import { setAuthToken } from "../../store/slices/users/thunks";
 import { addProduct } from "../../store/slices/guestShoppingCart/guestShoppingCartSlice"
 

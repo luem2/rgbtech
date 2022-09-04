@@ -29,9 +29,6 @@ const CategoriesCarousel = () => {
 	// 	});
 	// };
 
-	const HandleClickBestSeller = () => {
-		dispatch(getProductsBestSeller());
-	};
 	const HandleClickDiscount = () => {
 		dispatch(getProductDiscount());
 	};
@@ -53,17 +50,7 @@ const CategoriesCarousel = () => {
 				<ul className="flex flex-row gap-5 mb-4 justify-center items-center text-xl">
 					<li>
 						<button
-							className="border-2 pr-2 border-r-blue-500 hover:underline decoration-pink-700 hover:font-bold "
-							onClick={() => {
-								HandleClickBestSeller();
-							}}
-						>
-							BestSeller
-						</button>
-					</li>
-					<li>
-						<button
-							className="border-2 pr-2 border-r-blue-500 hover:underline decoration-pink-700 hover:font-bold "
+							className="border-2 pr-2 border-r-blue-500 hover:underline decoration-pink-700 font-bold "
 							onClick={() => {
 								HandleClickDiscount();
 							}}
@@ -73,7 +60,7 @@ const CategoriesCarousel = () => {
 					</li>
 					<li>
 						<button
-							className="border-2 pr-2 border-r-blue-500 hover:underline decoration-pink-700 hover:font-bold"
+							className="border-2 pr-2 border-r-blue-500 hover:underline decoration-pink-700 font-bold"
 							onClick={() => {
 								HandleClickFreeShep();
 							}}
@@ -83,7 +70,7 @@ const CategoriesCarousel = () => {
 					</li>
 					<li>
 						<button
-							className="hover:underline decoration-pink-700 hover:font-bold"
+							className="hover:underline decoration-pink-700 font-bold"
 							onClick={() => {
 								HandleClickFreeShep();
 							}}
@@ -113,6 +100,7 @@ const CategoriesCarousel = () => {
 											name={product.name}
 											img={product.img}
 											price={product.price}
+											stock={product.stock}
 											onDiscount={product.onDiscount}
 											freeShipping={product.freeShipping}
 											discountPercentage={product.discountPercentage}
@@ -127,6 +115,7 @@ const CategoriesCarousel = () => {
 											name={product.name}
 											img={product.img}
 											price={product.price}
+											stock={product.stock}
 											onDiscount={product.onDiscount}
 											freeShipping={product.freeShipping}
 											discountPercentage={product.discountPercentage}

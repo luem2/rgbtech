@@ -3,8 +3,9 @@ import { postUser } from "../store/slices/users/thunks.js";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo-dibujo-2.png";
-import { setAccCreated } from "../store/slices/components/componentSlice";
 import Logo from "../components/Logo/Logo.jsx";
+import { accCreatedNotification } from "../components/Notifications.js";
+import { AiOutlineClose } from "react-icons/ai";
 
 const createUser = () => {
 	const [previewSource, setPreviewSource] = useState("");
@@ -56,7 +57,7 @@ const createUser = () => {
 		});
 		setPreviewSource("");
 		navigate("/");
-		dispatch(setAccCreated(true));
+		accCreatedNotification();
 	}
 
 	return (
@@ -70,8 +71,20 @@ const createUser = () => {
 							<p className="text-lg">Best products here!</p>
 						</div>
 					</div>
+					<div className="absolute right-80 mt-3">
+						<Link to="/">
+									<button
+										className=" rounded-full"
+										// onClick={() => closeModal()}
+										>
+										<AiOutlineClose size={30} />
+									</button>
+						</Link>
+								</div>
 					<div className="p-5 bg-white md:flex-1">
+						
 						<div className="flex items-stretch">
+						
 							<div>
 								<h3 className="my-4 text-2xl font-semibold text-gray-700">
 									Create Account
@@ -182,20 +195,17 @@ const createUser = () => {
 									)}
 								</div>
 							</div>
-							<div className="flex justify-center gap-4">
-								<button
-									type="button"
-									className="inline-block px-6 py-2.5 bg-blue-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out"
-								>
-									<Link to="/">🏠 Back Home</Link>
-								</button>
-								<button
-									type="submit"
-									className="px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
-								>
-									🚀 Sign up
-								</button>
-							</div>
+							<div>
+											<button
+												type="submit"
+												className="w-full px-4 py-2 text-lg font-semibold text-white transition-colors duration-300 bg-blue-300 rounded-md shadow hover:bg-blue-500 focus:outline-none focus:ring-blue-200 focus:ring-4"
+												onClick={(e) => {
+													handleSubmit(e);
+												}}
+											>
+												Sing up
+											</button>
+										</div>
 						</form>
 					</div>
 				</div>

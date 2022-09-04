@@ -30,7 +30,7 @@ function HamburguerMenu() {
 		{ name: "Monitors", tag: "?tag=Monitor" },
 		{ name: "Laptops", tag: "?tag=Laptops" },
 		{ name: "Keyboards", tag: "?tag=Keyboard" },
-		{ name: "mouses", tag: "?tag=Mouse" },
+		{ name: "Mouses", tag: "?tag=Mouse" },
 		{ name: "Chairs and gaming desk", tag: "?tag=Furniture" },
 		{ name: "Audio, speakers, etc.", tag: "?tag=Audio" },
 	];
@@ -41,10 +41,10 @@ function HamburguerMenu() {
 	};
 
 	return (
-		<div className="z-50 flex flex-row gap-5 ">
+		<div className="z-50 flex flex-row gap-5">
 			{!open ? (
 				<button
-					className="relative flex cursor-pointer ml-6 mt-5"
+					className="absolute flex cursor-pointer ml-6 mt-5 "
 					onClick={() => setOpen(!open)}
 				>
 					<svg fill="#ff127e" viewBox="0 0 100 80" width="40" height="40">
@@ -54,24 +54,29 @@ function HamburguerMenu() {
 					</svg>
 				</button>
 			) : (
-				<div className="w-100 pt-0 h-[550px] shadow-md bg-white px-8 absolute rounded-br-[120px] shadow-l shadow-blue-600/100">
+				<div className="w-100 pt-0 h-[500px] shadow-md bg-white px-8 absolute rounded-br-[40px] shadow-l shadow-gray-400/100">
 					<button
-						className="text-[30px] font-bold mt-4"
+						className="text-[30px] text-pink-600 font-bold mt-4"
 						onClick={() => setOpen(!open)}
 					>
-						❌
+						X
 					</button>
+					 <Link to="/about">
+						<h1 className="text-black text-xl pb-2 pt-6 font-bold hover:text-blue-600/100 ">
+							About Team
+						</h1>
+					</Link> 
 					<ul className="text-black font-bold relative pr-3">
-						<h1 className="text-black text-2xl pb-2 pt-6 font-bold font-mono">
-							Categorias
+						<h1 className="text-black text-xl pb-2 pt-6 font-bold">
+							Categories
 						</h1>
 						{tags.map((tag, i) => (
-							<li key={i} className="text-black p-2 ml-1 font-mono">
+							<li key={i} className="text-black p-2 ml-1 ">
 								<Link
 									to="/products"
 									onClick={() => quickFilters(tag.tag)}
 									className="flex items-center 
-								text-black py-5 px-6 h-10 
+								text-black  
 								overflow-hidden 
 								text-ellipsis whitespace-nowrap 
 								rounded hover:text-blue-600/100 hover:bg-gray-100 
@@ -86,14 +91,14 @@ function HamburguerMenu() {
 			)}
 			<div>
 				<Link to="/">
-					<img className="w-20" src={logo} alt="logo-rgbtech" />
+					<img className="w-20 ml-20" src={logo} alt="logo-rgbtech" />
 				</Link>
 			</div>
-			<Link to="/about">
+			{/* <Link to="/about">
 				<button className="mt-3 bg-pink-400 rounded-full w-20 font-bold text-white hover:scale-105">
 					About Team
 				</button>
-			</Link>
+			</Link> */}
 		</div>
 	);
 }

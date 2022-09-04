@@ -12,6 +12,7 @@ const userSlice = createSlice({
 			state.user = action.payload;
 			window.localStorage.setItem("user", JSON.stringify(action.payload));
 		},
+
 		clearUser: (state) => {
 			state.user = {};
 		},

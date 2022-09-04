@@ -4,6 +4,7 @@ import LeftSizeAdmin from "../components/DashBoardAdmin/LeftSizeAdmin";
 import ProductsAdmin from "../components/DashBoardAdmin/ProductsAdmin";
 import RightSizeAdmin from "../components/DashBoardAdmin/RightSizeAdmin";
 import SideNavAdmin from "../components/DashBoardAdmin/SideNavAdmin";
+import TagsAndBrands from "../components/DashBoardAdmin/TagsAndBrands";
 import Users from "../components/DashBoardAdmin/Users";
 //import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar, BarChart, ResponsiveContainer, PieChart, Pie} from 'recharts';
 
@@ -25,6 +26,8 @@ function DashBoardAdmin() {
 					) : null}
 					{selection === "Users" ? <Users /> : null}
 					{selection === "Products" ? <ProductsAdmin /> : null}
+					{selection === "tags-brands" ? <TagsAndBrands /> : null}
+
 				</div>
 			</div>
 		</div>

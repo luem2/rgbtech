@@ -50,6 +50,11 @@ module.exports = (sequelize) => {
 			},
 			shoppingHistory: {
 				type: DataTypes.JSONB,
+			},
+			disabled: {
+			  type: DataTypes.BOOLEAN,
+			  allowNull: false,
+			  defaultValue: false
 			}
 		},
 		{
