@@ -22,7 +22,7 @@ const Home = () => {
 	}, []);
 
 	return (
-		<div className="min-h-screen">
+		<div className="w-full ">
 			<Notifications />
 			<Header />
 			<ModalHome showModal={showModal} setShowModal={setShowModal}/>

@@ -12,6 +12,11 @@ module.exports = (sequelize) => {
       },
     logo:{
         type:DataTypes.STRING,
+      },
+    disabled: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
       }
   },{
     timestamps: false
