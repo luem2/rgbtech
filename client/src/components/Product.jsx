@@ -42,7 +42,12 @@ function Product({
 			);
 			dispatch(setProductAdded(true));
 		}
-		dispatch(updateProductCart([id]));
+		dispatch(updateProductCart({
+			id,
+			name,
+			price,
+			img,
+		}));
 	};
 
 	const discountFunction = (price, discount) => {
@@ -64,7 +69,12 @@ function Product({
 				})
 			);
 			console.log(id, "id en product");
-			dispatch(updateFavoriteUser(id));
+			dispatch(updateFavoriteUser({
+				id,
+				name,
+				price,
+				img,
+			}));
 			favoriteId.push(id);
 		}
 		console.log(favorito);

@@ -53,16 +53,18 @@ router.post("/registerGoogle", async (req, res) => {
 				password: hashedPassword,
 				userVerificate : true
 			})
-			const { id } = newUser;
-			const accessToken = jwt.sign({id:id}, process.env.SECRET);
+			const { id ,cartShop, favorite} = newUser;
+			const infoFront = {id:id,cartShop:cartShop, favorite: favorite}
+			const accessToken = jwt.sign(infoFront, process.env.SECRET);
 			console.log(accessToken)
 			return res.status(200).json({
 				mssage: "usuario autenticado",
 				token: accessToken,
 			});
 		} else {
-			const { id } =findedUser.dataValues ;
-			const accessToken = jwt.sign({id:id}, process.env.SECRET);
+			const { id ,cartShop, favorite} =findedUser.dataValues ;
+			const infoFront = {id:id,cartShop:cartShop, favorite: favorite}
+			const accessToken = jwt.sign(infoFront, process.env.SECRET);
 			console.log(accessToken)
 			return res.status(200).json({
 				mssage: "usuario autenticado",
@@ -82,8 +84,9 @@ router.post(
 		try {
 			const { findedUser, logged } = req.body;
 			if (logged) {
-				const { id } = findedUser;
-				const accessToken = jwt.sign({id:id}, process.env.SECRET);
+				const { id ,cartShop, favorite} = findedUser;
+				const infoFront = {id:id,cartShop:cartShop, favorite: favorite}
+				const accessToken = jwt.sign(infoFront, process.env.SECRET);
 				return res.status(200).json({
 					mssage: "usuario autenticado",
 					token: accessToken,
@@ -112,8 +115,7 @@ router.post(
 // 					// user, 
 // 					// mail, 
 // 					// profilePhoto, 
-// 					// cartShop, 
-// 					// favorite, 
+					 
 // 					// isAdmin,
 // 				}
 // 				const accessToken = jwt.sign(logedUser, process.env.SECRET);

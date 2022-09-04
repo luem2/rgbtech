@@ -13,6 +13,7 @@ import ShoppingHistory from "./ShoppingHistory";
 import { clearFavorite } from "../../store/slices/products/productSlice";
 import LastVisited from "./LastVisited";
 import ModifyProfile from "./ModifyProfile";
+import { emptyCart } from "../../store/slices/guestShoppingCart/guestShoppingCartSlice";
 
 const Profile = () => {
 	const [section, setSection] = useState("shoppingHistory");
@@ -26,6 +27,7 @@ const Profile = () => {
 		dispatch(setLogout(true));
 		dispatch(clearUser());
 		dispatch(clearFavorite());
+		dispatch(emptyCart())
 		navigate("/");
 	};
 

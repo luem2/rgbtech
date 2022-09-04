@@ -15,13 +15,15 @@ import {
 	setWelcomeUser,
 } from "../../store/slices/components/componentSlice";
 import { setAuthToken } from "../../store/slices/users/thunks";
+import { addProduct } from "../../store/slices/guestShoppingCart/guestShoppingCartSlice"
 
 
 
  function  LoguinGoogle() {
 	const navigate = useNavigate();
 	const { cart } = useSelector((state) => state.guestShoppingCart);
-	const cartsId = cart.map((product) => product.id)
+	// const { user }= useSelector((state) => state.user);
+	const carts = cart.map((product) => product)
 	const dispatch = useDispatch()
 	function handleCallbackResponse (response) {
 		
@@ -41,12 +43,14 @@ import { setAuthToken } from "../../store/slices/users/thunks";
 			window.localStorage.setItem("token", token);
 			setAuthToken(token);
 			const user = jwt_decode(token);
-			console.log(user,"userrr")
 			if (cart.length) {
-				dispatch(setCartShop(cartsId));
+				dispatch(setCartShop(carts));
 			}
+			console.log("adsa");
 			dispatch(getUserProfile(user.id));
-
+			let product = user.cartShop
+			for (let i = 0; i < product.length; i++) {dispatch(addProduct(product[i]))}
+			console.log(cart)
 			if (user.favorite) {
 				dispatch(setFavorite(user.favorite));
 			}
