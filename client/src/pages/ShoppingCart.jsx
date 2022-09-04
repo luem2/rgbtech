@@ -12,7 +12,6 @@ import {
 	setBuying,
 } from "../store/slices/guestShoppingCart/guestShoppingCartSlice";
 import { FaMoneyCheckAlt } from "react-icons/fa";
-import { hasJWT } from "../store/thunks.js";
 import {
 	setShoppingHistory,
 	deleteProductCart,
@@ -27,13 +26,17 @@ import {
 	youAreUnloggedProducts,
 } from "../components/Notifications";
 import { ToastContainer } from "react-toastify";
+import { hasJWT } from "../store/thunks";
 
 const ShoppingCart = () => {
 	const dispatch = useDispatch();
+	//trae los estados carrito invitado, buying(booleano), trae usuario en caso de estar logueado
 	const { cart, buying } = useSelector((state) => state.guestShoppingCart);
 	const { user } = useSelector((state) => state.user);
+	//user del local Storage, solo si se esta logueado
 	const userLocalStorage = JSON.parse(window.localStorage.getItem("user"));
 
+// setea userProfile con el estado user o local storage( cuando se regargue la pagina)
 	let userProfile;
 	function setUserProfile() {
 		if (Object.keys(user).length) {
@@ -42,8 +45,8 @@ const ShoppingCart = () => {
 			userProfile = userLocalStorage;
 		}
 	}
-
 	setUserProfile();
+	hasJWT()
 
 	window.sessionStorage.setItem("carrito", JSON.stringify([...cart]));
 	const sessionStorageCart = JSON.parse(
