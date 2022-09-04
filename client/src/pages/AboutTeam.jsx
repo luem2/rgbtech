@@ -1,29 +1,22 @@
 import React from "react";
-import { BiHome } from 'react-icons/bi';
+import { BiHome } from "react-icons/bi";
 import { Link } from "react-router-dom";
-// import logo from "../assets/logo-dibujo-2.png";
-// import Logo from "../components/Logo/Logo.jsx";
 
 function AboutTeam() {
 	return (
 		<div className="2xl:container 2xl:mx-auto lg:py-16 lg:px-20 md:py-12 md:px-6 py-9 px-4">
-
 			<div className="flex my-3 text-4xl lg:text-4xl font-bold text-center text-gray-800">
 				<Link to="/">
-				<BiHome className="mr-4"/>
+					<BiHome className="mr-4" />
 				</Link>
 				RGBTeam
 			</div>
-			
-			
 			<div className="flex flex-col lg:flex-row justify-between gap-8">
 				<div className="w-full lg:w-5/12 flex flex-col justify-center">
 					<h1 className="text-2xl lg:text-3xl font-bold leading-9 text-gray-800 pb-4 rounded-md p-2">
 						About Us
 					</h1>
 					<p className="font-normal text-base leading-6 text-black p-1 rounded-md">
-
-
 						It is a long established fact that a reader will be distracted by
 						the readable content of a page when looking at its layout. The point
 						of using Lorem Ipsum.In the first place we have granted to God, and
@@ -32,7 +25,6 @@ function AboutTeam() {
 						entire, and her liberties inviolate; and we will that it be thus
 						observed; which is apparent from
 					</p>
-
 				</div>
 				<div className="w-full lg:w-8/12 shadow-2xl">
 					<img
@@ -53,32 +45,9 @@ function AboutTeam() {
 						</h1>
 					</div>
 				</div> */}
-
-				<div className="p-8 bg-white dark:bg-gray-800 rounded-lg shadow-2xl mt-10">
-
-				</div>
-				<div className="w-full lg:w-8/12 shadow-2xl">
-					<img
-						className="w-full h-full"
-						src="https://i.ibb.co/FhgPJt8/Rectangle-116.png"
-						alt="RGBtech Team 02"
-					/>
-				</div>
 			</div>
 			<div>
-				<div className="container flex justify-center mx-auto pt-16">
-					<div>
-						<p className="text-white pb-6 sm:w-4/6 w-5/6 mx-auto pt-4 font-extrabold text-lg text-center font-normal bg-pink-700 rounded-md">
-							BUILDING TEAM
-						</p>
-						<h1 className="xl:text-3xl text-3xl text-center text-white font-extrabold bg-gray-800 rounded-md pb-6 sm:w-4/6 w-5/6 mx-auto p-2 m-2">
-							The Talented People Behind the Scenes of the Organization
-						</h1>
-					</div>
-				</div>
-
-				<div className="p-8 bg-white dark:bg-gray-800 rounded-lg shadow-2xl">
-
+				<div className="p-8 bg-white dark:bg-gray-800 rounded-lg shadow-2xl mt-8">
 					<p className="text-center text-4xl font-bold text-gray-800 dark:text-white">
 						Professional team
 					</p>
@@ -418,9 +387,6 @@ function AboutTeam() {
 									target="_blank"
 									href="https://www.linkedin.com/in/facundo-maciel-8843a7241/"
 								>
-
-
-
 									<svg
 										width="30"
 										height="30"
