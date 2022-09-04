@@ -27,45 +27,118 @@ import {
 } from "../components/Notifications";
 import { ToastContainer } from "react-toastify";
 import { hasJWT } from "../store/thunks";
+import axios from "axios";
+import { useState } from "react";
+
+
+/* 
+suscribirme al estado usuario
+	- si el usuario no está logueado, muestro un mensaje pidiendo que se registre a la pagina.
+	- si está logueado y el carro vacio, muestro mensaje
+	- si está logueado y tiene productos, muestros esos productos
+		-> carrito (del estado usuario) es un array de ids
+		-> petición axios a la ruta de ids
+		-> guardo la info en un estado local
+		-> renderizo ese estado local
+			-> modificar la funcionalidad de los botones añadir o quitar
+			-> creo un estado de redux llamado compra, que incluya el producto y la propiedad amount (ese estado se enviará a la ruta /sale)
+			-> por cada modificación guardo también este estado en el localStorage por si se reinicia la pagina
+		-> botones para limpiar todo el carrito, afecta la base de datos y el localStorage
+*/
+
+
+/* 
+		console.log(user)
+		if(hasJWT()){
+			const userLocalStorage = JSON.parse(window.localStorage.getItem("user"));
+			let userProfile;
+			function setUserProfile() {
+				if (Object.keys(user).length) {
+					userProfile = user;
+				} else {
+					userProfile = userLocalStorage;
+				}
+			}
+			setUserProfile();
+		} else {
+
+		}
+		 */
+
+
+const sum = (products, discount,  setState) => {
+
+	if(!discount) {
+		const total = products.reduce((previous, current) => {
+			if(current.onDiscount){
+				return previous + current.price
+			}
+		}, 0)
+		console.log(total, 'total')
+		setState(total)
+	} else {
+		console.log(products)
+		const final = products.reduce((previous, current) => {
+			if(current.onDiscount){
+				return previous + (current.price - ((current.price * current.discountPercentage)/100))
+			} else {
+				return previous + current.price
+			}
+		}, 0)
+		console.log(final, 'final')
+		setState(final)
+	}
+}
+
 
 const ShoppingCart = () => {
 	const dispatch = useDispatch();
-	//trae los estados carrito invitado, buying(booleano), trae usuario en caso de estar logueado
-	const { cart, buying } = useSelector((state) => state.guestShoppingCart);
 	const { user } = useSelector((state) => state.user);
-	//user del local Storage, solo si se esta logueado
-	const userLocalStorage = JSON.parse(window.localStorage.getItem("user"));
+	const [products, setProducts] = useState([])
+	const [totalPrice, setTotalPrice] = useState(0)
+	const [finalPrice, setFinalPrice] = useState(0)
+	
+	useEffect(() => {
+		const productsId = user.cartShop?.map((product) => {return product.id})
+		axios.post('/users/cartShop', {cartShop: productsId})
+		.then(response => {
+			const respuesta = response.data.map((product) => {return {...product, amount: 1} } )
+			setProducts(respuesta)
+			console.log('seteando el total')
+			sum(products, false, setTotalPrice)
+			console.log('seteando el final')
+			sum(products, true, setFinalPrice)
+		})
+	}, [user])
 
-// setea userProfile con el estado user o local storage( cuando se regargue la pagina)
-	let userProfile;
-	function setUserProfile() {
-		if (Object.keys(user).length) {
-			userProfile = user;
-		} else {
-			userProfile = userLocalStorage;
-		}
-	}
-	setUserProfile();
-	hasJWT()
 
-	window.sessionStorage.setItem("carrito", JSON.stringify([...cart]));
-	const sessionStorageCart = JSON.parse(
-		window.sessionStorage.getItem("carrito")
-	);
 
-	const shoppingCart = !sessionStorageCart.length ? cart : sessionStorageCart;
-
-	// console.log(sessionStorageCart);
-
-	const pricesCart = shoppingCart?.map((p) => p.price * p.amount);
-	const totalPrice = pricesCart?.reduce((prev, act) => prev + act, 0);
-
+	//funciones de añadir o eliminar 
 	const addUnits = (id) => {
-		dispatch(addUnitToCart(id));
+		const updatedProducts = products.map((product) => {
+			if(product.id === id) {
+				const amount = product.amount + 1
+				return {...product, amount}
+			}
+			else return product
+		})
+		setProducts(updatedProducts)
+		sum(products, false, setTotalPrice)
+		sum(products, true, setFinalPrice)
 	};
 
 	const subUnits = (id) => {
-		dispatch(delUnitFromCart(id));
+		const updatedProducts = products.forEach((product) => {
+			if(product.id === id) {
+				if(amount === 1) return
+				const amount = product.amount - 1
+				return {...product, amount}
+			}
+			return product
+		})
+		setProducts(updatedProducts)
+		sum(products, false, setTotalPrice, setFinalPrice)
+		sum(products, true, setTotalPrice, setFinalPrice)
 	};
 
 	const removeProduct = (id) => {
@@ -99,33 +172,35 @@ const ShoppingCart = () => {
 		dispatch(setBuying(false));
 	};
 
-	useEffect(() => {
-		// if (hasJWT()) {
-		// 	return () => {
-		// 		if (cart.length !== 0) {
-		// 			const productsId = cart.map((p) => p.id);
-		// 			dispatch(setCartShop(productsId));
-		// 		} else {
-		// 			const productsId = [""];
-		// 			dispatch(setCartShop(productsId));
-		// 		}
-		// 	};
-		// }
-	}, []);
 
 	return (
 		<div>
 			<Header />
-			<div className="flex flex-col items-center justify-center gap-2">
-				{cart.length === 0 ?
-				<h1 className="flex gap-2 text-4xl justify-center font-bold text-gray-400 mt-10 ml-12">
-					
-					Your <AiOutlineShoppingCart /> its empty! 
-				</h1>
-					
-				: null}
-			</div>
-			{cart.length !== 0 ? 
+			{
+				!hasJWT() 
+				? <>
+					<div className="flex flex-col items-center justify-center gap-2">
+						<h1 className="flex gap-2 text-4xl justify-center font-bold text-gray-400 mt-10 ml-12">Register and save your products!</h1>
+					</div>
+				</>
+				: <>
+				{
+					!products?.length  
+					? <>
+						<div className="flex flex-col items-center justify-center gap-2">
+							<h1 className="flex gap-2 text-4xl justify-center font-bold text-gray-400 mt-10 ml-12">Your <AiOutlineShoppingCart /> its empty! </h1>
+						</div>
+					</>
+					: <>			
+						<div className="flex flex-col items-center justify-center gap-2">
+							<h1 className="flex gap-2 text-4xl justify-center font-bold text-gray-400 mt-10 ml-12">Your <AiOutlineShoppingCart /> its empty! </h1>
+						</div>
+					</>
+				}
+				</>
+			}
+
+			{products.length !== 0 ? 
 			<div className="flex flex-row justify-around items-start border-2 m-1">
 				<section className="flex flex-row justify-around items-center">
 					<div className="mt-4">
@@ -157,7 +232,7 @@ const ShoppingCart = () => {
 										delProduct={() => removeProduct(i)}
 									/>
 							  ))} */}
-						{cart.map((p, i) => (
+						{products.map((p, i) => (
 							<ShoppingCard
 								key={p.id}
 								id={i}
@@ -181,7 +256,7 @@ const ShoppingCart = () => {
 						))}
 					</div>
 				</section>
-				{cart.length > 0 && (
+				{products.length > 0 && (
 					<div className="flex flex-col justify-center gap-5 mt-4 items-center text-2xl font-bold">
 						<button
 							type="button"
@@ -201,24 +276,24 @@ const ShoppingCart = () => {
 								HandleClickBuy();
 							}}
 						>
-							{buying ? (
+							{/* {buying ? (
 								<img className="h-4 w-4" src={loadingBuy} alt="buying" />
 							) : (
 								<FaMoneyCheckAlt />
-							)}{" "}
+							)}{" "} */}
 							Buy Now!
 						</button>
 
 						<h2 className="flex flex-col justify-center items-center bg-slate-100 rounded-lg p-3">
 							🛒 Total Price:
 							<span className="text-green-500 underline">
-								${Math.round(totalPrice)}
+								${totalPrice}
 							</span>
 						</h2>
 						<h2 className="flex flex-col justify-center items-center bg-slate-100 rounded-lg p-3">
 							🛒 For you:
 							<span className="text-green-500 underline">
-								${Math.round(totalPrice)}
+								${finalPrice}
 							</span>
 						</h2>
 					</div>
