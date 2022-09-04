@@ -25,12 +25,7 @@ export default function Tarjeta({ id, img, tags, name, price, lastProduct }) {
 		if (Boolean(cart.find((p) => p.id === id))) return;
 		else {
 			dispatch(
-				addProduct({
-					id,
-					name,
-					price,
-					img,
-				})
+				addProduct(id)
 			);
 			productAddedNotification();
 		}

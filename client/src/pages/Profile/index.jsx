@@ -12,6 +12,11 @@ import { FcApproval } from "react-icons/fc";
 import defaultImage from "../../assets/defaultImage.png";
 import { logoutNotification } from "../../components/Notifications";
 import { ToastContainer } from "react-toastify";
+import ShoppingHistory from  "../Profile/ShoppingHistory"
+import { clearFavorite } from "../../store/slices/products/productSlice";
+import { emptyCart } from "../../store/slices/guestShoppingCart/guestShoppingCartSlice";
+import ModifyProfile from "../Profile/ModifyProfile"
+import LastVisited from "../Profile/LastVisited"
 
 const Profile = () => {
 	const [section, setSection] = useState("shoppingHistory");
@@ -26,8 +31,9 @@ const Profile = () => {
 		dispatch(clearUser());
 		dispatch(clearFavorite());
 		dispatch(emptyCart())
-		navigate("/");
+		
 		logoutNotification();
+		navigate("/");
 	};
 
 	return (

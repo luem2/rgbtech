@@ -35,8 +35,8 @@ const ShoppingCard = ({
 						</p>
 
 						<p className="text-black text-2xl ml-4">
-							${price}
-							{console.log(price)}
+							${totalProductPrice}
+							{console.log(totalProductPrice)}
 						</p>
 					</span>
 						<p className="text-lg font-semibold">Units: {units}</p>

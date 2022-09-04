@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo-dibujo-2.png";
 import { AiOutlineClose } from "react-icons/ai";
 import { useForm } from "../hooks/useForm";
-import {LoguinGoogle }from "../components/Buttons/LoguinGoogle"
+import LoguinGoogle from "../components/Buttons/LoguinGoogle"
 
 const initialForm = {
 	user: "",
