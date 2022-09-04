@@ -22,7 +22,7 @@ const imagnaryProducts = [
 
 function Carousel() {
 	return (
-		<div className="flex w-[100%] place-items-center mb-5">
+		<div className="flex w-[100%] mx-auto top-0 right-0 left-0 justify-between items-center mb-5 mx-0.5">
 			<Swiper
 				slidesPerView={1}
 				spaceBetween={30}
@@ -38,55 +38,41 @@ function Carousel() {
 				}}
 				modules={[Autoplay, Pagination, Navigation]}
 			>
-				<div className="l-20">
-					<SwiperSlide>
-						<img
-							className="w-[1400px] h-[500px] mb-8"
-							src={imagnaryProducts[0]}
-						/>
-					</SwiperSlide>
-					<SwiperSlide>
-						<img className="w-[1400px] h-[500px]" src={imagnaryProducts[1]} />
-					</SwiperSlide>
-					<SwiperSlide>
-						<img className="w-[1400px] h-[500px]" src={imagnaryProducts[2]} />
-					</SwiperSlide>
-					<SwiperSlide>
-						<img className="w-[1400px] h-[500px]" src={imagnaryProducts[3]} />
-					</SwiperSlide>
-					<SwiperSlide>
-						<img className="w-[1400px] h-[500px]" src={imagnaryProducts[4]} />
-					</SwiperSlide>
-					<SwiperSlide>
-						<img
-							className=" ml-10 w-[1300px] h-[500px]"
-							src={imagnaryProducts[5]}
-						/>
-					</SwiperSlide>
-					<SwiperSlide>
-						<img
-							className="ml-12 w-[1300px] h-[500px]"
-							src={imagnaryProducts[6]}
-						/>
-					</SwiperSlide>
-					<SwiperSlide>
-						<img
-							className="ml-10 w-[1400px] h-[500px]"
-							src={imagnaryProducts[7]}
-						/>
-					</SwiperSlide>
-					<SwiperSlide>
-						<img className="w-[1400px] h-[500px]" src={imagnaryProducts[8]} />
-					</SwiperSlide>
-					<SwiperSlide>
-						<img className="w-[1200px] h-[500px]" src={imagnaryProducts[9]} />
-					</SwiperSlide>
-					<SwiperSlide>
-						<img
-							className="ml-12 w-[1200px] h-[500px]"
-							src={imagnaryProducts[10]}
-						/>
-					</SwiperSlide>
+					
+				<div className="flex flex w-full top-0 right-0 left-0 justify-between items-center">
+				<SwiperSlide>
+					<img className="w-[1400px] h-[500px] mb-8" src={imagnaryProducts[0]} />
+				</SwiperSlide>
+				<SwiperSlide>
+					<img className="w-[1400px] h-[500px]" src={imagnaryProducts[1]} />
+				</SwiperSlide>
+				<SwiperSlide>
+					<img className="w-[1400px] h-[500px]" src={imagnaryProducts[2]} />
+				</SwiperSlide>
+				<SwiperSlide>
+					<img className="w-[1400px] h-[500px]" src={imagnaryProducts[3]} />
+				</SwiperSlide>
+				<SwiperSlide>
+					<img className="w-[1400px] h-[500px]" src={imagnaryProducts[4]} />
+				</SwiperSlide>
+				<SwiperSlide>
+					<img className=" ml-10 w-[1300px] h-[500px]" src={imagnaryProducts[5]} />
+				</SwiperSlide>
+				<SwiperSlide>
+					<img className="ml-12 w-[1300px] h-[500px]" src={imagnaryProducts[6]} />
+				</SwiperSlide>
+				<SwiperSlide>
+					<img className="ml-10 w-[1400px] h-[500px]" src={imagnaryProducts[7]} />
+				</SwiperSlide>
+				<SwiperSlide>
+					<img className="w-[1400px] h-[500px]" src={imagnaryProducts[8]} />
+				</SwiperSlide>
+				<SwiperSlide>
+					<img className="w-[1200px] h-[500px]" src={imagnaryProducts[9]} />
+				</SwiperSlide>
+				<SwiperSlide>
+					<img className="ml-12 w-[1200px] h-[500px]" src={imagnaryProducts[10]} />
+				</SwiperSlide>
 				</div>
 			</Swiper>
 		</div>

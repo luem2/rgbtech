@@ -3,8 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     dashboard: [],
     products: [],
-    tags: [],
-    brands: [],
+    tagsAndBrands: [],
     users: [],
 };
 
@@ -18,13 +17,25 @@ const adminSlice = createSlice({
         usersTable: (state, action) => {
             state.users = action.payload;
         },
-
+        productsTable: (state, action) => {
+            state.products = action.payload;
+        },
+        tagsAndBrandsTable: (state, action) => {
+            state.tagsAndBrands = action.payload;
+        },
     }
 });
+        
+        
+
 
 export const {
     dashboardInfo,
-    usersTable
+    usersTable,
+    productsTable,
+    tagsTable,
+    brandsTable,
+    tagsAndBrandsTable
 } = adminSlice.actions;
 
 export default adminSlice.reducer;

@@ -65,9 +65,10 @@ export default function AllProducts({ setPage, page }) {
 							<Tarjeta
 								id={elem.id}
 								key={elem.id}
-								image={elem.img}
+								img={elem.img}
 								name={elem.name}
 								price={elem.price}
+								tags={elem.tags.name}
 								lastProduct={lastProduct}
 							/>
 						);
@@ -76,8 +77,9 @@ export default function AllProducts({ setPage, page }) {
 							<Tarjeta
 								id={elem.id}
 								key={elem.id}
-								image={elem.img}
+								img={elem.img}
 								name={elem.name}
+								tags={elem.tags.name}
 								price={elem.price}
 							/>
 						);

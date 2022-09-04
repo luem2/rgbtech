@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import { BsSuitHeart } from "react-icons/bs";
-import { GiTechnoHeart } from "react-icons/gi";
+import { AiOutlineHeart } from "react-icons/ai";
 import { addProduct } from "../store/slices/guestShoppingCart/guestShoppingCartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -88,35 +87,38 @@ function Product({
 	};
 
 	return (
-		<div className="flex flex-wrap justify-center p-6">
-			<div className="shadow-xl w-96 bg-white rounded-md relative overflow-hidden bg-no-repeat bg-cover max-w-xs">
+		<div className="flex flex-wrap justify-center p-7 mb-5 m-5">
+			<div className="shadow-xl w-96 bg-white rounded-md">
 				<Link to={`/productDetails/${id}`}>
 					<img
-						className="bg-pink-700 cursor-pointer rounded-t-lg shadow-2xl hover:opacity-80 max-w-xs hover:scale-105 transition duration-300 ease-in-out"
+						className="cursor-pointer rounded-t-lg shadow-2xl hover:opacity-80 hover:scale-105 transition duration-300 ease-in-out bg-pink-700"
 						src={img}
 						alt={name}
 					/>
 				</Link>
 				<div className="place-content-center ml-2 px-5 pb-5">
-					<h3 className="text-black font-semibold text-xl tracking-tight mt-3">
-						{name.slice(0, 17)} ...
+					<h3 className="text-black font-semibold text-xl tracking-tight mt-3 flex flex-row justify-around">
+						{name.slice(0, 17)} ...{" "}
+						{onDiscount ? (
+							<p className="text-red-600 text-base border border-red-600 rounded-sm px-1">
+								{discountPercentage}% OFF
+							</p>
+						) : null}
 					</h3>
+
 					<div className="flex items-center mt-3 mb-5">
 						{onDiscount ? (
 							<span className="flex text-xl text-gray-900 dark:text-white justify-between">
-								<p className="line-through text-gray-400 mr-1 text-sm">
+								<p className="line-through text-gray-400 mr-1 text-2xl">
 									${price}
 								</p>
-								<p className="text-red-600 text-xs mr-2 border border-red-600 p-1.5 rounded-full">
-									{discountPercentage}%OFF
-								</p>
 
-								<p className="text-black text-3xl ml-4">
+								<p className="text-black text-2xl ml-4">
 									${discountFunction(price, discountPercentage)}
 								</p>
 							</span>
 						) : (
-							<p className="text-black text-3xl ml-4">${price}</p>
+							<p className="text-black text-2xl ml-4">${price}</p>
 						)}
 						{freeShipping ? (
 							<p className="text-green-500 ml-2">( Free Shipping )</p>
@@ -134,14 +136,14 @@ function Product({
 								onClick={handleDeleteCartFav}
 								className="cursor-pointer hover:scale-110 mr-2 px-2.5 py-0.5 ml-3 duration-300"
 							>
-								<GiTechnoHeart color="blue" size={35} />
+								<AiOutlineHeart color="pink" size={35} />
 							</button>
 						) : (
 							<button
 								onClick={handleAddCartFav}
 								className="cursor-pointer hover:scale-110 mr-2 px-2.5 py-0.5 ml-3"
 							>
-								<GiTechnoHeart size={25} />
+								<AiOutlineHeart size={25} />
 							</button>
 						)}
 					</div>
