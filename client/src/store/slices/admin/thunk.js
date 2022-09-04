@@ -11,8 +11,8 @@ export const dashboardAction = () => {
 	return async (dispatch) => {
 		try {
 			const info = await axios.get("admin/dashboard");
-            dispatch(dashboardInfo(info.data));
-            console.log("INFO",info);
+			dispatch(dashboardInfo(info.data));
+			console.log("INFO", info);
 		} catch (error) {
 			console.error(e);
 		}
@@ -107,6 +107,16 @@ export const editBrandAction = (payload) => {
             dispatch(tagsAndBrandsAction());
 		} catch (error) {
 			console.log(error);
+		}
+	};
+};
+
+export const setShoppingUserHistory = (userId, products) => {
+	return async () => {
+		try {
+			await axios.post("admin/sale", { userId, products });
+		} catch (e) {
+			console.error(e);
 		}
 	};
 };

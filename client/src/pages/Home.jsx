@@ -6,9 +6,9 @@ import Carousel from "../components/Carousel.jsx";
 import Header from "../components/Header/Header.jsx";
 import CategoriesCarousel from "../components/CategoriesCarousel/CategoriesCarousel.jsx";
 import Footer from "../components/Footer.jsx";
-import Notifications from "../components/Notifications.jsx";
-import "react-toastify/dist/ReactToastify.css";
 import ModalHome from "../components/ModalHome.jsx";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Home = () => {
 	const dispatch = useDispatch();
@@ -18,17 +18,28 @@ const Home = () => {
 	useEffect(() => {
 		if (products.length) return;
 		dispatch(getAllProducts(1));
-		setShowModal(true)
+		setShowModal(true);
 	}, []);
 
 	return (
-		<div className="w-full ">
-			<Notifications />
+		<div className="min-h-screen">
 			<Header />
-			<ModalHome showModal={showModal} setShowModal={setShowModal}/>
+			<ModalHome showModal={showModal} setShowModal={setShowModal} />
 			<Carousel />
 			<CategoriesCarousel />
 			<Footer />
+			<ToastContainer
+				position="top-right"
+				autoClose={3000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				false
+			/>
 		</div>
 	);
 };

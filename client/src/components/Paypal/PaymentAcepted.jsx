@@ -1,24 +1,47 @@
 import React from "react";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 // import { paymentAcepted } from "../Paypal/index";
 import logo from "../../assets/logo-dibujo-2.png";
 import { useNavigate } from "react-router-dom";
 // import { emptyCart } from "../../store/slices/guestShoppingCart/guestShoppingCartSlice";
 import { setShoppingHistory } from "../../store/slices/users/thunks";
+import { setShoppingUserHistory } from "../../store/slices/admin/thunk";
+import jwt from "jwt-decode";
 import "animate.css";
 
 const PaymentAcepted = () => {
+	const token = window.localStorage.getItem("token");
+	const perfil = jwt(token);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const { cart } = useSelector((state) => state.guestShoppingCart);
+	const buyingDate = Date().split(" ");
+	// const monthBuying = (buyingDate.getMonth() + 1).toString();
+	// console.log("monthBuying", monthBuying);
+	// const yearBuying = buyingDate.getUTCFullYear();
+
+	const paypalCart = JSON.parse(
+		window.localStorage.getItem("productsPaypal")
+	).map((p) => ({
+		productId: p.id,
+		name: p.name,
+		month: buyingDate[1],
+		year: buyingDate[3],
+		productPrice: p.price,
+		amount: p.amount,
+	}));
+
+	console.log("paypalCart", paypalCart);
 
 	useEffect(() => {
-		const productsId = cart.map((p) => ({ id: p.id, date: Date() }));
-		console.log(productsId);
-		dispatch(setShoppingHistory(productsId));
+		// const productsId = paypalCart.map((p) => ({ id: p.id, date: Date() }));
+		// dispatch(setShoppingHistory(productsId));
+		dispatch(setShoppingUserHistory(perfil.id, paypalCart));
 		// dispatch(emptyCart());
 		// dispatch(paymentAcepted());
+		return () => {
+			window.localStorage.removeItem("productsPaypal");
+		};
 	}, []);
 
 	return (

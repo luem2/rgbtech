@@ -1,10 +1,8 @@
 import React from "react";
 import { BsGoogle } from "react-icons/bs";
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo-dibujo-2.png";
 import { AiOutlineClose } from "react-icons/ai";
-import { setLogin } from "../store/slices/components/componentSlice";
 import { useForm } from "../hooks/useForm";
 
 const initialForm = {
@@ -12,15 +10,17 @@ const initialForm = {
 	password: "",
 };
 
-const Login = () => {
+const Login = ({ closeModal }) => {
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
-	const { form, handleChange, handleBlur, handleSubmit } = useForm(initialForm);
+	const { form, handleChange, handleBlur, handleSubmit } = useForm(
+		initialForm,
+		closeModal
+	);
 
 	return (
 		<div>
 			<div className="justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 text-black">
-				<div className="relative w-auto my-6 mx-auto max-w-3xl">
+				<div className="relative w-auto my-20 mx-auto max-w-3xl">
 					<div>
 						<div className="flex items-center lg:justify-center">
 							<div className="flex flex-col overflow-hidden bg-white rounded-md shadow-lg max md:flex-row md:flex-1 lg:max-w-screen-md">
@@ -35,18 +35,26 @@ const Login = () => {
 									</p>
 									<p className="flex flex-col items-center justify-center mt-10 text-center">
 										<span>Don't have an account?</span>
-										<span className="text-xl">
-											👨‍🚀
+										<span className="text-xl hover:text-blue-500">
+											
 											<Link
 												to="/createUser"
 												style={{ textDecoration: "underline" }}
-												onClick={() => dispatch(setLogin(false))}
+												onClick={() => closeModal()}
 											>
 												Get Started!
 											</Link>
-											🚀
+											
 										</span>
 									</p>
+								</div>
+								<div className="absolute right-3 mt-3">
+									<button
+										className=" rounded-full"
+										onClick={() => closeModal()}
+										>
+										<AiOutlineClose size={30} />
+									</button>
 								</div>
 								<div className="p-5 bg-white md:flex-1">
 									<h3 className="my-4 text-2xl font-semibold text-gray-700">
@@ -126,11 +134,11 @@ const Login = () => {
 														Google
 													</span>
 												</a>
-												<div className="flex justify-center gap-6">
+												{/* <div className="flex justify-center gap-6">
 													<button
 														type="button"
 														className="flex w-28 items-center justify-center gap-2 px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
-														onClick={() => dispatch(setLogin(false))}
+														onClick={() => closeModal()}
 													>
 														<AiOutlineClose /> Close{" "}
 													</button>
@@ -139,12 +147,12 @@ const Login = () => {
 														className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
 														onClick={() => {
 															navigate("/createUser");
-															dispatch(setLogin(false));
+															closeModal();
 														}}
 													>
 														🚀 Get Started
 													</button>
-												</div>
+												</div> */}
 											</div>
 										</div>
 									</form>

@@ -1,4 +1,5 @@
 const axios = require("axios");
+// const paypal = require("../../../client/src/components/Paypal/PaymentAcepted")
 const {
 	PAYPAL_API_ClientID,
 	PAYPAL_API_SECRET,
@@ -17,8 +18,8 @@ module.exports = {
 					locale: "en-US",
 					landing_page: "NO_PREFERENCE", //LOGIN
 					user_action: "PAY_NOW",
-					return_url: "http://127.0.0.1:5173/order-successfully",
-					cancel_url: "http://127.0.0.1:5173/",
+					return_url: "http://localhost:3003/capture-order",
+					cancel_url: "http://localhost:3003/cancel-order",
 				},
 			};
 
@@ -74,12 +75,13 @@ module.exports = {
 				}
 			);
 			console.log("response.data", response.data);
-			res.json(response.data);
+			res.redirect("http://127.0.0.1:5173/order-successfully");
+			// res.json(response.data)
 		} catch (error) {
 			console.log(error, "error");
 		}
 	},
 	cancel: (req, res) => {
-		res.send("cancele an order");
+		res.redirect("http://127.0.0.1:5173/order-canceled");
 	},
 };

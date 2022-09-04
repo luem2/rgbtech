@@ -3,8 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { confirmationEmail } from "../store/slices/users/thunks";
 import jwt from "jwt-decode";
 import { useDispatch } from "react-redux";
-import { setEmailConfirm } from "../store/slices/components/componentSlice.js";
 import logo from "../assets/logo-dibujo-2.png";
+import { emailConfirmatedNotification } from "../components/Notifications";
 
 function ConfirmationSingup() {
 	let { token } = useParams();
@@ -35,7 +35,7 @@ function ConfirmationSingup() {
 							onClick={() => {
 								dispatch(confirmationEmail(userInfo));
 								navigate("/");
-								dispatch(setEmailConfirm(true));
+								emailConfirmatedNotification();
 							}}
 						>
 							🚀 Confirm email

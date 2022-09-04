@@ -100,6 +100,7 @@ const CategoriesCarousel = () => {
 											name={product.name}
 											img={product.img}
 											price={product.price}
+											stock={product.stock}
 											onDiscount={product.onDiscount}
 											freeShipping={product.freeShipping}
 											discountPercentage={product.discountPercentage}
@@ -114,6 +115,7 @@ const CategoriesCarousel = () => {
 											name={product.name}
 											img={product.img}
 											price={product.price}
+											stock={product.stock}
 											onDiscount={product.onDiscount}
 											freeShipping={product.freeShipping}
 											discountPercentage={product.discountPercentage}

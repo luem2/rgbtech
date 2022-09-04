@@ -9,7 +9,7 @@ const ShoppingCard = ({
 	addUnits,
 	subUnits,
 	delProduct,
-	price,
+	stock,
 	totalProductPrice,
 	onDiscount,
 }) => {

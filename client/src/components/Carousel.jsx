@@ -7,9 +7,9 @@ import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper";
 
 const imagnaryProducts = [
-	 logo,
+	logo,
 	"https://th.bing.com/th/id/R.44f2d5d7c7d0b1ab754fda0f41ac5e42?rik=ZV%2bo60ANzXQFEQ&pid=ImgRaw&r=0",
-    "https://storage-asset.msi.com/global/picture/image/feature/AIO/Monitor/Optix-G24C/AIO-Optix_G24C_overview.png",
+	"https://storage-asset.msi.com/global/picture/image/feature/AIO/Monitor/Optix-G24C/AIO-Optix_G24C_overview.png",
 	"https://th.bing.com/th/id/R.35c1c1b691e969eef6d654698152a554?rik=B7Nd%2fbUdvdIyaQ&pid=ImgRaw&r=0",
 	"https://th.bing.com/th/id/R.76424bc99afbac876aeedea611646ed2?rik=4EIIY8RoGkPEFg&pid=ImgRaw&r=0",
 	"https://th.bing.com/th/id/R.053e075f355388e9ff28e0794bb2d239?rik=ZB1hwpHkMMPg1g&pid=ImgRaw&r=0",
@@ -19,8 +19,6 @@ const imagnaryProducts = [
 	"https://th.bing.com/th/id/R.3795606de5127a32cbb246a9fc7c03c3?rik=gqOpXoAwkLiKnQ&pid=ImgRaw&r=0",
 	"https://th.bing.com/th/id/R.f565036a6316a52feb89bb17fc5c1dae?rik=cls3GeO9zLGo8w&pid=ImgRaw&r=0",
 ];
-
-
 
 function Carousel() {
 	return (
@@ -35,12 +33,10 @@ function Carousel() {
 					type: "bullets",
 				}}
 				autoplay={{
-							delay: 4000,
-							disableOnInteraction: false,
-						}}
-					
+					delay: 4000,
+					disableOnInteraction: false,
+				}}
 				modules={[Autoplay, Pagination, Navigation]}
-				
 			>
 					
 				<div className="flex flex w-full top-0 right-0 left-0 justify-between items-center">
@@ -85,16 +81,6 @@ function Carousel() {
 
 export default Carousel;
 
-
-
-
-
-
-
-
-
-
-
 // let count = 0;
 // let slideInterval;
 
@@ -118,11 +104,10 @@ export default Carousel;
 // 		};
 // 	}, []);
 
-	
 // 	const pauseSlider = () => {
 // 		clearInterval(slideInterval);
 // 	};
-	
+
 // 	const handleOnNextClick = () => {
 // 		count = (count + 1) % imagnaryProducts.length;
 // 		setCurrentIndex(count);

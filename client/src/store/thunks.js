@@ -9,7 +9,7 @@ export const hasJWT = () => {
 	return flag;
 };
 
-export const userProfile = () => {
+export const userProfileID = () => {
 	const user = decode(token);
-	return user;
+	return user.id;
 };
