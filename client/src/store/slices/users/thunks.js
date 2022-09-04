@@ -45,10 +45,11 @@ export const getUserProfile = (id) => {
 		try {
 			if(!id){
 		const token_jwt = window.localStorage.getItem("token");
-		const perfil = jwt_decode(token_jwt);
+		const perfil = jwt(token_jwt);
 		id = perfil.id
 			}
 			const response = await axios.get(`users/profile/${id}`);
+			console.log("aasdasd");
 			dispatch(getLoggedUser(response.data));
 		} catch (error) {
 			console.log(error);
@@ -118,7 +119,6 @@ export const updateProductCart = (newproductcart) => {
 	const perfil = jwt(token);
 	return async (dispatch) => {
 		try {
-			console.log(perfil.id);
 			await axios.put(`users/newproductcart/${perfil.id}`, {
 				newproductcart: newproductcart,
 			});

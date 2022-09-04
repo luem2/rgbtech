@@ -53,7 +53,7 @@ router.post("/registerGoogle", async (req, res) => {
 				password: hashedPassword,
 				userVerificate : true
 			})
-			const { id ,cartShop, favorite} = newUser;
+			const { id,cartShop, favorite } = newUser;
 			const infoFront = {id:id,cartShop:cartShop, favorite: favorite}
 			const accessToken = jwt.sign(infoFront, process.env.SECRET);
 			console.log(accessToken)
@@ -93,7 +93,7 @@ router.post(
 				});
 			}
 		} catch (error) {
-			res.json({ message: error })
+			res.json({ message: error });
 		}
 	}
 );
@@ -271,39 +271,36 @@ router.put("/deletefavorite/:id", async (req, res, next) => {
 });
 
 router.put("/newproductcart/:id", async (req, res, next) => {
-	try {
-		//Asegurarse de vaciar esta propiedad al ejecutar esta compra
-		const { id } = req.params;
-		console.log(id, "id user");
-		const { newproductcart } = req.body;
-		console.log(req.body, "body");
-		console.log(newproductcart, "favortis¿");
-		const user = await User.findByPk(id);
-		let fav = user.cartShop;
-		console.log(fav, "fav");
-		if (fav) {
-			fav = [fav, newproductcart].flat();
-		} else {
-			fav = newproductcart;
-		}
-
-		console.log(fav, "fav");
-
-		await User.update(
-			{
-				cartShop: fav,
-			},
-			{
-				where: {
-					id: id,
-				},
+		try {
+			const {id} = req.params
+			const { newproductcart } = req.body;
+			console.log(newproductcart,"producto");
+			console.log(id,"id back");
+			const user = await User.findByPk(id);
+			let cartShop = user.dataValues.cartShop;
+			cartShop == null?cartShop=[]:null
+			if (!cartShop?.length) {
+				console.log("primer añadido");
+				cartShop = newproductcart;
+			} else {
+				console.log("segundo añadido");
+				cartShop = [...cartShop, newproductcart].flat();
 			}
-		);
-		res.send("Favoritos de usuario actualizado");
-	} catch (error) {
-		next(error);
-	}
-});
+			await User.update(
+				{
+					cartShop
+				},
+				{
+					where: {
+						id: id,
+					},
+				}
+			);
+			res.send("Favoritos de usuario actualizado");
+		} catch (error) {
+			next(error);
+		}
+	});
 router.put("/deleteproductcart/:id", async (req, res, next) => {
 	try {
 		//Asegurarse de vaciar esta propiedad al ejecutar esta compra
@@ -420,7 +417,7 @@ router.get("/cartShop", async (req, res) => {
 		res.send(products);
 	} catch (error) {
 		res.sendStatus(500);
-	}
+	};
 });
 
 
