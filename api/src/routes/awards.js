@@ -1,6 +1,7 @@
 const { Router } = require("express");
-const { Awards } = require("../db.js")
 
+const { Award } = require("../db.js")
+const { Op } = require("sequelize");
 
 const router = Router();
 
@@ -11,7 +12,7 @@ router.post("/", async (req, res) => {
     if (!name || !stock || !points || !description || !specifications || !img || !freeShipping) {
       return res.send("mandatory information is missing to continue")
     }
-    let newAward = await Awards.create({
+    let newAward = await Award.create({
       name,
       description,
       stock,
@@ -22,7 +23,19 @@ router.post("/", async (req, res) => {
     })
     res.send("creating correctly")
   } catch (error) {
-    res.json({ error: error })
+    res.sendStatus(500)
   }
+})
+
+router.get("/", async (req, res) => {
+  try {
+    const findAwards = await Award.findAll({where : {
+      stock : {[Op.gt]: 0}
+    }})
+    res.json(findAwards)
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500)
+  }  
 })
 module.exports = router;
