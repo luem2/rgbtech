@@ -47,10 +47,12 @@ function Product({
 					stock,
 				})
 			);
+			console.log(cart);
 			productAddedNotification();
 		}
 		dispatch(updateProductCart([id]));
 	};
+
 
 	const discountFunction = (price, discount) => {
 		let discPercentage = discount / 100;
@@ -73,7 +75,12 @@ function Product({
 				})
 			);
 			console.log(id, "id en product");
-			dispatch(updateFavoriteUser(id));
+			dispatch(updateFavoriteUser({
+				id,
+				name,
+				price,
+				img,
+			}));
 			favoriteId.push(id);
 		}
 	};
