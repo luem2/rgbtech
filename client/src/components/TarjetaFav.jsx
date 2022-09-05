@@ -8,11 +8,8 @@ import { deleteFavoriteUser, updateProductCart } from "../store/slices/users/thu
 import { productAddedNotification,	youAreUnloggedProducts, } from "./Notifications";
 
 const FavoriteCard = ({id, name, price, img}) => {
-
+	const { user } = useSelector((state) => state.user);
     const dispatch = useDispatch()
-    const { favorito } = useSelector((state) => state.products);
-    const { cart } = useSelector((state) => state.guestShoppingCart);
-    const favoriteId = favorito.map((p) => p.id);
 	
 	console.log(id)
 

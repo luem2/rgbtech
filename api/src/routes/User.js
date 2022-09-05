@@ -196,58 +196,54 @@ router.put("/shoppingHistory/:id", async (req, res, next) => {
 	}
 });
 
-router.put("/favorite", async (req, res, next) => {
+// router.put("/favourites/:id", async (req, res, next) => {
+// 	try {
+// 		const { id } = req.params;
+// 		const { favorite } = req.body;
+// 		await User.update(
+// 			{
+// 				favorite: favorite,
+// 			},
+// 			{
+// 				where: {
+// 					id: id,
+// 				},
+// 			}
+// 		);
+// 		res.send("Favoritos de usuario actualizado");
+// 	} catch (error) {
+// 		next(error);
+// 	}
+// });
+
+router.put("/favourites/:id", async (req, res) => {
 	try {
-		//Asegurarse de vaciar esta propiedad al ejecutar esta compra
-		const { id } = req.params;
-		const { favorite } = req.body;
-		await User.update(
-			{
-				favorite: favorite,
-			},
-			{
-				where: {
-					id: id,
-				},
-			}
-		);
-		res.send("Favoritos de usuario actualizado");
-	} catch (error) {
-		next(error);
+	const {id} = req.params
+	console.log(id)
+	const { newfavorite } = req.body;
+	const user = await User.findByPk(id);
+	let favorite = user.dataValues.favorite;
+	favorite == null?favorite=[]:null
+	if (!favorite?.length) {
+		favorite = newfavorite;
+	} else {
+		favorite = [...favorite, newfavorite].flat();
 	}
+	await User.update(
+		{
+			favorite
+			},
+		{
+			where: {
+				id: id,
+			}}
+	);
+	res.send("Favoritos de usuario actualizado");
+    } catch (error) {
+        res.send(error);
+    };
 });
 
-router.put("/favorite/:id", async (req, res, next) => {
-	try {
-		//Asegurarse de vaciar esta propiedad al ejecutar esta compra
-		const { id } = req.params;
-		const { newfavorite } = req.body;
-		const user = await User.findByPk(id);
-		let fav = user.favorite;
-		console.log(fav, "fav");
-		if (fav) {
-			fav = [fav, newfavorite].flat();
-		} else {
-			fav = newfavorite;
-		}
-
-		console.log(fav, "fav");
-
-		await User.update(
-			{
-				favorite: fav,
-			},
-			{
-				where: {
-					id: id,
-				},
-			}
-		);
-		res.send("Favoritos de usuario actualizado");
-	} catch (error) {
-		next(error);
-	}
-});
 router.put("/deletefavorite/:id", async (req, res, next) => {
 	try {
 		//Asegurarse de vaciar esta propiedad al ejecutar esta compra
@@ -258,12 +254,10 @@ router.put("/deletefavorite/:id", async (req, res, next) => {
 		await User.update(
 			{
 				favorite: deletefavorite,
-			},
-			{
+			},{
 				where: {
 					id: id,
-				},
-			}
+				}}
 		);
 		res.send("Favoritos de usuario actualizado");
 	} catch (error) {

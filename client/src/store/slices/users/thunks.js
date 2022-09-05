@@ -88,9 +88,8 @@ export const updateFavoriteUser = (newfavorite) => {
 	const perfil = jwt(token);
 	return async (dispatch) => {
 		try {
-			console.log(perfil.id);
-			await axios.put(`users/favorite/${perfil.id}`, {
-				newfavorite: newfavorite,
+			await axios.put(`users/favourites/${perfil.id}`, {
+				newfavorite: newfavorite
 			});
 			dispatch(getUserProfile(perfil.id));
 		} catch (e) {

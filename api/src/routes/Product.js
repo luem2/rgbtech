@@ -219,4 +219,19 @@ router.get("/cartShop/:id", async (req, res) => {
 	};
 });
 
+router.get("/favourites/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const user = await User.findByPk(id)
+        const favourites = await Product.findAll({
+            where: {
+                id: user.dataValues.favorite
+            }
+        });
+        res.send(favourites);
+    } catch (error) {
+        res.send(error);
+    };
+});
+
 module.exports = router;

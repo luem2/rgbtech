@@ -33,6 +33,8 @@ function Product({
 }) {
 	const { user } = useSelector((state) => state.user)
 	const dispatch = useDispatch();
+	let FavoriteProduct = user.favorite
+	
 	let token_jwt
 	let perfil
 	if (hasJWT()) {
@@ -63,48 +65,25 @@ function Product({
 		let result = Math.ceil(price - discPercentage);
 		return result;
 	};
-
-	// const handleAddCartFav = () => {
-	// 	if (favoriteId.includes(id)) return;
-	// 	if (!hasJWT()) {
-	// 		youAreUnloggedProducts();
-	// 	} else {
-	// 		dispatch(
-	// 			addProductsFav({
-	// 				id,
-	// 				name,
-	// 				price,
-	// 				img,
-	// 			})
-	// 		);
-	// 		console.log(id, "id en product");
-	// 		dispatch(updateFavoriteUser({
-	// 			id,
-	// 			name,
-	// 			price,
-	// 			img,
-	// 		}));
-	// 		favoriteId.push(id);
-	// 	}
-	// };
-	const handleAddCartFav = () => {
-		let includes = []
-
-		user.favorite ?
-			includes = Fav?.filter(p => p == id) : includes = null;
-		if (!includes) {
-			hasJWT() ? dispatch(updateFavoriteUser({ id })) : youAreUnloggedProducts();
-			dispatch(getUserProfile(perfil.id))
+	const handleDeleteCartFav = ()=>{
+		if (hasJWT()) {
+			let favorite = user.favorite
+			const handler =favorite?.includes(id)
+			if (handler) {
+				const updatedFavorites = user.favorite.filter((product) => product !== id)
+				dispatch(deleteFavoriteUser(updatedFavorites))
+			}
 		}
 	}
-	const handleDeleteCartFav = () => {
-		let includes = []
 
-		user.favorite ?
-			includes = Fav?.filter(p => p == id) : includes = null;
-		if (includes) {
-			favDelete = includes.filter((p) => p !== id);
-			dispatch(deleteFavoriteUser(favDelete));
+	const handleAddCartFav = () => {
+		if (hasJWT()) {
+			let favorite = user.favorite
+			const handler =favorite?.includes(id)
+			if (!handler) {
+				console.log("agrega fav")
+				dispatch(updateFavoriteUser([id]))
+			}
 		}
 	};
 
@@ -153,7 +132,7 @@ function Product({
 						>
 							Add to cart
 						</button>
-						{/* {Fav && Fav.includes(id) ? (
+						{FavoriteProduct?.includes(id) ? (
 							<button
 								onClick={handleDeleteCartFav}
 								className="cursor-pointer hover:scale-110 mr-2 px-2.5 py-0.5 ml-3 duration-300"
@@ -167,7 +146,7 @@ function Product({
 							>
 								<AiOutlineHeart size={25} />
 							</button>
-						)} */}
+						)}
 					</div>
 				</div>
 			</div>
