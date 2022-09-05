@@ -6,6 +6,7 @@ const ShoppingCard = ({
 	name,
 	img,
 	units,
+	description,
 	addUnits,
 	subUnits,
 	delProduct,
@@ -13,7 +14,6 @@ const ShoppingCard = ({
 	totalProductPrice,
 	onDiscount,
 }) => {
-
 	return (
 		<div className="flex justify-start p-4 border-b-2">
 			<div className="flex flex-col md:flex-row md:max-w-xl rounded-lg bg-white shadow-lg">
@@ -24,24 +24,21 @@ const ShoppingCard = ({
 				/>
 				<div className="p-6 flex flex-col justify-start">
 					<h5 className="text-gray-900 text-xl font-medium mb-2">{name}</h5>
-					<p className="text-gray-700 text-base mb-4">
-						This is a special product of our RGBtech page for all our customers
-					</p>
-						{!onDiscount ? (
+					<p className="text-gray-700 text-base mb-4">{description}</p>
 					<div className="flex justify-between items-center">
 						<span className="flex text-xl text-gray-900 dark:text-white justify-between">
-						<p className="line-through text-gray-400 mr-1 text-2xl">
-							${totalProductPrice}
-						</p>
+							<p className="line-through text-gray-400 mr-1 text-2xl">
+								${totalProductPrice}
+							</p>
 
-						<p className="text-black text-2xl ml-4">
-							${price}
-							{console.log(price)}
-						</p>
-					</span>
+							<p className="text-black text-2xl ml-4">
+								${totalProductPrice}
+								{console.log(totalProductPrice)}
+							</p>
+						</span>
 						<p className="text-lg font-semibold">Units: {units}</p>
 					</div>
-						) : null}
+					) : null}
 					<p className="flex mt-4 gap-2 text-2xl">
 						<AiOutlinePlus
 							className="cursor-pointer hover:scale-110"

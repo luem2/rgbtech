@@ -39,6 +39,10 @@ module.exports = (sequelize) => {
 				type: DataTypes.JSONB,
 				allowNull: true,
 			},
+			RGBpoint: {
+				type: DataTypes.INTEGER,
+				defaultValue: 0
+			},
 			isAdmin: {
 				type: DataTypes.BOOLEAN,
 				defaultValue: false,
@@ -51,7 +55,11 @@ module.exports = (sequelize) => {
 			  type: DataTypes.BOOLEAN,
 			  allowNull: false,
 			  defaultValue: false
-			}
+			},
+			lastVisited :{
+				type: DataTypes.ARRAY(DataTypes.STRING),
+				defaultValue:[]
+			},
 		},
 		{
 			timestamps: false,

@@ -75,6 +75,7 @@ router.get("/profile/:id", validateToken, async (req, res) => {
 			cartShop: user.cartShop,
 			favorite: user.favorite,
 			isAdmin: user.isAdmin,
+			lastVisited:user.lastVisited
 		};
 		res.json(profile);
 	} catch (error) {
@@ -199,14 +200,37 @@ router.put("/deletefavorite/:id", async (req, res, next) => {
 	}
 });
 
+router.put("/puntuacion/:id", async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        let user =  await User.findByPk(id)
+		console.log(req.body)
+		valor = req.body.RGBpoint
+        const newpuntuacion = user.RGBpoint + valor
+        await User.update(
+            {
+                RGBpoint:newpuntuacion
+            },
+            {
+                where: {
+                    id: id,
+                },
+            }
+        );
+        res.send("User Confirmations");
+    } catch (error) {
+        next(error);
+    }
+});
+
 router.put("/newproductcart/:id", async (req, res, next) => {
 	try {
-		//Asegurarse de vaciar esta propiedad al ejecutar esta compra
+		//Asegurarse de vaciar esta propiedad al ejecutar esta comprañ
 		const { id } = req.params;
 		console.log(id, "id user");
 		const { newproductcart } = req.body;
 		console.log(req.body, "body");
-		console.log(newproductcart, "favortis¿");
+		console.log(newproductcart, "favortis¿")
 		const user = await User.findByPk(id);
 		let fav = user.cartShop;
 		console.log(fav, "fav");
@@ -349,6 +373,30 @@ router.get("/cartShop", async (req, res) => {
 		res.send(products);
 	} catch (error) {
 		res.sendStatus(500);
+	}
+});
+
+router.put("/updateLastVisited/:id", async (req, res, next) => {
+	try {
+		const { id } = req.params;
+		const { idp } = req.body;
+		console.log(id)
+		const user = await User.findByPk(id);
+		let lastVisited = user.dataValues.lastVisited
+		if( lastVisited && lastVisited.length > 13){
+			lastVisited.splice(-1,1)
+		}
+		await User.update(
+			{
+				lastVisited: [idp,...lastVisited]
+			},
+			{
+				where: {id: id}
+			}
+		);
+		res.send("User Confirmations");
+	} catch (error) {
+		next(error);
 	}
 });
 

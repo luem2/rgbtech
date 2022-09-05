@@ -1,7 +1,6 @@
 import React from "react";
 // import Header from "../components/Header/Header";
 import { useDispatch, useSelector } from "react-redux";
-import Header from "../components/Header/Header";
 import { BsFillTrashFill } from "react-icons/bs";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import ShoppingCard from "../components/ShoppingCard";
@@ -18,6 +17,7 @@ import {
 	setShoppingHistory,
 	deleteProductCart,
 	clearCartShop,
+	setUserPoint
 } from "../store/slices/users/thunks";
 import { useEffect } from "react";
 import { checkoutPaypal } from "../components/Paypal/";
@@ -28,6 +28,7 @@ import {
 	youAreUnloggedProducts,
 } from "../components/Notifications";
 import { ToastContainer } from "react-toastify";
+import assignPoints from "./Rgbpoint";
 
 const ShoppingCart = () => {
 	const dispatch = useDispatch();
@@ -95,6 +96,14 @@ const ShoppingCart = () => {
 		window.localStorage.setItem("productsPaypal", JSON.stringify(cart));
 		window.location.href = data;
 		dispatch(setBuying(false));
+
+		const point = assignPoints(totalPrice)
+		console.log(point)
+		// let point ={}
+		// if(totalPrice > 100 && totalPrice < 200){
+		// 	 point = {'RGBpoint':63}
+		
+		dispatch(setUserPoint(point))
 	};
 
 	useEffect(() => {
@@ -161,6 +170,7 @@ const ShoppingCart = () => {
 								id={i}
 								name={p.name}
 								img={p.img}
+								description={p.description.substring(0, 87) + "..."}
 								totalProductPrice={Math.round(p.price * p.amount)}
 								units={p.amount}
 								price={p.price}
