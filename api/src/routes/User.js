@@ -52,6 +52,7 @@ router.post("/registerGoogle", async (req, res) => {
 				mail,
 				password: hashedPassword,
 				userVerificate: true,
+				LogGoogle: true,
 			});
 			const { id, cartShop, favorite } = newUser;
 			const infoFront = { id: id, cartShop: cartShop, favorite: favorite };

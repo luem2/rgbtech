@@ -169,19 +169,17 @@ const ShoppingCart = () => {
 					</div>
 				</>
 			) : (
-				{
-					/* <>
-				{
-					!products?.length  
-					? <>
-						<div className="flex flex-col items-center justify-center gap-2">
-							<h1 className="flex gap-2 text-4xl justify-center font-bold text-gray-400 mt-10 ml-12">Your <AiOutlineShoppingCart /> its empty! </h1>
-						</div>
-					</>
-					: null
-				}
-				</> */
-				}
+				<>
+					{!products?.length ? (
+						<>
+							<div className="flex flex-col items-center justify-center gap-2">
+								<h1 className="flex gap-2 text-4xl justify-center font-bold text-gray-400 mt-10 ml-12">
+									Your <AiOutlineShoppingCart /> its empty!{" "}
+								</h1>
+							</div>
+						</>
+					) : null}
+				</>
 			)}
 			{products?.length !== 0 ? (
 				<div className="flex flex-row justify-around items-start border-2 m-1">
