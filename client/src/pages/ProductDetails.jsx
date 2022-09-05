@@ -24,10 +24,9 @@ import {
 import { ToastContainer } from "react-toastify";
 import CarruselComments from "../components/CarruselComments";
 import Footer from "../components/Footer";
-import {
-	getUserProfile,
-	updateLastVisited,
-} from "../store/slices/users/thunks";
+import { getUserProfile, updateLastVisited, updateProductCart } from "../store/slices/users/thunks"
+
+
 
 const ProductDetails = () => {
 	const { id } = useParams();
@@ -44,20 +43,19 @@ const ProductDetails = () => {
 		token = window.localStorage.getItem("token");
 		perfil = jwt(token);
 	}
-
 	const handleAddCart = () => {
-		if (Boolean(cart.find((p) => p.id === id))) return;
+		console.log('hola')
+		if (hasJWT()) {
+			const cart = user.cartShop
+			const handler = cart?.includes(id)
+			if (!handler) {
+				dispatch(updateProductCart([id]))
+			}else{
+				return;
+			}
+		}
 		else {
-			dispatch(
-				addProduct({
-					id: productDetails.id,
-					img: productDetails.img,
-					name: productDetails.name,
-					price: productDetails.price,
-					stock: productDetails.stock,
-				})
-			);
-			productAddedNotification();
+			youAreUnloggedProducts();
 		}
 	};
 

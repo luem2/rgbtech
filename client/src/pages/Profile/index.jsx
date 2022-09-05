@@ -3,10 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Header from "../../components/Header/Header";
 import { clearUser } from "../../store/slices/users/userSlice";
-import ShoppingHistory from "./ShoppingHistory";
-import { clearFavorite } from "../../store/slices/products/productSlice";
-import LastVisited from "./LastVisited";
-import ModifyProfile from "./ModifyProfile";
 import { RiLogoutBoxFill } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
 import { HiOutlineShoppingCart } from "react-icons/hi";
@@ -16,13 +12,17 @@ import { FcApproval } from "react-icons/fc";
 import defaultImage from "../../assets/defaultImage.png";
 import { logoutNotification } from "../../components/Notifications";
 import { ToastContainer } from "react-toastify";
+import ShoppingHistory from  "../Profile/ShoppingHistory"
+import { clearFavorite } from "../../store/slices/products/productSlice";
+import { emptyCart } from "../../store/slices/guestShoppingCart/guestShoppingCartSlice";
+import ModifyProfile from "../Profile/ModifyProfile"
+import LastVisited from "../Profile/LastVisited"
 
 const Profile = () => {
 	const [section, setSection] = useState("shoppingHistory");
 	const [modifyProfile, setModifyProfile] = useState(false);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-
 	const user = JSON.parse(window.localStorage.getItem("user"));
 
 	const handleSignOut = () => {
@@ -30,8 +30,10 @@ const Profile = () => {
 		window.localStorage.removeItem("user");
 		dispatch(clearUser());
 		dispatch(clearFavorite());
-		navigate("/");
+		dispatch(emptyCart())
+		
 		logoutNotification();
+		navigate("/");
 	};
 
 	return (

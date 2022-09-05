@@ -16,9 +16,9 @@ import { youAreUnloggedFavorites } from "../Notifications";
 const UserSection = () => {
 	const navigate = useNavigate();
 	const [login, setLogin] = useState(false);
-	const { cart } = useSelector((state) => state.guestShoppingCart);
 	const { user } = useSelector((state) => state.user);
 	const userLocalStorage = JSON.parse(window.localStorage.getItem("user"));
+	let cart = user.cartShop
 
 	let userProfile;
 	function setUserProfile() {

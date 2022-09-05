@@ -93,6 +93,30 @@ module.exports = {
 		}
 	},
 
+	checkUserRegistrationGoogle: async (req, res, next) => {
+		const { mail } = req.body;
+		try {
+			const findedUser = await User.findOne({
+				where: {
+					email: mail,
+				},
+			});
+
+			if (findedUser === null) return res.sendStatus(404);
+			console.log(findedUser, 'encontré el usuario')
+
+			req.body.logged = true;
+
+			if (!findedUser?.userVerificate) {
+				return res.sendStatus(401);
+			}
+			req.body.findedUser = findedUser;
+			return Object.keys(findedUser).length ? next() : res.sendStatus(404);
+		} catch {
+			return res.sendStatus(500);
+		}
+	},
+
 	validateToken: (req, res, next) => {
 		const authHeader = req.headers["authorization"];
 		const token = authHeader && authHeader.split(' ')[1]
