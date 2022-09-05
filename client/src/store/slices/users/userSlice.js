@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const userLogged = JSON.parse(window.localStorage.getItem("user"));
+console.log("userLogged", userLogged);
+
 const initialState = {
-	user: {},
+	user: userLogged || {},
 };
 
 const userSlice = createSlice({
@@ -19,6 +22,6 @@ const userSlice = createSlice({
 	},
 });
 
-export const { getLoggedUser, clearUser} = userSlice.actions;
+export const { getLoggedUser, clearUser } = userSlice.actions;
 
 export default userSlice.reducer;

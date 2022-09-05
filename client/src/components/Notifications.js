@@ -112,7 +112,7 @@ export const cartCleanedNotification = () =>
 	});
 
 export const youAreUnloggedProducts = () =>
-	toast.info("You must be logged to buy products 🔒", {
+	toast.info("You must be logged to buy/add products 🔒", {
 		position: "bottom-right",
 		autoClose: 2000,
 		hideProgressBar: false,
@@ -124,6 +124,17 @@ export const youAreUnloggedProducts = () =>
 
 export const youAreUnloggedFavorites = () =>
 	toast.info("You must be logged to view/add your favorites ⭐🔒", {
+		position: "bottom-right",
+		autoClose: 2000,
+		hideProgressBar: false,
+		closeOnClick: true,
+		pauseOnHover: true,
+		draggable: true,
+		progress: undefined,
+	});
+
+export const youAreUnloggedCart = () =>
+	toast.info("You must be logged to view/add products on your Cart 🛒🔒", {
 		position: "top-right",
 		autoClose: 2000,
 		hideProgressBar: false,

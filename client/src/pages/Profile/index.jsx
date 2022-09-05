@@ -12,11 +12,12 @@ import { FcApproval } from "react-icons/fc";
 import defaultImage from "../../assets/defaultImage.png";
 import { logoutNotification } from "../../components/Notifications";
 import { ToastContainer } from "react-toastify";
-import ShoppingHistory from  "../Profile/ShoppingHistory"
+import ShoppingHistory from "../Profile/ShoppingHistory";
 import { clearFavorite } from "../../store/slices/products/productSlice";
 import { emptyCart } from "../../store/slices/guestShoppingCart/guestShoppingCartSlice";
-import ModifyProfile from "../Profile/ModifyProfile"
-import LastVisited from "../Profile/LastVisited"
+import ModifyProfile from "../Profile/ModifyProfile";
+import LastVisited from "../Profile/LastVisited";
+import { BsCoin } from "react-icons/bs";
 
 const Profile = () => {
 	const [section, setSection] = useState("shoppingHistory");
@@ -24,14 +25,15 @@ const Profile = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const user = JSON.parse(window.localStorage.getItem("user"));
+	console.log("user", user);
 
 	const handleSignOut = () => {
 		window.localStorage.removeItem("token");
 		window.localStorage.removeItem("user");
 		dispatch(clearUser());
 		dispatch(clearFavorite());
-		dispatch(emptyCart())
-		
+		dispatch(emptyCart());
+
 		logoutNotification();
 		navigate("/");
 	};
@@ -60,8 +62,9 @@ const Profile = () => {
 							Username: {user.user} <FcApproval />
 						</p>
 						<p className="font-semibold">Email: {user.mail}</p>
-						<p className="font-semibold">
-							RGBTech Points: <b>4000🪙</b>{" "}
+						<p className="flex items-center gap-2 font-semibold">
+							RGBTech Points: <b>{user.RGBpoint}</b>{" "}
+							<BsCoin className="bg-yellow-700 rounded-full" />{" "}
 						</p>
 						<p className="font-semibold">
 							Administrator: {user.isAdmin ? "✅" : "❌"}

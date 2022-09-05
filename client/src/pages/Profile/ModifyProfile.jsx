@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import Modal from "../../components/Modal/Modal";
 import { FcCancel } from "react-icons/fc";
 import { FaCheckCircle, FaEye } from "react-icons/fa";
@@ -7,7 +7,7 @@ import defaultImage from "../../assets/defaultImage.png";
 import { RiH2 } from "react-icons/ri";
 
 const ModifyProfile = ({ closeModal }) => {
-	const dispatch = useDispatch();
+	// const dispatch = useDispatch();
 	const user = JSON.parse(window.localStorage.getItem("user"));
 	const [showpassword, setShowPassword] = useState("password");
 
@@ -56,6 +56,7 @@ const ModifyProfile = ({ closeModal }) => {
 	// 		mail: "",
 	// 		profilePhoto: "",
 	// 	});
+	//
 	// 	setPreviewSource("");
 	// 	navigate("/");
 	// 	dispatch(setAccCreated(true));

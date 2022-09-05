@@ -16,6 +16,7 @@ import {
 } from "../store/slices/users/thunks";
 import {
 	productAddedNotification,
+	youAreUnloggedFavorites,
 	youAreUnloggedProducts,
 } from "./Notifications";
 import { hasJWT } from "../store/thunks";
@@ -31,33 +32,31 @@ function Product({
 	freeShipping,
 	stock,
 }) {
-	const { user } = useSelector((state) => state.user)
+	const { user } = useSelector((state) => state.user);
 	const dispatch = useDispatch();
-	let FavoriteProduct = user.favorite
-	
-	let token_jwt
-	let perfil
+	let FavoriteProduct = user.favorite;
+
+	let token_jwt;
+	let perfil;
 	if (hasJWT()) {
 		token_jwt = window.localStorage.getItem("token");
 		perfil = jwt(token_jwt);
 	}
-	let Fav = user.favorite
+	let Fav = user.favorite;
 
 	const handleAddCart = () => {
 		if (hasJWT()) {
-			const cart = user.cartShop
-			const handler = cart?.includes(id)
+			const cart = user.cartShop;
+			const handler = cart?.includes(id);
 			if (!handler) {
-				dispatch(updateProductCart([id]))
-			}else{
+				dispatch(updateProductCart([id]));
+			} else {
 				return;
 			}
-		}
-		else {
+		} else {
 			youAreUnloggedProducts();
 		}
-	}
-
+	};
 
 	const discountFunction = (price, discount) => {
 		let discPercentage = discount / 100;
@@ -65,25 +64,29 @@ function Product({
 		let result = Math.ceil(price - discPercentage);
 		return result;
 	};
-	const handleDeleteCartFav = ()=>{
+	const handleDeleteCartFav = () => {
 		if (hasJWT()) {
-			let favorite = user.favorite
-			const handler =favorite?.includes(id)
+			let favorite = user.favorite;
+			const handler = favorite?.includes(id);
 			if (handler) {
-				const updatedFavorites = user.favorite.filter((product) => product !== id)
-				dispatch(deleteFavoriteUser(updatedFavorites))
+				const updatedFavorites = user.favorite.filter(
+					(product) => product !== id
+				);
+				dispatch(deleteFavoriteUser(updatedFavorites));
 			}
 		}
-	}
+	};
 
 	const handleAddCartFav = () => {
 		if (hasJWT()) {
-			let favorite = user.favorite
-			const handler =favorite?.includes(id)
+			let favorite = user.favorite;
+			const handler = favorite?.includes(id);
 			if (!handler) {
-				console.log("agrega fav")
-				dispatch(updateFavoriteUser([id]))
+				console.log("agrega fav");
+				dispatch(updateFavoriteUser([id]));
 			}
+		} else {
+			youAreUnloggedFavorites();
 		}
 	};
 
