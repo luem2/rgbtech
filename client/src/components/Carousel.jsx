@@ -39,7 +39,7 @@ function Carousel() {
 				modules={[Autoplay, Pagination, Navigation]}
 			>
 				<div className="l-20">
-					<SwiperSlide className="flex justify-center items-center">
+					<SwiperSlide className="flex justify-center items-center h-screen">
 						<img
 							className="w-[1400px] h-[500px] mb-8"
 							src={imagnaryProducts[0]}
