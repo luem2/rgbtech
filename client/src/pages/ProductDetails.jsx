@@ -22,38 +22,11 @@ import {
 	youAreUnloggedProducts,
 } from "../components/Notifications";
 import { ToastContainer } from "react-toastify";
+import CarruselComments from "../components/CarruselComments";
+import Footer from "../components/Footer";
 import { getUserProfile, updateLastVisited } from "../store/slices/users/thunks"
 
-const testComments = [
-	{
-		rating: 4.3,
-		profilePhoto:
-			"https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg",
-		user: "Pablo",
-		comment: "tienen que mejorar",
-	},
-	{
-		rating: 3.4,
-		profilePhoto:
-			"https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg",
-		user: "Carlos",
-		comment: "Muy bonito me parecio todo",
-	},
-	{
-		rating: 5,
-		profilePhoto:
-			"https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg",
-		user: "Luis",
-		comment: "Que buen pf",
-	},
-	{
-		rating: 1,
-		profilePhoto:
-			"https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg",
-		user: "Marciana",
-		comment: "Inolvidable",
-	},
-];
+
 
 const ProductDetails = () => {
 	const { id } = useParams();
@@ -198,6 +171,7 @@ const ProductDetails = () => {
 									<p>{productDetails.description}</p>
 								</div>
 							</div>
+							
 							<div>
 								{hasJWT() ? (
 									<form
@@ -284,18 +258,14 @@ const ProductDetails = () => {
 									</form>
 								) : null}
 
-								{testComments?.map((comment, i) => {
-									//productDetails.comments(id, comment, rating, user, profilePhoto)
-									return (
-										<Comment
-											key={i}
-											rating={comment.rating}
-											profilePhoto={comment.profilePhoto}
-											user={comment.user}
-											comment={comment.comment}
-										/>
-									);
-								})}
+								
+
+								<div className="max-w-6xl">
+									<CarruselComments/>
+								</div>
+										
+										
+									
 							</div>
 						</div>
 					</div>
@@ -313,6 +283,7 @@ const ProductDetails = () => {
 				pauseOnHover
 				false
 			/>
+			<Footer/>
 		</div>
 	);
 };

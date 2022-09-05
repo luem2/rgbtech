@@ -87,19 +87,11 @@ export default function ModalHome({ showModal, setShowModal, login, setLogin}) {
 																		<div className="mr-2">
 																		<GoPrimitiveDot />
 																		</div>
-																		Los ultimos productos de tecnologia en un
+																		Los ultimos productos de br tecnologia en un
 																		solo lugar.
 																	</p>
 																</div>
 
-																<div className="ml-28  mb-4">
-																	<p className="flex items-center justify-center md:justify-start">
-																		{/* <div className="mr-2"> */}
-																		<GoPrimitiveDot />
-																		{/* </div> */}
-																		Comfortable
-																	</p>
-																</div>
 															</div>
 															<button
 																type="button"
