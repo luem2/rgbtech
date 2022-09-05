@@ -60,18 +60,17 @@ const ProductDetails = () => {
 	const [comment, setComment] = useState("");
 	const [rating, setRating] = useState("");
 	const { productDetails } = useSelector((state) => state.products);
-	const product = productDetails;
 
 	const handleAddCart = () => {
 		if (Boolean(cart.find((p) => p.id === id))) return;
 		else {
 			dispatch(
 				addProduct({
-					id: product.id,
-					img: product.img,
-					name: product.name,
-					price: product.price,
-					stock: product.stock,
+					id: productDetails.id,
+					img: productDetails.img,
+					name: productDetails.name,
+					price: productDetails.price,
+					stock: productDetails.stock,
 				})
 			);
 			productAddedNotification();
@@ -80,8 +79,33 @@ const ProductDetails = () => {
 
 	useEffect(() => {
 		dispatch(getProductById(id));
+
 		return () => {
-			dispatch(clearDetails());
+			let lastVisited = JSON.parse(window.localStorage.getItem("lastVisited"));
+			if (lastVisited === undefined || lastVisited === null) {
+				window.localStorage.setItem("lastVisited", JSON.stringify([]));
+				let setLastVisited = window.localStorage.getItem("lastVisited");
+				lastVisited = JSON.parse(setLastVisited);
+			}
+
+			console.log("lastVisited.length", lastVisited.length);
+			console.log(
+				"Si es TRUE, es porque no existe este producto en el arreglo de lastVisited",
+				!Boolean(lastVisited.find((p) => p.id === id))
+			);
+
+			if (!Boolean(lastVisited.find((p) => p.id === id))) {
+				//TODO: Validación para saber si hay 10 productos en el arreglo... if
+				console.log("productDetails", productDetails);
+				console.log("lastVisited DESPUES DE ENTRAR AL IF", lastVisited);
+				lastVisited.push({ ...productDetails });
+				console.log(
+					"----- lastVisited DESPUES DE HACERLE EL PUSH -----",
+					lastVisited
+				);
+				window.localStorage.setItem("lastVisited", JSON.stringify(lastVisited));
+			}
+			// dispatch(clearDetails());
 		};
 	}, [id]);
 
@@ -109,17 +133,18 @@ const ProductDetails = () => {
 						<div className="flex justify-around p-4 mt-2 mx-4 rounded-xl text-3xl">
 							<img
 								className="w-[25rem] h-[20rem] mb-4 rounded-3xl "
-								src={<Spinner /> && product.img}
-								alt={product.name}
+								src={<Spinner /> && productDetails.img}
+								alt={productDetails.name}
 							/>
 							<div className="flex flex-col m-4 gap-4 items-center">
 								<h1 className="text-5xl font-extrabold text-white-600 drop-shadow-lg shadow-black text-center">
-									{product.name}
+									{productDetails.name}
 								</h1>
 								<AiFillStar className="text-amber-400" />
-								<p>${product.price}</p>
+								<p>${productDetails.price}</p>
 								<p className="flex gap-2 items-center text-xl drop-shadow-lg shadow-black">
-									<MdOutlineShoppingCart /> Available Stock: {product.stock}
+									<MdOutlineShoppingCart /> Available Stock:{" "}
+									{productDetails.stock}
 								</p>
 								<p className="flex items-center gap-4 text-2xl">
 									

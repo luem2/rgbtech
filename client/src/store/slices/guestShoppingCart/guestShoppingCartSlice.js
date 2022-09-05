@@ -20,12 +20,14 @@ const guestShoppingCartSlice = createSlice({
 			const productFinded = state.cart.find((p) => p.id === action.payload);
 			if (productFinded.amount >= productFinded.stock) return;
 			productFinded.amount += 1;
+			productFinded.stock -= 1;
 		},
 
 		delUnitFromCart: (state, action) => {
 			const productFinded = state.cart.find((p) => p.id === action.payload);
 			if (productFinded.amount === 1) return;
 			productFinded.amount -= 1;
+			productFinded.stock += 1;
 		},
 
 		delProduct: (state, action) => {

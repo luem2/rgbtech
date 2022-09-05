@@ -65,7 +65,7 @@ const ModifyProfile = ({ closeModal }) => {
 	console.log("userData", userData);
 
 	return (
-		<Modal tailwindCSS={"bg-pink-500 bg-opacity-75"}>
+		<Modal tailwindCSS={"bg-pink-500 bg-opacity-100"}>
 			<div className="flex flex-col gap-3 text-white font-bold overflow-auto h-80 ">
 				<label className="font-semibold" htmlFor="user">
 					Username:
