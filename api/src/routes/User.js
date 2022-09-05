@@ -265,6 +265,29 @@ router.put("/deletefavorite/:id", async (req, res, next) => {
 	}
 });
 
+router.put("/puntuacion/:id", async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        let user =  await User.findByPk(id)
+		console.log(req.body)
+		valor = req.body.RGBpoint
+        const newpuntuacion = user.RGBpoint + valor
+        await User.update(
+            {
+                RGBpoint:newpuntuacion
+            },
+            {
+                where: {
+                    id: id,
+                },
+            }
+        );
+        res.send("User Confirmations");
+    } catch (error) {
+        next(error);
+    }
+});
+
 router.put("/newproductcart/:id", async (req, res, next) => {
 		try {
 			const {id} = req.params

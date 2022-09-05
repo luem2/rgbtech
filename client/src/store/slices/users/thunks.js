@@ -70,6 +70,18 @@ export const setShoppingHistory = (shoppings) => {
 	};
 };
 
+export const setUserPoint = (RGBpoint) => {
+    const token = window.localStorage.getItem("token");
+    const perfil = jwt(token);
+    return async () => {
+        try {
+            await axios.put(`users/puntuacion/${perfil.id}`, RGBpoint);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+};
+
 export const setCartShop = (cartShop) => {
 	const token = window.localStorage.getItem("token");
 	const perfil = jwt(token);
@@ -157,7 +169,6 @@ export const clearCartShop = () => {
 		}
 	};
 };
-
 export const updateLastVisited = (idp) => {
 	const token = window.localStorage.getItem("token");
 	const perfil = jwt(token);
@@ -170,3 +181,15 @@ export const updateLastVisited = (idp) => {
 		}
 	};
 };
+
+export const sendPassword = (perfil ,password) => {
+	
+	return async (dispatch) => {
+		try {
+			const response = await axios.put(`recoverPassword/${perfil.id}`,{password});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+};
+

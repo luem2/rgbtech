@@ -13,7 +13,7 @@ const users = [
   },
   {
     user: 'Andres',
-    mail: 'prueba22@gmail.com',
+    mail: 'andresyrg16@gmail.com',
     password: 'contraseña',
     userVerificate : true
   },

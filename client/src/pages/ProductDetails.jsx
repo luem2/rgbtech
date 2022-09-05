@@ -36,10 +36,10 @@ const ProductDetails = () => {
 	const [rating, setRating] = useState("");
 	const { productDetails } = useSelector((state) => state.products);
 	const product = productDetails;
-	const { user } = useSelector((state) => state.user)
-	let token 
-	let perfil 
-	if (hasJWT()){
+	const { user } = useSelector((state) => state.user);
+	let token;
+	let perfil;
+	if (hasJWT()) {
 		token = window.localStorage.getItem("token");
 		perfil = jwt(token);
 	}
@@ -61,35 +61,33 @@ const ProductDetails = () => {
 
 	useEffect(() => {
 		if (hasJWT()) {
-			dispatch(updateLastVisited(id))
+			dispatch(updateLastVisited(id));
 		}
 		dispatch(getProductById(id));
 
 		return () => {
-			let lastVisited = JSON.parse(window.localStorage.getItem("lastVisited"));
-			if (lastVisited === undefined || lastVisited === null) {
-				window.localStorage.setItem("lastVisited", JSON.stringify([]));
-				let setLastVisited = window.localStorage.getItem("lastVisited");
-				lastVisited = JSON.parse(setLastVisited);
-			}
-
-			console.log("lastVisited.length", lastVisited.length);
-			console.log(
-				"Si es TRUE, es porque no existe este producto en el arreglo de lastVisited",
-				!Boolean(lastVisited.find((p) => p.id === id))
-			);
-
-			if (!Boolean(lastVisited.find((p) => p.id === id))) {
-				//TODO: Validación para saber si hay 10 productos en el arreglo... if
-				console.log("productDetails", productDetails);
-				console.log("lastVisited DESPUES DE ENTRAR AL IF", lastVisited);
-				lastVisited.push({ ...productDetails });
-				console.log(
-					"----- lastVisited DESPUES DE HACERLE EL PUSH -----",
-					lastVisited
-				);
-				window.localStorage.setItem("lastVisited", JSON.stringify(lastVisited));
-			}
+			// let lastVisited = JSON.parse(window.localStorage.getItem("lastVisited"));
+			// if (lastVisited === undefined || lastVisited === null) {
+			// 	window.localStorage.setItem("lastVisited", JSON.stringify([]));
+			// 	let setLastVisited = window.localStorage.getItem("lastVisited");
+			// 	lastVisited = JSON.parse(setLastVisited);
+			// }
+			// console.log("lastVisited.length", lastVisited.length);
+			// console.log(
+			// 	"Si es TRUE, es porque no existe este producto en el arreglo de lastVisited",
+			// 	!Boolean(lastVisited.find((p) => p.id === id))
+			// );
+			// if (!Boolean(lastVisited.find((p) => p.id === id))) {
+			// 	//TODO: Validación para saber si hay 10 productos en el arreglo... if
+			// 	console.log("productDetails", productDetails);
+			// 	console.log("lastVisited DESPUES DE ENTRAR AL IF", lastVisited);
+			// 	lastVisited.push({ ...productDetails });
+			// 	console.log(
+			// 		"----- lastVisited DESPUES DE HACERLE EL PUSH -----",
+			// 		lastVisited
+			// 	);
+			// 	window.localStorage.setItem("lastVisited", JSON.stringify(lastVisited));
+			// }
 			// dispatch(clearDetails());
 		};
 	}, [id]);
@@ -132,8 +130,8 @@ const ProductDetails = () => {
 									{productDetails.stock}
 								</p>
 								<p className="flex items-center gap-4 text-2xl">
-
-									<IoMdHeartEmpty size={40}
+									<IoMdHeartEmpty
+										size={40}
 										className="hover:cursor-pointer hover:scale-110 duration-500 "
 										onClick={() =>
 											!hasJWT() ? youAreUnloggedFavorites() : null
@@ -147,7 +145,6 @@ const ProductDetails = () => {
 									<MdOutlineShoppingCart />
 									Agregar al Carrito
 								</CircleButton>
-
 							</div>
 						</div>
 						<div className="bg-gradient-to-r from-blue-900 to-pink-900 p-2 mt-2 mx-4 rounded-3xl flex flex-col justify-center items-center shadow-gray-700 shadow-md">
@@ -156,11 +153,14 @@ const ProductDetails = () => {
 									<h2 className="text-2xl font-bold mb-4">Characteristics:</h2>
 									<ul>
 										<li>
-											{Object.entries(productDetails.specifications[0]).map((e, i) => (
-												<p key={i}>
-													{e[0].charAt(0).toUpperCase() + e[0].slice(1)}: {e[1]}
-												</p>
-											))}
+											{Object.entries(productDetails.specifications[0]).map(
+												(e, i) => (
+													<p key={i}>
+														{e[0].charAt(0).toUpperCase() + e[0].slice(1)}:{" "}
+														{e[1]}
+													</p>
+												)
+											)}
 										</li>
 									</ul>
 								</div>
@@ -170,7 +170,7 @@ const ProductDetails = () => {
 									<p>{productDetails.description}</p>
 								</div>
 							</div>
-							
+
 							<div>
 								{hasJWT() ? (
 									<form
@@ -257,14 +257,9 @@ const ProductDetails = () => {
 									</form>
 								) : null}
 
-								
-
 								<div className="max-w-6xl">
-									<CarruselComments/>
+									<CarruselComments />
 								</div>
-										
-										
-									
 							</div>
 						</div>
 					</div>
@@ -282,7 +277,7 @@ const ProductDetails = () => {
 				pauseOnHover
 				false
 			/>
-			<Footer/>
+			<Footer />
 		</div>
 	);
 };
