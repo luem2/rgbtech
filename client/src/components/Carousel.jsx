@@ -22,7 +22,7 @@ const imagnaryProducts = [
 
 function Carousel() {
 	return (
-		<div className="flex w-[100%] place-items-center mb-5">
+		<div className="flex justify-center items-center w-[100%]">
 			<Swiper
 				slidesPerView={1}
 				spaceBetween={30}
@@ -39,49 +39,49 @@ function Carousel() {
 				modules={[Autoplay, Pagination, Navigation]}
 			>
 				<div className="l-20">
-					<SwiperSlide>
+					<SwiperSlide className="flex justify-center items-center">
 						<img
 							className="w-[1400px] h-[500px] mb-8"
 							src={imagnaryProducts[0]}
 						/>
 					</SwiperSlide>
-					<SwiperSlide>
+					<SwiperSlide className="flex justify-center items-center">
 						<img className="w-[1400px] h-[500px]" src={imagnaryProducts[1]} />
 					</SwiperSlide>
-					<SwiperSlide>
+					<SwiperSlide className="flex justify-center items-center">
 						<img className="w-[1400px] h-[500px]" src={imagnaryProducts[2]} />
 					</SwiperSlide>
-					<SwiperSlide>
+					<SwiperSlide className="flex justify-center items-center">
 						<img className="w-[1400px] h-[500px]" src={imagnaryProducts[3]} />
 					</SwiperSlide>
-					<SwiperSlide>
+					<SwiperSlide className="flex justify-center items-center">
 						<img className="w-[1400px] h-[500px]" src={imagnaryProducts[4]} />
 					</SwiperSlide>
-					<SwiperSlide>
+					<SwiperSlide className="flex justify-center items-center">
 						<img
 							className=" ml-10 w-[1300px] h-[500px]"
 							src={imagnaryProducts[5]}
 						/>
 					</SwiperSlide>
-					<SwiperSlide>
+					<SwiperSlide className="flex justify-center items-center">
 						<img
 							className="ml-12 w-[1300px] h-[500px]"
 							src={imagnaryProducts[6]}
 						/>
 					</SwiperSlide>
-					<SwiperSlide>
+					<SwiperSlide className="flex justify-center items-center">
 						<img
 							className="ml-10 w-[1400px] h-[500px]"
 							src={imagnaryProducts[7]}
 						/>
 					</SwiperSlide>
-					<SwiperSlide>
+					<SwiperSlide className="flex justify-center items-center">
 						<img className="w-[1400px] h-[500px]" src={imagnaryProducts[8]} />
 					</SwiperSlide>
-					<SwiperSlide>
+					<SwiperSlide className="flex justify-center items-center">
 						<img className="w-[1200px] h-[500px]" src={imagnaryProducts[9]} />
 					</SwiperSlide>
-					<SwiperSlide>
+					<SwiperSlide className="flex justify-center items-center">
 						<img
 							className="ml-12 w-[1200px] h-[500px]"
 							src={imagnaryProducts[10]}

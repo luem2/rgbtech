@@ -158,6 +158,7 @@ const ShoppingCart = () => {
 								id={i}
 								name={p.name}
 								img={p.img}
+								description={p.description.substring(0, 87) + "..."}
 								totalProductPrice={Math.round(p.price * p.amount)}
 								units={p.amount}
 								stock={p.stock}

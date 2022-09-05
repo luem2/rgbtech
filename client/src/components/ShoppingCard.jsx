@@ -6,6 +6,7 @@ const ShoppingCard = ({
 	name,
 	img,
 	units,
+	description,
 	addUnits,
 	subUnits,
 	delProduct,
@@ -22,9 +23,7 @@ const ShoppingCard = ({
 				/>
 				<div className="p-6 flex flex-col justify-start">
 					<h5 className="text-gray-900 text-xl font-medium mb-2">{name}</h5>
-					<p className="text-gray-700 text-base mb-4">
-						This is a special product of our RGBtech page for all our customers
-					</p>
+					<p className="text-gray-700 text-base mb-4">{description}</p>
 					<div className="flex justify-between items-center">
 						<p className="text-gray-600 text-xl font-bold">
 							${totalProductPrice}

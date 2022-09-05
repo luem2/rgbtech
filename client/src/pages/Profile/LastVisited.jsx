@@ -1,20 +1,25 @@
 import React from "react";
+import CardProduct from "./CardProduct";
 
 const LastVisited = () => {
+	const lastVisited = JSON.parse(window.localStorage.getItem("lastVisited"));
+
 	return (
-		<div className="ml-14">
-			<ul>
-				<li>1</li>
-				<li>2</li>
-				<li>3</li>
-				<li>4</li>
-				<li>5</li>
-				<li>6</li>
-				<li>7</li>
-				<li>8</li>
-				<li>9</li>
-				<li>10</li>
-			</ul>
+		<div className="flex flex-col justify-start items-center ml-14 h-screen overflow-auto mt-10">
+			<h1 className="text-5xl font-extrabold text-white-600 drop-shadow-lg shadow-black text-center mb-6">
+				Last visited:
+			</h1>
+			{lastVisited?.map((p, i) => (
+				<CardProduct
+					key={i}
+					id={p.id}
+					name={p.name}
+					img={p.img}
+					description={p.description?.substring(0, 35) + "..."}
+					rating={p.rating}
+					stock={p.stock}
+				/>
+			))}
 		</div>
 	);
 };

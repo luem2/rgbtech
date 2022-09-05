@@ -22,6 +22,7 @@ import { hasJWT } from "../store/thunks";
 function Product({
 	id,
 	name,
+	description,
 	price,
 	img,
 	onDiscount,
@@ -41,6 +42,7 @@ function Product({
 				addProduct({
 					id,
 					name,
+					description,
 					price,
 					img,
 					stock,
