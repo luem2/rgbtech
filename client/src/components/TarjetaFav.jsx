@@ -6,6 +6,7 @@ import { addProduct } from "../store/slices/guestShoppingCart/guestShoppingCartS
 import { deleteProductFav } from "../store/slices/products/productSlice";
 import { deleteFavoriteUser, updateProductCart } from "../store/slices/users/thunks";
 import { productAddedNotification,	youAreUnloggedProducts, } from "./Notifications";
+import { hasJWT } from "../store/thunks";
 
 const FavoriteCard = ({id, name, price, img}) => {
 	const { user } = useSelector((state) => state.user);

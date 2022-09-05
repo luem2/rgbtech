@@ -9,11 +9,9 @@ import axios from "axios";
 
 const Favorites = () => {
 	const [products, setProducts] = useState([])
-	const user = JSON.parse(window.localStorage.getItem("user"));
+	const user = useSelector((state) => state.user)
 	const disptach = useDispatch()
 	
-
-	console.log(user.favorite);
 	useEffect(() => {
 		const token = window.localStorage.getItem("token");
 		const perfil = jwt(token);
@@ -25,7 +23,6 @@ const Favorites = () => {
 		})
 		return;
 	}, [user])
-	console.log(products)
 
 
 	return (
