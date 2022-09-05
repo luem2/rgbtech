@@ -179,28 +179,3 @@ export const sendPassword = (perfil ,password) => {
 	};
 };
 
-<<<<<<< HEAD
-export const sendPassword = (perfil ,password) => {
-	
-	return async (dispatch) => {
-		try {
-			const response = await axios.put(`recoverPassword/${perfil.id}`,{password});
-		} catch (error) {
-			console.log(error);
-		}
-	};
-};
-=======
-export const updateLastVisited = (idp) => {
-	const token = window.localStorage.getItem("token");
-	const perfil = jwt(token);
-	return async (dispatch) => {
-		try {
-			await axios.put(`users/updateLastVisited/${perfil.id}`, { idp: idp });
-			dispatch(getUserProfile(perfil.id));
-		} catch (e) {
-			console.error(e);
-		}
-	};
-};
->>>>>>> 2d535de9a1ca1c386b67bd2ff0f1a4bf82f7a580
