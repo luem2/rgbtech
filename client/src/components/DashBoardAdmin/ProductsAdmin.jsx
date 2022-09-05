@@ -38,6 +38,8 @@ function ProductsAdmin() {
 			</Modal>
 	)
 
+	
+
 	const removeProduct = (id, disabled) => {
 		theAlert(id, disabled);
 	};
@@ -50,6 +52,7 @@ function ProductsAdmin() {
 		<>
 		{edit && 
 				    editProduct()
+					// (console.log(editProduct()))
 			        }
 			<table className="border-collapse w-[800px] mx-10">
 				<thead>

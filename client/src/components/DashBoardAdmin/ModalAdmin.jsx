@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
+import { AiOutlineClose} from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function ModalAdmin(props) {
+export default function ModalAdmin({props}) {
 
     const [form, setForm] = useState({})
     // const [form, setForm] = useState({
@@ -20,35 +21,43 @@ export default function ModalAdmin(props) {
     console.log(form);
     console.log(props);
 
-    useEffect(() => {
-        setForm({
-            id: props.id,
-            name: props.name,
-            price: props.price,
-            description: props.description,
-            img: props.img,
-            stock: props.stock,
-            onDiscount: props.onDiscount,
-            discountPercentage: props.discountPercentage,
-            freeShipping: props.freeShipping
-        })
-        console.log(props, 'hjsdfj');
-        console.log(form);
-        return () => {
-            setForm({})
-            console.log(form);
-        }
-    }, [])
+    // useEffect(() => {
+    //     setForm({
+    //         id: props.id,
+    //         name: props.name,
+    //         price: props.price,
+    //         description: props.description,
+    //         img: props.img,
+    //         stock: props.stock,
+    //         onDiscount: props.onDiscount,
+    //         discountPercentage: props.discountPercentage,
+    //         freeShipping: props.freeShipping
+    //     })
+    //     console.log(props, 'hjsdfj');
+    //     console.log(form);
+    //     return () => {
+    //         setForm({})
+    //         console.log(form);
+    //     }
+    // }, [])
 
 
 return (
     <div>
-<div className="mt-20 mb-20 flex justify-center ">
+<div className=" flex justify-center ">
         <div className="flex space-y-8">
-            <div className="w-full px-8 md:px-32 lg:px-24">
-            <form className="bg-white rounded-md shadow-2xl p-5">
+            <div className="w-full ">
+            <div className="absolute flex justify-end right-5 ">
+															<button
+																className=" rounded-full"
+																//onClick={() => setEdit(false)} 
+															>
+																<AiOutlineClose size={30} />
+															</button>
+														</div>
+            <form className="bg-white rounded-md p-5">
                 <h1 className="text-gray-800 font-bold text-2xl mb-1">Update product</h1>
-                <p className="text-sm font-normal text-gray-600 mb-8">Valor previo.</p>
+                <br />
                 <div className="flex items-center border-2 mb-2 py-2 px-3 rounded-2xl">
                 <input className=" pl-2 w-full outline-none border-none" value={form.name} type="text" placeholder="Name" />
                 </div>
