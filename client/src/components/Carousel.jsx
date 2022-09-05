@@ -23,7 +23,7 @@ const imagnaryProducts = [
 
 function Carousel() {
 	return (
-		<div className="flex w-[100%] mx-auto top-0 right-0 left-0 justify-between items-center mb-5 mx-0.5">
+		<div className="flex justify-center items-center w-[100%]">
 			<Swiper
 				slidesPerView={1}
 				spaceBetween={30}
