@@ -274,16 +274,12 @@ router.put("/newproductcart/:id", async (req, res, next) => {
 		try {
 			const {id} = req.params
 			const { newproductcart } = req.body;
-			console.log(newproductcart,"producto");
-			console.log(id,"id back");
 			const user = await User.findByPk(id);
 			let cartShop = user.dataValues.cartShop;
 			cartShop == null?cartShop=[]:null
 			if (!cartShop?.length) {
-				console.log("primer añadido");
 				cartShop = newproductcart;
 			} else {
-				console.log("segundo añadido");
 				cartShop = [...cartShop, newproductcart].flat();
 			}
 			await User.update(
@@ -406,19 +402,7 @@ router.post("/addComment", async (req, res) => {
 	}
 });
 
-router.get("/cartShop", async (req, res) => {
-	try {
-		const { cartShop } = req.body;
-		console.log(cartShop);
-		const products = await Product.findAll({
-			where: { id: cartShop },
-			attributes: { exclude: ["specifications", "sales"] },
-		});
-		res.send(products);
-	} catch (error) {
-		res.sendStatus(500);
-	};
-});
+
 
 
 module.exports = router;

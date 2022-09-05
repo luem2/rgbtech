@@ -41,19 +41,11 @@ function Product({
 	let Fav = user.favorite
 
 	const handleAddCart = () => {
-		let includes = []
-		let cart = user.cartShop
-		console.log(id, "id");
-
-
-		console.log("HOLAAA");
 		if (hasJWT()) {
-			let includes = []
-			user.cartShop ? includes = cart?.filter(p => p == id) : includes = null;
-			if (!includes) {
-
+			const cart = user.cartShop
+			const handler = cart?.includes(id)
+			if (!handler) {
 				dispatch(updateProductCart([id]))
-				dispatch(getUserProfile(perfil.id))
 			}else{
 				return;
 			}

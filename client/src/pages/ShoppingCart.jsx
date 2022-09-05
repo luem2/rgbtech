@@ -29,6 +29,7 @@ import { ToastContainer } from "react-toastify";
 import { hasJWT } from "../store/thunks";
 import axios from "axios";
 import { useState } from "react";
+import jwt from "jwt-decode";
 
 
 /* 
@@ -66,29 +67,6 @@ suscribirme al estado usuario
 		 */
 
 
-const sum = (products, discount,  setState) => {
-
-	if(!discount) {
-		const total = products.reduce((previous, current) => {
-			if(current.onDiscount){
-				return previous + current.price
-			}
-		}, 0)
-		console.log(total, 'total')
-		setState(total)
-	} else {
-		console.log(products)
-		const final = products.reduce((previous, current) => {
-			if(current.onDiscount){
-				return previous + (current.price - ((current.price * current.discountPercentage)/100))
-			} else {
-				return previous + current.price
-			}
-		}, 0)
-		console.log(final, 'final')
-		setState(final)
-	}
-}
 
 
 const ShoppingCart = () => {
@@ -99,15 +77,24 @@ const ShoppingCart = () => {
 	const [finalPrice, setFinalPrice] = useState(0)
 	
 	useEffect(() => {
-		const productsId = user.cartShop?.map((product) => {return product.id})
-		axios.post('/users/cartShop', {cartShop: productsId})
+		const token = window.localStorage.getItem("token");
+		const perfil = jwt(token);
+		axios.get(`/products/cartShop/${perfil.id}`)
 		.then(response => {
 			const respuesta = response.data.map((product) => {return {...product, amount: 1} } )
 			setProducts(respuesta)
-			console.log('seteando el total')
-			sum(products, false, setTotalPrice)
-			console.log('seteando el final')
-			sum(products, true, setFinalPrice)
+			const total = respuesta.reduce((previous, current) => {
+					return previous + current.price
+			}, 0)
+			setTotalPrice(total)
+			const final = respuesta.reduce((previous, current) => {
+				if(current.onDiscount){
+					return previous + (current.price - ((current.price * current.discountPercentage)/100))
+				} else {
+					return previous + current.price
+				}
+			}, 0)
+			setFinalPrice(final)
 		})
 	}, [user])
 
@@ -123,22 +110,47 @@ const ShoppingCart = () => {
 			else return product
 		})
 		setProducts(updatedProducts)
-		sum(products, false, setTotalPrice)
-		sum(products, true, setFinalPrice)
+
+		const total = updatedProducts.reduce((previous, current) => {
+			return previous + (current.price * current.amount)
+		}, 0)
+		setTotalPrice(total)
+		const final = updatedProducts.reduce((previous, current) => {
+			if(current.onDiscount){
+				return previous + ((current.price - ((current.price * current.discountPercentage)/100)) * current.amount) 
+			} else {
+				return previous + (current.price * current.amount)
+			}
+		}, 0)
+
+		setFinalPrice(final)
 	};
 
 	const subUnits = (id) => {
-		const updatedProducts = products.forEach((product) => {
+		const updatedProducts = products.map((product) => {
 			if(product.id === id) {
-				if(amount === 1) return
-				const amount = product.amount - 1
-				return {...product, amount}
+				if(product.amount == 1) {
+					return product
+				} else {
+					const amount = product.amount - 1
+					return {...product, amount}
+				}
 			}
 			return product
 		})
 		setProducts(updatedProducts)
-		sum(products, false, setTotalPrice, setFinalPrice)
-		sum(products, true, setTotalPrice, setFinalPrice)
+		const total = updatedProducts.reduce((previous, current) => {
+				return previous + current.price
+		}, 0)
+		setTotalPrice(total)
+		const final = updatedProducts.reduce((previous, current) => {
+			if(current.onDiscount){
+				return previous + (current.price - ((current.price * current.discountPercentage)/100))
+			} else {
+				return previous + current.price
+			}
+		}, 0)
+		setFinalPrice(final)
 	};
 
 	const removeProduct = (id) => {
@@ -191,16 +203,12 @@ const ShoppingCart = () => {
 							<h1 className="flex gap-2 text-4xl justify-center font-bold text-gray-400 mt-10 ml-12">Your <AiOutlineShoppingCart /> its empty! </h1>
 						</div>
 					</>
-					: <>			
-						<div className="flex flex-col items-center justify-center gap-2">
-							<h1 className="flex gap-2 text-4xl justify-center font-bold text-gray-400 mt-10 ml-12">Your <AiOutlineShoppingCart /> its empty! </h1>
-						</div>
-					</>
+					: null
 				}
 				</>
 			}
 
-			{products.length !== 0 ? 
+			{products?.length !== 0 ? 
 			<div className="flex flex-row justify-around items-start border-2 m-1">
 				<section className="flex flex-row justify-around items-center">
 					<div className="mt-4">
@@ -232,7 +240,7 @@ const ShoppingCart = () => {
 										delProduct={() => removeProduct(i)}
 									/>
 							  ))} */}
-						{products.map((p, i) => (
+						{products?.map((p, i) => (
 							<ShoppingCard
 								key={p.id}
 								id={i}
@@ -256,7 +264,7 @@ const ShoppingCart = () => {
 						))}
 					</div>
 				</section>
-				{products.length > 0 && (
+				{products?.length > 0 && (
 					<div className="flex flex-col justify-center gap-5 mt-4 items-center text-2xl font-bold">
 						<button
 							type="button"
