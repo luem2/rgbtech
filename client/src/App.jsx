@@ -16,7 +16,7 @@ import PaymentAcepted from "./components/Paypal/PaymentAcepted";
 import AboutTeam from "./pages/AboutTeam";
 import ModalHome from "./components/ModalHome";
 import PaymentCanceled from "./components/Paypal/PaymentCanceled";
-
+import RecoverPassword from "./pages/RecoverPassword";
 function App() {
 	return (
 		<>
@@ -35,6 +35,7 @@ function App() {
 					<Route path="/shoppingCart" element={<ShoppingCart />} />
 					<Route path="/productDetails/:id" element={<ProductDetails />} />
 					<Route path="/confirmation/:token" element={<ConfirmationSignup />} />
+					<Route path="recoverPassword/:token" element={<RecoverPassword/>}/>
 					<Route path="/order-successfully" element={<PaymentAcepted />} />
 					<Route path="/order-canceled" element={<PaymentCanceled />} />
 					<Route path="/modalhome" element={<ModalHome />} />

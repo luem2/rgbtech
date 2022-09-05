@@ -142,3 +142,14 @@ export const clearCartShop = () => {
 		}
 	};
 };
+
+export const sendPassword = (perfil ,password) => {
+	
+	return async (dispatch) => {
+		try {
+			const response = await axios.put(`recoverPassword/${perfil.id}`,{password});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+};
