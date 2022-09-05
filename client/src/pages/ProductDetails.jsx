@@ -15,12 +15,14 @@ import { clearDetails } from "../store/slices/products/productSlice";
 import { addProduct } from "../store/slices/guestShoppingCart/guestShoppingCartSlice";
 import Comment from "../components/Comment";
 import { hasJWT } from "../store/thunks/";
+import jwt from "jwt-decode";
 import {
 	productAddedNotification,
 	youAreUnloggedFavorites,
 	youAreUnloggedProducts,
 } from "../components/Notifications";
 import { ToastContainer } from "react-toastify";
+import { getUserProfile, updateLastVisited } from "../store/slices/users/thunks"
 
 const testComments = [
 	{
@@ -61,6 +63,13 @@ const ProductDetails = () => {
 	const [rating, setRating] = useState("");
 	const { productDetails } = useSelector((state) => state.products);
 	const product = productDetails;
+	const { user } = useSelector((state) => state.user)
+	let token 
+	let perfil 
+	if (hasJWT()){
+		token = window.localStorage.getItem("token");
+		perfil = jwt(token);
+	}
 
 	const handleAddCart = () => {
 		if (Boolean(cart.find((p) => p.id === id))) return;
@@ -79,6 +88,9 @@ const ProductDetails = () => {
 	};
 
 	useEffect(() => {
+		if (hasJWT()) {
+			dispatch(updateLastVisited(id))
+		}
 		dispatch(getProductById(id));
 		return () => {
 			dispatch(clearDetails());
@@ -101,7 +113,7 @@ const ProductDetails = () => {
 	return (
 		<div className="text-white">
 			<Header />
-			{!Object.keys(productDetails).length ? (
+			{productDetails && !Object.keys(productDetails).length ? (
 				<Spinner />
 			) : (
 				<div className="mx-10">
@@ -122,7 +134,7 @@ const ProductDetails = () => {
 									<MdOutlineShoppingCart /> Available Stock: {product.stock}
 								</p>
 								<p className="flex items-center gap-4 text-2xl">
-									
+
 									<IoMdHeartEmpty size={40}
 										className="hover:cursor-pointer hover:scale-110 duration-500 "
 										onClick={() =>
@@ -137,28 +149,28 @@ const ProductDetails = () => {
 									<MdOutlineShoppingCart />
 									Agregar al Carrito
 								</CircleButton>
-								
+
 							</div>
 						</div>
 						<div className="bg-gradient-to-r from-blue-900 to-pink-900 p-2 mt-2 mx-4 rounded-3xl flex flex-col justify-center items-center shadow-gray-700 shadow-md">
 							<div className="">
-							<div className="float-left mr-32 bg-gradient-to-r from-blue-500 to-pink-400 shadow-2xl flex flex-col w-96 justify-center items-center mt-6 rounded-lg p-7">
-							<h2 className="text-2xl font-bold mb-4">Characteristics:</h2>
-							<ul>
-								<li>
-									{Object.entries(productDetails.specifications[0]).map((e, i) => (
-								<p key={i}>
-									{e[0].charAt(0).toUpperCase() + e[0].slice(1)}: {e[1]}
-								</p>
-							))}
-								</li>
-							</ul>
-							</div>
-							<div className="bg-gradient-to-r from-blue-500 to-pink-400  shadow-2xl flex flex-col w-96 justify-center ml-52 items-center mt-6 rounded-lg p-7">
-								<hr />
-								<h2 className="text-2xl font-bold mb-4">Description:</h2>
-								<p>{productDetails.description}</p>
-							</div>
+								<div className="float-left mr-32 bg-gradient-to-r from-blue-500 to-pink-400 shadow-2xl flex flex-col w-96 justify-center items-center mt-6 rounded-lg p-7">
+									<h2 className="text-2xl font-bold mb-4">Characteristics:</h2>
+									<ul>
+										<li>
+											{Object.entries(productDetails.specifications[0]).map((e, i) => (
+												<p key={i}>
+													{e[0].charAt(0).toUpperCase() + e[0].slice(1)}: {e[1]}
+												</p>
+											))}
+										</li>
+									</ul>
+								</div>
+								<div className="bg-gradient-to-r from-blue-500 to-pink-400  shadow-2xl flex flex-col w-96 justify-center ml-52 items-center mt-6 rounded-lg p-7">
+									<hr />
+									<h2 className="text-2xl font-bold mb-4">Description:</h2>
+									<p>{productDetails.description}</p>
+								</div>
 							</div>
 							<div>
 								{hasJWT() ? (
