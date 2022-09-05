@@ -14,51 +14,55 @@ import {
 	updateProductCart,
 } from "../store/slices/users/thunks";
 import { productAddedNotification } from "./Notifications";
+import { hasJWT } from "../store/thunks";
 
 export default function Tarjeta({ id, img, tags, name, price, lastProduct }) {
-	const { cart } = useSelector((state) => state.guestShoppingCart);
-	const { favorito } = useSelector((state) => state.products);
-	const favoriteId = favorito.map((p) => p.id);
+
 	const dispatch = useDispatch();
+	const { user } = useSelector((state) => state.user)
 
 	const handleAddCart = () => {
-		if (Boolean(cart.find((p) => p.id === id))) return;
-		else {
-			dispatch(
-				addProduct(id)
-			);
-			productAddedNotification();
+		if (hasJWT()) {
+			const cart = user.cartShop
+			const handler = cart?.includes(id)
+			if (!handler) {
+				dispatch(updateProductCart([id]))
+			}else{
+				return;
+			}
 		}
-		dispatch(updateProductCart([id]));
+		else {
+			youAreUnloggedProducts();
+		}
 	};
 
-	const handleAddCartFav = () => {
-		if (favoriteId.includes(id)) return;
-		else {
-			dispatch(
-				addProductsFav({
-					id,
-					name,
-					price,
-					img,
-				})
-			);
-			console.log(id, "id en product");
-			dispatch(updateFavoriteUser(id));
-			favoriteId.push(id);
-		}
-		console.log(favorito);
-	};
-	const handleDeleteCartFav = () => {
-		if (favoriteId.includes(id)) {
-			const i = favoriteId.findIndex((p) => p === id);
-			console.log(i, "ada");
-			dispatch(deleteProductFav(i));
-			let favDelete = favorito.map((p) => p.id);
-			favDelete = favDelete.filter((p) => p !== id);
-			dispatch(deleteFavoriteUser(favDelete));
-		}
-	};
+	// const handleAddCartFav = () => {
+	// 	if (favoriteId.includes(id)) return;
+	// 	else {
+	// 		dispatch(
+	// 			addProductsFav({
+	// 				id,
+	// 				name,
+	// 				price,
+	// 				img,
+	// 			})
+	// 		);
+	// 		console.log(id, "id en product");
+	// 		dispatch(updateFavoriteUser(id));
+	// 		favoriteId.push(id);
+	// 	}
+	// 	console.log(favorito);
+	// };
+	// const handleDeleteCartFav = () => {
+	// 	if (favoriteId.includes(id)) {
+	// 		const i = favoriteId.findIndex((p) => p === id);
+	// 		console.log(i, "ada");
+	// 		dispatch(deleteProductFav(i));
+	// 		let favDelete = favorito.map((p) => p.id);
+	// 		favDelete = favDelete.filter((p) => p !== id);
+	// 		dispatch(deleteFavoriteUser(favDelete));
+	// 	}
+	// };
 
 	return (
 		<div
@@ -75,7 +79,7 @@ export default function Tarjeta({ id, img, tags, name, price, lastProduct }) {
 				<div className="p-6 flex flex-col justify-start">
 					<h5 className="text-gray-900 text-2xl font-medium mb-2">
 						{name}
-						{favoriteId && favoriteId.includes(id) ? (
+						{/* {favoriteId && favoriteId.includes(id) ? (
 							<button
 								onClick={handleDeleteCartFav}
 								className="cursor-pointer mr-2 px-2.5 py-0.5 ml-3"
@@ -89,7 +93,7 @@ export default function Tarjeta({ id, img, tags, name, price, lastProduct }) {
 							>
 								<AiOutlineHeart size={25} />
 							</button>
-						)}
+						)} */}
 					</h5>
 					<div className="flex">
 					<p className="text-pink-700 text-lg mb-4 font-bold">

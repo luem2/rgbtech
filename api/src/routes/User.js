@@ -303,8 +303,6 @@ router.put("/deleteproductcart/:id", async (req, res, next) => {
 		//Asegurarse de vaciar esta propiedad al ejecutar esta compra
 		const { id } = req.params;
 		const { deleteproductcart } = req.body;
-		console.log(req.body, "body delete");
-		console.log(deleteproductcart, "favorite delete");
 		await User.update(
 			{
 				cartShop: deleteproductcart,

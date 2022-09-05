@@ -54,7 +54,6 @@ function Product({
 		else {
 			youAreUnloggedProducts();
 		}
-
 	}
 
 
@@ -154,7 +153,7 @@ function Product({
 						>
 							Add to cart
 						</button>
-						{Fav && Fav.includes(id) ? (
+						{/* {Fav && Fav.includes(id) ? (
 							<button
 								onClick={handleDeleteCartFav}
 								className="cursor-pointer hover:scale-110 mr-2 px-2.5 py-0.5 ml-3 duration-300"
@@ -168,7 +167,7 @@ function Product({
 							>
 								<AiOutlineHeart size={25} />
 							</button>
-						)}
+						)} */}
 					</div>
 				</div>
 			</div>

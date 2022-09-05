@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../store/slices/guestShoppingCart/guestShoppingCartSlice";
 import { deleteProductFav } from "../store/slices/products/productSlice";
 import { deleteFavoriteUser, updateProductCart } from "../store/slices/users/thunks";
-import { productAddedNotification } from "./Notifications";
+import { productAddedNotification,	youAreUnloggedProducts, } from "./Notifications";
 
 const FavoriteCard = ({id, name, price, img}) => {
 
@@ -17,25 +17,19 @@ const FavoriteCard = ({id, name, price, img}) => {
 	console.log(id)
 
 	const handleAddCart = () => {
-		if (Boolean(cart.find((p) => p.id === id))) return;
-		else {
-			dispatch(
-				addProduct({
-					id,
-					name,
-					price,
-					img,
-				})
-			);
-			console.log(cart);
-			console.log(id);
-			productAddedNotification();
+		if (hasJWT()) {
+			const cart = user.cartShop
+			const handler = cart?.includes(id)
+			if (!handler) {
+				dispatch(updateProductCart([id]))
+			}else{
+				return;
+			}
 		}
-		dispatch(updateProductCart([id]));
+		else {
+			youAreUnloggedProducts();
+		}
 	};
-
-	
-
 
     const handleDeleteCartFav = () => {
 		if (favoriteId.includes(id)) {const i =favoriteId.findIndex(p=>p === id)

@@ -5,10 +5,6 @@ import { BsFillTrashFill } from "react-icons/bs";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import ShoppingCard from "../components/ShoppingCard";
 import {
-	addUnitToCart,
-	delUnitFromCart,
-	delProduct,
-	emptyCart,
 	setBuying,
 } from "../store/slices/guestShoppingCart/guestShoppingCartSlice";
 import { FaMoneyCheckAlt } from "react-icons/fa";
@@ -30,44 +26,6 @@ import { hasJWT } from "../store/thunks";
 import axios from "axios";
 import { useState } from "react";
 import jwt from "jwt-decode";
-
-
-/* 
-suscribirme al estado usuario
-	- si el usuario no está logueado, muestro un mensaje pidiendo que se registre a la pagina.
-	- si está logueado y el carro vacio, muestro mensaje
-	- si está logueado y tiene productos, muestros esos productos
-		-> carrito (del estado usuario) es un array de ids
-		-> petición axios a la ruta de ids
-		-> guardo la info en un estado local
-		-> renderizo ese estado local
-			-> modificar la funcionalidad de los botones añadir o quitar
-			-> creo un estado de redux llamado compra, que incluya el producto y la propiedad amount (ese estado se enviará a la ruta /sale)
-			-> por cada modificación guardo también este estado en el localStorage por si se reinicia la pagina
-		-> botones para limpiar todo el carrito, afecta la base de datos y el localStorage
-*/
-
-
-/* 
-		console.log(user)
-		if(hasJWT()){
-			const userLocalStorage = JSON.parse(window.localStorage.getItem("user"));
-			let userProfile;
-			function setUserProfile() {
-				if (Object.keys(user).length) {
-					userProfile = user;
-				} else {
-					userProfile = userLocalStorage;
-				}
-			}
-			setUserProfile();
-		} else {
-
-		}
-		 */
-
-
-
 
 const ShoppingCart = () => {
 	const dispatch = useDispatch();
@@ -98,9 +56,6 @@ const ShoppingCart = () => {
 		})
 	}, [user])
 
-
-
-	//funciones de añadir o eliminar 
 	const addUnits = (id) => {
 		const updatedProducts = products.map((product) => {
 			if(product.id === id) {
@@ -110,7 +65,6 @@ const ShoppingCart = () => {
 			else return product
 		})
 		setProducts(updatedProducts)
-
 		const total = updatedProducts.reduce((previous, current) => {
 			return previous + (current.price * current.amount)
 		}, 0)
@@ -154,7 +108,8 @@ const ShoppingCart = () => {
 	};
 
 	const removeProduct = (id) => {
-		dispatch(delProduct(id));
+		const updatedCartshop = user.cartShop.filter((product) => product !== id)
+		dispatch(deleteProductCart(updatedCartshop));
 		productRemovedNotification();
 	};
 
@@ -207,39 +162,10 @@ const ShoppingCart = () => {
 				}
 				</>
 			}
-
 			{products?.length !== 0 ? 
 			<div className="flex flex-row justify-around items-start border-2 m-1">
 				<section className="flex flex-row justify-around items-center">
 					<div className="mt-4">
-						{/* RENDER de cartas de productos */}
-						{/* {hasJWT()
-							? cartShop?.map((p, i) => {
-									<ShoppingCard
-										key={p.id}
-										id={i}
-										name={p.name}
-										img={p.img}
-										totalProductPrice={Math.round(p.price * p.amount)}
-										units={p.amount}
-										addUnits={() => addUnits(p.id)}
-										subUnits={() => subUnits(p.id)}
-										delProduct={() => removeProduct(i)}
-									/>;
-							  })
-							: cart.map((p, i) => (
-									<ShoppingCard
-										key={p.id}
-										id={i}
-										name={p.name}
-										img={p.img}
-										totalProductPrice={Math.round(p.price * p.amount)}
-										units={p.amount}
-										addUnits={() => addUnits(p.id)}
-										subUnits={() => subUnits(p.id)}
-										delProduct={() => removeProduct(i)}
-									/>
-							  ))} */}
 						{products?.map((p, i) => (
 							<ShoppingCard
 								key={p.id}
@@ -255,12 +181,7 @@ const ShoppingCart = () => {
 								stock={p.stock}
 								addUnits={() => addUnits(p.id)}
 								subUnits={() => subUnits(p.id)}
-								delProduct={() => {
-									removeProduct(i);
-									let producDelete = cart.map((a) => a.id);
-									producDelete = producDelete.filter((a) => a !== p.id);
-									dispatch(deleteProductCart(producDelete));
-								}}
+								delProduct={() => removeProduct(p.id)}
 							/>
 						))}
 					</div>
@@ -271,7 +192,6 @@ const ShoppingCart = () => {
 							type="button"
 							className="flex gap-1 px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
 							onClick={() => {
-								dispatch(emptyCart());
 								cartCleanedNotification();
 								dispatch(clearCartShop());
 							}}
