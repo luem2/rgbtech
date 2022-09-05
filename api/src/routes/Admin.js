@@ -280,7 +280,31 @@ router.put('brands/admin-update', async (req, res) => {
   } catch (error) {
     res.sendStatus(500)
   }
-})
+});
+
+router.put('products/update', async (req, res)=>{
+  try {
+    const {id, name, price, stock, description, onDiscount, discountPercentage, specifications, img, freeShipping} = req.body
+    Product.update({
+      id,
+      name,
+      price,
+      stock,
+      description,
+      onDiscount,
+      discountPercentage,
+      specifications,
+      img,
+      freeShipping
+    }, {
+      where: {
+        id: id
+      }
+    })
+  } catch (error) {
+    console.log(error)
+  }
+});
 
 
 

@@ -120,3 +120,14 @@ export const setShoppingUserHistory = (userId, products) => {
 		}
 	};
 };
+
+export const editProductAction = (payload) => {
+	return async (dispatch) => {
+		try {
+			await axios.put("admin/products/update", payload);
+            dispatch(productsAction());
+		} catch (error) {
+			console.log(error);
+		}
+	};
+};
