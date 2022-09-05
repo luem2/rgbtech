@@ -10,6 +10,7 @@ const validationPasswords = {
 
 function validation(input) {
   let errors = {};
+	console.log(input);
   if (!validationPasswords.password.test(input.nuevaContraseña)) {
     errors.nuevaContraseña = "contraseña no valida, intente denuevo"
   }
@@ -51,9 +52,14 @@ export default function RecoverPassword() {
 
 	function handlerSubmit(e) {
 		e.preventDefault();
+		if (!input.nuevaContraseña.length && !input.confirmacionDeContraseña.length) {
+			return alert("estos campos no pueden estar vacios")
+		} 
+		
 		if (input.nuevaContraseña !== input.confirmacionDeContraseña) {
 			return alert("la contraseñas no son iguales");
 		}
+
 		const contraseña = {
 			nuevaContraseña: input.nuevaContraseña,
 		};
@@ -64,7 +70,7 @@ export default function RecoverPassword() {
 
 	return (
 		<div>
-			<form onSubmit={(e) => handlerSubmit(e)}>
+			<form onSubmit={handlerSubmit}>
 				<div>
 					<h4>Nueva contraseña</h4>
 					<input
@@ -72,6 +78,7 @@ export default function RecoverPassword() {
 						placeholder="Enter your password"
 						value={input.nuevaContraseña}
 						name="nuevaContraseña"
+						required
 						onChange={(e) => handlerChange(e)}
 					/>
       {errors.nuevaContraseña && <p>{errors.nuevaContraseña}</p>}  
@@ -83,13 +90,14 @@ export default function RecoverPassword() {
 						placeholder="Enter your password"
 						value={input.confirmacionDeContraseña}
 						name="confirmacionDeContraseña"
+						required
 						onChange={(e) => handlerChange(e)}
 					/>
           { errors.confirmacionDeContraseña && <p>{errors.confirmacionDeContraseña}</p>}
 				</div>
-				<bottom type="submit" onClick={(e) => handlerSubmit(e)}>
+				<button type="submit" onClick={(e) => handlerSubmit(e)}>
 					enviar
-				</bottom>
+				</button>
 			</form>
       <br />
       <p>Minimo 8 caracteres</p>
