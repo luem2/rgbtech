@@ -10,7 +10,10 @@ import { RiHistoryLine } from "react-icons/ri";
 import { GrUserAdmin } from "react-icons/gr";
 import { FcApproval } from "react-icons/fc";
 import defaultImage from "../../assets/defaultImage.png";
-import { logoutNotification } from "../../components/Notifications";
+import {
+	loginWithGoogleNotification,
+	logoutNotification,
+} from "../../components/Notifications";
 import { ToastContainer } from "react-toastify";
 import ShoppingHistory from "../Profile/ShoppingHistory";
 import { clearFavorite } from "../../store/slices/products/productSlice";
@@ -84,7 +87,11 @@ const Profile = () => {
 						<button
 							type="button"
 							className="flex gap-2 justify-center items-center mt-3 px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-48"
-							onClick={() => setModifyProfile(true)}
+							onClick={
+								user.LogGoogle === false
+									? () => setModifyProfile(true)
+									: () => loginWithGoogleNotification()
+							}
 						>
 							<CgProfile /> Modify profile
 						</button>

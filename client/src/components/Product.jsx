@@ -15,6 +15,7 @@ import {
 	getUserProfile,
 } from "../store/slices/users/thunks";
 import {
+	productAddedFavoriteNotification,
 	productAddedNotification,
 	youAreUnloggedFavorites,
 	youAreUnloggedProducts,
@@ -50,6 +51,7 @@ function Product({
 			const handler = cart?.includes(id);
 			if (!handler) {
 				dispatch(updateProductCart([id]));
+				productAddedNotification();
 			} else {
 				return;
 			}
@@ -84,6 +86,7 @@ function Product({
 			if (!handler) {
 				console.log("agrega fav");
 				dispatch(updateFavoriteUser([id]));
+				productAddedFavoriteNotification();
 			}
 		} else {
 			youAreUnloggedFavorites();

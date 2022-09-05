@@ -30,6 +30,7 @@ import assignPoints from "./Rgbpoint";
 const ShoppingCart = () => {
 	const dispatch = useDispatch();
 	const { user } = useSelector((state) => state.user);
+	const { buying } = useSelector((state) => state.guestShoppingCart);
 	const [products, setProducts] = useState([]);
 	const [totalPrice, setTotalPrice] = useState(0);
 	const [finalPrice, setFinalPrice] = useState(0);
@@ -128,10 +129,10 @@ const ShoppingCart = () => {
 		// console.log(productsId);
 		// dispatch(setShoppingHistory(productsId));
 
-		console.log("userProfile", userProfile);
-		if (userProfile === null || Boolean(!Object.keys(userProfile).length)) {
-			return youAreUnloggedProducts();
-		}
+		// console.log("userProfile", userProfile);
+		// if (userProfile === null || Boolean(!Object.keys(userProfile).length)) {
+		// 	return youAreUnloggedProducts();
+		// }
 
 		const cartBuy = cart.map((p) => ({
 			reference_id: p.id,
@@ -224,11 +225,11 @@ const ShoppingCart = () => {
 									HandleClickBuy();
 								}}
 							>
-								{/* {buying ? (
-								<img className="h-4 w-4" src={loadingBuy} alt="buying" />
-							) : (
-								<FaMoneyCheckAlt />
-							)}{" "} */}
+								{buying ? (
+									<img className="h-4 w-4" src={loadingBuy} alt="buying" />
+								) : (
+									<FaMoneyCheckAlt />
+								)}{" "}
 								Buy Now!
 							</button>
 

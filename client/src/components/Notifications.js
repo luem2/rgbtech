@@ -89,6 +89,18 @@ export const productAddedNotification = () =>
 		progress: undefined,
 	});
 
+export const productAddedFavoriteNotification = () => {
+	toast.success("Product added to favorites!", {
+		position: "bottom-right",
+		autoClose: 2000,
+		hideProgressBar: false,
+		closeOnClick: true,
+		pauseOnHover: false,
+		draggable: true,
+		progress: undefined,
+	});
+};
+
 export const productRemovedNotification = () =>
 	toast.success("Product removed successfully! 🛒", {
 		position: "bottom-right",
@@ -154,3 +166,17 @@ export const emailConfirmatedNotification = () =>
 		draggable: true,
 		progress: undefined,
 	});
+
+export const loginWithGoogleNotification = () =>
+	toast.success(
+		"You cannot modify the profile when you are logged in with Google ❌ ",
+		{
+			position: "top-right",
+			autoClose: 3000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: false,
+			draggable: true,
+			progress: undefined,
+		}
+	);

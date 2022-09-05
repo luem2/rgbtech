@@ -21,7 +21,7 @@ const ShoppingHistory = () => {
 					/>
 				))
 			) : (
-				<h2>No ha visitado productos</h2>
+				<h2>No purchases detected</h2>
 			)}
 		</div>
 	);
