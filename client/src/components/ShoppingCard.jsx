@@ -7,6 +7,7 @@ const ShoppingCard = ({
 	name,
 	img,
 	units,
+	description,
 	addUnits,
 	subUnits,
 	delProduct,

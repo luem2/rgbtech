@@ -98,6 +98,7 @@ const CategoriesCarousel = () => {
 											key={product.id}
 											id={product.id}
 											name={product.name}
+											description={product.description}
 											img={product.img}
 											price={product.price}
 											stock={product.stock}
@@ -113,6 +114,7 @@ const CategoriesCarousel = () => {
 											key={product.id}
 											id={product.id}
 											name={product.name}
+											description={product.description}
 											img={product.img}
 											price={product.price}
 											stock={product.stock}

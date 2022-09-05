@@ -41,6 +41,7 @@ export const confirmationEmail = (user) => {
 };
 
 export const getUserProfile = (id) => {
+	
 	return async (dispatch) => {
 		try {
 			if(!id){
@@ -158,6 +159,15 @@ export const clearCartShop = () => {
 	};
 };
 
-
-
-
+export const updateLastVisited = (idp) => {
+	const token = window.localStorage.getItem("token");
+	const perfil = jwt(token);
+	return async (dispatch) => {
+		try {
+			await axios.put(`users/updateLastVisited/${perfil.id}`, { idp: idp });
+			dispatch(getUserProfile(perfil.id));
+		} catch (e) {
+			console.error(e);
+		}
+	};
+};

@@ -42,7 +42,7 @@ const Profile = () => {
 				<ModifyProfile closeModal={() => setModifyProfile(false)} />
 			)}
 			<Header />
-			<div className="flex justify-start items-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-3xl shadow-2xl text-white mx-10 p-5">
+			<div className="flex justify-around items-start bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-3xl shadow-2xl text-white mx-10 p-5">
 				<div className="shadow-2xl rounded-3xl p-2 w-80">
 					<div className="flex flex-col justify-center items-center shadow-xl p-3 rounded-3xl drop-shadow-2xl">
 						<h1 className="font-extrabold text-3xl">{"👨‍🚀" + user.user}</h1>
@@ -108,7 +108,13 @@ const Profile = () => {
 						</button>
 					</div>
 				</div>
-				{section === "shoppingHistory" ? <ShoppingHistory /> : <LastVisited />}
+				<div className="flex justify-center items-center">
+					{section === "shoppingHistory" ? (
+						<ShoppingHistory />
+					) : (
+						<LastVisited />
+					)}
+				</div>
 			</div>
 			<ToastContainer
 				position="top-right"

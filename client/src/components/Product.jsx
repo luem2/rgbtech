@@ -23,6 +23,7 @@ import { hasJWT } from "../store/thunks";
 function Product({
 	id,
 	name,
+	description,
 	price,
 	img,
 	onDiscount,
@@ -55,6 +56,7 @@ function Product({
 		}
 
 	}
+
 
 	const discountFunction = (price, discount) => {
 		let discPercentage = discount / 100;

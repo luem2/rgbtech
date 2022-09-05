@@ -146,6 +146,7 @@ router.get("/profile/:id", validateToken, async (req, res) => {
 			cartShop: user.cartShop,
 			favorite: user.favorite,
 			isAdmin: user.isAdmin,
+			lastVisited:user.lastVisited
 		};
 		res.json(profile);
 	} catch (error) {
@@ -404,5 +405,29 @@ router.post("/addComment", async (req, res) => {
 
 
 
+
+router.put("/updateLastVisited/:id", async (req, res, next) => {
+	try {
+		const { id } = req.params;
+		const { idp } = req.body;
+		console.log(id)
+		const user = await User.findByPk(id);
+		let lastVisited = user.dataValues.lastVisited
+		if( lastVisited && lastVisited.length > 13){
+			lastVisited.splice(-1,1)
+		}
+		await User.update(
+			{
+				lastVisited: [idp,...lastVisited]
+			},
+			{
+				where: {id: id}
+			}
+		);
+		res.send("User Confirmations");
+	} catch (error) {
+		next(error);
+	}
+});
 
 module.exports = router;
