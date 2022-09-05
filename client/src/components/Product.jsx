@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineHeart, AiOutlineSmallDash } from "react-icons/ai";
 import { addProduct } from "../store/slices/guestShoppingCart/guestShoppingCartSlice";
 import { useDispatch, useSelector } from "react-redux";
+import jwt from "jwt-decode";
 import {
 	deleteProductFav,
 	addProductsFav,
@@ -11,6 +12,7 @@ import {
 	updateFavoriteUser,
 	deleteFavoriteUser,
 	updateProductCart,
+	getUserProfile,
 } from "../store/slices/users/thunks";
 import {
 	productAddedNotification,
@@ -29,29 +31,32 @@ function Product({
 	freeShipping,
 	stock,
 }) {
-	const { cart } = useSelector((state) => state.guestShoppingCart);
-	const { favorito } = useSelector((state) => state.products);
-	const favoriteId = favorito.map((p) => p.id);
+	const { user } = useSelector((state) => state.user)
 	const dispatch = useDispatch();
+	let FavoriteProduct = user.favorite
+	
+	let token_jwt
+	let perfil
+	if (hasJWT()) {
+		token_jwt = window.localStorage.getItem("token");
+		perfil = jwt(token_jwt);
+	}
+	let Fav = user.favorite
 
 	const handleAddCart = () => {
-		if (Boolean(cart.find((p) => p.id === id))) return;
-		else {
-			dispatch(
-				addProduct({
-					id,
-					name,
-					description,
-					price,
-					img,
-					stock,
-				})
-			);
-			console.log(cart);
-			productAddedNotification();
+		if (hasJWT()) {
+			const cart = user.cartShop
+			const handler = cart?.includes(id)
+			if (!handler) {
+				dispatch(updateProductCart([id]))
+			}else{
+				return;
+			}
 		}
-		dispatch(updateProductCart([id]));
-	};
+		else {
+			youAreUnloggedProducts();
+		}
+	}
 
 
 	const discountFunction = (price, discount) => {
@@ -60,38 +65,25 @@ function Product({
 		let result = Math.ceil(price - discPercentage);
 		return result;
 	};
+	const handleDeleteCartFav = ()=>{
+		if (hasJWT()) {
+			let favorite = user.favorite
+			const handler =favorite?.includes(id)
+			if (handler) {
+				const updatedFavorites = user.favorite.filter((product) => product !== id)
+				dispatch(deleteFavoriteUser(updatedFavorites))
+			}
+		}
+	}
 
 	const handleAddCartFav = () => {
-		if (favoriteId.includes(id)) return;
-		if (!hasJWT()) {
-			youAreUnloggedProducts();
-		} else {
-			dispatch(
-				addProductsFav({
-					id,
-					name,
-					price,
-					img,
-				})
-			);
-			console.log(id, "id en product");
-			dispatch(updateFavoriteUser({
-				id,
-				name,
-				price,
-				img,
-			}));
-			favoriteId.push(id);
-		}
-	};
-	const handleDeleteCartFav = () => {
-		if (favoriteId.includes(id)) {
-			const i = favoriteId.findIndex((p) => p === id);
-			console.log(i, "ada");
-			dispatch(deleteProductFav(i));
-			let favDelete = favorito.map((p) => p.id);
-			favDelete = favDelete.filter((p) => p !== id);
-			dispatch(deleteFavoriteUser(favDelete));
+		if (hasJWT()) {
+			let favorite = user.favorite
+			const handler =favorite?.includes(id)
+			if (!handler) {
+				console.log("agrega fav")
+				dispatch(updateFavoriteUser([id]))
+			}
 		}
 	};
 
@@ -140,7 +132,7 @@ function Product({
 						>
 							Add to cart
 						</button>
-						{favoriteId && favoriteId.includes(id) ? (
+						{FavoriteProduct?.includes(id) ? (
 							<button
 								onClick={handleDeleteCartFav}
 								className="cursor-pointer hover:scale-110 mr-2 px-2.5 py-0.5 ml-3 duration-300"

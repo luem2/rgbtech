@@ -1,6 +1,6 @@
 import axios from "axios";
 import jwt from "jwt-decode";
-import { getLoggedUser } from "../users/userSlice";
+import { getLoggedUser } from "../users/userSlice"
 
 export const setAuthToken = (token) => {
 	if (token) {
@@ -14,6 +14,16 @@ export const postUser = (userCreated) => {
 	return async () => {
 		try {
 			await axios.post("users/register", userCreated);
+		} catch (e) {
+			console.error(e);
+		}
+	};
+};
+
+export const postUserGoogle = (userCreated) => {
+	return async () => {
+		try {
+			await axios.post("users/registerGoogle", userCreated);
 		} catch (e) {
 			console.error(e);
 		}
@@ -34,7 +44,13 @@ export const getUserProfile = (id) => {
 	
 	return async (dispatch) => {
 		try {
+			if(!id){
+		const token_jwt = window.localStorage.getItem("token");
+		const perfil = jwt(token_jwt);
+		id = perfil.id
+			}
 			const response = await axios.get(`users/profile/${id}`);
+			console.log("aasdasd");
 			dispatch(getLoggedUser(response.data));
 		} catch (error) {
 			console.log(error);
@@ -84,9 +100,8 @@ export const updateFavoriteUser = (newfavorite) => {
 	const perfil = jwt(token);
 	return async (dispatch) => {
 		try {
-			console.log(perfil.id);
-			await axios.put(`users/favorite/${perfil.id}`, {
-				newfavorite: newfavorite,
+			await axios.put(`users/favourites/${perfil.id}`, {
+				newfavorite: newfavorite
 			});
 			dispatch(getUserProfile(perfil.id));
 		} catch (e) {
@@ -116,7 +131,6 @@ export const updateProductCart = (newproductcart) => {
 	const perfil = jwt(token);
 	return async (dispatch) => {
 		try {
-			console.log(perfil.id);
 			await axios.put(`users/newproductcart/${perfil.id}`, {
 				newproductcart: newproductcart,
 			});
