@@ -6,7 +6,8 @@
 	left: 0;
 	width: 100%;
 	min-height: 100vh;
-	background-color: rgba(0, 0, 0, 0.3);
+	//background-color: rgba(0, 0, 0, 0.3);
+	background: transparent;
 	justify-content: center;
 	align-items: center;
 }
@@ -20,7 +21,7 @@
 	max-height: 600px;
 	overflow-y: auto;
 	border-radius: 5px;
-	box-shadow: 2px 4px 10px rgb(0, 0, 0, 0.7);
+	//box-shadow: 2px 4px 10px rgb(0, 0, 0, 0.7);
 }
 
 @media screen and (max-width: 440px) {

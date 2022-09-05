@@ -5,9 +5,13 @@ import {
 	changeProductStateAction,
 } from "../../store/slices/admin/thunk";
 import Swal from "sweetalert2";
+import { useState } from "react";
+import ModalAdmin from "./ModalAdmin";
+import Modal from "../Modal/Modal";
 
 function ProductsAdmin() {
 	const { products } = useSelector((state) => state.admin);
+	const [edit, setEdit] = useState(false)
 
 	const dispatch = useDispatch();
 
@@ -27,6 +31,13 @@ function ProductsAdmin() {
 			}
 		});
 
+	const editProduct = (element) => (
+			<Modal tailwindCSS={'bg-white'} closeModal={() => setEdit(false)}>
+			{console.log(element)}
+			<ModalAdmin props={element}/>
+			</Modal>
+	)
+
 	const removeProduct = (id, disabled) => {
 		theAlert(id, disabled);
 	};
@@ -37,6 +48,9 @@ function ProductsAdmin() {
 
 	return (
 		<>
+		{edit && 
+				    editProduct()
+			        }
 			<table className="border-collapse w-[800px] mx-10">
 				<thead>
 					<tr>
@@ -138,7 +152,7 @@ function ProductsAdmin() {
 											Actions
 										</span> */}
 										<button
-											onClick={() => editProduct(element.id)}
+											onClick={() => {setEdit(true); editProduct(element)}}
 											className="text-blue-500 font-bold hover:underline w-full h-full hover:scale-110"
 										>
 											Edit
