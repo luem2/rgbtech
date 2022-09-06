@@ -6,52 +6,26 @@ import { getProductById } from "../store/slices/products/thunks";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { IoMdHeartEmpty, IoMdHeart } from "react-icons/io";
 import { AiFillStar } from "react-icons/ai";
-import { BsCheckLg } from "react-icons/bs";
 import Spinner from "../components/Spinner";
 import Header from "../components/Header/Header";
 import CircleButton from "../components/Buttons/CircleButton";
-import SquareButton from "../components/Buttons/SquareButton";
 import { clearDetails } from "../store/slices/products/productSlice";
-import { addProduct } from "../store/slices/guestShoppingCart/guestShoppingCartSlice";
 import Comment from "../components/Comment";
 import { hasJWT } from "../store/thunks/";
+import jwt from "jwt-decode";
 import {
 	productAddedNotification,
 	youAreUnloggedFavorites,
 	youAreUnloggedProducts,
 } from "../components/Notifications";
 import { ToastContainer } from "react-toastify";
-
-const testComments = [
-	{
-		rating: 4.3,
-		profilePhoto:
-			"https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg",
-		user: "Pablo",
-		comment: "tienen que mejorar",
-	},
-	{
-		rating: 3.4,
-		profilePhoto:
-			"https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg",
-		user: "Carlos",
-		comment: "Muy bonito me parecio todo",
-	},
-	{
-		rating: 5,
-		profilePhoto:
-			"https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg",
-		user: "Luis",
-		comment: "Que buen pf",
-	},
-	{
-		rating: 1,
-		profilePhoto:
-			"https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg",
-		user: "Marciana",
-		comment: "Inolvidable",
-	},
-];
+import CarruselComments from "../components/CarruselComments";
+import Footer from "../components/Footer";
+import {
+	getUserProfile,
+	updateLastVisited,
+	updateProductCart,
+} from "../store/slices/users/thunks";
 
 const ProductDetails = () => {
 	const { id } = useParams();
@@ -61,26 +35,57 @@ const ProductDetails = () => {
 	const [rating, setRating] = useState("");
 	const { productDetails } = useSelector((state) => state.products);
 	const product = productDetails;
-
+	const { user } = useSelector((state) => state.user);
+	let token;
+	let perfil;
+	if (hasJWT()) {
+		token = window.localStorage.getItem("token");
+		perfil = jwt(token);
+	}
 	const handleAddCart = () => {
-		if (Boolean(cart.find((p) => p.id === id))) return;
-		else {
-			dispatch(
-				addProduct({
-					id: product.id,
-					img: product.img,
-					name: product.name,
-					price: product.price,
-					stock: product.stock,
-				})
-			);
-			productAddedNotification();
+		console.log("hola");
+		if (hasJWT()) {
+			const cart = user.cartShop;
+			const handler = cart?.includes(id);
+			if (!handler) {
+				dispatch(updateProductCart([id]));
+			} else {
+				return;
+			}
+		} else {
+			youAreUnloggedProducts();
 		}
 	};
 
 	useEffect(() => {
+		if (hasJWT()) {
+			dispatch(updateLastVisited(id));
+		}
 		dispatch(getProductById(id));
+
 		return () => {
+			// let lastVisited = JSON.parse(window.localStorage.getItem("lastVisited"));
+			// if (lastVisited === undefined || lastVisited === null) {
+			// 	window.localStorage.setItem("lastVisited", JSON.stringify([]));
+			// 	let setLastVisited = window.localStorage.getItem("lastVisited");
+			// 	lastVisited = JSON.parse(setLastVisited);
+			// }
+			// console.log("lastVisited.length", lastVisited.length);
+			// console.log(
+			// 	"Si es TRUE, es porque no existe este producto en el arreglo de lastVisited",
+			// 	!Boolean(lastVisited.find((p) => p.id === id))
+			// );
+			// if (!Boolean(lastVisited.find((p) => p.id === id))) {
+			// 	//TODO: Validación para saber si hay 10 productos en el arreglo... if
+			// 	console.log("productDetails", productDetails);
+			// 	console.log("lastVisited DESPUES DE ENTRAR AL IF", lastVisited);
+			// 	lastVisited.push({ ...productDetails });
+			// 	console.log(
+			// 		"----- lastVisited DESPUES DE HACERLE EL PUSH -----",
+			// 		lastVisited
+			// 	);
+			// 	window.localStorage.setItem("lastVisited", JSON.stringify(lastVisited));
+			// }
 			dispatch(clearDetails());
 		};
 	}, [id]);
@@ -101,7 +106,7 @@ const ProductDetails = () => {
 	return (
 		<div className="text-white">
 			<Header />
-			{!Object.keys(productDetails).length ? (
+			{productDetails && !Object.keys(productDetails).length ? (
 				<Spinner />
 			) : (
 				<div className="mx-10">
@@ -109,21 +114,22 @@ const ProductDetails = () => {
 						<div className="flex justify-around p-4 mt-2 mx-4 rounded-xl text-3xl">
 							<img
 								className="w-[25rem] h-[20rem] mb-4 rounded-3xl "
-								src={<Spinner /> && product.img}
-								alt={product.name}
+								src={<Spinner /> && productDetails.img}
+								alt={productDetails.name}
 							/>
 							<div className="flex flex-col m-4 gap-4 items-center">
 								<h1 className="text-5xl font-extrabold text-white-600 drop-shadow-lg shadow-black text-center">
-									{product.name}
+									{productDetails.name}
 								</h1>
 								<AiFillStar className="text-amber-400" />
-								<p>${product.price}</p>
+								<p>${productDetails.price}</p>
 								<p className="flex gap-2 items-center text-xl drop-shadow-lg shadow-black">
-									<MdOutlineShoppingCart /> Available Stock: {product.stock}
+									<MdOutlineShoppingCart /> Available Stock:{" "}
+									{productDetails.stock}
 								</p>
 								<p className="flex items-center gap-4 text-2xl">
-									
-									<IoMdHeartEmpty size={40}
+									<IoMdHeartEmpty
+										size={40}
 										className="hover:cursor-pointer hover:scale-110 duration-500 "
 										onClick={() =>
 											!hasJWT() ? youAreUnloggedFavorites() : null
@@ -137,29 +143,32 @@ const ProductDetails = () => {
 									<MdOutlineShoppingCart />
 									Agregar al Carrito
 								</CircleButton>
-								
 							</div>
 						</div>
 						<div className="bg-gradient-to-r from-blue-900 to-pink-900 p-2 mt-2 mx-4 rounded-3xl flex flex-col justify-center items-center shadow-gray-700 shadow-md">
 							<div className="">
-							<div className="float-left mr-32 bg-gradient-to-r from-blue-500 to-pink-400 shadow-2xl flex flex-col w-96 justify-center items-center mt-6 rounded-lg p-7">
-							<h2 className="text-2xl font-bold mb-4">Characteristics:</h2>
-							<ul>
-								<li>
-									{Object.entries(productDetails.specifications[0]).map((e, i) => (
-								<p key={i}>
-									{e[0].charAt(0).toUpperCase() + e[0].slice(1)}: {e[1]}
-								</p>
-							))}
-								</li>
-							</ul>
+								<div className="float-left bg-gradient-to-r h-96 from-blue-500 to-pink-400  flex flex-col w-96 justify-center items-center mt-6 rounded-l-2xl	 p-7">
+									<h2 className="text-2xl font-bold mb-4">Characteristics:</h2>
+									<ul>
+										<li>
+											{Object.entries(productDetails.specifications[0]).map(
+												(e, i) => (
+													<p key={i}>
+														{e[0].charAt(0).toUpperCase() + e[0].slice(1)}:{" "}
+														{e[1]}
+													</p>
+												)
+											)}
+										</li>
+									</ul>
+								</div>
+								<div className="bg-gradient-to-r h-96 from-pink-400 to-blue-500  shadow-2xl flex flex-col w-96 justify-center ml-52 items-center mt-6 rounded-r-2xl p-7">
+									<hr />
+									<h2 className="text-2xl font-bold mb-4">Description:</h2>
+									<p>{productDetails.description}</p>
+								</div>
 							</div>
-							<div className="bg-gradient-to-r from-blue-500 to-pink-400  shadow-2xl flex flex-col w-96 justify-center ml-52 items-center mt-6 rounded-lg p-7">
-								<hr />
-								<h2 className="text-2xl font-bold mb-4">Description:</h2>
-								<p>{productDetails.description}</p>
-							</div>
-							</div>
+
 							<div>
 								{hasJWT() ? (
 									<form
@@ -246,18 +255,9 @@ const ProductDetails = () => {
 									</form>
 								) : null}
 
-								{testComments?.map((comment, i) => {
-									//productDetails.comments(id, comment, rating, user, profilePhoto)
-									return (
-										<Comment
-											key={i}
-											rating={comment.rating}
-											profilePhoto={comment.profilePhoto}
-											user={comment.user}
-											comment={comment.comment}
-										/>
-									);
-								})}
+								<div className="max-w-6xl">
+									<CarruselComments />
+								</div>
 							</div>
 						</div>
 					</div>
@@ -275,6 +275,7 @@ const ProductDetails = () => {
 				pauseOnHover
 				false
 			/>
+			<Footer />
 		</div>
 	);
 };

@@ -9,6 +9,8 @@ const {
 	sendConfirmationEmail,
 	checkLoginBody,
 	checkUserRegistration,
+	checkUserRegistrationGoogle,
+	uploadExistingUserPhoto,
 } = require("../middlewares/userMiddleware.js");
 const { htmlMail } = require("../Utils/EmailTemplate.js");
 
@@ -35,6 +37,47 @@ router.post(
 	}
 );
 
+router.post("/registerGoogle", async (req, res) => {
+	try {
+		let { user, mail, profilePhoto, password } = req.body;
+		const findedUser = await User.findOne({
+			where: {
+				mail: mail,
+			},
+		});
+		if (!findedUser) {
+			const hashedPassword = await bcrypt.hash(password, 10);
+			const newUser = await User.create({
+				user,
+				profilePhoto,
+				mail,
+				password: hashedPassword,
+				userVerificate: true,
+				LogGoogle: true,
+			});
+			const { id, cartShop, favorite } = newUser;
+			const infoFront = { id: id, cartShop: cartShop, favorite: favorite };
+			const accessToken = jwt.sign(infoFront, process.env.SECRET);
+			console.log(accessToken);
+			return res.status(200).json({
+				mssage: "usuario autenticado",
+				token: accessToken,
+			});
+		} else {
+			const { id, cartShop, favorite } = findedUser.dataValues;
+			const infoFront = { id: id, cartShop: cartShop, favorite: favorite };
+			const accessToken = jwt.sign(infoFront, process.env.SECRET);
+			console.log(accessToken);
+			return res.status(200).json({
+				mssage: "usuario autenticado",
+				token: accessToken,
+			});
+		}
+	} catch (error) {
+		return res.send(error);
+	}
+});
+
 router.post(
 	"/login",
 	checkLoginBody,
@@ -43,12 +86,9 @@ router.post(
 		try {
 			const { findedUser, logged } = req.body;
 			if (logged) {
-				const { id, user, mail, profilePhoto, cartShop, favorite, isAdmin } =
-					findedUser;
-				const logedUser = {
-					id,
-				};
-				const accessToken = jwt.sign(logedUser, process.env.SECRET);
+				const { id, cartShop, favorite } = findedUser;
+				const infoFront = { id: id, cartShop: cartShop, favorite: favorite };
+				const accessToken = jwt.sign(infoFront, process.env.SECRET);
 				return res.status(200).json({
 					mssage: "usuario autenticado",
 					token: accessToken,
@@ -60,21 +100,84 @@ router.post(
 	}
 );
 
+// router.post("/loginGoogle", findOrCreate,async (req, res) => {
+// 		try {
+// 			const { mail } = req.body;
+// 			console.log(req.body,"ee")
+// 			const user = await User.findOne({
+// 				where: {
+// 					mail: mail,
+// 				},
+// 			});
+// 			if (user) {
+// 				const { id } = user.dataValues
+// 				const logedUser = {id
+// 					// id,
+// 					// user,
+// 					// mail,
+// 					// profilePhoto,
+
+// 					// isAdmin,
+// 				}
+// 				const accessToken = jwt.sign(logedUser, process.env.SECRET);
+// 				console.log(accessToken)
+// 				return res.status(200).json({
+// 					mssage: "usuario autenticado",
+// 					token: accessToken,
+// 				});
+// 			}
+// 		} catch (error) {
+// 			res.json({ message: error });
+// 		}
+// 	}
+// );
+
+router.put("/modifyUser", uploadExistingUserPhoto, async (req, res) => {
+	try {
+		const { id, user, mail, profilePhoto } = req.body;
+		if (!id || !user || !mail || !profilePhoto) {
+			return res.send("insufficient information to continue");
+		}
+		await User.update(
+			{
+				user: user,
+				mail: mail,
+				profilePhoto: profilePhoto,
+			},
+			{
+				where: {
+					id: id,
+				},
+			}
+		);
+		res.json({ msg: "User updated successfully" });
+	} catch (error) {
+		console.log("error", error);
+		res.json({ error: error });
+	}
+});
+
 router.get("/profile/:id", validateToken, async (req, res) => {
 	try {
 		const { id } = req.params;
 
 		const user = await User.findByPk(id);
+		console.log("user", user);
 		if (!Object.keys(user).length) {
 			res.sendStatus(404);
 		}
 		const profile = {
+			id: user.id,
 			user: user.user,
 			mail: user.mail,
 			profilePhoto: user.profilePhoto,
 			cartShop: user.cartShop,
 			favorite: user.favorite,
 			isAdmin: user.isAdmin,
+			RGBpoint: user.RGBpoint,
+			LogGoogle: user.LogGoogle,
+			lastVisited: user.lastVisited,
+			shoppingHistory: user.shoppingHistory,
 		};
 		res.json(profile);
 	} catch (error) {
@@ -124,46 +227,42 @@ router.put("/shoppingHistory/:id", async (req, res, next) => {
 	}
 });
 
-router.put("/favorite", async (req, res, next) => {
-	try {
-		//Asegurarse de vaciar esta propiedad al ejecutar esta compra
-		const { id } = req.params;
-		const { favorite } = req.body;
-		await User.update(
-			{
-				favorite: favorite,
-			},
-			{
-				where: {
-					id: id,
-				},
-			}
-		);
-		res.send("Favoritos de usuario actualizado");
-	} catch (error) {
-		next(error);
-	}
-});
+// router.put("/favourites/:id", async (req, res, next) => {
+// 	try {
+// 		const { id } = req.params;
+// 		const { favorite } = req.body;
+// 		await User.update(
+// 			{
+// 				favorite: favorite,
+// 			},
+// 			{
+// 				where: {
+// 					id: id,
+// 				},
+// 			}
+// 		);
+// 		res.send("Favoritos de usuario actualizado");
+// 	} catch (error) {
+// 		next(error);
+// 	}
+// });
 
-router.put("/favorite/:id", async (req, res, next) => {
+router.put("/favourites/:id", async (req, res) => {
 	try {
-		//Asegurarse de vaciar esta propiedad al ejecutar esta compra
 		const { id } = req.params;
+		console.log(id);
 		const { newfavorite } = req.body;
 		const user = await User.findByPk(id);
-		let fav = user.favorite;
-		console.log(fav, "fav");
-		if (fav) {
-			fav = [fav, newfavorite].flat();
+		let favorite = user.dataValues.favorite;
+		favorite == null ? (favorite = []) : null;
+		if (!favorite?.length) {
+			favorite = newfavorite;
 		} else {
-			fav = newfavorite;
+			favorite = [...favorite, newfavorite].flat();
 		}
-
-		console.log(fav, "fav");
-
 		await User.update(
 			{
-				favorite: fav,
+				favorite,
 			},
 			{
 				where: {
@@ -173,9 +272,10 @@ router.put("/favorite/:id", async (req, res, next) => {
 		);
 		res.send("Favoritos de usuario actualizado");
 	} catch (error) {
-		next(error);
+		res.send(error);
 	}
 });
+
 router.put("/deletefavorite/:id", async (req, res, next) => {
 	try {
 		//Asegurarse de vaciar esta propiedad al ejecutar esta compra
@@ -199,28 +299,44 @@ router.put("/deletefavorite/:id", async (req, res, next) => {
 	}
 });
 
-router.put("/newproductcart/:id", async (req, res, next) => {
+router.put("/puntuacion/:id", async (req, res, next) => {
 	try {
-		//Asegurarse de vaciar esta propiedad al ejecutar esta compra
 		const { id } = req.params;
-		console.log(id, "id user");
-		const { newproductcart } = req.body;
-		console.log(req.body, "body");
-		console.log(newproductcart, "favortis¿");
-		const user = await User.findByPk(id);
-		let fav = user.cartShop;
-		console.log(fav, "fav");
-		if (fav) {
-			fav = [fav, newproductcart].flat();
-		} else {
-			fav = newproductcart;
-		}
-
-		console.log(fav, "fav");
-
+		let user = await User.findByPk(id);
+		console.log(req.body);
+		valor = req.body.RGBpoint;
+		const newpuntuacion = user.RGBpoint + valor;
 		await User.update(
 			{
-				cartShop: fav,
+				RGBpoint: newpuntuacion,
+			},
+			{
+				where: {
+					id: id,
+				},
+			}
+		);
+		res.send("User Confirmations");
+	} catch (error) {
+		next(error);
+	}
+});
+
+router.put("/newproductcart/:id", async (req, res, next) => {
+	try {
+		const { id } = req.params;
+		const { newproductcart } = req.body;
+		const user = await User.findByPk(id);
+		let cartShop = user.dataValues.cartShop;
+		cartShop == null ? (cartShop = []) : null;
+		if (!cartShop?.length) {
+			cartShop = newproductcart;
+		} else {
+			cartShop = [...cartShop, newproductcart].flat();
+		}
+		await User.update(
+			{
+				cartShop,
 			},
 			{
 				where: {
@@ -238,8 +354,6 @@ router.put("/deleteproductcart/:id", async (req, res, next) => {
 		//Asegurarse de vaciar esta propiedad al ejecutar esta compra
 		const { id } = req.params;
 		const { deleteproductcart } = req.body;
-		console.log(req.body, "body delete");
-		console.log(deleteproductcart, "favorite delete");
 		await User.update(
 			{
 				cartShop: deleteproductcart,
@@ -338,17 +452,27 @@ router.post("/addComment", async (req, res) => {
 	}
 });
 
-router.get("/cartShop", async (req, res) => {
+router.put("/updateLastVisited/:id", async (req, res, next) => {
 	try {
-		const { cartShop } = req.body;
-		console.log(cartShop);
-		const products = await Product.findAll({
-			where: { id: cartShop },
-			attributes: { exclude: ["specifications", "sales"] },
-		});
-		res.send(products);
+		const { id } = req.params;
+		const { idp } = req.body;
+		console.log(id);
+		const user = await User.findByPk(id);
+		let lastVisited = user.dataValues.lastVisited;
+		if (lastVisited && lastVisited.length > 13) {
+			lastVisited.splice(-1, 1);
+		}
+		await User.update(
+			{
+				lastVisited: [idp, ...lastVisited],
+			},
+			{
+				where: { id: id },
+			}
+		);
+		res.send("User Confirmations");
 	} catch (error) {
-		res.sendStatus(500);
+		next(error);
 	}
 });
 

@@ -1,9 +1,10 @@
-import React from "react";
+import React,{ useEffect ,useState } from "react";
 import { BsGoogle } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo-dibujo-2.png";
 import { AiOutlineClose } from "react-icons/ai";
 import { useForm } from "../hooks/useForm";
+import LoguinGoogle from "../components/Buttons/LoguinGoogle"
 
 const initialForm = {
 	user: "",
@@ -127,12 +128,9 @@ const Login = ({ closeModal }) => {
 											<div className="flex flex-col space-y-4">
 												<a
 													href="#"
-													className="flex items-center justify-center px-4 py-2 space-x-2 transition-colors duration-300 border border-gray-800 rounded-md group focus:outline-none"
+													className="flex items-center justify-center px-4 py-2 space-x-2 transition-colors duration-300 border  rounded-md group focus:outline-none"
 												>
-													<BsGoogle />
-													<span className="text-sm font-medium text-black ">
-														Google
-													</span>
+													<LoguinGoogle />
 												</a>
 												{/* <div className="flex justify-center gap-6">
 													<button

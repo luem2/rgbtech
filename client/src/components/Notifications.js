@@ -78,6 +78,18 @@ export const logoutNotification = () =>
 		progress: undefined,
 	});
 
+export const userUpdatedNotifaction = () => {
+	toast.success("Profile updated succesfully! ✅", {
+		position: "top-right",
+		autoClose: 2000,
+		hideProgressBar: true,
+		closeOnClick: true,
+		pauseOnHover: false,
+		draggable: true,
+		progress: undefined,
+	});
+};
+
 export const productAddedNotification = () =>
 	toast.success("Product added successfully! ✅", {
 		position: "bottom-right",
@@ -88,6 +100,18 @@ export const productAddedNotification = () =>
 		draggable: true,
 		progress: undefined,
 	});
+
+export const productAddedFavoriteNotification = () => {
+	toast.success("Product added to favorites!", {
+		position: "bottom-right",
+		autoClose: 2000,
+		hideProgressBar: false,
+		closeOnClick: true,
+		pauseOnHover: false,
+		draggable: true,
+		progress: undefined,
+	});
+};
 
 export const productRemovedNotification = () =>
 	toast.success("Product removed successfully! 🛒", {
@@ -112,7 +136,7 @@ export const cartCleanedNotification = () =>
 	});
 
 export const youAreUnloggedProducts = () =>
-	toast.info("You must be logged to buy products 🔒", {
+	toast.info("You must be logged to buy/add products 🔒", {
 		position: "bottom-right",
 		autoClose: 2000,
 		hideProgressBar: false,
@@ -124,6 +148,17 @@ export const youAreUnloggedProducts = () =>
 
 export const youAreUnloggedFavorites = () =>
 	toast.info("You must be logged to view/add your favorites ⭐🔒", {
+		position: "bottom-right",
+		autoClose: 2000,
+		hideProgressBar: false,
+		closeOnClick: true,
+		pauseOnHover: true,
+		draggable: true,
+		progress: undefined,
+	});
+
+export const youAreUnloggedCart = () =>
+	toast.info("You must be logged to view/add products on your Cart 🛒🔒", {
 		position: "top-right",
 		autoClose: 2000,
 		hideProgressBar: false,
@@ -143,3 +178,17 @@ export const emailConfirmatedNotification = () =>
 		draggable: true,
 		progress: undefined,
 	});
+
+export const loginWithGoogleNotification = () =>
+	toast.success(
+		"You cannot modify the profile when you are logged in with Google ❌ ",
+		{
+			position: "top-right",
+			autoClose: 3000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: false,
+			draggable: true,
+			progress: undefined,
+		}
+	);

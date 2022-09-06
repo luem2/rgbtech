@@ -256,7 +256,8 @@ function AboutTeam() {
 								<a className="block relative">
 									<img
 										alt="profil"
-										src="https://ca.slack-edge.com/TPRS7H4PN-U03B7V8GM5L-64691186509b-512"
+										// src="https://ca.slack-edge.com/TPRS7H4PN-U03B7V8GM5L-64691186509b-512"
+										src="https://i.pinimg.com/736x/37/8a/27/378a270e775265622393da8c0527417e.jpg"
 										className="mx-auto object-cover rounded-full h-40 w-40 shadow-2xl"
 									/>
 								</a>

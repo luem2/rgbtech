@@ -20,6 +20,16 @@ export const postUser = (userCreated) => {
 	};
 };
 
+export const postUserGoogle = (userCreated) => {
+	return async () => {
+		try {
+			await axios.post("users/registerGoogle", userCreated);
+		} catch (e) {
+			console.error(e);
+		}
+	};
+};
+
 export const confirmationEmail = (user) => {
 	return async () => {
 		try {
@@ -30,9 +40,25 @@ export const confirmationEmail = (user) => {
 	};
 };
 
+export const editUserProfile = (userUpdated) => {
+	return async () => {
+		try {
+			await axios.put("users/modifyUser", userUpdated);
+			console.log("me hice el PUT", userUpdated);
+		} catch (e) {
+			console.error(e);
+		}
+	};
+};
+
 export const getUserProfile = (id) => {
 	return async (dispatch) => {
 		try {
+			if (!id) {
+				const token_jwt = window.localStorage.getItem("token");
+				const perfil = jwt(token_jwt);
+				id = perfil.id;
+			}
 			const response = await axios.get(`users/profile/${id}`);
 			dispatch(getLoggedUser(response.data));
 		} catch (error) {
@@ -49,6 +75,18 @@ export const setShoppingHistory = (shoppings) => {
 			await axios.put(`users/shoppingHistory/${perfil.id}`, shoppings);
 		} catch (e) {
 			console.error(e);
+		}
+	};
+};
+
+export const setUserPoint = (RGBpoint) => {
+	const token = window.localStorage.getItem("token");
+	const perfil = jwt(token);
+	return async () => {
+		try {
+			await axios.put(`users/puntuacion/${perfil.id}`, RGBpoint);
+		} catch (e) {
+			console.log(e);
 		}
 	};
 };
@@ -71,8 +109,7 @@ export const updateFavoriteUser = (newfavorite) => {
 	const perfil = jwt(token);
 	return async (dispatch) => {
 		try {
-			console.log(perfil.id);
-			await axios.put(`users/favorite/${perfil.id}`, {
+			await axios.put(`users/favourites/${perfil.id}`, {
 				newfavorite: newfavorite,
 			});
 			dispatch(getUserProfile(perfil.id));
@@ -103,7 +140,6 @@ export const updateProductCart = (newproductcart) => {
 	const perfil = jwt(token);
 	return async (dispatch) => {
 		try {
-			console.log(perfil.id);
 			await axios.put(`users/newproductcart/${perfil.id}`, {
 				newproductcart: newproductcart,
 			});
@@ -139,6 +175,30 @@ export const clearCartShop = () => {
 			dispatch(getUserProfile(perfil.id));
 		} catch (e) {
 			console.error(e);
+		}
+	};
+};
+export const updateLastVisited = (idp) => {
+	const token = window.localStorage.getItem("token");
+	const perfil = jwt(token);
+	return async (dispatch) => {
+		try {
+			await axios.put(`users/updateLastVisited/${perfil.id}`, { idp: idp });
+			dispatch(getUserProfile(perfil.id));
+		} catch (e) {
+			console.error(e);
+		}
+	};
+};
+
+export const sendPassword = (perfil, password) => {
+	return async (dispatch) => {
+		try {
+			const response = await axios.put(`recoverPassword/${perfil.id}`, {
+				password,
+			});
+		} catch (error) {
+			console.log(error);
 		}
 	};
 };

@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Product, Tag, Comment } = require("../db.js");
+const { Product, Tag, Comment, User } = require("../db.js");
 const {
 	setQueryConditions,
 	setPagination,
@@ -125,7 +125,7 @@ router.delete("/:id", async (req, res, next) => {
 	}
 });
 
-router.get("/Cartshop", async (req, res) => {
+/* router.get("/Cartshop", async (req, res) => {
 	const { carrito } = req.params;
 	try {
 		const CartProduct = await Product.filter((Item) =>
@@ -133,7 +133,7 @@ router.get("/Cartshop", async (req, res) => {
 		);
 		res.send(CartProduct);
 	} catch (error) {}
-});
+}); */
 
 router.get("/Favorite", async (req, res) => {
 	const { fav } = req.params;
@@ -210,6 +210,51 @@ router.get("/:id", async (req, res) => {
 	} catch (error) {
 		res.send("No se encontro el Product del  Id");
 	}
+});
+
+router.get("/cartShop/:id", async (req, res) => {
+	try {
+		const { id } = req.params;
+		const user = await User.findByPk(id)
+		const products = await Product.findAll({
+			where: {
+				id: user.dataValues.cartShop
+			}
+		});
+		res.send(products);
+	} catch (error) {
+		res.send(error);
+	};
+});
+
+router.get("/favourites/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const user = await User.findByPk(id)
+        const favourites = await Product.findAll({
+            where: {
+                id: user.dataValues.favorite
+            }
+        });
+        res.send(favourites);
+    } catch (error) {
+        res.send(error);
+    };
+});
+
+router.get("/lastVisited/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const user = await User.findByPk(id)
+        const lastVisitedd = await Product.findAll({
+            where: {
+                id: user.dataValues.lastVisited
+            }
+        });
+        res.send(lastVisitedd);
+    } catch (error) {
+        res.send(error);
+    };
 });
 
 module.exports = router;

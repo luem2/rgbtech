@@ -16,9 +16,9 @@ import { youAreUnloggedFavorites } from "../Notifications";
 const UserSection = () => {
 	const navigate = useNavigate();
 	const [login, setLogin] = useState(false);
-	const { cart } = useSelector((state) => state.guestShoppingCart);
 	const { user } = useSelector((state) => state.user);
 	const userLocalStorage = JSON.parse(window.localStorage.getItem("user"));
+	let cart = user.cartShop;
 
 	let userProfile;
 	function setUserProfile() {
@@ -72,16 +72,18 @@ const UserSection = () => {
 				/>
 
 				<div>
-					{cart.length > 0 && (
+					{cart?.length > 0 && (
 						<span className="flex absolute top-2 right-0 bg-teal-500 p-1 items-center rounded-full text-white text-sm h-5">
-							{cart.length}
+							{cart?.length}
 						</span>
 					)}
 					<AiOutlineShoppingCart
 						className={`hover:bg-red-500 ${
-							cart.length === 0 && "hover:scale-105 ease-in duration-300 mr-1"
+							cart?.length === 0 && "hover:scale-105 ease-in duration-300 mr-1"
 						}`}
-						onClick={() => navigate("/shoppingCart")}
+						onClick={() => {
+							hasJWT() ? navigate("/shoppingCart") : youAreUnloggedFavorites();
+						}}
 					/>
 				</div>
 			</IconContext.Provider>
