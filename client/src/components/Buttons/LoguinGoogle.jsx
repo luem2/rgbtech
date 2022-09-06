@@ -14,7 +14,7 @@ import axios from "axios";
 // 	setWelcomeUser,
 // } from "../../store/slices/admin/adminSlice";
 import { setAuthToken } from "../../store/slices/users/thunks";
-import { addProduct } from "../../store/slices/guestShoppingCart/guestShoppingCartSlice.js";
+
 
 function LoguinGoogle() {
 	const navigate = useNavigate();

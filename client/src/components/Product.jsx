@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineHeart, AiOutlineSmallDash } from "react-icons/ai";
-import { addProduct } from "../store/slices/guestShoppingCart/guestShoppingCartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import jwt from "jwt-decode";
 import {
