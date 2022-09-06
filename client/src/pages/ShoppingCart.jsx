@@ -31,6 +31,7 @@ const ShoppingCart = () => {
 	const { user } = useSelector((state) => state.user);
 	const { buying } = useSelector((state) => state.guestShoppingCart);
 	const [products, setProducts] = useState([]);
+	console.log("products", products);
 	const [totalPrice, setTotalPrice] = useState(0);
 	const [finalPrice, setFinalPrice] = useState(0);
 
