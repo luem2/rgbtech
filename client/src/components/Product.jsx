@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineHeart, AiOutlineSmallDash } from "react-icons/ai";
-import { addProduct } from "../store/slices/guestShoppingCart/guestShoppingCartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import jwt from "jwt-decode";
 import {
@@ -20,6 +19,7 @@ import {
 	youAreUnloggedFavorites,
 	youAreUnloggedProducts,
 } from "./Notifications";
+import Swal from "sweetalert2";
 import { hasJWT } from "../store/thunks";
 
 function Product({
@@ -66,16 +66,34 @@ function Product({
 		let result = Math.ceil(price - discPercentage);
 		return result;
 	};
+
 	const handleDeleteCartFav = () => {
 		if (hasJWT()) {
-			let favorite = user.favorite;
-			const handler = favorite?.includes(id);
-			if (handler) {
-				const updatedFavorites = user.favorite.filter(
-					(product) => product !== id
-				);
-				dispatch(deleteFavoriteUser(updatedFavorites));
-			}
+			Swal.fire({
+				title: "Are you sure you want to delete this favorite?",
+				text: "You won't be able to revert this!",
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "Yes, delete it!",
+			}).then((result) => {
+				if (result.isConfirmed) {
+					let favorite = user.favorite;
+					const handler = favorite?.includes(id);
+					if (handler) {
+						const updatedFavorites = user.favorite.filter(
+							(product) => product !== id
+						);
+						dispatch(deleteFavoriteUser(updatedFavorites));
+					}
+					Swal.fire(
+						"Favorite was deleted!",
+						"Your product has been deleted from favorites.",
+						"success"
+					);
+				}
+			});
 		}
 	};
 
@@ -84,7 +102,6 @@ function Product({
 			let favorite = user.favorite;
 			const handler = favorite?.includes(id);
 			if (!handler) {
-				console.log("agrega fav");
 				dispatch(updateFavoriteUser([id]));
 				productAddedFavoriteNotification();
 			}
