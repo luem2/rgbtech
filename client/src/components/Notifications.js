@@ -12,6 +12,17 @@ export const accCreatedNotification = () => {
 	});
 };
 
+export const updatePerfilErrorNotification = (msg) =>
+	toast.error(msg, {
+		position: "top-right",
+		autoClose: 5000,
+		hideProgressBar: false,
+		closeOnClick: true,
+		pauseOnHover: false,
+		draggable: true,
+		progress: undefined,
+	});
+
 export const welcomeUserNotification = () =>
 	toast("Welcome User to RGBTech! 🏠", {
 		position: "top-right",
