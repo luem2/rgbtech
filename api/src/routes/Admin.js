@@ -7,9 +7,11 @@ const { validateToken } = require("../middlewares/userMiddleware.js");
 const router = Router();
 
 router.post("/sale", async (req, res) => {
-	const { userId, products } = req.body;
+  try {
+    const { userId, products } = req.body;
 
 	products.map(async (product) => {
+    
 		const { productId, name, productPrice, month, year, amount } = product;
 
 		const productDetails = await Product.findByPk(productId, {
@@ -31,7 +33,6 @@ router.post("/sale", async (req, res) => {
 			totalPrice: productPrice * amount,
 		});
 
-		console.log("tagsId", tagsId);
 		await newSale.addTags(tagsId);
 		await newSale.setBrand(brandId);
 		await newSale.setUser(userId);
@@ -48,7 +49,9 @@ router.post("/sale", async (req, res) => {
 		);
 	});
 	res.send("producto comprado");
-});
+  } catch (error) {
+    console.log(error)
+  }});
 
 router.get("/dashboard", async (req, res) => {
 	const { year } = req.query;

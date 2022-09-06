@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { User } = require("../db");
+const { User ,Sale} = require("../db");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const {
@@ -12,7 +12,8 @@ const {
 	checkUserRegistrationGoogle,
 	uploadExistingUserPhoto,
 } = require("../middlewares/userMiddleware.js");
-const { htmlMail } = require("../Utils/EmailTemplate.js");
+// const { htmlMail } = require("../Utils/EmailTemplate.js");
+// const { SHOWTABLES } = require("sequelize/types/query-types");
 
 const router = Router();
 
@@ -197,64 +198,14 @@ router.put("/setCart/:id", validateToken, async (req, res) => {
 	}
 });
 
-router.put("/shoppingHistory/:id", async (req, res, next) => {
-	try {
-		const { id } = req.params;
-		const { shoppings } = req.body;
-		const user = await User.findByPk(id);
-		let history = user.shoppingHistory;
-		console.log(history, "fav");
-		if (history) {
-			(history = history), shoppings;
-			console.log(history);
-		} else {
-			history = shoppings;
-		}
-
-		await User.update(
-			{
-				shoppingHistory: history,
-			},
-			{
-				where: {
-					id: id,
-				},
-			}
-		);
-		res.send("updated shopping History");
-	} catch (error) {
-		next(error);
-	}
-});
-
-// router.put("/favourites/:id", async (req, res, next) => {
-// 	try {
-// 		const { id } = req.params;
-// 		const { favorite } = req.body;
-// 		await User.update(
-// 			{
-// 				favorite: favorite,
-// 			},
-// 			{
-// 				where: {
-// 					id: id,
-// 				},
-// 			}
-// 		);
-// 		res.send("Favoritos de usuario actualizado");
-// 	} catch (error) {
-// 		next(error);
-// 	}
-// });
-
 router.put("/favourites/:id", async (req, res) => {
 	try {
-		const { id } = req.params;
-		console.log(id);
+		const { id } = req.params
+		console.log(id)
 		const { newfavorite } = req.body;
 		const user = await User.findByPk(id);
 		let favorite = user.dataValues.favorite;
-		favorite == null ? (favorite = []) : null;
+		favorite == null ? favorite = [] : null
 		if (!favorite?.length) {
 			favorite = newfavorite;
 		} else {
@@ -262,18 +213,18 @@ router.put("/favourites/:id", async (req, res) => {
 		}
 		await User.update(
 			{
-				favorite,
+				favorite
 			},
 			{
 				where: {
 					id: id,
-				},
+				}
 			}
 		);
 		res.send("Favoritos de usuario actualizado");
 	} catch (error) {
 		res.send(error);
-	}
+	};
 });
 
 router.put("/deletefavorite/:id", async (req, res, next) => {
@@ -286,12 +237,11 @@ router.put("/deletefavorite/:id", async (req, res, next) => {
 		await User.update(
 			{
 				favorite: deletefavorite,
-			},
-			{
-				where: {
-					id: id,
-				},
+			}, {
+			where: {
+				id: id,
 			}
+		}
 		);
 		res.send("Favoritos de usuario actualizado");
 	} catch (error) {
@@ -451,6 +401,27 @@ router.post("/addComment", async (req, res) => {
 		res.send(error);
 	}
 });
+
+
+router.get("/getShoppingHistory/:id", async (req, res, next) => {
+	try {
+		const { id } = req.params;
+		console.log("asdsa")
+
+		const userShopHistory = await Sale.findAll({
+			where : {
+			 userId: id
+			}
+			})
+		res.send(userShopHistory);
+	} catch (error) {
+		console.log(error)
+	}
+})
+
+
+
+
 
 router.put("/updateLastVisited/:id", async (req, res, next) => {
 	try {
