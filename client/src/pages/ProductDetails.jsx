@@ -10,6 +10,7 @@ import { BsCheckLg } from "react-icons/bs";
 import Spinner from "../components/Spinner";
 import Header from "../components/Header/Header";
 import CircleButton from "../components/Buttons/CircleButton";
+import SquareButton from "../components/Buttons/SquareButton";
 import { clearDetails } from "../store/slices/products/productSlice";
 import Comment from "../components/Comment";
 import { hasJWT } from "../store/thunks/";
