@@ -24,9 +24,11 @@ import {
 import { ToastContainer } from "react-toastify";
 import CarruselComments from "../components/CarruselComments";
 import Footer from "../components/Footer";
-import { getUserProfile, updateLastVisited, updateProductCart } from "../store/slices/users/thunks"
-
-
+import {
+	getUserProfile,
+	updateLastVisited,
+	updateProductCart,
+} from "../store/slices/users/thunks";
 
 const ProductDetails = () => {
 	const { id } = useParams();
@@ -44,17 +46,16 @@ const ProductDetails = () => {
 		perfil = jwt(token);
 	}
 	const handleAddCart = () => {
-		console.log('hola')
+		console.log("hola");
 		if (hasJWT()) {
-			const cart = user.cartShop
-			const handler = cart?.includes(id)
+			const cart = user.cartShop;
+			const handler = cart?.includes(id);
 			if (!handler) {
-				dispatch(updateProductCart([id]))
-			}else{
+				dispatch(updateProductCart([id]));
+			} else {
 				return;
 			}
-		}
-		else {
+		} else {
 			youAreUnloggedProducts();
 		}
 	};
@@ -88,7 +89,7 @@ const ProductDetails = () => {
 			// 	);
 			// 	window.localStorage.setItem("lastVisited", JSON.stringify(lastVisited));
 			// }
-			// dispatch(clearDetails());
+			dispatch(clearDetails());
 		};
 	}, [id]);
 
