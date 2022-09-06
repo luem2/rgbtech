@@ -124,10 +124,11 @@ export const setShoppingUserHistory = (userId, products) => {
 export const editProductAction = (payload) => {
 	return async (dispatch) => {
 		try {
-			await axios.put("admin/products/update", payload);
+			console.log(payload)
+			await axios.put("products/update", {payload});
             dispatch(productsAction());
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		}
 	};
 };

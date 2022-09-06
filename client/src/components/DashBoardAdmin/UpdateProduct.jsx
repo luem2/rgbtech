@@ -5,44 +5,36 @@ import { editProductAction } from "../../store/slices/admin/thunk";
 
 export default function UpdateProduct() {
 	const [form, setForm] = useState({});
+	const [specificationsInput, setSpecificationsInput] = useState([])
 	const { products } = useSelector((state) => state.admin);
 	const dispatch = useDispatch();
 
+	const handleSelect = (e) => {
+		setSpecificationsInput([])
+		const {value} = e.target
+		const product = products.find((element) => element.id === value)
+		setForm(product)
+		const specifications = product.specifications[0]
+		const inputs = []
+		for(const property in specifications){
+			inputs.push({title: property, description : specifications[property]})
+		}
+		setSpecificationsInput(inputs)
+	}
+
     const handleOnChange = (e)=> {
+			if(e.target.value === 'placeholder') return
         setForm({
             ...form,
             [e.target.name]: e.target.value
         })
     };
 
-    const setDiscount = () => {
-       return !products.onDiscount
-    }
-
-	// const [form, setForm] = useState({
-	//     id: props.id,
-	//     name: props.name,
-	//     price: props.price,
-	//     description: props.description,
-	//     img: props.img,
-	//     stock: props.stock,
-	//     onDiscount: props.onDiscount,
-	//     discountPercentage: props.discountPercentage,
-	//     freeShipping: props.freeShipping
-	// })
-
-    const handleSelect = (e) => {
-        const {value} = e.target
-        const product = products.find((element) => element.id === value)
-        setForm(product)
-    }
-
     const handleOnSubmit = (e) => {
+		console.log(form)
 		e.preventDefault();
-        dispatch(editProductAction(form));
-		setForm({
-            name: value,
-        });
+		dispatch(editProductAction(form));
+		setForm({});
     }
     
     useEffect(() => {
@@ -60,7 +52,7 @@ export default function UpdateProduct() {
                         )) 
                         : null}
             </select>
-			<div className=" flex justify-center ">
+						<div className=" flex justify-center ">
 				<div className="flex space-y-8">
 					<div className="w-full ">
 						<form onSubmit={handleOnSubmit} className="bg-white rounded-md p-5">
@@ -73,10 +65,10 @@ export default function UpdateProduct() {
 							<div className="flex items-center border-2 mb-2 py-2 px-3 rounded-2xl">
 								<input
 									className=" pl-2 w-full outline-none border-none"
-									onChange={handleOnChange}
-                                    name="name"
-                                    value={form.name}
+									onChange={(e) => setForm({...form, name:e.target.value})}
+									name="name"
 									type="text"
+									value={form.name}
 									placeholder={form.name}
 								/>
                                
@@ -85,9 +77,10 @@ export default function UpdateProduct() {
 							<div className="flex items-center border-2 mb-2 py-2 px-3 rounded-2xl ">
 								<input
 									className="pl-2 w-full outline-none border-none"
-                                    name="price"
-									value={form.price}
+                  name="price"
+									onChange={(e) => setForm({...form, price:e.target.value})}
 									type="number"
+									value={form.price}
 									placeholder={form.price}
 								/>
 							</div>
@@ -97,16 +90,18 @@ export default function UpdateProduct() {
 									className="pl-2 w-full outline-none border-none"
 									cols="30"
 									rows="10"
-                                    name="description"
+									name="description"
 									value={form.description}
+									onChange={(e) => setForm({...form, description: e.target.value})}
 									placeholder={form.description}
 								></textarea>
 							</div>
 							<div className="flex items-center border-2 mb-2 py-2 px-3 rounded-2xl">
 								<input
 									className=" pl-2 w-full outline-none border-none"
-                                    name="img"
+									name="img"
 									value={form.img}
+									onChange={(e) => setForm({...form, img: e.target.value})}
 									type="text"
 									placeholder={form.img}
 								/>
@@ -116,66 +111,60 @@ export default function UpdateProduct() {
 								<input
 									className="pl-2 w-full outline-none border-none"
 									type="number"
-                                    name="stock"
+                  name="stock"
 									value={form.stock}
+									onChange={(e) => setForm({...form, stock:e.target.value})}
 									placeholder={form.stock}
 								/>
 							</div>
-                            <label>Discount</label>
+              <label>Discount</label>
 							<div className="flex items-center border-2 mb-2 py-2 px-3 rounded-2xl ">
-								<input
-									className="ml-24"
-									type="checkbox"
-									placeholder="Discount"
-									
-								/>
-								<h1 className="ml-2 text-gray-400">
-									<small onClick={() => setForm(...form, (form.onDiscount = true))}>Si</small>
-								</h1>
-                                {form.onDiscount ? 
-								<h1 className="ml-2 text-gray-400">{form.onDiscount}</h1>
-                                    : null}
-								<input
-									className="ml-12"
-									type="checkbox"
-									placeholder="Descuento"
-									
-								/>
-								<h1 className="ml-2 text-gray-400">
-									<small onClick={() => setForm(...form, (form.onDiscount = false))}>No</small>
-								</h1>
+								<select name="onDiscount" onChange={handleOnChange}>
+										<option value='placeholder'>En descuento?</option>
+										<option value={false}>No</option>
+										<option value={true}>Sí</option>
+									</select>
 							</div>
-							<div className="flex items-center border-2 mb-2 py-2 px-3 rounded-2xl ">
+							{
+								form.onDiscount == 'true' ?
+								<div className="flex items-center border-2 mb-2 py-2 px-3 rounded-2xl ">
 								<input
 									className="pl-2 w-full outline-none border-none"
 									type="text"
-                                    name="discountPercentage"
+									name="discountPercentage"
 									value={form.discountPercentage}
+									onChange={(e) => setForm({...form, discountPercentage: e.target.value})}
 									placeholder={form.discountPercentage}
 								/>
 							</div>
+								:null
+							}
+
 							<div className="flex items-center border-2 mb-2 py-2 px-3 rounded-2xl ">
 								<h1 className="ml-2 text-gray-400">Free Shipping</h1>
-								<input
-									className="ml-24"
-									type="checkbox"
-									placeholder="Envio gratis"
-									onClick={() => setForm(...form, (form.freeShipping = true))}
-								/>
-								<h1 className="ml-2 text-gray-400">
-									<small>Si</small>
-								</h1>
-								<input
-									className="ml-12"
-									type="checkbox"
-									placeholder="Envio gratis"
-									onClick={() => setForm(...form, (form.freeShipping = false))}
-								/>
-								<h1 className="ml-2 text-gray-400">
-									<small>No</small>
-								</h1>
+								<select name="freeShipping" onChange={handleOnChange}>
+									<option value='placeholder'>En descuento?</option>
+									<option value={false}>No</option>
+									<option value={true}>Sí</option>
+								</select>
 							</div>
-                            </div>
+							{/* <label>Specifications</label>
+							<div>
+								{
+									specificationsInput?.map((specification, index) => {
+										return (
+										<div key={index} className="flex items-center border-2 mb-2 py-2 px-3 rounded-2xl ">
+											<input type='text' placeholder={specification.title} value={specification.title}></input>
+											<input type='text' placeholder={specification.description} value={specification.description}></input>
+										</div>
+										)
+									})
+								}
+							</div>
+							<input type="button" onClick={() => setSpecificationsInput([...specificationsInput, {title:'', description:''}])} />
+							 */}
+							
+							 </div>
 							<button
                                 
 								type="submit"
