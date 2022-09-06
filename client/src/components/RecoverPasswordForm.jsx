@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { sendEmail } from "../store/slices/users/thunks";
+import { emailConfirmatedPassword } from "./Notifications";
 
 export default function RecoverPasswordForm() {
 	const [input, setInput] = useState({
@@ -21,6 +22,7 @@ export default function RecoverPasswordForm() {
     e.preventDefault();
 		console.log(input.email, "bhsdj");
 		dispatch(sendEmail({ email: input.email }));
+        emailConfirmatedPassword()
 	};
 
 	return (
