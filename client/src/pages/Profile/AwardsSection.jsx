@@ -1,68 +1,80 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import Footer from "../../components/Footer.jsx";
+import Header from "../../components/Header/Header.jsx";
+import Swal from "sweetalert2"
 
 function AwardsSection() {
+	const [products, setProducts] = useState([]);
+	const user = useSelector((state) => state.user);
+	
+	const theAlert = () =>
+		Swal.fire({
+			title: "Are you sure?",
+			text: "You want to redeem your points?",
+			icon: "question",
+			showCancelButton: true,
+			confirmButtonColor: "#FF1493",
+			cancelButtonColor: "#48D1CC",
+			confirmButtonText: "Yes, I want to change my points",
+		}).then((result) => {
+			if (result.isConfirmed) {
+				Swal.fire({
+					title: "CONGRATS!",
+					imageUrl: "https://th.bing.com/th/id/R.ab7a973855cb77710e3a08b09100c9ad?rik=O1xE4Nui2z153w&pid=ImgRaw&r=0",
+					imageWidth: 300,
+					imageHeight: 200,
+					icon: 'success',
+					timer: 2000,
+					timerProgressBar: true,
+				});
+			}
+		});
+
+	const handleClick = (id) => {
+		theAlert(id);
+	};
+
+	
+
+	useEffect(() => {
+		axios.get("/awards").then((response) => {
+			const respuesta = response.data;
+			setProducts(respuesta);
+		});
+		return;
+	}, [user]);
+
 	return (
-		<div className="grid lg:grid-cols-4">
-			<div className="max-w-xs mx-4 mb-2 rounded-lg shadow-lg">
-				<img
-					className="w-full h-48"
-					src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=989&q=80"
-					alt="product"
-				/>
-				<div className="px-6 py-4">
-					<h4 className="mb-3 text-xl font-semibold tracking-tight text-gray-800">
-						This is the title
-					</h4>
-					<p className="leading-normal text-gray-700">
-						Cost: 
-					</p>
-				</div>
+		<div>
+			<Header />
+			<div className="grid lg:grid-cols-4 justify-center p-4 bg-white dark:bg-gray-600 border-2">
+				{products?.map((element) => (
+					<div
+						key={element.id}
+						className="max-w-xs mx-4 mb-2 rounded-lg shadow-lg bg-pink-700 p-2"
+					>
+						<img
+							className="w-full h-48 shadow-xl"
+							src={element.img}
+							alt="product"
+						/>
+						<div className="px-6 py-2">
+							<h4 className="mb-3 text-xl font-semibold tracking-tight text-gray-800 ">
+								{element.name.slice(0, 15)}...Cost :
+							</h4>
+							<p className="leading-normal text-yellow-500 font-semibold">
+								{element.points} points
+								<button onClick={(e)=> handleClick(e)} className="ml-3 bg-blue-400 text-black rounded-md p-1 hover:font-bold hover:bg-yellow-300 hover:scale-95">
+									Exchange
+								</button>
+							</p>
+						</div>
+					</div>
+				))}
 			</div>
-			<div className="max-w-xs mx-4 mb-2 rounded-lg shadow-lg">
-				<img
-					className="w-full h-48"
-					src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=989&q=80"
-					alt="product"
-				/>
-				<div className="px-6 py-4">
-					<h4 className="mb-3 text-xl font-semibold tracking-tight text-gray-800">
-						This is the title
-					</h4>
-					<p className="leading-normal text-gray-700">
-						Cost: 
-					</p>
-				</div>
-			</div>
-			<div className="max-w-xs mx-4 mb-2 rounded-lg shadow-lg">
-				<img
-					className="w-full h-48"
-					src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=989&q=80"
-					alt="product"
-				/>
-				<div className="px-6 py-4">
-					<h4 className="mb-3 text-xl font-semibold tracking-tight text-gray-800">
-						This is the title
-					</h4>
-					<p className="leading-normal text-gray-700">
-						Cost:
-					</p>
-				</div>
-			</div>
-			<div className="max-w-xs mx-4 mb-2 rounded-lg shadow-lg">
-				<img
-					className="w-full h-48"
-					src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=989&q=80"
-					alt="product"
-				/>
-				<div className="px-6 py-4">
-					<h4 className="mb-3 text-xl font-semibold tracking-tight text-gray-800">
-						This is the title
-					</h4>
-					<p className="leading-normal text-gray-700">
-						Cost: 
-					</p>
-				</div>
-			</div>
+			<Footer />
 		</div>
 	);
 }

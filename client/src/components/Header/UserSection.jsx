@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import defaultImage from "../../assets/defaultImage.png";
 import { hasJWT } from "../../store/thunks";
 import { youAreUnloggedFavorites } from "../Notifications";
+import Toogle from "./Toogle"
 
 const UserSection = () => {
 	const navigate = useNavigate();
@@ -85,6 +86,7 @@ const UserSection = () => {
 					/>
 				</div>
 			</IconContext.Provider>
+			<Toogle/>
 		</div>
 	);
 };

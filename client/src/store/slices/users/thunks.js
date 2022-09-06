@@ -193,5 +193,3 @@ export const sendPassword = (perfil ,password) => {
 	};
 };
 
-
-
