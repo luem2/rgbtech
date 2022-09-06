@@ -11,6 +11,7 @@ import {
 	youAreUnloggedProducts,
 } from "./Notifications";
 import { hasJWT } from "../store/thunks";
+import Swal from "sweetalert2";
 
 const FavoriteCard = ({ id, name, price, img }) => {
 	const { user } = useSelector((state) => state.user);
@@ -34,16 +35,34 @@ const FavoriteCard = ({ id, name, price, img }) => {
 
 	const handleDeleteCartFav = () => {
 		if (hasJWT()) {
-			let favorite = user.favorite;
-			const handler = favorite?.includes(id);
-			if (handler) {
-				const updatedFavorites = user.favorite.filter(
-					(product) => product !== id
-				);
-				dispatch(deleteFavoriteUser(updatedFavorites));
-			}
+			Swal.fire({
+				title: "Are you sure you want to delete this favorite?",
+				text: "You won't be able to revert this!",
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "Yes, delete it!",
+			}).then((result) => {
+				if (result.isConfirmed) {
+					let favorite = user.favorite;
+					const handler = favorite?.includes(id);
+					if (handler) {
+						const updatedFavorites = user.favorite.filter(
+							(product) => product !== id
+						);
+						dispatch(deleteFavoriteUser(updatedFavorites));
+					}
+					Swal.fire(
+						"Favorite was deleted!",
+						"Your product has been deleted from favorites.",
+						"success"
+					);
+				}
+			});
 		}
 	};
+
 	return (
 		<div className="flex justify-center  p-2">
 			<div className="flex flex-col md:flex-row md:max-w-6xl rounded-lg bg-white shadow-lg">
