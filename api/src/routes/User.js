@@ -134,17 +134,19 @@ router.post(
 
 router.put("/modifyUser", uploadExistingUserPhoto, async (req, res) => {
 	try {
-		const { id, name, mail, password, profilePhoto } = req.body;
-		console.log("req.body", req.body);
-		if (!id || !name || !mail || !profilePhoto) {
+		const { id, user, mail, password, profilePhoto } = req.body;
+		console.log("0.25");
+		if (!id || !user || !mail || !profilePhoto) {
+			console.log("0.5");
 			return res.send("insufficient information to continue");
 		}
-		// const hashedPassword = await bcrypt.hash(password, 10);
-		const userUpdated = await User.update(
+		const hashedPassword = await bcrypt.hash(password, 10);
+		console.log("1");
+		await User.update(
 			{
-				user: name,
+				user: user,
 				mail: mail,
-				// password: hashedPassword,
+				password: hashedPassword,
 				profilePhoto: profilePhoto,
 			},
 			{
@@ -153,8 +155,8 @@ router.put("/modifyUser", uploadExistingUserPhoto, async (req, res) => {
 				},
 			}
 		);
-		console.log("userUpdated", userUpdated);
-		res.json({ userUpdated: userUpdated });
+		console.log("2");
+		res.json({ msg: "User updated successfully" });
 	} catch (error) {
 		console.log("error", error);
 		res.json({ error: error });
