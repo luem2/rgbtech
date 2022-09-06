@@ -1,6 +1,6 @@
 import axios from "axios";
 import jwt from "jwt-decode";
-import { getLoggedUser } from "../users/userSlice"
+import { getLoggedUser } from "../users/userSlice";
 
 export const setAuthToken = (token) => {
 	if (token) {
@@ -40,17 +40,26 @@ export const confirmationEmail = (user) => {
 	};
 };
 
+export const editUserProfile = (userUpdated) => {
+	return async () => {
+		try {
+			await axios.put("users/modifyUser", userUpdated);
+			console.log("me hice el PUT", userUpdated);
+		} catch (e) {
+			console.error(e);
+		}
+	};
+};
+
 export const getUserProfile = (id) => {
-	
 	return async (dispatch) => {
 		try {
-			if(!id){
-		const token_jwt = window.localStorage.getItem("token");
-		const perfil = jwt(token_jwt);
-		id = perfil.id
+			if (!id) {
+				const token_jwt = window.localStorage.getItem("token");
+				const perfil = jwt(token_jwt);
+				id = perfil.id;
 			}
 			const response = await axios.get(`users/profile/${id}`);
-			console.log("aasdasd");
 			dispatch(getLoggedUser(response.data));
 		} catch (error) {
 			console.log(error);
@@ -71,15 +80,15 @@ export const setShoppingHistory = (shoppings) => {
 };
 
 export const setUserPoint = (RGBpoint) => {
-    const token = window.localStorage.getItem("token");
-    const perfil = jwt(token);
-    return async () => {
-        try {
-            await axios.put(`users/puntuacion/${perfil.id}`, RGBpoint);
-        } catch (e) {
-            console.log(e);
-        }
-    };
+	const token = window.localStorage.getItem("token");
+	const perfil = jwt(token);
+	return async () => {
+		try {
+			await axios.put(`users/puntuacion/${perfil.id}`, RGBpoint);
+		} catch (e) {
+			console.log(e);
+		}
+	};
 };
 
 export const setCartShop = (cartShop) => {
@@ -101,7 +110,7 @@ export const updateFavoriteUser = (newfavorite) => {
 	return async (dispatch) => {
 		try {
 			await axios.put(`users/favourites/${perfil.id}`, {
-				newfavorite: newfavorite
+				newfavorite: newfavorite,
 			});
 			dispatch(getUserProfile(perfil.id));
 		} catch (e) {
@@ -182,14 +191,14 @@ export const updateLastVisited = (idp) => {
 	};
 };
 
-export const sendPassword = (perfil ,password) => {
-	
+export const sendPassword = (perfil, password) => {
 	return async (dispatch) => {
 		try {
-			const response = await axios.put(`recoverPassword/${perfil.id}`,{password});
+			const response = await axios.put(`recoverPassword/${perfil.id}`, {
+				password,
+			});
 		} catch (error) {
 			console.log(error);
 		}
 	};
 };
-

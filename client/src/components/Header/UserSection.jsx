@@ -19,7 +19,7 @@ const UserSection = () => {
 	const [login, setLogin] = useState(false);
 	const { user } = useSelector((state) => state.user);
 	const userLocalStorage = JSON.parse(window.localStorage.getItem("user"));
-	let cart = user.cartShop
+	let cart = user.cartShop;
 
 	let userProfile;
 	function setUserProfile() {
@@ -82,7 +82,9 @@ const UserSection = () => {
 						className={`hover:bg-red-500 ${
 							cart?.length === 0 && "hover:scale-105 ease-in duration-300 mr-1"
 						}`}
-						onClick={() => navigate("/shoppingCart")}
+						onClick={() => {
+							hasJWT() ? navigate("/shoppingCart") : youAreUnloggedFavorites();
+						}}
 					/>
 				</div>
 			</IconContext.Provider>
