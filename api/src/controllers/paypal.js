@@ -75,13 +75,13 @@ module.exports = {
 				}
 			);
 			console.log("response.data", response.data);
-			res.redirect("http://127.0.0.1:5173/order-successfully");
+			res.redirect("http://localhost:5173/order-successfully");
 			// res.json(response.data)
 		} catch (error) {
 			console.log(error, "error");
 		}
 	},
 	cancel: (req, res) => {
-		res.redirect("http://127.0.0.1:5173/order-canceled");
+		res.redirect("http://localhost:5173/order-canceled");
 	},
 };
