@@ -78,6 +78,18 @@ export const logoutNotification = () =>
 		progress: undefined,
 	});
 
+export const userUpdatedNotifaction = () => {
+	toast.success("Profile updated succesfully! ✅", {
+		position: "top-right",
+		autoClose: 2000,
+		hideProgressBar: true,
+		closeOnClick: true,
+		pauseOnHover: false,
+		draggable: true,
+		progress: undefined,
+	});
+};
+
 export const productAddedNotification = () =>
 	toast.success("Product added successfully! ✅", {
 		position: "bottom-right",

@@ -40,6 +40,18 @@ export const confirmationEmail = (user) => {
 	};
 };
 
+export const editUserProfile = (userUpdated) => {
+	return async () => {
+		try {
+			const response = await axios.put(`users/modifyUser`, userUpdated);
+			console.log("userUpdated", userUpdated);
+			return response.data;
+		} catch (e) {
+			console.error(e);
+		}
+	};
+};
+
 export const getUserProfile = (id) => {
 	return async (dispatch) => {
 		try {

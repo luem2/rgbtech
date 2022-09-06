@@ -1,20 +1,23 @@
 import React, { useState } from "react";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import Modal from "../../components/Modal/Modal";
 import { FcCancel } from "react-icons/fc";
 import { FaCheckCircle, FaEye } from "react-icons/fa";
 import defaultImage from "../../assets/defaultImage.png";
+import { editUserProfile } from "../../store/slices/users/thunks";
+import { useNavigate } from "react-router-dom";
+import { userUpdatedNotifaction } from "../../components/Notifications";
 import { RiH2 } from "react-icons/ri";
 
 const ModifyProfile = ({ closeModal }) => {
-	// const dispatch = useDispatch();
+	const dispatch = useDispatch();
 	const user = JSON.parse(window.localStorage.getItem("user"));
 	const [showpassword, setShowPassword] = useState("password");
 
 	const [previewSource, setPreviewSource] = useState(defaultImage);
 	const [input, setInput] = useState({
 		user: user.user,
-		password: user.password,
+		password: "",
 		mail: user.mail,
 		profilePhoto: "",
 	});
@@ -40,27 +43,29 @@ const ModifyProfile = ({ closeModal }) => {
 		previewFile(file);
 	};
 
-	// function handleSubmit(e) {
-	// 	e.preventDefault();
-	// 	const postFinal = {
-	// 		user: input.user,
-	// 		password: input.password,
-	// 		mail: input.mail,
-	// 		profilePhoto: previewSource,
-	// 	};
+	function handleSubmit(e) {
+		e.preventDefault();
+		const postFinal = {
+			id: user.id,
+			user: input.user,
+			password: input.password,
+			mail: input.mail,
+			profilePhoto: previewSource,
+		};
 
-	// 	dispatch(postUser(postFinal));
-	// 	setInput({
-	// 		user: "",
-	// 		password: "",
-	// 		mail: "",
-	// 		profilePhoto: "",
-	// 	});
-	//
-	// 	setPreviewSource("");
-	// 	navigate("/");
-	// 	dispatch(setAccCreated(true));
-	// }
+		console.log("previewSource", previewSource);
+
+		dispatch(editUserProfile(postFinal));
+		setInput({
+			user: "",
+			password: "",
+			mail: "",
+			profilePhoto: "",
+		});
+
+		setPreviewSource("");
+		userUpdatedNotifaction();
+	}
 
 	const userData = JSON.parse(window.localStorage.getItem("user"));
 	console.log("userData", userData);
@@ -76,6 +81,7 @@ const ModifyProfile = ({ closeModal }) => {
 					name="user"
 					className="ml-2 rounded-xl text-black p-1 mx-4"
 					value={input.user}
+					required
 					onChange={handleChange}
 				/>
 				<label className="font-semibold" htmlFor="">
@@ -87,6 +93,7 @@ const ModifyProfile = ({ closeModal }) => {
 					className="ml-2 rounded-xl text-black p-1 mx-4"
 					value={input.password}
 					onChange={handleChange}
+					required
 				/>
 				<div className="flex justify-start items-center text-xs">
 					<input
@@ -110,6 +117,7 @@ const ModifyProfile = ({ closeModal }) => {
 					className="ml-2 rounded-xl text-black p-1 mx-4"
 					value={input.mail}
 					onChange={handleChange}
+					required
 				/>
 				<label className="font-semibold" htmlFor="">
 					Profile photo:
@@ -161,6 +169,7 @@ const ModifyProfile = ({ closeModal }) => {
 				<button
 					type="submit"
 					className="flex gap-2 items-center px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
+					onClick={(e) => handleSubmit(e)}
 				>
 					<FaCheckCircle className="h-5 w-5" /> Accept Changes
 				</button>

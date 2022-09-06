@@ -10,6 +10,7 @@ const {
 	checkLoginBody,
 	checkUserRegistration,
 	checkUserRegistrationGoogle,
+	uploadExistingUserPhoto,
 } = require("../middlewares/userMiddleware.js");
 const { htmlMail } = require("../Utils/EmailTemplate.js");
 
@@ -131,6 +132,35 @@ router.post(
 // 	}
 // );
 
+router.put("/modifyUser", uploadExistingUserPhoto, async (req, res) => {
+	try {
+		const { id, name, mail, password, profilePhoto } = req.body;
+		console.log("req.body", req.body);
+		if (!id || !name || !mail || !profilePhoto) {
+			return res.send("insufficient information to continue");
+		}
+		// const hashedPassword = await bcrypt.hash(password, 10);
+		const userUpdated = await User.update(
+			{
+				user: name,
+				mail: mail,
+				// password: hashedPassword,
+				profilePhoto: profilePhoto,
+			},
+			{
+				where: {
+					id: id,
+				},
+			}
+		);
+		console.log("userUpdated", userUpdated);
+		res.json({ userUpdated: userUpdated });
+	} catch (error) {
+		console.log("error", error);
+		res.json({ error: error });
+	}
+});
+
 router.get("/profile/:id", validateToken, async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -141,6 +171,7 @@ router.get("/profile/:id", validateToken, async (req, res) => {
 			res.sendStatus(404);
 		}
 		const profile = {
+			id: user.id,
 			user: user.user,
 			mail: user.mail,
 			profilePhoto: user.profilePhoto,
