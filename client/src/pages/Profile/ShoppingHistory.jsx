@@ -3,11 +3,13 @@ import { useSelector } from "react-redux";
 import CardProduct from "./CardProduct";
 import jwt from "jwt-decode";
 import axios from "axios";
+import TarjetaShopping from "../../components/TarjetaShopping";
 
 
 const ShoppingHistory = () => {
 	const [products, setProducts] = useState([])
 	const user = useSelector((state) => state.user)
+
 
 	useEffect(() => {
 		const token = window.localStorage.getItem("token");
@@ -30,15 +32,15 @@ const ShoppingHistory = () => {
 				Shopping history:
 			</h1>
 			{products?.map((p, i) => (
-				<CardProduct
+				<TarjetaShopping
 					key={i}
-					id={p.id}
 					name={p.name}
-					description={p.totalPrice}
-					rating={p.rating}
-					stock={p.stock}
+					totalPrice={p.totalPrice}
+					month={p.month}
+					year={p.year}
+					amount={p.amount}
 				/>
-			))}
+			))} 
 		</div>
 	);
 };
