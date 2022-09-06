@@ -89,8 +89,8 @@ const Login = ({ closeModal }) => {
 													Password
 												</label>
 												<Link
-													to="/createUser"
-													className="text-sm text-blue-600 hover:underline focus:text-blue-800"
+													to="/recoverpassword"
+													className="cursor-pointer text-sm text-blue-600 hover:underline focus:text-blue-800"
 													tabIndex={-1}
 												>
 													Forgot Password?
