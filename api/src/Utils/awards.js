@@ -9,8 +9,8 @@ const Products = [
       width: "11.5cm"
     }
     ],
-    img: "https://http2.mlstatic.com/D_NQ_NP_854384-MLA45113663302_032021-O.webp",
-    stock: 0,
+    img: "https://images-ext-2.discordapp.net/external/zD61UM2_75NzukIrvweHIzIukjGddQztku3sxRkOc10/https/res.cloudinary.com/ddroxn7iv/image/upload/v1662473130/RGBtech/Awards/Support_supports_cell_phone_zxiwv1.png?width=427&height=427",
+    stock: 100,
   },
   {
     name: "led ring light",
@@ -22,7 +22,7 @@ const Products = [
       itIsRechargeable: "No"
     }
     ],
-    img: "https://http2.mlstatic.com/D_NQ_NP_654445-MLA43815950610_102020-O.webp",
+    img: "https://images-ext-1.discordapp.net/external/SRDIV40d5n5NXo_mjER7E52SsgWVwguLLMiKWwu02II/https/res.cloudinary.com/ddroxn7iv/image/upload/v1662473130/RGBtech/Awards/led_ring_light_e9lbhf.png?width=427&height=427",
     stock: 200,
   },
   {
@@ -49,7 +49,7 @@ const Products = [
    microphone: "Yes",
    washable:"Yes"}
 ],
-  img: "https://m.media-amazon.com/images/I/8130jrwWWWL._AC_UX522_.jpg",
+  img: "https://images-ext-1.discordapp.net/external/37x4V4Q48r5arWNPqMkYdgoqgJAOkVjEuMDML9_CNqY/https/res.cloudinary.com/ddroxn7iv/image/upload/v1662473157/RGBtech/Awards/beanie_with_bluetooth_te3bob.png?width=427&height=427",
   stock: 543,
   freeShipping: true
 },
@@ -61,7 +61,7 @@ const Products = [
    compatibleDevices: "Headphones",
    material: "Rubber Glass Polycarbonate Wood"}
 ],
-  img: "https://m.media-amazon.com/images/I/616qQCQHs2L._AC_SX425_.jpg",
+  img: "https://images-ext-1.discordapp.net/external/j7kZSoxZGL73TyeTvXilxUCGjy-vZL6mYH6VEG28mss/https/res.cloudinary.com/ddroxn7iv/image/upload/v1662473130/RGBtech/Awards/Headphones_in-ear_wireless_F9-5_mvq9p0.png?width=427&height=427",
   stock: 342,
   freeShipping: true
 },
@@ -73,7 +73,7 @@ const Products = [
    USB: "3.0",
    dualSlot: "SD y TF + 3 hubs USB"}
 ],
-  img: "https://images-na.ssl-images-amazon.com/images/I/81GUMFyIxqL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
+  img: "https://images-ext-2.discordapp.net/external/nxj8JFqN0trOLHFX9h1yGzkx3pkC_LKoYjuzIVRZR6s/https/res.cloudinary.com/ddroxn7iv/image/upload/v1662473130/RGBtech/Awards/SABRENT_Hub_USB-C_3.0_imtbwz.png?width=427&height=427",
   stock: 168,
   freeShipping: true
 },
@@ -85,7 +85,7 @@ const Products = [
    LightSourceType: "LED",
    PowerSource: "Corded Electric"}
 ],
-  img: "https://cdn.shopify.com/s/files/1/0599/5262/7880/products/1_7f9002a1-0e33-494d-80b7-55cde90cf9da_700x700.jpg?v=1636148746",
+  img: "https://images-ext-2.discordapp.net/external/ypVWQITZCBW5VSaVptwCbF97o7zA-ALvb_CYA10MSNM/https/res.cloudinary.com/ddroxn7iv/image/upload/v1662473131/RGBtech/Awards/led_strip_lights_n7lzdd.png?width=427&height=427",
   stock: 93,
   freeShipping: true
 }
