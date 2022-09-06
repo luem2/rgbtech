@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import logo from "../../assets/logo-dibujo-2.png";
 import { useNavigate } from "react-router-dom";
 // import { emptyCart } from "../../store/slices/guestShoppingCart/guestShoppingCartSlice";
-import { setShoppingHistory } from "../../store/slices/users/thunks";
 import { setShoppingUserHistory } from "../../store/slices/admin/thunk";
 import jwt from "jwt-decode";
 import "animate.css";
