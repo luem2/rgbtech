@@ -69,7 +69,35 @@ export default function RecoverPassword() {
 	}
 
 	return (
-		<div>
+	<div className="mx-auto my-10 rounded-lg shadow p-10 max-w-lg">
+	<form onSubmit={handlerSubmit}>
+  <div onSubmit={handlerSubmit} className="mb-6">
+    <label for="email" className="text-gray-700 font-medium">Nueva contraseña</label>
+    <input value={input.nuevaContraseña} onChange={(e) => handlerChange(e)} name="nuevaContraseña"  type="password" placeholder="Enter your password" className="block rounded-md border border-gray-300 py-2 px-4 my-2 shadow-sm w-full"/>
+  </div>
+  {errors.nuevaContraseña && <p>{errors.nuevaContraseña}</p>}
+  <div className="mb-6">
+    <label for="password" className="text-gray-700 font-medium">Confirmar contraseña</label>
+    <input value={input.confirmacionDeContraseña} onChange={(e) => handlerChange(e)} name="confirmacionDeContraseña" type="password" placeholder="Enter your password" className="block rounded-md border border-gray-300 py-2 px-4 my-2 shadow-sm w-full"/>
+  </div>
+  { errors.confirmacionDeContraseña && <p>{errors.confirmacionDeContraseña}</p>}
+  <div className="flex justify-between items-center mb-3">
+    <div className="mt-auto">
+    </div>
+  </div>
+  <button type="submit" onClick={(e) => handlerSubmit(e)} className="bg-red-400 hover:bg-red-500 py-2 rounded text-white my-2 px-4 w-full">Continuar</button>
+  </form>
+  <br />
+      <p>Minimo 8 caracteres</p>
+      <p>Al menos una letra en mayúscula</p>
+      <p>al menos una letra minúscula </p>
+      <p>Al menos un número</p>
+      <p>Puede contener un signo especial</p>
+</div>
+	);
+}
+
+{/* <div>
 			<form onSubmit={handlerSubmit}>
 				<div>
 					<h4>Nueva contraseña</h4>
@@ -105,6 +133,4 @@ export default function RecoverPassword() {
       <p>al menos una letra minúscula </p>
       <p>Al menos un número</p>
       <p>Puede contener un signo especial</p>
-		</div>
-	);
-}
+		</div> */}
