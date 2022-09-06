@@ -58,12 +58,12 @@ export const getUserProfile = (id) => {
 	};
 };
 
-export const setShoppingHistory = (shoppings) => {
+export const getShoppingHistory = () => {
 	const token = window.localStorage.getItem("token");
 	const perfil = jwt(token);
 	return async () => {
 		try {
-			await axios.put(`users/shoppingHistory/${perfil.id}`, shoppings);
+			await axios.put(`users/shoppingHistory/${perfil.id}`);
 		} catch (e) {
 			console.error(e);
 		}

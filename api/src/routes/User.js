@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { User } = require("../db");
+const { User ,Sale} = require("../db");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const {
@@ -11,7 +11,8 @@ const {
 	checkUserRegistration,
 	checkUserRegistrationGoogle,
 } = require("../middlewares/userMiddleware.js");
-const { htmlMail } = require("../Utils/EmailTemplate.js");
+// const { htmlMail } = require("../Utils/EmailTemplate.js");
+// const { SHOWTABLES } = require("sequelize/types/query-types");
 
 const router = Router();
 
@@ -38,23 +39,23 @@ router.post(
 
 router.post("/registerGoogle", async (req, res) => {
 	try {
-		let { user, mail, profilePhoto, password} = req.body;
-		const findedUser =await  User.findOne({
+		let { user, mail, profilePhoto, password } = req.body;
+		const findedUser = await User.findOne({
 			where: {
 				mail: mail
 			}
 		})
-		if(!findedUser) {
+		if (!findedUser) {
 			const hashedPassword = await bcrypt.hash(password, 10);
 			const newUser = await User.create({
 				user,
 				profilePhoto,
 				mail,
 				password: hashedPassword,
-				userVerificate : true
+				userVerificate: true
 			})
-			const { id,cartShop, favorite } = newUser;
-			const infoFront = {id:id,cartShop:cartShop, favorite: favorite}
+			const { id, cartShop, favorite } = newUser;
+			const infoFront = { id: id, cartShop: cartShop, favorite: favorite }
 			const accessToken = jwt.sign(infoFront, process.env.SECRET);
 			console.log(accessToken)
 			return res.status(200).json({
@@ -62,8 +63,8 @@ router.post("/registerGoogle", async (req, res) => {
 				token: accessToken,
 			});
 		} else {
-			const { id ,cartShop, favorite} =findedUser.dataValues ;
-			const infoFront = {id:id,cartShop:cartShop, favorite: favorite}
+			const { id, cartShop, favorite } = findedUser.dataValues;
+			const infoFront = { id: id, cartShop: cartShop, favorite: favorite }
 			const accessToken = jwt.sign(infoFront, process.env.SECRET);
 			console.log(accessToken)
 			return res.status(200).json({
@@ -84,8 +85,8 @@ router.post(
 		try {
 			const { findedUser, logged } = req.body;
 			if (logged) {
-				const { id ,cartShop, favorite} = findedUser;
-				const infoFront = {id:id,cartShop:cartShop, favorite: favorite}
+				const { id, cartShop, favorite } = findedUser;
+				const infoFront = { id: id, cartShop: cartShop, favorite: favorite }
 				const accessToken = jwt.sign(infoFront, process.env.SECRET);
 				return res.status(200).json({
 					mssage: "usuario autenticado",
@@ -115,7 +116,7 @@ router.post(
 // 					// user, 
 // 					// mail, 
 // 					// profilePhoto, 
-					 
+
 // 					// isAdmin,
 // 				}
 // 				const accessToken = jwt.sign(logedUser, process.env.SECRET);
@@ -146,7 +147,7 @@ router.get("/profile/:id", validateToken, async (req, res) => {
 			cartShop: user.cartShop,
 			favorite: user.favorite,
 			isAdmin: user.isAdmin,
-			lastVisited:user.lastVisited
+			lastVisited: user.lastVisited
 		};
 		res.json(profile);
 	} catch (error) {
@@ -166,82 +167,33 @@ router.put("/setCart/:id", validateToken, async (req, res) => {
 	}
 });
 
-router.put("/shoppingHistory/:id", async (req, res, next) => {
+router.put("/favourites/:id", async (req, res) => {
 	try {
-		const { id } = req.params;
-		const { shoppings } = req.body;
+		const { id } = req.params
+		console.log(id)
+		const { newfavorite } = req.body;
 		const user = await User.findByPk(id);
-		let history = user.shoppingHistory;
-		console.log(history, "fav");
-		if (history) {
-			(history = history), shoppings;
-			console.log(history);
+		let favorite = user.dataValues.favorite;
+		favorite == null ? favorite = [] : null
+		if (!favorite?.length) {
+			favorite = newfavorite;
 		} else {
-			history = shoppings;
+			favorite = [...favorite, newfavorite].flat();
 		}
-
 		await User.update(
 			{
-				shoppingHistory: history,
+				favorite
 			},
 			{
 				where: {
 					id: id,
-				},
+				}
 			}
 		);
-		res.send("updated shopping History");
+		res.send("Favoritos de usuario actualizado");
 	} catch (error) {
-		next(error);
-	}
-});
-
-// router.put("/favourites/:id", async (req, res, next) => {
-// 	try {
-// 		const { id } = req.params;
-// 		const { favorite } = req.body;
-// 		await User.update(
-// 			{
-// 				favorite: favorite,
-// 			},
-// 			{
-// 				where: {
-// 					id: id,
-// 				},
-// 			}
-// 		);
-// 		res.send("Favoritos de usuario actualizado");
-// 	} catch (error) {
-// 		next(error);
-// 	}
-// });
-
-router.put("/favourites/:id", async (req, res) => {
-	try {
-	const {id} = req.params
-	console.log(id)
-	const { newfavorite } = req.body;
-	const user = await User.findByPk(id);
-	let favorite = user.dataValues.favorite;
-	favorite == null?favorite=[]:null
-	if (!favorite?.length) {
-		favorite = newfavorite;
-	} else {
-		favorite = [...favorite, newfavorite].flat();
-	}
-	await User.update(
-		{
-			favorite
-			},
-		{
-			where: {
-				id: id,
-			}}
-	);
-	res.send("Favoritos de usuario actualizado");
-    } catch (error) {
-        res.send(error);
-    };
+		res.send(error);
+	};
 });
 
 router.put("/deletefavorite/:id", async (req, res, next) => {
@@ -254,10 +206,11 @@ router.put("/deletefavorite/:id", async (req, res, next) => {
 		await User.update(
 			{
 				favorite: deletefavorite,
-			},{
-				where: {
-					id: id,
-				}}
+			}, {
+			where: {
+				id: id,
+			}
+		}
 		);
 		res.send("Favoritos de usuario actualizado");
 	} catch (error) {
@@ -266,55 +219,55 @@ router.put("/deletefavorite/:id", async (req, res, next) => {
 });
 
 router.put("/puntuacion/:id", async (req, res, next) => {
-    try {
-        const { id } = req.params;
-        let user =  await User.findByPk(id)
+	try {
+		const { id } = req.params;
+		let user = await User.findByPk(id)
 		console.log(req.body)
 		valor = req.body.RGBpoint
-        const newpuntuacion = user.RGBpoint + valor
-        await User.update(
-            {
-                RGBpoint:newpuntuacion
-            },
-            {
-                where: {
-                    id: id,
-                },
-            }
-        );
-        res.send("User Confirmations");
-    } catch (error) {
-        next(error);
-    }
+		const newpuntuacion = user.RGBpoint + valor
+		await User.update(
+			{
+				RGBpoint: newpuntuacion
+			},
+			{
+				where: {
+					id: id,
+				},
+			}
+		);
+		res.send("User Confirmations");
+	} catch (error) {
+		next(error);
+	}
 });
 
 router.put("/newproductcart/:id", async (req, res, next) => {
-		try {
-			const {id} = req.params
-			const { newproductcart } = req.body;
-			const user = await User.findByPk(id);
-			let cartShop = user.dataValues.cartShop;
-			cartShop == null?cartShop=[]:null
-			if (!cartShop?.length) {
-				cartShop = newproductcart;
-			} else {
-				cartShop = [...cartShop, newproductcart].flat();
-			}
-			await User.update(
-				{
-					cartShop
-				},
-				{
-					where: {
-						id: id,
-					},
-				}
-			);
-			res.send("Favoritos de usuario actualizado");
-		} catch (error) {
-			next(error);
+	try {
+		const { id } = req.params
+		const { newproductcart } = req.body;
+		const user = await User.findByPk(id);
+		let cartShop = user.dataValues.cartShop;
+		cartShop == null ? cartShop = [] : null
+		if (!cartShop?.length) {
+			cartShop = newproductcart;
+		} else {
+			cartShop = [...cartShop, newproductcart].flat();
 		}
-	});
+		await User.update(
+			{
+				cartShop
+			},
+			{
+				where: {
+					id: id,
+				},
+			}
+		);
+		res.send("Favoritos de usuario actualizado");
+	} catch (error) {
+		next(error);
+	}
+});
 router.put("/deleteproductcart/:id", async (req, res, next) => {
 	try {
 		//Asegurarse de vaciar esta propiedad al ejecutar esta compra
@@ -419,6 +372,24 @@ router.post("/addComment", async (req, res) => {
 });
 
 
+router.get("/getShoppingHistory/:id", async (req, res, next) => {
+	try {
+		const { id } = req.params;
+		console.log("asdsa")
+
+		const userShopHistory = await Sale.findAll({
+			where : {
+			 userId: id
+			}
+			})
+		res.send(userShopHistory);
+	} catch (error) {
+		console.log(error)
+	}
+})
+
+
+
 
 
 router.put("/updateLastVisited/:id", async (req, res, next) => {
@@ -428,15 +399,15 @@ router.put("/updateLastVisited/:id", async (req, res, next) => {
 		console.log(id)
 		const user = await User.findByPk(id);
 		let lastVisited = user.dataValues.lastVisited
-		if( lastVisited && lastVisited.length > 13){
-			lastVisited.splice(-1,1)
+		if (lastVisited && lastVisited.length > 13) {
+			lastVisited.splice(-1, 1)
 		}
 		await User.update(
 			{
-				lastVisited: [idp,...lastVisited]
+				lastVisited: [idp, ...lastVisited]
 			},
 			{
-				where: {id: id}
+				where: { id: id }
 			}
 		);
 		res.send("User Confirmations");

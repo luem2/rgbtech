@@ -9,7 +9,6 @@ import {
 } from "../store/slices/guestShoppingCart/guestShoppingCartSlice";
 import { FaMoneyCheckAlt } from "react-icons/fa";
 import {
-	setShoppingHistory,
 	deleteProductCart,
 	clearCartShop,
 	setUserPoint
@@ -116,11 +115,6 @@ const ShoppingCart = () => {
 	};
 
 	const HandleClickBuy = async () => {
-		// const productsId = cart.map((p) => ({ id: p.id, date: Date() }));
-		// console.log(productsId);
-		// dispatch(setShoppingHistory(productsId));
-
-		console.log("userProfile", userProfile);
 		if (userProfile === null || Boolean(!Object.keys(userProfile).length)) {
 			return youAreUnloggedProducts();
 		}
