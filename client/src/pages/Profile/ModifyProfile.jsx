@@ -7,6 +7,7 @@ import defaultImage from "../../assets/defaultImage.png";
 import { editUserProfile } from "../../store/slices/users/thunks";
 import { userUpdatedNotifaction } from "../../components/Notifications";
 import { RiH2 } from "react-icons/ri";
+import { updatePerfilErrorNotification } from "../../components/Notifications";
 
 const ModifyProfile = ({ closeModal }) => {
 	const dispatch = useDispatch();
@@ -44,6 +45,13 @@ const ModifyProfile = ({ closeModal }) => {
 
 	function handleSubmit(e) {
 		e.preventDefault();
+		if (!input.user || !input.mail) {
+			console.log("estoy entrando al if");
+			updatePerfilErrorNotification();
+			return;
+		}
+
+		console.log("sigo leyendo despues del if");
 		const postFinal = {
 			id: user.id,
 			user: input.user,
@@ -51,7 +59,7 @@ const ModifyProfile = ({ closeModal }) => {
 			profilePhoto: previewSource,
 		};
 
-		dispatch(editUserProfile(postFinal));
+		// dispatch(editUserProfile(postFinal));
 
 		setPreviewSource("");
 		closeModal(false);
@@ -64,7 +72,6 @@ const ModifyProfile = ({ closeModal }) => {
 	return (
 		<Modal tailwindCSS={"bg-[#a156f6] bg-opacity-100"}>
 			<form
-				encType="multipart/form-data"
 				action=""
 				onSubmit={(e) => handleSubmit(e)}
 				className="flex flex-col space-y-5"
@@ -166,7 +173,7 @@ const ModifyProfile = ({ closeModal }) => {
 					<button
 						type="submit"
 						className="flex gap-2 items-center px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
-						onClick={(e) => handleSubmit(e)}
+						// onClick={(e) => handleSubmit(e)}
 					>
 						<FaCheckCircle className="h-5 w-5" /> Accept Changes
 					</button>

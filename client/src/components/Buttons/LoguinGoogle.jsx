@@ -14,14 +14,15 @@ import axios from "axios";
 // 	setWelcomeUser,
 // } from "../../store/slices/admin/adminSlice";
 import { setAuthToken } from "../../store/slices/users/thunks";
+import { welcomeUserNotification } from "../Notifications";
 
-
-function LoguinGoogle() {
+function LoguinGoogle({ closeModal }) {
 	const navigate = useNavigate();
 	const { cart } = useSelector((state) => state.guestShoppingCart);
 	// const { user }= useSelector((state) => state.user);
 	const carts = cart.map((product) => product);
 	const dispatch = useDispatch();
+
 	function handleCallbackResponse(response) {
 		const token = response.credential;
 		// console.log(" Encoded JWT ID token : " + token);
@@ -51,9 +52,9 @@ function LoguinGoogle() {
 				if (user.favorite) {
 					dispatch(setFavorite(user.favorite));
 				}
-				dispatch(setLogin(false));
-				dispatch(setWelcomeUser(true));
 				navigate("/");
+				welcomeUserNotification();
+				closeModal();
 			})
 			.catch((error) => {
 				console.log(error);
