@@ -73,18 +73,16 @@ const createUser = () => {
 					</div>
 					<div className="absolute right-80 mt-3">
 						<Link to="/">
-									<button
-										className=" rounded-full"
-										// onClick={() => closeModal()}
-										>
-										<AiOutlineClose size={30} />
-									</button>
+							<button
+								className=" rounded-full"
+								// onClick={() => closeModal()}
+							>
+								<AiOutlineClose size={30} />
+							</button>
 						</Link>
-								</div>
+					</div>
 					<div className="p-5 bg-white md:flex-1">
-						
 						<div className="flex items-stretch">
-						
 							<div>
 								<h3 className="my-4 text-2xl font-semibold text-gray-700">
 									Create Account
@@ -196,16 +194,13 @@ const createUser = () => {
 								</div>
 							</div>
 							<div>
-											<button
-												type="submit"
-												className="w-full px-4 py-2 text-lg font-semibold text-white transition-colors duration-300 bg-blue-300 rounded-md shadow hover:bg-blue-500 focus:outline-none focus:ring-blue-200 focus:ring-4"
-												onClick={(e) => {
-													handleSubmit(e);
-												}}
-											>
-												Sing up
-											</button>
-										</div>
+								<button
+									type="submit"
+									className="w-full px-4 py-2 text-lg font-semibold text-white transition-colors duration-300 bg-blue-300 rounded-md shadow hover:bg-blue-500 focus:outline-none focus:ring-blue-200 focus:ring-4"
+								>
+									Sing up
+								</button>
+							</div>
 						</form>
 					</div>
 				</div>
