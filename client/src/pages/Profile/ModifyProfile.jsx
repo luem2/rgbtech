@@ -17,7 +17,6 @@ const ModifyProfile = ({ closeModal }) => {
 	const [previewSource, setPreviewSource] = useState(defaultImage);
 	const [input, setInput] = useState({
 		user: user.user,
-		password: "",
 		mail: user.mail,
 		profilePhoto: "",
 	});
@@ -48,7 +47,6 @@ const ModifyProfile = ({ closeModal }) => {
 		const postFinal = {
 			id: user.id,
 			user: input.user,
-			password: input.password,
 			mail: input.mail,
 			profilePhoto: previewSource,
 		};
@@ -56,6 +54,7 @@ const ModifyProfile = ({ closeModal }) => {
 		dispatch(editUserProfile(postFinal));
 
 		setPreviewSource("");
+		closeModal(false);
 		userUpdatedNotifaction();
 	}
 
@@ -93,7 +92,7 @@ const ModifyProfile = ({ closeModal }) => {
 						onChange={(e) => handleChange(e)}
 						required
 					/> */}
-					<div className="flex justify-start items-center text-xs">
+					{/* <div className="flex justify-start items-center text-xs">
 						<input
 							type="checkbox"
 							className="rounded-xl text-black mx-2"
@@ -105,7 +104,7 @@ const ModifyProfile = ({ closeModal }) => {
 						/>
 						Show password
 						<FaEye className="ml-2" />
-					</div>
+					</div> */}
 					<label className="font-semibold" htmlFor="">
 						Email:
 					</label>
