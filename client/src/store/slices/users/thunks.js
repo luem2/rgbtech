@@ -195,9 +195,10 @@ export const sendPassword = (perfil, password) => {
 
 export const sendEmail = (email) => {
 	console.log(email, "action");
-	return async () => {
+	return async (dispatch) => {
 		try {
-			const response = await axios.get("/recoverPassword", email);
+			const response = await axios.post("/recoverPassword", email );
+			return response;
 		} catch (error) {
 			console.log(error);
 		}

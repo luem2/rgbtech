@@ -7,12 +7,12 @@ const { validateToken } = require("../middlewares/userMiddleware");
 const bcrypt = require("bcrypt");
 const router = Router();
 
-router.get("/", async (req, res) => {
+router.post("/", async (req, res) => {
 	try {
 		const { email } = req.body;
-		console.log(email);
+		console.log(req.body, "req.body");
 		if (!email) {
-			res.send("Information not received");
+		return	res.send("Information not received");
 		}
 		const findUser = await User.findAll({
 			where: {
