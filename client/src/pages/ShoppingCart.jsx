@@ -30,7 +30,7 @@ import assignPoints from "./Rgbpoint";
 const ShoppingCart = () => {
 	const dispatch = useDispatch();
 	const { user } = useSelector((state) => state.user);
-	const { buying } = useSelector((state) => state.guestShoppingCart);
+	const { cart, buying } = useSelector((state) => state.guestShoppingCart);
 	const [products, setProducts] = useState([]);
 	const [totalPrice, setTotalPrice] = useState(0);
 	const [finalPrice, setFinalPrice] = useState(0);
@@ -134,7 +134,7 @@ const ShoppingCart = () => {
 		// 	return youAreUnloggedProducts();
 		// }
 
-		const cartBuy = cart.map((p) => ({
+		const cartBuy = products.map((p) => ({
 			reference_id: p.id,
 			amount: {
 				currency_code: "USD",
@@ -145,7 +145,7 @@ const ShoppingCart = () => {
 
 		dispatch(setBuying(true));
 		const { data } = await checkoutPaypal(cartBuy);
-		window.localStorage.setItem("productsPaypal", JSON.stringify(cart));
+		window.localStorage.setItem("productsPaypal", JSON.stringify(products));
 		window.location.href = data;
 		dispatch(setBuying(false));
 

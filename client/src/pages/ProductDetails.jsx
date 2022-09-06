@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getProductById } from "../store/slices/products/thunks";
 import { MdOutlineShoppingCart } from "react-icons/md";
-import { IoMdHeartEmpty, IoMdHeart } from "react-icons/io";
-import { AiFillStar } from "react-icons/ai";
+import { MdFavorite, MdOutlineFavoriteBorder } from "react-icons/md";
+// import { AiFillStar } from "react-icons/ai";
+import { BsCheckLg } from "react-icons/bs";
 import Spinner from "../components/Spinner";
 import Header from "../components/Header/Header";
 import CircleButton from "../components/Buttons/CircleButton";
@@ -14,6 +15,7 @@ import Comment from "../components/Comment";
 import { hasJWT } from "../store/thunks/";
 import jwt from "jwt-decode";
 import {
+	productAddedFavoriteNotification,
 	productAddedNotification,
 	youAreUnloggedFavorites,
 	youAreUnloggedProducts,
@@ -21,29 +23,35 @@ import {
 import { ToastContainer } from "react-toastify";
 import CarruselComments from "../components/CarruselComments";
 import Footer from "../components/Footer";
+import specialdiscount from "../assets/specialdiscount.png";
+import freeShipping from "../assets/freeShipping.png";
 import {
+	deleteFavoriteUser,
 	getUserProfile,
+	updateFavoriteUser,
 	updateLastVisited,
 	updateProductCart,
 } from "../store/slices/users/thunks";
+import Swal from "sweetalert2";
 
 const ProductDetails = () => {
 	const { id } = useParams();
 	const dispatch = useDispatch();
-	const { cart } = useSelector((state) => state.guestShoppingCart);
+	// const { cart } = useSelector((state) => state.guestShoppingCart);
 	const [comment, setComment] = useState("");
 	const [rating, setRating] = useState("");
 	const { productDetails } = useSelector((state) => state.products);
 	const product = productDetails;
 	const { user } = useSelector((state) => state.user);
+	let FavoriteProduct = user.favorite;
 	let token;
 	let perfil;
 	if (hasJWT()) {
 		token = window.localStorage.getItem("token");
 		perfil = jwt(token);
 	}
+
 	const handleAddCart = () => {
-		console.log("hola");
 		if (hasJWT()) {
 			const cart = user.cartShop;
 			const handler = cart?.includes(id);
@@ -54,6 +62,49 @@ const ProductDetails = () => {
 			}
 		} else {
 			youAreUnloggedProducts();
+		}
+	};
+
+	const handleAddCartFav = () => {
+		if (hasJWT()) {
+			let favorite = user.favorite;
+			const handler = favorite?.includes(id);
+			if (!handler) {
+				dispatch(updateFavoriteUser([id]));
+				productAddedFavoriteNotification();
+			}
+		} else {
+			youAreUnloggedFavorites();
+		}
+	};
+
+	const handleDeleteCartFav = () => {
+		if (hasJWT()) {
+			Swal.fire({
+				title: "Are you sure you want to delete this favorite?",
+				text: "You won't be able to revert this!",
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "Yes, delete it!",
+			}).then((result) => {
+				if (result.isConfirmed) {
+					let favorite = user.favorite;
+					const handler = favorite?.includes(id);
+					if (handler) {
+						const updatedFavorites = user.favorite.filter(
+							(product) => product !== id
+						);
+						dispatch(deleteFavoriteUser(updatedFavorites));
+					}
+					Swal.fire(
+						"Favorite was deleted!",
+						"Your product has been deleted from favorites.",
+						"success"
+					);
+				}
+			});
 		}
 	};
 
@@ -121,20 +172,12 @@ const ProductDetails = () => {
 								<h1 className="text-5xl font-extrabold text-white-600 drop-shadow-lg shadow-black text-center">
 									{productDetails.name}
 								</h1>
-								<AiFillStar className="text-amber-400" />
+
+								{/* <AiFillStar className="text-amber-400" /> */}
 								<p>${productDetails.price}</p>
 								<p className="flex gap-2 items-center text-xl drop-shadow-lg shadow-black">
 									<MdOutlineShoppingCart /> Available Stock:{" "}
 									{productDetails.stock}
-								</p>
-								<p className="flex items-center gap-4 text-2xl">
-									<IoMdHeartEmpty
-										size={40}
-										className="hover:cursor-pointer hover:scale-110 duration-500 "
-										onClick={() =>
-											!hasJWT() ? youAreUnloggedFavorites() : null
-										}
-									/>
 								</p>
 								<CircleButton
 									className="flex gap-2 items-center active:bg-pink-800 focus:bg-pink-700 hover:bg-pink-700 bg-pink-600"
@@ -143,6 +186,42 @@ const ProductDetails = () => {
 									<MdOutlineShoppingCart />
 									Agregar al Carrito
 								</CircleButton>
+								{console.log(FavoriteProduct?.includes(id))}
+								{FavoriteProduct?.includes(id) ? (
+									<SquareButton
+										className="flex gap-2 items-center active:bg-blue-800 focus:bg-blue-700 hover:bg-blue-700 bg-blue-600"
+										onClick={handleDeleteCartFav}
+									>
+										<MdFavorite className="text-lg text-red-500" /> Agregar a
+										Favoritos
+									</SquareButton>
+								) : (
+									<SquareButton
+										className="flex gap-2 items-center active:bg-blue-800 focus:bg-blue-700 hover:bg-blue-700 bg-blue-600"
+										onClick={handleAddCartFav}
+									>
+										<MdOutlineFavoriteBorder className="text-lg" /> Agregar a
+										Favoritos
+									</SquareButton>
+								)}
+
+								<div className="flex gap-2 items-center">
+									{productDetails.freeShipping && (
+										<img
+											className="w-24 mt-2"
+											src={freeShipping}
+											alt="freeshipping"
+										/>
+									)}
+
+									{productDetails.onDiscount && (
+										<img
+											className="w-16 "
+											src={specialdiscount}
+											alt="ondiscount"
+										/>
+									)}
+								</div>
 							</div>
 						</div>
 						<div className="bg-gradient-to-r from-blue-900 to-pink-900 p-2 mt-2 mx-4 rounded-3xl flex flex-col justify-center items-center shadow-gray-700 shadow-md">
