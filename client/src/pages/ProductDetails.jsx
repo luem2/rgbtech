@@ -25,7 +25,7 @@ import { ToastContainer } from "react-toastify";
 import CarruselComments from "../components/CarruselComments";
 import Footer from "../components/Footer";
 import specialdiscount from "../assets/specialdiscount.png";
-import freeShipping from "../assets/freeShipping.png";
+import freeShipping from "../assets/freeshipping.png";
 import {
 	deleteFavoriteUser,
 	getUserProfile,
