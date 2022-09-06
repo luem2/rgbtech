@@ -26,6 +26,7 @@ module.exports = {
 			return res.status(400).send("Mandatory data missing");
 		}
 	},
+
 	uploadNewUserPhoto: async (req, res, next) => {
 		const { profilePhoto } = req.body;
 		if (profilePhoto) {
@@ -35,7 +36,7 @@ module.exports = {
 			req.body.newUser.profilePhoto = uploadedResponse.secure_url;
 			return next();
 		} else {
-			req.body.newUser.profilePhoto = "Image_Default";
+			req.body.newUser.profilePhoto = null;
 			return next();
 		}
 	},
@@ -48,7 +49,7 @@ module.exports = {
 			req.body.profilePhoto = uploadedResponse.secure_url;
 			return next();
 		} else {
-			req.body.profilePhoto = "Image_Default";
+			req.body.profilePhoto = null;
 			return next();
 		}
 	},
@@ -89,7 +90,6 @@ module.exports = {
 			});
 
 			if (findedUser === null) return res.sendStatus(404);
-			console.log(findedUser, "encontré el usuario");
 			if (!bcrypt.compareSync(password, findedUser.password)) {
 				return res.sendStatus(403);
 			}
