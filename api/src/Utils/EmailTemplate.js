@@ -21,7 +21,6 @@ module.exports = {
     <h2 style='color:#FF127E; margin-top:20px; margin-bottom:20px;'>Welcome to RGBTech</h2>
     <p>¡Hello,${nombre}.<br/>Thank you for using paypal services together with RGBTech. the following are the details of your transaction:</p>
     <ul >
-    <li>Payment reference: ${products.id}</li>
     <li>Product name:${products.name}</li>
     <li>Transaction value:$ ${products.totalPrice}</li>
     <li>Date:${products.month}</li>
