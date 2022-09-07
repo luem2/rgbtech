@@ -8,6 +8,7 @@ import TagsAndBrands from "../components/DashBoardAdmin/TagsAndBrands";
 import Users from "../components/DashBoardAdmin/Users";
 import EditTagsBrands from "../components/DashBoardAdmin/EditTagsBrands"
 import UpdateProduct from "../components/DashBoardAdmin/UpdateProduct"
+import AddProduct from "../components/DashBoardAdmin/AddProduct"
 
 //import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar, BarChart, ResponsiveContainer, PieChart, Pie} from 'recharts';
 
@@ -32,6 +33,7 @@ function DashBoardAdmin() {
 					{selection === "tags-brands" ? <TagsAndBrands /> : null}
 					{selection === "EditProduct" ? <UpdateProduct /> : null}
 					{selection === "EditTags/Brands" ? <EditTagsBrands /> : null}
+					{selection === "AddProduct" ? <AddProduct /> : null}
 				</div>
 			</div>
 		</div>
