@@ -9,9 +9,6 @@ const {
 
 const router = Router();
 
-<<<<<<< HEAD
-
-=======
 router.post("/sale", async (req, res) => {
 	try {
 		const { userId, products } = req.body;
@@ -76,7 +73,6 @@ router.post("/sale", async (req, res) => {
 		console.log(error);
 	}
 });
->>>>>>> 58a3064baeb2e088c30d1bf1d2e420c51f9cbc24
 
 router.get("/dashboard", async (req, res) => {
 	const { year } = req.query;
@@ -336,31 +332,6 @@ router.put("/tags/update", async (req, res) => {
 	}
 });
 
-<<<<<<< HEAD
-router.post('/products/admin-update', async (req, res)=>{
-  try {
-    console.log(req.body)
-    const {id, name, price, stock, description, onDiscount, discountPercentage, specifications, img, freeShipping} = req.body
-    Product.update({
-      id,
-      name,
-      price,
-      stock,
-      description,
-      onDiscount,
-      discountPercentage,
-      specifications,
-      img,
-      freeShipping
-    }, {
-      where: {
-        id: id
-      }
-    })
-  } catch (error) {
-    console.log(error)
-  }
-=======
 router.put("/brands/update", async (req, res) => {
 	const { id, disabled } = req.body;
 	try {
@@ -378,7 +349,6 @@ router.put("/brands/update", async (req, res) => {
 	} catch (error) {
 		res.sendStatus(500);
 	}
->>>>>>> 58a3064baeb2e088c30d1bf1d2e420c51f9cbc24
 });
 
 
