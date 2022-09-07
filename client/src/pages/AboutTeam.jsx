@@ -66,7 +66,7 @@ function AboutTeam() {
 								</a>
 							</div>
 							<div className="text-center">
-								<p className="text-2xl text-gray-800 dark:text-white">
+								<p className="text-2xl text-black dark:text-white">
 									Jhon Pérez
 								</p>
 								<p className="text-xl text-gray-500 dark:text-gray-200 font-light">
@@ -116,7 +116,7 @@ function AboutTeam() {
 								</a>
 							</div>
 							<div className="text-center">
-								<p className="text-2xl text-gray-800 dark:text-white">
+								<p className="text-2xl text-black dark:text-white">
 									Luciano Piñol
 								</p>
 								<p className="text-xl text-gray-500 dark:text-gray-200 font-light">
@@ -164,7 +164,7 @@ function AboutTeam() {
 								</a>
 							</div>
 							<div className="text-center">
-								<p className="text-2xl text-gray-800 dark:text-white">
+								<p className="text-2xl text-black dark:text-white">
 									Esteban Pilchuman
 								</p>
 								<p className="text-xl text-gray-500 dark:text-gray-200 font-light">
@@ -212,7 +212,7 @@ function AboutTeam() {
 								</a>
 							</div>
 							<div className="text-center">
-								<p className="text-2xl text-gray-800 dark:text-white">
+								<p className="text-2xl text-black dark:text-white">
 									Hugo Ceci
 								</p>
 								<p className="text-xl text-gray-500 dark:text-gray-200 font-light">
@@ -263,7 +263,7 @@ function AboutTeam() {
 								</a>
 							</div>
 							<div className="text-center">
-								<p className="text-2xl text-gray-800 dark:text-white">
+								<p className="text-2xl text-black dark:text-white">
 									Andres Rodriguez
 								</p>
 								<p className="text-xl text-gray-500 dark:text-gray-200 font-light">
@@ -312,7 +312,7 @@ function AboutTeam() {
 								</a>
 							</div>
 							<div className="text-center">
-								<p className="text-2xl text-gray-800 dark:text-white">
+								<p className="text-2xl text-black dark:text-white">
 									Jairo Álvarez
 								</p>
 								<p className="text-xl text-gray-500 dark:text-gray-200 font-light">
@@ -360,7 +360,7 @@ function AboutTeam() {
 								</a>
 							</div>
 							<div className="text-center">
-								<p className="text-2xl text-gray-800 dark:text-white">
+								<p className="text-2xl text-black dark:text-white">
 									Facundo Maciel
 								</p>
 								<p className="text-xl text-gray-500 dark:text-gray-200 font-light">

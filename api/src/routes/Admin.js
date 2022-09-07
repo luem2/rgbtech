@@ -251,40 +251,6 @@ router.put('/brands/update', async(req, res) => {
   }
 });
 
-router.put('tags/admin-update', async (req, res) => {
-  const {id, name} = req.body
-  try {
-    await Tag.update({
-      name: name
-    },
-    {
-      where: {
-                id: id,
-            },
-    })
-    res.sendStatus(200)
-  } catch (error) {
-    res.sendStatus(500)
-  }
-})
-
-router.put('/brands/admin-update', async (req, res) => {
-  const {id, name} = req.body
-  try {
-    await Brand.update({
-      name: name
-    },
-    {
-      where: {
-                id: id,
-            },
-    })
-    res.sendStatus(200)
-  } catch (error) {
-    res.sendStatus(500)
-  }
-});
-
 router.post('/products/admin-update', async (req, res)=>{
   console.log('entro')
   try {
