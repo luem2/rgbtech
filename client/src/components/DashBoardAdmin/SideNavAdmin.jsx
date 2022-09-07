@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 function SideNavAdmin({selection}) {
 
@@ -39,9 +40,11 @@ function SideNavAdmin({selection}) {
           
           </div>
           <div className="xl:flex flex-col hidden items-center justify-center space-y-4 px-4 py-5 ">
+            <Link to="/">
             <button className=" w-full py-2 px-3 bg-blue-400 hover:bg-red-800 rounded-md text-white">
-            Sign Out?
+            To home
             </button>
+            </Link>
           </div>
         </nav>
       );
