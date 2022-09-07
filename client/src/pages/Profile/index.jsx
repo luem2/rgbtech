@@ -72,7 +72,7 @@ const Profile = () => {
 							<BsCoin className="bg-yellow-700 rounded-full" />{" "}
 						</p>
 						<p className="font-semibold">
-							Administrator: {user.isAdmin ? "✅" : "❌"}
+						{ user.isAdmin ? "Administrator✅" : ""}
 						</p>
 						{user.isAdmin && (
 							<button
