@@ -143,16 +143,10 @@ const ShoppingCart = () => {
 		dispatch(setBuying(true));
 		const { data } = await checkoutPaypal(cartBuy);
 		window.localStorage.setItem("productsPaypal", JSON.stringify(products));
+		const point = assignPoints(totalPrice);
+		dispatch(setUserPoint(point));
 		window.location.href = data;
 		dispatch(setBuying(false));
-
-		const point = assignPoints(totalPrice);
-		console.log(point);
-		// let point ={}
-		// if(totalPrice > 100 && totalPrice < 200){
-		// 	 point = {'RGBpoint':63}
-
-		dispatch(setUserPoint(point));
 	};
 
 
