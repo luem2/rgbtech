@@ -306,7 +306,7 @@ function AboutTeam() {
 								<a className="block relative">
 									<img
 										alt="profil"
-										src="https://th.bing.com/th/id/R.cd7e1d1d185a58c6141614ad3fbd0562?rik=rDsirUS7pg8lsw&pid=ImgRaw&r=0"
+										src="https://ca.slack-edge.com/TPRS7H4PN-U037NEXM9PG-8980b8f9c671-512"
 										className="mx-auto object-cover rounded-full h-40 w-40 shadow-2xl"
 									/>
 								</a>
@@ -319,7 +319,7 @@ function AboutTeam() {
 									Front-end
 								</p>
 								<p className="text-md text-gray-500 dark:text-gray-400 max-w-xs py-4 font-light">
-									Jairo Álvarez, born November 4, 1993 in Saint hilaire de riez.
+									Jairo Álvarez, born July 26, 2003 in Bogota; Colombia.
 								</p>
 							</div>
 							<div className="pt-8 flex border-t border-gray-200 w-44 mx-auto text-gray-500 items-center justify-around">
