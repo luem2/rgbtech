@@ -97,7 +97,7 @@ const ModifyProfile = ({ closeModal }) => {
 				className="flex flex-col space-y-5"
 			>
 				<div className="flex flex-col gap-3 text-white font-bold overflow-auto h-80 ">
-					<label className="font-semibold bg-" htmlFor="user">
+					<label className="font-semibold" htmlFor="user">
 						Username:
 					</label>
 					<input
