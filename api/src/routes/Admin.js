@@ -247,81 +247,31 @@ router.put("/products/state", async (req, res) => {
 	}
 });
 
-router.put("/tags/update", async (req, res) => {
-	const { id, disabled } = req.body;
-	try {
-		await Tag.update(
-			{
-				disabled: !disabled,
-			},
-			{
-				where: {
-					id: id,
-				},
-			}
-		);
-		res.sendStatus(200);
-	} catch (error) {
-		res.sendStatus(500);
-	}
-});
-
-router.put("/brands/update", async (req, res) => {
-	const { id, disabled } = req.body;
-	try {
-		await Brand.update(
-			{
-				disabled: !disabled,
-			},
-			{
-				where: {
-					id: id,
-				},
-			}
-		);
-		res.sendStatus(200);
-	} catch (error) {
-		res.sendStatus(500);
-	}
-});
-
-router.put("tags/admin-update", async (req, res) => {
-	const { id, name } = req.body;
-	try {
-		await Tag.update(
-			{
-				name: name,
-			},
-			{
-				where: {
-					id: id,
-				},
-			}
-		);
-		res.sendStatus(200);
-	} catch (error) {
-		res.sendStatus(500);
-	}
-});
-
-router.put("/brands/admin-update", async (req, res) => {
-	const { id, name } = req.body;
-	try {
-		await Brand.update(
-			{
-				name: name,
-			},
-			{
-				where: {
-					id: id,
-				},
-			}
-		);
-		res.sendStatus(200);
-	} catch (error) {
-		res.sendStatus(500);
-	}
-});
+// router.post('/products/admin-update', async (req, res) => {
+// 	console.log('entro')
+// 	try {
+// 		console.log(req.body)
+// 		const { id, name, price, stock, description, onDiscount, discountPercentage, specifications, img, freeShipping } = req.body
+// 		Product.update({
+// 			id,
+// 			name,
+// 			price,
+// 			stock,
+// 			description,
+// 			onDiscount,
+// 			discountPercentage,
+// 			specifications,
+// 			img,
+// 			freeShipping
+// 		}, {
+// 			where: {
+// 				id: id
+// 			}
+// 		})
+// 	} catch (error) {
+// 		console.log(error)
+// 	}
+// });
 
 router.post("/products/admin-update", async (req, res) => {
 	console.log("entro");
@@ -362,5 +312,46 @@ router.post("/products/admin-update", async (req, res) => {
 		console.log(error);
 	}
 });
+
+router.put("/tags/update", async (req, res) => {
+	const { id, disabled } = req.body;
+	try {
+		await Tag.update(
+			{
+				disabled: !disabled,
+			},
+			{
+				where: {
+					id: id,
+				},
+			}
+		);
+		res.sendStatus(200);
+	} catch (error) {
+		res.sendStatus(500);
+	}
+});
+
+router.put("/brands/update", async (req, res) => {
+	const { id, disabled } = req.body;
+	try {
+		await Brand.update(
+			{
+				disabled: !disabled,
+			},
+			{
+				where: {
+					id: id,
+				},
+			}
+		);
+		res.sendStatus(200);
+	} catch (error) {
+		res.sendStatus(500);
+	}
+});
+
+
+
 
 module.exports = router;

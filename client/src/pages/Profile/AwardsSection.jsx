@@ -22,9 +22,7 @@ function AwardsSection() {
 			if (result.isConfirmed) {
 				Swal.fire({
 					title: "CONGRATS!",
-					imageUrl: "https://th.bing.com/th/id/R.ab7a973855cb77710e3a08b09100c9ad?rik=O1xE4Nui2z153w&pid=ImgRaw&r=0",
-					imageWidth: 300,
-					imageHeight: 200,
+					text: "Your prize in comming!",
 					icon: 'success',
 					timer: 2000,
 					timerProgressBar: true,
@@ -49,14 +47,14 @@ function AwardsSection() {
 	return (
 		<div>
 			<Header />
-			<div className="grid lg:grid-cols-4 justify-center p-4 bg-white dark:bg-gray-600 border-2">
+			<div className="grid lg:grid-cols-4 justify-center p-3 bg-white dark:bg-gray-600 border-2 ">
 				{products?.map((element) => (
 					<div
 						key={element.id}
-						className="max-w-xs mx-4 mb-2 rounded-lg shadow-lg bg-pink-700 p-2"
+						className="max-w-xs mx-4 mb-2 rounded-lg shadow-lg bg-white"
 					>
 						<img
-							className="w-full h-48 shadow-xl"
+							className="w-full h-48 shadow-2xl bg-pink-700 rounded-t-lg"
 							src={element.img}
 							alt="product"
 						/>

@@ -93,7 +93,8 @@ export const changeBrandStateAction = (payload) => {
 export const editTagAction = (payload) => {
 	return async (dispatch) => {
 		try {
-			await axios.put("admin/tags/admin-update", payload);
+			console.log(payload);
+			await axios.put("updates/tags", payload);
             dispatch(tagsAndBrandsAction());
 		} catch (error) {
 			console.log(error);
@@ -103,7 +104,7 @@ export const editTagAction = (payload) => {
 export const editBrandAction = (payload) => {
 	return async (dispatch) => {
 		try {
-			await axios.put("admin/brands/admin-update", payload);
+			await axios.put("updates/brands", payload);
             dispatch(tagsAndBrandsAction());
 		} catch (error) {
 			console.log(error);
