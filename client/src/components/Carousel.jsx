@@ -89,10 +89,7 @@ function Carousel() {
 						/>
 					</SwiperSlide>
 					<SwiperSlide className="flex justify-center items-center">
-						<img
-							className="ml-12 w-full h-[500px]"
-							src={imagnaryProducts[11]}
-						/>
+						<img className="w-full h-[500px]" src={imagnaryProducts[11]} />
 					</SwiperSlide>
 				</div>
 			</Swiper>

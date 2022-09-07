@@ -6,7 +6,7 @@ import axios from "axios";
 import { FaCheckCircle } from "react-icons/fa";
 import {
 	userUpdatedNotifaction,
-	updatePerfilErrorNotification,
+	errorNotification,
 } from "../../components/Notifications";
 import { getUserProfile } from "../../store/slices/users/thunks";
 import loadingGif from "../../assets/loading.gif";
@@ -14,7 +14,6 @@ import loadingGif from "../../assets/loading.gif";
 const ModifyProfile = ({ closeModal }) => {
 	const dispatch = useDispatch();
 	const user = JSON.parse(window.localStorage.getItem("user"));
-
 	const [previewSource, setPreviewSource] = useState(user.profilePhoto);
 	const [loading, setLoading] = useState(false);
 	const [input, setInput] = useState({
@@ -47,7 +46,6 @@ const ModifyProfile = ({ closeModal }) => {
 	function handleSubmit(e) {
 		e.preventDefault();
 
-		console.log("input", input);
 		const postFinal = {
 			id: user.id,
 			user: input.user,
@@ -78,15 +76,15 @@ const ModifyProfile = ({ closeModal }) => {
 			.catch((error) => {
 				setLoading(false);
 				error.response.status === 400
-					? updatePerfilErrorNotification("Empty fields to complete ❌")
+					? errorNotification("Empty fields to complete ❌")
 					: null;
 
 				error.response.status === 401 && error.response.data.msg === "user"
-					? updatePerfilErrorNotification("El usuario ya existe ❌")
+					? errorNotification("El usuario ya existe ❌")
 					: null;
 
 				error.response.status === 401 && error.response.data.msg === "mail"
-					? updatePerfilErrorNotification("El correo ya existe ❌")
+					? errorNotification("El correo ya existe ❌")
 					: null;
 			});
 	}
