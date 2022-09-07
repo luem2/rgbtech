@@ -39,6 +39,7 @@ const UserSection = () => {
 					<Login closeModal={() => setLogin(false)} />
 				</Modal>
 			)}
+			<Toogle/>
 			<IconContext.Provider
 				value={{
 					className: "bg-pink-500 rounded-3xl py-0.5 p-1 cursor-pointer",
@@ -67,13 +68,6 @@ const UserSection = () => {
 					/>
 				)}
 
-				<AiOutlineHeart
-					className="hover:bg-red-500 hover:scale-105 ease-in duration-300"
-					onClick={() => {
-						hasJWT() ? navigate("/favorites") : youAreUnloggedFavorites();
-					}}
-				/>
-
 				<div>
 					{cart?.length > 0 && (
 						<span className="flex absolute top-2 right-11 bg-teal-500 p-1 items-center rounded-full text-white text-sm h-5">
@@ -89,8 +83,15 @@ const UserSection = () => {
 						}}
 					/>
 				</div>
+				<AiOutlineHeart
+					className="hover:bg-red-500 hover:scale-105 ease-in duration-300"
+					onClick={() => {
+						hasJWT() ? navigate("/favorites") : youAreUnloggedFavorites();
+					}}
+				/>
+
 			</IconContext.Provider>
-			<Toogle />
+			
 		</div>
 	);
 };

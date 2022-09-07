@@ -120,7 +120,7 @@ function LoguinGoogle({ closeModal }) {
 
 	return (
 		<div>
-			<div div id="signInDiv"></div>
+			<div id="signInDiv"></div>
 		</div>
 	);
 }

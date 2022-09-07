@@ -28,6 +28,14 @@ function SideNavAdmin({selection}) {
 
                 <button onClick={()=>selection("AddProducts")} 
                         className="w-full bg-text-black p-2 rounded-xl w-full hover:scale-95 hover:bg-gray-200"> Add products </button>
+             <div className="w-full border-t pt-7 border-gray-300" />
+
+                <button onClick={()=>selection("EditProduct")} 
+                        className="w-full bg-text-black p-2 rounded-xl w-full hover:scale-95 hover:bg-gray-200"> Edit products </button>
+             <div className="w-full border-t pt-7 border-gray-300" />
+
+                <button onClick={()=>selection("EditTags/Brands")} 
+                        className="w-full bg-text-black p-2 rounded-xl w-full hover:scale-95 hover:bg-gray-200"> Edit Tags/Brands </button>
           
           </div>
           <div className="xl:flex flex-col hidden items-center justify-center space-y-4 px-4 py-5 ">

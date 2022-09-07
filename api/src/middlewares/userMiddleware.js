@@ -2,26 +2,48 @@ const { User } = require("../db.js");
 const { cloudinary } = require("../Utils/cloudinary.js");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
-const { htmlMail } = require("../Utils/EmailTemplate.js");
+const {
+	htmlMail,
+	htmlMailSuccessfulPayment,
+} = require("../Utils/EmailTemplate.js");
 const bcrypt = require("bcrypt");
 
 module.exports = {
-	checkSingupBody: (req, res, next) => {
+	checkSingupBody: async (req, res, next) => {
 		const { user, password, mail } = req.body;
+
 		if (user && password && mail) {
 			req.body.newUser = {
 				user,
 				mail,
 				password,
 			};
-			const coincidences = User.findAll({
+
+			const coincidenceUser = await User.findAll({
 				where: {
 					user: user,
 				},
 			});
-			return coincidences.length
-				? res.status(400).send("Already registered user")
-				: next();
+
+			console.log("coincidenceUser", coincidenceUser);
+
+			if (coincidenceUser.length) {
+				return res.status(401).send({ msg: "user" });
+			}
+
+			const coincidenceMail = await User.findAll({
+				where: {
+					mail: mail,
+				},
+			});
+
+			console.log("coincidenceMail", coincidenceMail);
+
+			if (coincidenceMail.length) {
+				return res.status(401).send({ msg: "mail" });
+			}
+
+			next();
 		} else {
 			return res.status(400).send("Mandatory data missing");
 		}
@@ -68,6 +90,26 @@ module.exports = {
 		await transporter.sendMail({
 			from: "rgbtech@tech.com",
 			to: newUser.mail,
+			subject: "Confirmation",
+			html,
+		});
+	},
+
+	sendConfirmationBuyEmail: async (newUser) => {
+		console.log("newUser", newUser);
+		let emailToken = jwt.sign(newUser, process.env.SECRET);
+		emailToken = emailToken.replaceAll(".", "'");
+		const transporter = nodemailer.createTransport({
+			service: "gmail",
+			auth: {
+				user: "rgbtechPF@gmail.com",
+				pass: "qqilqandbimpiaxu",
+			},
+		});
+		const html = htmlMailSuccessfulPayment(newUser.nombre, newUser.products);
+		await transporter.sendMail({
+			from: "rgbtech@tech.com",
+			to: newUser.products.mail,
 			subject: "Confirmation",
 			html,
 		});

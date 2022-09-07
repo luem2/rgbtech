@@ -174,8 +174,25 @@ const ProductDetails = () => {
 									{productDetails.name}
 								</h1>
 
-								{/* <AiFillStar className="text-amber-400" /> */}
-								<p>${productDetails.price}</p>
+								<div>
+									{productDetails.onDiscount ? (
+										<span>
+											<p className="line-through">${productDetails.price}</p>
+											<p className="font-bold">
+												{" "}
+												$
+												{Math.round(
+													productDetails.price -
+														(productDetails.price *
+															productDetails.discountPercentage) /
+															100
+												)}
+											</p>
+										</span>
+									) : (
+										<p>${productDetails.price}</p>
+									)}{" "}
+								</div>
 								<p className="flex gap-2 items-center text-xl drop-shadow-lg shadow-black">
 									<MdOutlineShoppingCart /> Available Stock:{" "}
 									{productDetails.stock}

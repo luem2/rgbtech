@@ -12,7 +12,7 @@ export const accCreatedNotification = () => {
 	});
 };
 
-export const updatePerfilErrorNotification = (msg) =>
+export const errorNotification = (msg) =>
 	toast.error(msg, {
 		position: "top-right",
 		autoClose: 5000,
