@@ -5,7 +5,7 @@ function SideNavAdmin({selection}) {
 
 
     return (
-        <nav className="col-span-2 border-r border-gray-300 min-h-[90vh] w-[100px] xl:w-[180px] pt-8 px-1 flex flex-col items-start justify-between">
+        <nav className="col-span-2 border-r border-gray-300 min-h-[90vh] w-[100px] xl:w-[180px] font-semibold pt-8 px-1 flex flex-col items-start justify-between">
           <div className="space-y-4 w-full ">
             
                 <button onClick={()=>selection("Dashboard")} 
@@ -26,7 +26,7 @@ function SideNavAdmin({selection}) {
                         className="w-full text-black p-2 rounded-xl w-full hover:scale-95 hover:bg-gray-200"> Tags/Brands</button>
              <div className="w-full border-t pt-7 border-gray-300" />
 
-                <button onClick={()=>selection("AddProducts")} 
+                <button onClick={()=>selection("AddProduct")} 
                         className="w-full bg-text-black p-2 rounded-xl w-full hover:scale-95 hover:bg-gray-200"> Add products </button>
              <div className="w-full border-t pt-7 border-gray-300" />
 
