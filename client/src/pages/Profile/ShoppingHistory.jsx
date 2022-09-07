@@ -39,6 +39,7 @@ const ShoppingHistory = () => {
 					month={p.month}
 					year={p.year}
 					amount={p.amount}
+					commented={p.commented}
 				/>
 			))} 
 		</div>

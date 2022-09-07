@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function TarjetaShopping({name, totalPrice, month, year, amount}) {
+export default function TarjetaShopping({name, totalPrice, month, year, amount, commented}) {
   return (
     <div class="lg:flex shadow rounded-lg border  border-gray-400">
       <div class="bg-blue-600 rounded-lg  py-4 block h-full shadow-inner">
@@ -28,11 +28,16 @@ export default function TarjetaShopping({name, totalPrice, month, year, amount})
           Total price: {totalPrice}
         </div>
       </div>
+      {
+        commented 
+        ? <p> comentado</p>
+        :<button className='bg-white '> no comentado</button>
+       }
       <div class="flex flex-row items-center w-full lg:w-1/3 bg-white lg:justify-end justify-center px-2 py-4 lg:px-0">
         <span class="tracking-wider text-gray-600 bg-gray-200 px-2 text-sm rounded leading-loose mx-2 font-semibold">
           ✔
         </span>
-       
+
       </div>
     </div>
   )
