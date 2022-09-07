@@ -44,7 +44,6 @@ function LoguinGoogle({ closeModal }) {
 				if (cart.length) {
 					dispatch(setCartShop(carts));
 				}
-				console.log("adsa");
 				dispatch(getUserProfile(user.id));
 				let product = user.cartShop;
 				// for (let i = 0; i < product.length; i++) {dispatch(addProduct(product[i]))}
