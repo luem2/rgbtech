@@ -10,15 +10,15 @@ const imagnaryProducts = [
 	logo,
 	"https://th.bing.com/th/id/R.44f2d5d7c7d0b1ab754fda0f41ac5e42?rik=ZV%2bo60ANzXQFEQ&pid=ImgRaw&r=0",
 	"https://storage-asset.msi.com/global/picture/image/feature/AIO/Monitor/Optix-G24C/AIO-Optix_G24C_overview.png",
-	"https://th.bing.com/th/id/R.35c1c1b691e969eef6d654698152a554?rik=B7Nd%2fbUdvdIyaQ&pid=ImgRaw&r=0",
+	"https://res.cloudinary.com/ddroxn7iv/image/upload/v1662555612/RGBtech/ImageProduct/img_1_u2c0bb.png",
 	"https://th.bing.com/th/id/R.76424bc99afbac876aeedea611646ed2?rik=4EIIY8RoGkPEFg&pid=ImgRaw&r=0",
 	"https://res.cloudinary.com/ddroxn7iv/image/upload/v1662521855/RGBtech/ImageProduct/img_4_im15ur.png",
 	"https://res.cloudinary.com/ddroxn7iv/image/upload/v1662520667/RGBtech/ImageProduct/img_3_cbleko.png",
-	"https://res.cloudinary.com/ddroxn7iv/image/upload/v1662520667/RGBtech/ImageProduct/img_1_memblz.png",
+	"https://res.cloudinary.com/ddroxn7iv/image/upload/v1662555612/RGBtech/ImageProduct/img_1_u2c0bb.png",
 	"https://res.cloudinary.com/ddroxn7iv/image/upload/v1662520668/RGBtech/ImageProduct/img_2_ktemmd.png",
 	"https://res.cloudinary.com/ddroxn7iv/image/upload/v1662520667/RGBtech/ImageProduct/img_3_cbleko.png",
 	"https://th.bing.com/th/id/R.f565036a6316a52feb89bb17fc5c1dae?rik=cls3GeO9zLGo8w&pid=ImgRaw&r=0",
-	"https://res.cloudinary.com/ddroxn7iv/image/upload/v1662348710/RGBtech/RGBpoint/Baner_rgbPoint_yl075k.png",
+	"https://res.cloudinary.com/ddroxn7iv/image/upload/v1662556899/RGBtech/RGBpoint/Baner_rgbPoint_l2vqpa.png",
 ];
 
 function Carousel() {
