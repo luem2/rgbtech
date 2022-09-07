@@ -9,71 +9,6 @@ const {
 
 const router = Router();
 
-router.post("/sale", async (req, res) => {
-	try {
-		const { userId, products } = req.body;
-
-		products.map(async (product) => {
-			const { productId, name, productPrice, month, year, amount } = product;
-
-			const productDetails = await Product.findByPk(productId, {
-				include: {
-					model: Tag,
-					through: { attributes: [] },
-				},
-			});
-			const { brandId, tags } = productDetails.dataValues;
-			const tagsId = [];
-			tags.map((t) => tagsId.push(t.dataValues.id));
-			const newSale = await Sale.create({
-				productId,
-				name,
-				productPrice,
-				month,
-				year,
-				amount,
-				totalPrice: productPrice * amount,
-			});
-			console.log("newSale", newSale);
-
-			const user = await User.findAll({
-				where: {
-					id: userId,
-				},
-			});
-
-			const products = {
-				id: newSale.dataValues.id,
-				user: user[0].dataValues.user,
-				mail: user[0].dataValues.mail,
-				name: newSale.dataValues.name,
-				month: newSale.dataValues.month,
-				totalPrice: newSale.dataValues.totalPrice,
-			};
-
-			sendConfirmationBuyEmail({ products: products, nombre: products.user });
-
-			await newSale.addTags(tagsId);
-			await newSale.setBrand(brandId);
-			await newSale.setUser(userId);
-
-			const stockProduct = await Product.findByPk(productId);
-			const updatedStock = stockProduct.stock - amount;
-			await Product.update(
-				{
-					stock: updatedStock,
-				},
-				{
-					where: { id: productId },
-				}
-			);
-		});
-		res.send("producto comprado");
-	} catch (error) {
-		console.log(error);
-	}
-});
-
 router.get("/dashboard", async (req, res) => {
 	const { year } = req.query;
 	const conditions = {};
@@ -332,24 +267,6 @@ router.put("/tags/update", async (req, res) => {
 	}
 });
 
-router.put("/brands/update", async (req, res) => {
-	const { id, disabled } = req.body;
-	try {
-		await Brand.update(
-			{
-				disabled: !disabled,
-			},
-			{
-				where: {
-					id: id,
-				},
-			}
-		);
-		res.sendStatus(200);
-	} catch (error) {
-		res.sendStatus(500);
-	}
-});
 
 
 

@@ -41,7 +41,7 @@ const testComments = [
     	},
     ];
 
-function CarruselComments() {
+function CarruselComments({comments}) {
 	return (
 		<div className="">
 			<Swiper
@@ -59,7 +59,7 @@ function CarruselComments() {
 				modules={[Autoplay, Pagination, Navigation]}
 			>
 				<div className="">
-                {testComments.map((c, i) => (
+                {comments.map((c, i) => (
 									<SwiperSlide key={i}>
 										<Comment
 											user={c.user}

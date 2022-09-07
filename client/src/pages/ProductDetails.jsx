@@ -353,7 +353,12 @@ const ProductDetails = () => {
 								) : null}
 
 								<div className="max-w-6xl">
-									<CarruselComments />
+									{
+										productDetails?.comments.length
+										? <CarruselComments comments={productDetails.comments} />
+										: <p> Este producto aún no tiene comentarios</p>
+
+									}
 								</div>
 							</div>
 						</div>
