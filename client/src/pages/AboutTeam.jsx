@@ -325,7 +325,7 @@ function AboutTeam() {
 									Front-end
 								</p>
 								<p className="text-md text-gray-500 dark:text-gray-400 max-w-xs py-4 font-light">
-									Jairo Álvarez, born November 4, 1993 in Saint hilaire de riez.
+									Jairo Álvarez, born July 26, 2003 in Bogota; Colombia.
 								</p>
 							</div>
 							<div className="pt-8 flex border-t border-gray-200 w-44 mx-auto text-gray-500 items-center justify-around">
