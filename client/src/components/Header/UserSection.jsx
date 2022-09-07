@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 import defaultImage from "../../assets/defaultImage.png";
 import { hasJWT } from "../../store/thunks";
 import { youAreUnloggedFavorites } from "../Notifications";
-import Toogle from "./Toogle"
+import Toogle from "./Toogle";
 
 const UserSection = () => {
 	const navigate = useNavigate();
@@ -49,16 +49,18 @@ const UserSection = () => {
 			>
 				{/* user && Boolean(Object.keys(user).length) */}
 				{userProfile && Object.keys(userProfile).length ? (
-					<img
-						className="hover: cursor-pointer rounded-3xl w-8 h-8 hover:scale-105 ease-in duration-300"
-						src={
-							userProfile?.profilePhoto === null
-								? defaultImage
-								: userProfile?.profilePhoto
-						}
-						alt=""
-						onClick={() => navigate("/profile")}
-					/>
+					<div className="bg-pink-500 rounded-full">
+						<img
+							className="hover: cursor-pointer rounded-3xl w-8 h-8 hover:scale-105 ease-in duration-300"
+							src={
+								userProfile?.profilePhoto === null
+									? defaultImage
+									: userProfile?.profilePhoto
+							}
+							alt=""
+							onClick={() => navigate("/profile")}
+						/>
+					</div>
 				) : (
 					<AiOutlineUser
 						className="hover:bg-red-500 hover:scale-105 ease-in duration-300"
@@ -75,7 +77,7 @@ const UserSection = () => {
 
 				<div>
 					{cart?.length > 0 && (
-						<span className="flex absolute top-2 right-0 bg-teal-500 p-1 items-center rounded-full text-white text-sm h-5">
+						<span className="flex absolute top-2 right-11 bg-teal-500 p-1 items-center rounded-full text-white text-sm h-5">
 							{cart?.length}
 						</span>
 					)}

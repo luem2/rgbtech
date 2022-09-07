@@ -31,8 +31,9 @@ import assignPoints from "./Rgbpoint";
 const ShoppingCart = () => {
 	const dispatch = useDispatch();
 	const { user } = useSelector((state) => state.user);
-	const { cart, buying } = useSelector((state) => state.guestShoppingCart);
+	const { buying } = useSelector((state) => state.guestShoppingCart);
 	const [products, setProducts] = useState([]);
+	console.log("products", products);
 	const [totalPrice, setTotalPrice] = useState(0);
 	const [finalPrice, setFinalPrice] = useState(0);
 
@@ -126,7 +127,7 @@ const ShoppingCart = () => {
 	};
 
 	const HandleClickBuy = async () => {
-		if (userProfile === null || Boolean(!Object.keys(userProfile).length)) {
+		if (user === null || Boolean(!Object.keys(user).length)) {
 			return youAreUnloggedProducts();
 		}
 

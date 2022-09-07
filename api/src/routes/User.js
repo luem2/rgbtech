@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { User ,Sale} = require("../db");
+const { User, Sale } = require("../db");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const {
@@ -136,14 +136,40 @@ router.post(
 router.put("/modifyUser", uploadExistingUserPhoto, async (req, res) => {
 	try {
 		const { id, user, mail, profilePhoto } = req.body;
-		if (!id || !user || !mail || !profilePhoto) {
-			return res.send("insufficient information to continue");
+
+		if (!id || !user || !mail) {
+			return res.sendStatus(400);
 		}
+
+		const coincidenceUser = await User.findAll({
+			where: {
+				user: user,
+			},
+		});
+
+		console.log("coincidenceUser", coincidenceUser);
+		const coincidenceMail = await User.findAll({
+			where: {
+				mail: mail,
+			},
+		});
+
+		const userID = await User.findByPk(id);
+
+		userID.user !== user;
+		console.log("userID", userID);
+
+		if (userID.user !== user && coincidenceUser.length)
+			return res.status(401).send({ msg: "user" });
+
+		if (userID.mail !== mail && coincidenceMail.length)
+			return res.status(401).send({ msg: "mail" });
+
 		await User.update(
 			{
 				user: user,
 				mail: mail,
-				profilePhoto: profilePhoto,
+				profilePhoto: profilePhoto || null,
 			},
 			{
 				where: {
@@ -151,10 +177,12 @@ router.put("/modifyUser", uploadExistingUserPhoto, async (req, res) => {
 				},
 			}
 		);
-		res.json({ msg: "User updated successfully" });
-	} catch (error) {
-		console.log("error", error);
-		res.json({ error: error });
+
+		console.log("req.body", req.body);
+		res.json(req.body);
+	} catch (e) {
+		console.log("estoy entrando aca", e);
+		res.status(400).send({ msg: e });
 	}
 });
 
@@ -163,7 +191,6 @@ router.get("/profile/:id", validateToken, async (req, res) => {
 		const { id } = req.params;
 
 		const user = await User.findByPk(id);
-		console.log("user", user);
 		if (!Object.keys(user).length) {
 			res.sendStatus(404);
 		}
@@ -200,12 +227,12 @@ router.put("/setCart/:id", validateToken, async (req, res) => {
 
 router.put("/favourites/:id", async (req, res) => {
 	try {
-		const { id } = req.params
-		console.log(id)
+		const { id } = req.params;
+		console.log(id);
 		const { newfavorite } = req.body;
 		const user = await User.findByPk(id);
 		let favorite = user.dataValues.favorite;
-		favorite == null ? favorite = [] : null
+		favorite == null ? (favorite = []) : null;
 		if (!favorite?.length) {
 			favorite = newfavorite;
 		} else {
@@ -213,18 +240,18 @@ router.put("/favourites/:id", async (req, res) => {
 		}
 		await User.update(
 			{
-				favorite
+				favorite,
 			},
 			{
 				where: {
 					id: id,
-				}
+				},
 			}
 		);
 		res.send("Favoritos de usuario actualizado");
 	} catch (error) {
 		res.send(error);
-	};
+	}
 });
 
 router.put("/deletefavorite/:id", async (req, res, next) => {
@@ -237,11 +264,12 @@ router.put("/deletefavorite/:id", async (req, res, next) => {
 		await User.update(
 			{
 				favorite: deletefavorite,
-			}, {
-			where: {
-				id: id,
+			},
+			{
+				where: {
+					id: id,
+				},
 			}
-		}
 		);
 		res.send("Favoritos de usuario actualizado");
 	} catch (error) {
@@ -402,26 +430,21 @@ router.post("/addComment", async (req, res) => {
 	}
 });
 
-
 router.get("/getShoppingHistory/:id", async (req, res, next) => {
 	try {
 		const { id } = req.params;
-		console.log("asdsa")
+		console.log("asdsa");
 
 		const userShopHistory = await Sale.findAll({
-			where : {
-			 userId: id
-			}
-			})
+			where: {
+				userId: id,
+			},
+		});
 		res.send(userShopHistory);
 	} catch (error) {
-		console.log(error)
+		console.log(error);
 	}
-})
-
-
-
-
+});
 
 router.put("/updateLastVisited/:id", async (req, res, next) => {
 	try {

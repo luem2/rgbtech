@@ -30,6 +30,7 @@ const Profile = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const user = JSON.parse(window.localStorage.getItem("user"));
+	console.log("user", user);
 
 	const handleSignOut = () => {
 		window.localStorage.removeItem("token");
