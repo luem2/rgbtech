@@ -19,12 +19,12 @@ module.exports = {
 		return `<div style={{display:flex; flex-direction:column;background-color:#FCFBFA; border-radius:10px; color:black;justify-content: center; align-items:center;  font-family:sans-serif; box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;}}>
     <img src='https://i.postimg.cc/J033M83x/logo-dibujo.png' border='0' alt='logo-dibujo' style='width:250px'/>
     <h2 style='color:#FF127E; margin-top:20px; margin-bottom:20px;'>Welcome to RGBTech</h2>
-    <p>¡Hola,${nombre}.<br/> Gracias por utilizar los servicios de paypal junto con RGBTech. los siguientes son los datos de tu transacción:.</p>
-    <ul>
-    <li>referencia de pago: ${products.id}</li>
-    <li>Nombre del producto:${products.name}</li>
-    <li>Valor de la Transacción:$ ${products.totalPrice}</li>
-    <li> Fecha de Transacción:${products.month}</li>
+    <p>¡Hello,${nombre}.<br/>Thank you for using paypal services together with RGBTech. the following are the details of your transaction:</p>
+    <ul >
+    <li>Payment reference: ${products.id}</li>
+    <li>Product name:${products.name}</li>
+    <li>Transaction value:$ ${products.totalPrice}</li>
+    <li>Date:${products.month}</li>
     </ul>
     </div>`;
 	},
