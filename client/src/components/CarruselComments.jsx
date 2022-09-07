@@ -46,7 +46,7 @@ function CarruselComments({comments}) {
 		<div className="">
 			<Swiper
 				slidesPerView={3}
-				spaceBetween={-20}
+				spaceBetween={-22}
 				loop={true}
 				navigation={true}
 				pagination={{
