@@ -7,6 +7,7 @@ const adminRoute = require("./Admin.js");
 const awardsRoute = require("./awards.js")
 const Updates = require("./Updates.js")
 
+const salesRoute = require("./Sales.js")
 
 const recoverPasswordRouter = require("./recoverPassword")
 const { cancel, create, capture } = require("../controllers/paypal");
@@ -23,6 +24,7 @@ router.use("/tags", tagsRoute);
 router.use("/admin", adminRoute);
 router.use("/awards", awardsRoute)
 router.use("/updates", Updates)
+router.use("/sales", salesRoute)
 router.use("/recoverPassword", recoverPasswordRouter )
 router.post("/create-order", create);
 router.get("/capture-order", capture);
