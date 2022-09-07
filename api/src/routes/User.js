@@ -147,7 +147,6 @@ router.put("/modifyUser", uploadExistingUserPhoto, async (req, res) => {
 			},
 		});
 
-		console.log("coincidenceUser", coincidenceUser);
 		const coincidenceMail = await User.findAll({
 			where: {
 				mail: mail,
@@ -155,9 +154,6 @@ router.put("/modifyUser", uploadExistingUserPhoto, async (req, res) => {
 		});
 
 		const userID = await User.findByPk(id);
-
-		userID.user !== user;
-		console.log("userID", userID);
 
 		if (userID.user !== user && coincidenceUser.length)
 			return res.status(401).send({ msg: "user" });
@@ -178,10 +174,8 @@ router.put("/modifyUser", uploadExistingUserPhoto, async (req, res) => {
 			}
 		);
 
-		console.log("req.body", req.body);
 		res.json(req.body);
 	} catch (e) {
-		console.log("estoy entrando aca", e);
 		res.status(400).send({ msg: e });
 	}
 });

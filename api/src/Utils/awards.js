@@ -9,8 +9,8 @@ const Products = [
       width: "11.5cm"
     }
     ],
-    img: "https://res.cloudinary.com/ddroxn7iv/image/upload/v1662473130/RGBtech/Awards/Support_supports_cell_phone_zxiwv1.png",
-    stock: 0,
+    img: "https://images-ext-2.discordapp.net/external/zD61UM2_75NzukIrvweHIzIukjGddQztku3sxRkOc10/https/res.cloudinary.com/ddroxn7iv/image/upload/v1662473130/RGBtech/Awards/Support_supports_cell_phone_zxiwv1.png?width=427&height=427",
+    stock: 100,
   },
   {
     name: "led ring light",
