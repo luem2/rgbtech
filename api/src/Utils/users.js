@@ -4,6 +4,7 @@ const users = [
 		mail: "prueba1@gmail.com",
 		password: "contraseña",
 		userVerificate: true,
+		isAdmin: true
 	},
 	{
 		user: "Jairo",

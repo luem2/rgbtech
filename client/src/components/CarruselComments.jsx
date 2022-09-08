@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import {Autoplay, Pagination, Navigation } from "swiper";
+import {Autoplay, Pagination } from "swiper";
 import Comment from "./Comment.jsx";
 
 const testComments = [
@@ -46,9 +46,9 @@ function CarruselComments({comments}) {
 		<div className="">
 			<Swiper
 				slidesPerView={3}
-				spaceBetween={-22}
+				spaceBetween={0}
 				loop={true}
-				navigation={true}
+				
 				pagination={{
 					clickable: true,
 				}}
@@ -56,10 +56,20 @@ function CarruselComments({comments}) {
 					delay: 4000,
 					disableOnInteraction: false,
 				}}
-				modules={[Autoplay, Pagination, Navigation]}
+				modules={[Autoplay, Pagination]}
 			>
 				<div className="">
-                {comments.map((c, i) => (
+                {testComments.map((c, i) => (
+									<SwiperSlide key={i}>
+										<Comment
+											user={c.user}
+											profilePhoto={c.profilePhoto}
+                                            comment={c.comment}
+                                            rating={c.rating}
+										></Comment>
+									</SwiperSlide>
+						))}
+						{comments.map((c, i) => (
 									<SwiperSlide key={i}>
 										<Comment
 											user={c.user}
