@@ -43,7 +43,7 @@ function HamburguerMenu() {
 	};
 
 	return (
-		<div className="z-50 flex flex-row mb-7 gap-5 sm:absolute left-0">
+		<div className="z-50 flex flex-row mb-7 gap-5 left-0">
 			{!open ? (
 				<button
 					className="absolute flex cursor-pointer ml-6"

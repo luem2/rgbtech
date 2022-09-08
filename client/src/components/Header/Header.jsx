@@ -7,12 +7,12 @@ import { Link } from "react-router-dom";
 
 export default function Index() {
 	return (
-		<div className="flex bg-white dark:bg-gray-600 sticky top-0 right-0 left-0 justify-between flex-row items-center shadow-md z-40 mb-5 sm:flex-col">
+		<div className="flex bg-white dark:bg-gray-600 sticky top-0 right-0 left-0 justify-between flex-row items-center shadow-md z-40 mb-5">
 			<div className="flex justify-center items-center">
 				<HamburguerMenu />
 				<div>
 					<Link to="/">
-						<img className="w-20 ml-20 sm:ml-0" src={logo} alt="logo-rgbtech" />
+						<img className="w-20 ml-20" src={logo} alt="logo-rgbtech" />
 					</Link>
 				</div>
 			</div>

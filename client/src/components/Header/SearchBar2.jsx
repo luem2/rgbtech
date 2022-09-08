@@ -51,7 +51,7 @@ export default function SearchBar2() {
 	return (
 		<div>
 			<Select
-				className="flex rounded pl-1 pt-1 pr-1 pb-2 font-bold sm:w-60 mt-3"
+				className="flex rounded pl-1 pt-1 pr-1 pb-2 font-bold mt-3"
 				placeholder=" Look for it..."
 				styles={colourStyles}
 				options={productsName}
