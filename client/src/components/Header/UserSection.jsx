@@ -13,6 +13,7 @@ import defaultImage from "../../assets/defaultImage.png";
 import { hasJWT } from "../../store/thunks";
 import { youAreUnloggedFavorites } from "../Notifications";
 import Toogle from "./Toogle";
+import { useEffect } from "react";
 
 const UserSection = () => {
 	const navigate = useNavigate();
@@ -20,6 +21,8 @@ const UserSection = () => {
 	const { user } = useSelector((state) => state.user);
 	const userLocalStorage = JSON.parse(window.localStorage.getItem("user"));
 	let cart = user.cartShop;
+
+	console.log("cart", cart);
 
 	let userProfile;
 	function setUserProfile() {
@@ -32,6 +35,10 @@ const UserSection = () => {
 
 	setUserProfile();
 
+	useEffect(() => {
+		console.log("user", user);
+	}, [user]);
+
 	return (
 		<div className="flex items-center gap-2">
 			{login && (
@@ -39,7 +46,7 @@ const UserSection = () => {
 					<Login closeModal={() => setLogin(false)} />
 				</Modal>
 			)}
-			<Toogle/>
+			<Toogle />
 			<IconContext.Provider
 				value={{
 					className: "bg-pink-500 rounded-3xl py-0.5 p-1 cursor-pointer",
@@ -89,9 +96,7 @@ const UserSection = () => {
 						hasJWT() ? navigate("/favorites") : youAreUnloggedFavorites();
 					}}
 				/>
-
 			</IconContext.Provider>
-			
 		</div>
 	);
 };
