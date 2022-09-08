@@ -20,6 +20,7 @@ import UpdateProduct from "./components/DashBoardAdmin/UpdateProduct";
 import RecoverPassword from "./pages/RecoverPassword";
 import AwardsSection from "./pages/Profile/AwardsSection";
 import RecoverPasswordForm from "./components/RecoverPasswordForm";
+
 function App() {
 	return (
 		<>
@@ -41,7 +42,7 @@ function App() {
 					<Route path="/shoppingCart" element={<ShoppingCart />} />
 					<Route path="/productDetails/:id" element={<ProductDetails />} />
 					<Route path="/confirmation/:token" element={<ConfirmationSignup />} />
-					<Route path="recoverPassword/:token" element={<RecoverPassword/>}/>
+					<Route path="/recoverPassword/:token" element={<RecoverPassword />} />
 					<Route path="/order-successfully" element={<PaymentAcepted />} />
 					<Route path="/order-canceled" element={<PaymentCanceled />} />
 					<Route path="/modalhome" element={<ModalHome />} />

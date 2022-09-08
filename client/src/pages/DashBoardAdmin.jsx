@@ -6,14 +6,25 @@ import RightSizeAdmin from "../components/DashBoardAdmin/RightSizeAdmin";
 import SideNavAdmin from "../components/DashBoardAdmin/SideNavAdmin";
 import TagsAndBrands from "../components/DashBoardAdmin/TagsAndBrands";
 import Users from "../components/DashBoardAdmin/Users";
-import EditTagsBrands from "../components/DashBoardAdmin/EditTagsBrands"
-import UpdateProduct from "../components/DashBoardAdmin/UpdateProduct"
-import AddProduct from "../components/DashBoardAdmin/AddProduct"
+import EditTagsBrands from "../components/DashBoardAdmin/EditTagsBrands";
+import UpdateProduct from "../components/DashBoardAdmin/UpdateProduct";
+import AddProduct from "../components/DashBoardAdmin/AddProduct";
+import { hasJWT } from "../store/thunks";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 //import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar, BarChart, ResponsiveContainer, PieChart, Pie} from 'recharts';
 
 function DashBoardAdmin() {
+	const navigate = useNavigate();
+	const { user } = useSelector((state) => state.user);
 	const [selection, setSelection] = useState("loading");
+
+	useEffect(() => {
+		hasJWT() ? null : navigate("/");
+		user.isAdmin ? null : navigate("/");
+	}, []);
 
 	return (
 		<div className="bg-white">

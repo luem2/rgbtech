@@ -60,7 +60,7 @@ function CarruselComments({ comments }) {
 				modules={[Autoplay, Pagination]}
 			>
 				<div className="">
-					{testComments.map((c, i) => (
+					{/* {testComments.map((c, i) => (
 						<SwiperSlide key={i}>
 							<Comment
 								user={c.user}
@@ -69,17 +69,23 @@ function CarruselComments({ comments }) {
 								rating={c.rating}
 							></Comment>
 						</SwiperSlide>
-					))}
-					{comments.map((c, i) => (
-						<SwiperSlide key={i}>
-							<Comment
-								user={c.user}
-								profilePhoto={c.profilePhoto ? c.profilePhoto : defaultImg}
-								comment={c.comment}
-								rating={c.rating}
-							></Comment>
-						</SwiperSlide>
-					))}
+					))} */}
+					{comments.length ? (
+						comments.map((c, i) => (
+							<SwiperSlide key={i}>
+								<Comment
+									user={c.user}
+									profilePhoto={c.profilePhoto ? c.profilePhoto : defaultImg}
+									comment={c.comment}
+									rating={c.rating}
+								></Comment>
+							</SwiperSlide>
+						))
+					) : (
+						<h1 className="text-2xl font-bold mt-3 mb-2">
+							This product has not comments.
+						</h1>
+					)}
 				</div>
 			</Swiper>
 		</div>

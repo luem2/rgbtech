@@ -27,17 +27,20 @@ import axios from "axios";
 import { useState } from "react";
 import jwt from "jwt-decode";
 import assignPoints from "./Rgbpoint";
+import { useNavigate } from "react-router-dom";
 
 const ShoppingCart = () => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const { user } = useSelector((state) => state.user);
 	const { buying } = useSelector((state) => state.guestShoppingCart);
 	const [products, setProducts] = useState([]);
-	console.log("products", products);
 	const [totalPrice, setTotalPrice] = useState(0);
 	const [finalPrice, setFinalPrice] = useState(0);
 
 	useEffect(() => {
+		if (!hasJWT()) return navigate("/");
+
 		const token = window.localStorage.getItem("token");
 		const perfil = jwt(token);
 		axios.get(`/products/cartShop/${perfil.id}`).then((response) => {
