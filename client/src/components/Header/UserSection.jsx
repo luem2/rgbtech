@@ -22,8 +22,6 @@ const UserSection = () => {
 	const userLocalStorage = JSON.parse(window.localStorage.getItem("user"));
 	let cart = user.cartShop;
 
-	console.log("cart", cart);
-
 	let userProfile;
 	function setUserProfile() {
 		if (Object.keys(user).length) {
@@ -34,10 +32,6 @@ const UserSection = () => {
 	}
 
 	setUserProfile();
-
-	useEffect(() => {
-		console.log("user", user);
-	}, [user]);
 
 	return (
 		<div className="flex items-center gap-2">
@@ -54,7 +48,6 @@ const UserSection = () => {
 					size: "30px",
 				}}
 			>
-				{/* user && Boolean(Object.keys(user).length) */}
 				{userProfile && Object.keys(userProfile).length ? (
 					<div className="bg-pink-500 rounded-full">
 						<img

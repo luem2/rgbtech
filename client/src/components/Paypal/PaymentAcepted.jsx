@@ -30,10 +30,7 @@ const PaymentAcepted = () => {
 		amount: p.amount,
 	}));
 
-	console.log("paypalCart", paypalCart);
-
 	useEffect(() => {
-		console.log("token del PaymenAcepted", token);
 		setAuthToken(token);
 		dispatch(setShoppingUserHistory(perfil.id, paypalCart));
 		dispatch(clearCartShop());
