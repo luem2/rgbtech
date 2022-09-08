@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Header from "../../components/Header/Header";
@@ -23,6 +23,9 @@ import ModifyProfile from "../Profile/ModifyProfile";
 import LastVisited from "../Profile/LastVisited";
 import { BsCoin } from "react-icons/bs";
 import AwardsSection from "./AwardsSection";
+import { getUserProfile } from "../../store/slices/users/thunks";
+import jwt from "jwt-decode";
+
 
 const Profile = () => {
 	const [section, setSection] = useState("shoppingHistory");
@@ -31,6 +34,13 @@ const Profile = () => {
 	const dispatch = useDispatch();
 	const user = JSON.parse(window.localStorage.getItem("user"));
 	console.log("user", user);
+
+	useEffect(() => {
+		const token = window.localStorage.getItem("token");
+		const perfil = jwt(token);
+		console.log(perfil)
+		dispatch(getUserProfile(perfil.id))
+	}, [])
 
 	const handleSignOut = () => {
 		window.localStorage.removeItem("token");

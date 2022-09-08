@@ -35,7 +35,7 @@ function AboutTeam() {
 				</div>
 			</div>
 			<div>
-				<div className="p-8 bg-white bg-gray-700 dark:bg-gray-700 rounded-lg shadow-2xl mt-8">
+				<div className="p-8 bg-gray-700 dark:bg-gray-700 rounded-lg shadow-2xl mt-8">
 					<p className="text-center text-4xl font-bold text-black dark:text-white">
 						Professional team
 					</p>
@@ -329,7 +329,7 @@ function AboutTeam() {
 								</p>
 							</div>
 							<div className="pt-8 flex border-t border-gray-200 w-44 mx-auto text-gray-500 items-center justify-around">
-								<a target="_blank" href="">
+								<a target="_blank" href="https://github.com/John-Alz">
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										width="30"

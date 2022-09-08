@@ -5,7 +5,7 @@ import logo from "../../assets/logo-dibujo-2.png";
 import { useNavigate } from "react-router-dom";
 import { setShoppingUserHistory } from "../../store/slices/admin/thunk";
 import jwt from "jwt-decode";
-import { clearCartShop } from "../../store/slices/users/thunks";
+import { clearCartShop, getUserProfile } from "../../store/slices/users/thunks";
 import "animate.css";
 
 const PaymentAcepted = () => {
@@ -30,6 +30,7 @@ const PaymentAcepted = () => {
 
 	useEffect(() => {
 		dispatch(setShoppingUserHistory(perfil.id, paypalCart));
+		dispatch(getUserProfile(perfil.id))
 		dispatch(clearCartShop());
 		return () => {
 			window.localStorage.removeItem("productsPaypal");
