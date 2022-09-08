@@ -39,7 +39,7 @@ const UserSection = () => {
 					<Login closeModal={() => setLogin(false)} />
 				</Modal>
 			)}
-			<Toogle/>
+			<Toogle />
 			<IconContext.Provider
 				value={{
 					className: "bg-pink-500 rounded-3xl py-0.5 p-1 cursor-pointer",
@@ -89,9 +89,7 @@ const UserSection = () => {
 						hasJWT() ? navigate("/favorites") : youAreUnloggedFavorites();
 					}}
 				/>
-
 			</IconContext.Provider>
-			
 		</div>
 	);
 };
