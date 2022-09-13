@@ -20,8 +20,8 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     specifications: {
-      type: DataTypes.JSON,
-      allowNull: false
+      type: DataTypes.JSONB,
+      allowNull: true
     },
     img:{
       type: DataTypes.STRING
@@ -31,13 +31,24 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     onDiscount: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     },
     discountPercentage:{
-      type: DataTypes.FLOAT
+      type: DataTypes.FLOAT,
+      defaultValue: 0
     },
     freeShipping: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    rating: {
+      type: DataTypes.INTEGER,
+    },
+    disabled: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
     }
   },{
     timestamps: false

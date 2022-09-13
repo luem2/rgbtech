@@ -11,7 +11,8 @@ const tags = [
 "Mobile",
 "Audio",
 "Microphone",
-"RGB"
+"RGB",
+"Curveds"
 ]
 
 module.exports = tags
