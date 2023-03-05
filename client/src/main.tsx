@@ -1,22 +1,23 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import App from './App';
-import { store } from './store';
-import { Provider } from 'react-redux';
-import axios from 'axios';
-import './index.css';
-import 'swiper/css/bundle';
-import { ThemeProvider } from './components/Header/ThemeProvider';
+import { createRoot } from 'react-dom/client'
+import axios from 'axios'
+import { Provider } from 'react-redux'
 
-axios.defaults.baseURL = import.meta.env.VITE_API || 'http://localhost:3003/';
-window.sessionStorage.setItem('carrito', JSON.stringify([]));
+import App from './App'
+import { store } from './store'
+import { ThemeProvider } from './components/Header/ThemeProvider'
 
-createRoot(document.getElementById('root')).render(
-  <Provider store={store}>
-    <ThemeProvider>
-      <body className='bg-white dark:bg-gray-800 transition-all'>
-        <App />
-      </body>
-    </ThemeProvider>
-  </Provider>
-);
+import './index.css'
+import 'swiper/css/bundle'
+
+axios.defaults.baseURL = import.meta.env.VITE_API ?? 'http://localhost:3003/'
+window.sessionStorage.setItem('carrito', JSON.stringify([]))
+
+createRoot(document.getElementById('root') as HTMLElement).render(
+    <Provider store={store}>
+        <ThemeProvider>
+            <body className="bg-white dark:bg-gray-800 transition-all">
+                <App />
+            </body>
+        </ThemeProvider>
+    </Provider>
+)
