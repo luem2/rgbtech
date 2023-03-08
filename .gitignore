@@ -1,3 +1,6 @@
+# Docker builds
+postgres-db
+
 # Logs
 logs
 *.log
@@ -70,6 +73,7 @@ typings/
 
 # dotenv environment variables file
 .env
+.env.local
 .env.test
 
 # parcel-bundler cache (https://parceljs.org/)
@@ -97,9 +101,6 @@ dist
 # FuseBox cache
 .fusebox/
 
-# Docker compose
-docker-compose.yml
-
 # DynamoDB Local files
 .dynamodb/
 
@@ -108,4 +109,3 @@ docker-compose.yml
 
 # package-lock.json
 package-lock.json
-.vercel

@@ -1,0 +1,87 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Awards {
+  id String @id @default(uuid())
+  name String 
+  description String
+  points Float 
+  specifications Json @db.JsonB
+  img String
+  stock Int
+  freeShipping Boolean @default(false)
+}
+
+model Brand {
+  id String @id @default(uuid())
+  name String
+  logo String
+  disabled Boolean @default(false)
+}
+
+model Comments {
+  id String @id @default(uuid())
+  comment String
+  rating String
+  user String
+  profilePhoto String
+}
+
+model Products {
+  id String @id @default(uuid())
+  name String
+  description String
+  price Float
+  specifications Json @db.JsonB
+  img String
+  stock Int
+  onDiscount Boolean @default(false)
+  discountPercentage Float @default(0)
+  freeShipping Boolean @default(false)
+  rating Int
+  disabled Boolean @default(false)
+}
+
+model Sale {
+  id String @id @default(uuid())
+  productId String
+  name String
+  productPrice Float
+  amount Int
+  totalPrice Float
+  month String
+  year Int
+  commented Boolean @default(false)
+}
+
+model Tag {
+  id String @id @default(uuid())
+  name String
+  disabled Boolean @default(false)
+}
+
+model User {
+  id String @id @default(uuid())  
+  username String @unique
+  password String
+  email String @unique
+  userVerificated Boolean
+  profilePhoto String
+  shoppingCart String[]
+  favorite Json @db.JsonB
+  rgbPoint Int @default(0)
+  isAdmin Boolean @default(false)
+  googleLogged Boolean @default(false)
+  shoppingHistory Json @db.JsonB
+  disabled Boolean @default(false)
+  lastProductVisited String[] @default([])
+}
