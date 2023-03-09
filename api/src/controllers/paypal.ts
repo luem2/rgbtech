@@ -1,9 +1,12 @@
+import type { Request, Response } from 'express'
+
 import axios from 'axios'
-// const paypal = require("../../../client/src/components/Paypal/PaymentAcepted")
+
 import { config } from '../config/env'
 
-export async function create(req, res) {
+export async function create(req: Request, res: Response): Promise<void> {
     console.log('req.body', req.body)
+
     try {
         const order = {
             intent: 'CAPTURE',
@@ -19,6 +22,7 @@ export async function create(req, res) {
         }
 
         const params = new URLSearchParams()
+
         params.append('grant_type', 'client_credentials')
 
         const {
@@ -37,30 +41,33 @@ export async function create(req, res) {
             }
         )
 
+        console.log('access_token', access_token)
+
         const response = await axios.post(
             `${config.PAYPAL_API_URL}/v2/checkout/orders`,
             order,
             {
                 headers: {
-                    Authorization: `Bearer ${access_token}`,
+                    Authorization: `Bearer ${access_token as string}`,
                 },
             }
         )
 
-        // console.log("response", response);
         res.json(response.data.links[1].href)
     } catch (error) {
-        console.log(error, '---e---')
+        console.error(error)
         res.send(error)
     }
 }
 
-export async function capture(req, res) {
+export async function capture(req: Request, res: Response): Promise<void> {
     try {
-        const { token, PayerID } = req.query
+        const { token } = req.query
 
         const response = await axios.post(
-            `https://api-m.sandbox.paypal.com/v2/checkout/orders/${token}/capture`,
+            `https://api-m.sandbox.paypal.com/v2/checkout/orders/${
+                token as string
+            }/capture`,
             {},
             {
                 auth: {
@@ -70,13 +77,13 @@ export async function capture(req, res) {
             }
         )
         console.log('response.data', response.data)
+
         res.redirect('http://localhost:5173/order-successfully')
-        // res.json(response.data)
     } catch (error) {
-        console.log(error, 'error')
+        console.error(error)
     }
 }
 
-export function cancel(req, res) {
+export function cancel(req: Request, res: Response): void {
     res.redirect('http://localhost:5173/order-canceled')
 }

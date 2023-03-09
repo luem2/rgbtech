@@ -4,10 +4,10 @@ import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
-import swaggerUi from 'swagger-ui-express'
+// import swaggerUi from 'swagger-ui-express'
 
-import swaggerSetup from '../docs/swagger'
-import routes from '../routes'
+// import swaggerSetup from '../docs/swagger'
+// import routes from '../routes'
 import { handleError } from '../middlewares/handleError'
 
 import { config } from './env'
@@ -25,7 +25,7 @@ class Server {
         this.port = config.PORT
 
         this.middlewares()
-        this.routes()
+        // this.routes()
     }
 
     middlewares(): void {
@@ -65,15 +65,15 @@ class Server {
         this.app.use(handleError)
     }
 
-    routes(): void {
-        this.app.use(this.apiPaths.api, routes)
+    // routes(): void {
+    //     this.app.use(this.apiPaths.api, routes)
 
-        this.app.use(
-            this.apiPaths.docs,
-            swaggerUi.serve,
-            swaggerUi.setup(swaggerSetup)
-        )
-    }
+    //     this.app.use(
+    //         this.apiPaths.docs,
+    //         swaggerUi.serve,
+    //         swaggerUi.setup(swaggerSetup)
+    //     )
+    // }
 
     listen(): void {
         this.app.listen(this.port, () => {
