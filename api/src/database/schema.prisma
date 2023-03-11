@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,77 +8,164 @@ datasource db {
 }
 
 model Awards {
-  id String @id @default(uuid())
-  name String 
-  description String
-  points Float 
-  specifications Json @db.JsonB
-  img String
-  stock Int
-  freeShipping Boolean @default(false)
+  id             String   @id @db.Uuid
+  name           String   @db.VarChar(255)
+  points         Float
+  description    String
+  specifications Json
+  img            String?  @db.VarChar(255)
+  stock          Int
+  freeShipping   Boolean? @default(false)
 }
 
-model Brand {
-  id String @id @default(uuid())
-  name String
-  logo String
-  disabled Boolean @default(false)
+model Brands {
+  id           String         @id @db.VarChar(255)
+  name         String         @db.VarChar(255)
+  logo         String?        @db.VarChar(255)
+  disabled     Boolean        @default(false)
+  productBrand ProductBrand[]
+  products     Products[]
+  saleBrand    SaleBrand[]
+  sales        Sales[]
 }
 
 model Comments {
-  id String @id @default(uuid())
-  comment String
-  rating String
-  user String
-  profilePhoto String
+  id             String           @id @db.Uuid
+  comment        String?          @db.VarChar(255)
+  rating         String?          @db.VarChar(255)
+  user           String           @db.VarChar(255)
+  profilePhoto   String?          @db.VarChar(255)
+  productComment ProductComment[]
+}
+
+model ProductBrand {
+  createdAt DateTime @db.Timestamptz(6)
+  updatedAt DateTime @db.Timestamptz(6)
+  brandId   String   @db.VarChar(255)
+  productId String   @db.Uuid
+  brands    Brands   @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  products  Products @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@id([brandId, productId])
+}
+
+model ProductComment {
+  createdAt DateTime @db.Timestamptz(6)
+  updatedAt DateTime @db.Timestamptz(6)
+  productId String   @db.Uuid
+  commentId String   @db.Uuid
+  comments  Comments @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  products  Products @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@id([productId, commentId])
+}
+
+model ProductTag {
+  createdAt DateTime @db.Timestamptz(6)
+  updatedAt DateTime @db.Timestamptz(6)
+  productId String   @db.Uuid
+  tagId     String   @db.VarChar(255)
+  products  Products @relation(fields: [productId], references: [id], onDelete: Cascade)
+  tags      Tags     @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([productId, tagId])
 }
 
 model Products {
-  id String @id @default(uuid())
-  name String
-  description String
-  price Float
-  specifications Json @db.JsonB
-  img String
-  stock Int
-  onDiscount Boolean @default(false)
-  discountPercentage Float @default(0)
-  freeShipping Boolean @default(false)
-  rating Int
-  disabled Boolean @default(false)
+  id                 String           @id @db.Uuid
+  name               String           @db.VarChar(255)
+  price              Float
+  description        String
+  specifications     Json?
+  img                String?          @db.VarChar(255)
+  stock              Int
+  onDiscount         Boolean?         @default(false)
+  discountPercentage Float?           @default(0)
+  freeShipping       Boolean?         @default(false)
+  rating             Int?
+  disabled           Boolean          @default(false)
+  brandId            String?          @db.VarChar(255)
+  productBrand       ProductBrand[]
+  productComment     ProductComment[]
+  productTag         ProductTag[]
+  brands             Brands?          @relation(fields: [brandId], references: [id])
 }
 
-model Sale {
-  id String @id @default(uuid())
-  productId String
-  name String
+model SaleBrand {
+  createdAt DateTime @db.Timestamptz(6)
+  updatedAt DateTime @db.Timestamptz(6)
+  brandId   String   @db.VarChar(255)
+  saleId    String   @db.Uuid
+  brands    Brands   @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  sales     Sales    @relation(fields: [saleId], references: [id], onDelete: Cascade)
+
+  @@id([brandId, saleId])
+}
+
+model SaleProduct {
+  createdAt DateTime @db.Timestamptz(6)
+  updatedAt DateTime @db.Timestamptz(6)
+  saleId    String   @db.Uuid
+  tagId     String   @db.VarChar(255)
+  sales     Sales    @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  tags      Tags     @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([saleId, tagId])
+}
+
+model SaleUser {
+  createdAt DateTime @db.Timestamptz(6)
+  updatedAt DateTime @db.Timestamptz(6)
+  userId    String   @db.Uuid
+  saleId    String   @db.Uuid
+  sales     Sales    @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  users     Users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, saleId])
+}
+
+model Sales {
+  id           String        @id @db.Uuid
+  productId    String?       @db.VarChar(255)
+  name         String        @db.VarChar(255)
   productPrice Float
-  amount Int
-  totalPrice Float
-  month String
-  year Int
-  commented Boolean @default(false)
+  amount       Int
+  totalPrice   Float
+  month        String        @db.VarChar(255)
+  year         Int
+  commented    Boolean       @default(false)
+  brandId      String?       @db.VarChar(255)
+  userId       String?       @db.Uuid
+  saleBrand    SaleBrand[]
+  saleProduct  SaleProduct[]
+  saleUser     SaleUser[]
+  brands       Brands?       @relation(fields: [brandId], references: [id])
+  users        Users?        @relation(fields: [userId], references: [id])
 }
 
-model Tag {
-  id String @id @default(uuid())
-  name String
-  disabled Boolean @default(false)
+model Tags {
+  id          String        @id @db.VarChar(255)
+  name        String        @db.VarChar(255)
+  disabled    Boolean       @default(false)
+  productTag  ProductTag[]
+  saleProduct SaleProduct[]
 }
 
-model User {
-  id String @id @default(uuid())  
-  username String @unique
-  password String
-  email String @unique
-  userVerificated Boolean
-  profilePhoto String
-  shoppingCart String[]
-  favorite Json @db.JsonB
-  rgbPoint Int @default(0)
-  isAdmin Boolean @default(false)
-  googleLogged Boolean @default(false)
-  shoppingHistory Json @db.JsonB
-  disabled Boolean @default(false)
-  lastProductVisited String[] @default([])
+model Users {
+  id              String     @id @db.Uuid
+  user            String     @db.VarChar(255)
+  password        String?    @db.VarChar(255)
+  mail            String     @unique @db.VarChar(255)
+  userVerificate  Boolean    @default(false)
+  profilePhoto    String?    @db.VarChar(255)
+  cartShop        String[]   @db.VarChar(255)
+  favorite        Json?
+  RGBpoint        Int?       @default(0)
+  isAdmin         Boolean    @default(false)
+  LogGoogle       Boolean    @default(false)
+  shoppingHistory Json?
+  disabled        Boolean    @default(false)
+  lastVisited     String[]   @default(dbgenerated("(ARRAY[]::character varying[])::character varying(255)[]")) @db.VarChar(255)
+  saleUser        SaleUser[]
+  sales           Sales[]
 }
