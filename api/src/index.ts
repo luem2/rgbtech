@@ -27,12 +27,6 @@
 
 import Server from './config/server'
 
-// import createAllProducts from './utils/createProducts.js'
-// import addBrands from './utils/createBrands.js'
-// import addTags from './utils/createTags.js'
-// import createUsers from './utils/createUsers.js'
-// import createAllProductsOfAwards from './utils/createAwards'
-
 async function bootstrap(): Promise<void> {
     try {
         const server = new Server()
@@ -44,14 +38,3 @@ async function bootstrap(): Promise<void> {
 }
 
 bootstrap()
-
-// conn.sync({ force: true }).then(() => {
-//     addTags()
-//     addBrands()
-//     createAllProducts()
-//     createUsers()
-//     createAllProductsOfAwards()
-//     server.listen(3003, () => {
-//         console.info('%s listening at 3003')
-//     })
-// })
