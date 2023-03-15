@@ -9,14 +9,14 @@ import { createProducts } from './products'
 
 async function main(): Promise<void> {
     if (config.NODE_ENV === 'development') {
-        await db.users.deleteMany()
+        await db.user.deleteMany()
         await createUsers()
     }
 
-    await db.awards.deleteMany()
-    await db.brands.deleteMany()
-    await db.tags.deleteMany()
-    await db.products.deleteMany()
+    await db.award.deleteMany()
+    await db.brand.deleteMany()
+    await db.tag.deleteMany()
+    await db.product.deleteMany()
 
     await createAwards()
     await createBrands()
@@ -38,16 +38,3 @@ try {
 
     disconnect()
 }
-
-/* TODO: Probar luego de terminar la base de datos, las relaciones y los seeds..
-        el rendimiento de el bloque de arriba con el de abajo
-*/
-
-// main()
-//     .catch((error) => {
-//         console.error(error)
-//         process.exit(1)
-//     })
-//     .finally(async () => {
-//         await db.$disconnect()
-//     })
