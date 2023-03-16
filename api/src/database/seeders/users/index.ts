@@ -1,9 +1,37 @@
+import type { Rol } from '../../'
+
 import { hashSync } from 'bcrypt'
-import { v4 as uuidv4 } from 'uuid'
+import { faker } from '@faker-js/faker'
 
 import { db } from '../../'
 
 import usersJSON from './users.json'
+
+interface IUser {
+    firstName: string
+    lastName: string
+    email: string
+    password: string
+    picture: string
+    verificated: boolean
+    nacionality: string
+    rol: Rol
+    RGBpoints: number
+}
+
+function createRandomUsers(): IUser {
+    return {
+        firstName: faker.name.firstName(),
+        lastName: faker.name.lastName(),
+        email: faker.internet.email(),
+        password: faker.internet.password(),
+        picture: faker.internet.avatar(),
+        verificated: faker.helpers.arrayElement([true, false]),
+        nacionality: faker.address.countryCode('alpha-3'),
+        rol: 'USER' as Rol,
+        RGBpoints: 2000,
+    }
+}
 
 export async function createUsers(): Promise<void> {
     try {
@@ -11,11 +39,16 @@ export async function createUsers(): Promise<void> {
             return {
                 ...user,
                 password: hashSync(user.password, 10),
-                id: uuidv4(),
+                picture: faker.internet.avatar(),
+                rol: user.rol as Rol,
             }
         })
 
-        await db.users.createMany({
+        Array.from({ length: 10 }).forEach(() => {
+            users.push(createRandomUsers())
+        })
+
+        await db.user.createMany({
             data: users,
         })
 

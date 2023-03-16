@@ -1,51 +1,72 @@
 [
     {
-        "user": "Jhon",
-        "mail": "jhonsp101@gmail.com",
-        "password": "contraseña",
-        "userVerificate": true,
-        "isAdmin": true
+        "firstName": "Jhon",
+        "lastName": "Pérez",
+        "email": "jhonsp101@gmail.com",
+        "password": "password123",
+        "verificated": true,
+        "nacionality": "COL",
+        "rol": "ADMIN",
+        "RGBpoints": 5000
     },
     {
-        "user": "Jairo",
-        "mail": "jairoanngelll@gmail.com",
-        "password": "contraseña",
-        "userVerificate": true,
-        "isAdmin": true
+        "firstName": "Jairo",
+        "lastName": "Álvarez",
+        "email": "jairoanngelll@gmail.com",
+        "password": "password123",
+        "verificated": true,
+        "nacionality": "COL",
+        "rol": "ADMIN",
+        "RGBpoints": 5000
     },
     {
-        "user": "Andres",
-        "mail": "andresyrg16@gmail.com",
-        "password": "contraseña",
-        "userVerificate": true,
-        "isAdmin": true
+        "firstName": "Facundo",
+        "lastName": "Maciel",
+        "email": "facundomaciel@gmail.com",
+        "password": "password123",
+        "verificated": true,
+        "nacionality": "ARG",
+        "rol": "ADMIN",
+        "RGBpoints": 5000
     },
     {
-        "user": "Esteban",
-        "mail": "esteban@gmail.com",
-        "password": "contraseña",
-        "userVerificate": true,
-        "isAdmin": true
+        "firstName": "Andres",
+        "lastName": "Rodriguez",
+        "email": "andresyrg16@gmail.com",
+        "password": "password123",
+        "verificated": true,
+        "nacionality": "COL",
+        "rol": "ADMIN",
+        "RGBpoints": 5000
     },
     {
-        "user": "Luciano",
-        "mail": "luchemma@gmail.com",
-        "password": "contraseña",
-        "userVerificate": true,
-        "isAdmin": true
+        "firstName": "Esteban",
+        "lastName": "Pilchuman",
+        "email": "esteban@gmail.com",
+        "password": "password123",
+        "verificated": true,
+        "nacionality": "ARG",
+        "rol": "ADMIN",
+        "RGBpoints": 5000
     },
     {
-        "user": "Facundo",
-        "mail": "prueba5@gmail.com",
-        "password": "contraseña",
-        "userVerificate": true,
-        "isAdmin": true
+        "firstName": "Luciano",
+        "lastName": "Piñol",
+        "email": "luchemma@gmail.com",
+        "password": "password123",
+        "verificated": true,
+        "nacionality": "ARG",
+        "rol": "ADMIN",
+        "RGBpoints": 5000
     },
     {
-        "user": "Bauti",
-        "mail": "prueba10@gmail.com",
-        "password": "contraseña",
-        "userVerificate": true,
-        "isAdmin": true
+        "firstName": "Hugo",
+        "lastName": "Ceci",
+        "email": "hugo@gmail.com",
+        "password": "password123",
+        "verificated": true,
+        "nacionality": "ARG",
+        "rol": "ADMIN",
+        "RGBpoints": 5000
     }
 ]
