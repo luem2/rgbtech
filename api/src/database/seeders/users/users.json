@@ -1,0 +1,72 @@
+[
+    {
+        "firstName": "Jhon",
+        "lastName": "Pérez",
+        "email": "jhonsp101@gmail.com",
+        "password": "password123",
+        "verificated": true,
+        "nacionality": "COL",
+        "rol": "ADMIN",
+        "RGBpoints": 5000
+    },
+    {
+        "firstName": "Jairo",
+        "lastName": "Álvarez",
+        "email": "jairoanngelll@gmail.com",
+        "password": "password123",
+        "verificated": true,
+        "nacionality": "COL",
+        "rol": "ADMIN",
+        "RGBpoints": 5000
+    },
+    {
+        "firstName": "Facundo",
+        "lastName": "Maciel",
+        "email": "facundomaciel@gmail.com",
+        "password": "password123",
+        "verificated": true,
+        "nacionality": "ARG",
+        "rol": "ADMIN",
+        "RGBpoints": 5000
+    },
+    {
+        "firstName": "Andres",
+        "lastName": "Rodriguez",
+        "email": "andresyrg16@gmail.com",
+        "password": "password123",
+        "verificated": true,
+        "nacionality": "COL",
+        "rol": "ADMIN",
+        "RGBpoints": 5000
+    },
+    {
+        "firstName": "Esteban",
+        "lastName": "Pilchuman",
+        "email": "esteban@gmail.com",
+        "password": "password123",
+        "verificated": true,
+        "nacionality": "ARG",
+        "rol": "ADMIN",
+        "RGBpoints": 5000
+    },
+    {
+        "firstName": "Luciano",
+        "lastName": "Piñol",
+        "email": "luchemma@gmail.com",
+        "password": "password123",
+        "verificated": true,
+        "nacionality": "ARG",
+        "rol": "ADMIN",
+        "RGBpoints": 5000
+    },
+    {
+        "firstName": "Hugo",
+        "lastName": "Ceci",
+        "email": "hugo@gmail.com",
+        "password": "password123",
+        "verificated": true,
+        "nacionality": "ARG",
+        "rol": "ADMIN",
+        "RGBpoints": 5000
+    }
+]

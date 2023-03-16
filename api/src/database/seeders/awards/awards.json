@@ -1,0 +1,103 @@
+[
+    {
+        "name": "Support supports cell phone",
+        "description": "Extendable and flexible, a tailor-made support for your cell phone, thanks to the construction of its parts, you can extend the size and customize it to your liking!",
+        "requiredPoints": 200,
+        "specifications": {
+            "length": "26cm-36cm",
+            "width": "11.5cm",
+            "adjustable": true
+        },
+        "picture": "https://images-ext-2.discordapp.net/external/zD61UM2_75NzukIrvweHIzIukjGddQztku3sxRkOc10/https/res.cloudinary.com/ddroxn7iv/image/upload/v1662473130/RGBtech/Awards/Support_supports_cell_phone_zxiwv1.png?width=427&height=427"
+    },
+    {
+        "name": "Led ring light",
+        "description": "A bright ring of light. Illuminate and have a flawless image when recording and/or streaming. It has a great power to illuminate a large room, adjust the height and start creating!",
+        "requiredPoints": 650,
+        "specifications": {
+            "connector": "USB",
+            "LEDQuantity": "120",
+            "itIsRechargeable": "No"
+        },
+        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1662473130/RGBtech/Awards/led_ring_light_e9lbhf.png"
+    },
+    {
+        "name": "Headphones in-ear wireless F9-5",
+        "description": "Highest quality and comfort. Being in-ear, they improve audio quality and are small in size so they can be inserted in your ear. They are ideal to accompany you when you exercise while you immerse yourself in the best surround sound.",
+        "requiredPoints": 800,
+        "specifications": {
+            "wireless": "Yes",
+            "NoiseCancellation": "Yes",
+            "microphone": "Yes",
+            "batteryLife": "5 hs",
+            "waterproof": "Yes"
+        },
+        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1662473130/RGBtech/Awards/Headphones_in-ear_wireless_F9-5_mvq9p0.png"
+    },
+    {
+        "name": "Beanie with bluetooth",
+        "description": "Ideal gift for anyone, no matter what age. It is a unique and cool winter hat with headphones,speakers and includes Bluetooth V5.0.",
+        "requiredPoints": 1000,
+        "specifications": {
+            "connection": "Bluetooth",
+            "batteryLife": "10 hs",
+            "microphone": "Yes",
+            "washable": "Yes",
+            "RGBTechOriginal": true
+        },
+        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1662488432/RGBtech/Awards/beanie_with_bluetooth_eurpjo.png"
+    },
+    {
+        "name": "Headphone stand",
+        "description": "Universal under desk design clamps to desks up to 37mm thick and as narrow as 7mm for a near universal fit on most desks. Spring clip is easy to remove and reattach",
+        "requiredPoints": 500,
+        "specifications": {
+            "color": "Black",
+            "compatibleDevices": "Headphones",
+            "material": "Rubber Glass Polycarbonate Wood"
+        },
+        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1662489327/RGBtech/Awards/headphone_stand_lug1hv.png"
+    },
+    {
+        "name": "SABRENT Hub USB-C 3.0",
+        "description": "Perfect to add an SD card reader and regular USB ports. All ports they're fully functional. The bottom of the hub is magnetic to hold it in place.",
+        "requiredPoints": 450,
+        "specifications": {
+            "color": "Gray",
+            "USB": "3.0",
+            "dualSlot": "SD y TF + 3 hubs USB"
+        },
+        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1662473130/RGBtech/Awards/SABRENT_Hub_USB-C_3.0_imtbwz.png"
+    },
+    {
+        "name": "Led strip lights",
+        "description": "Premium 5050 LED Lights: Our light strips are made of high quality bright 5050 LED lights. It is not waterproof and is designed for indoor use. It can decorate your bedroom, ceiling, stairs, kitchen cabinet, porch, desk, and living room, especially great for holidays like Christmas, Halloween, parties, etc.",
+        "requiredPoints": 350,
+        "specifications": {
+            "color": "Multicolored",
+            "LightSourceType": "LED",
+            "PowerSource": "Corded Electric"
+        },
+        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1662473131/RGBtech/Awards/led_strip_lights_n7lzdd.png"
+    },
+    {
+        "name": "RGBtech T-Shirt Logo",
+        "description": "Carry the RGBtech style with you, with this T-shirt, decorated with the logo.",
+        "requiredPoints": 150,
+        "specifications": {
+            "color": "white",
+            "RGBTechOriginal": true
+        },
+        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1662488445/RGBtech/Awards/rgbremera_zsox8t.png"
+    },
+    {
+        "name": "RGBtech T-Shirt Logo Background",
+        "description": "Carry the RGBtech style with you, with this T-shirt, decorated with the logo and a nice background.",
+        "requiredPoints": 150,
+        "specifications": {
+            "color": "white",
+            "RGBTechOriginal": true
+        },
+        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1662488444/RGBtech/Awards/Remera_astro_ceymen.png"
+    }
+]
