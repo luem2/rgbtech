@@ -4,13 +4,13 @@
         "price": 79.99,
         "description": "The CORSAIR K60 RGB PRO SE mechanical gaming keyboard is designed with a durable brushed aluminum frame and CHERRY MV key switches that allow the brilliant RGB backlighting to shine on every key.",
         "specifications": {
-            "model": "CH-910D119-NA",
-            "KeyboardInterface": "USB 3.0",
-            "DesignStyle": "Gaming",
+            "Model": "CH-910D119-NA",
+            "Keyboard Interface": "USB 3.0",
+            "Design Style": "Gaming",
             "Palm Rest": "Full length, detachable magnetic cushioned with memory foam cushion",
             "Mechanical Keyboard": "Yes",
             "Key Switch Type": "Cherry Viola",
-            "KeyboardColor": "Black",
+            "Keyboard Color": "Black",
             "Dimensions": "1.46 x 17.40 x 5.40",
             "Backlit": "Yes",
             "Type": "Wired"
@@ -28,7 +28,7 @@
         "price": 109.99,
         "description": "The SK622 hybrid wireless gaming keyboard takes a modern approach to the classic mechanical keyboard with low profile switches housed in a sleek chassis for a drool-worthy aesthetic. The 60% keyboard layout is outfitted with low profile mechanical RGB switches with upgraded ergonomic keycaps from the previous version for a typing experience that feels as good as the keyboard looks. Add in hybrid connectivity that lets you choose between wired or Bluetooth wireless use on both Mac and Windows devices, and you have the ultimate on-the-go keyboard for both work and play.",
         "specifications": {
-            "model": "SK-622-GKTR1-US",
+            "Model": "SK-622-GKTR1-US",
             "Keyboard Interface": "USB Type-C (Keyboard Side), USB 2.0 Type A (Computer Side)",
             "Design Style": "TKL",
             "Palm Rest": "No",
@@ -60,7 +60,7 @@
         "price": 14.99,
         "description": "The entry level EVGA Z12 keyboard with IP32 Spill-Resistant to protect against accidental mishaps while gaming. With 5 zone RGB, dedicated media keys, macro keys, and Cherry stem compatible key caps the Z12 is a great introduction into EVGA's Z series gaming keyboards",
         "specifications": {
-            "model": "834-W0-12US-KR",
+            "Model": "834-W0-12US-KR",
             "Keyboard Interface": "USB 2.0",
             "Key Switch Type": "Membrane",
             "Keyboard Color": "Black",
@@ -80,7 +80,7 @@
         "price": 59.99,
         "description": "Mechanical switches provide accuracy and endurance.The ergonomic high-low keycap design reduces strain and pain of hands and wristsBrushed metal top plate and octagonal-shaped keycaps.Stunning per-key RGB lighting and various effects.Steady Gaming Base provides incredible feedback and anti-slip performance.Fine-tune detail settings with Dragon Center.",
         "specifications": {
-            "model": "?S11-04US256-CLA",
+            "Model": "?S11-04US256-CLA",
             "Keyboard Interface": "USB 2.0",
             "Design Style": "Gaming",
             "Palm Rest": "No",
@@ -103,7 +103,7 @@
         "price": 69.99,
         "description": "Dynamic Per-Key RGB Backlighting: Light up your desktop with ten onboard lighting effects or customize your own vibrant lighting effects with CORSAIR iCUE software.Six Dedicated Macro Keys: Activate functions, shortcuts, or keypresses in just one stroke with six dedicated macro keys, easily set up through CORSAIR iCUE software, or use instant streaming commands through Elgato Stream Deck software.Dust and Spill-Resistant Design: IP42-rated protection guards against accidents so your gameplay never has to stop.",
         "specifications": {
-            "model": "CH-9226715-NA",
+            "Model": "CH-9226715-NA",
             "Keyboard Interface": "USB 3.0 Type-A",
             "Design Style": "Gaming",
             "Palm Rest": "Detachable",
@@ -125,7 +125,7 @@
         "price": 41.88,
         "description": "Ergonomic styling from top to bottom.Custom membrane design.Seven colors for customized personality.A precision mouse to elevate your game.unctional and durable",
         "specifications": {
-            "model": "SGB-3000-KKMF1-US",
+            "Model": "SGB-3000-KKMF1-US",
             "Keyboard Interface": "USB 1.1",
             "Design Style": "Gaming",
             "Palm Rest": "Yes",
@@ -148,11 +148,11 @@
         "price": 98.0,
         "description": "LIGHTSPEED WirelessG502 is an icon, topping the charts through every generation, and the mouse of choice for serious gamers. Now, G502 joins the ranks of the world's most advanced wireless gaming mice with the release of G502 LIGHTSPEED. LIGHTSPEED is ultra-fast and reliable with performance trusted in competition by esports pros. G502 LIGHTSPEED also features the next-generation HERO 25K sensor and is POWERPLAY compatible. With this complete advanced technology remastering, G502 LIGHTSPEED still retains the same beloved shape - and achieves a 7-gram weight reduction.",
         "specifications": {
-            "model": "910-005565",
+            "Model": "910-005565",
             "Type": "Lightspeed Wireless",
             "Interface": "USB",
             "Tracking Method": "HERO 25K",
-            "Maximum dpi": "25600 dpi",
+            "Maximum Dpi": "25600 dpi",
             "Buttons": "11",
             "Mouse Adjustable Weight": "2 x 4g, 4 x 2g",
             "Scrolling Capability": "Tilt Wheel",
@@ -171,12 +171,12 @@
         "price": 49.87,
         "description": "Razer™ 8000Hz HyperPolling Technology: Sending up to 8 times more data in a second and reducing delay from 1 to 1/8th of a millisecond. Adapted to your movements. The gaming mouse will offer you the possibility to make a difference and take advantage of your games. Its connectivity and smooth sensor will help you move quickly across the screen.",
         "specifications": {
-            "model": "RZ01-03580100-R3U1",
+            "Model": "RZ01-03580100-R3U1",
             "Type": "Wired",
             "Interface": "USB",
             "Mouse Grip Style": "All",
             "Tracking Method": "Optical",
-            "Maximum dpi": "20000 dpi",
+            "Maximum Dpi": "20000 dpi",
             "Buttons": "8",
             "Color": "Black"
         },
@@ -193,12 +193,12 @@
         "price": 69.99,
         "description": "With the ability to upgrade to a superb 4000Hz wireless polling rate.Experience the fastest wireless performance ever with the Razer HyperPolling wireless dongle. Unlock a new standard of responsiveness with the ultimate upgrade for our most advanced mice, guaranteeing the speed you need for high-level competitive gaming.",
         "specifications": {
-            "model": "RZ01-03350100-R3U1",
+            "Model": "RZ01-03350100-R3U1",
             "Type": "Bluetooth Wireless",
             "Interface": "Bluetooth",
             "Mouse Grip Style": "All",
             "Tracking Method ": "Optical",
-            "Maximum dpi": "20000",
+            "Maximum Dpi": "20000",
             "Hand Orientation": "Right Hand",
             "Color": "Black"
         },
@@ -215,7 +215,7 @@
         "price": 14.95,
         "description": "Precise optical sensor. A PixArt PAW 3519 optical sensor that is a work of art with DPI up to 4200* enables fast and accurate tracking. Default DPI up to 3200 by hardware, maximum DPI up to 4200 by software.",
         "specifications": {
-            "model": "Storm",
+            "Model": "Storm",
             "Type": "Wired",
             "Interface": "USB",
             "Tracking Method": "Optical",
@@ -234,11 +234,11 @@
         "price": 24.99,
         "description": "Tripple Sensor 3-Dimension Array Tech.Quick Responding Mechanism.On the fly DPI Settings + 5 Onboard Profiles.Ergomic Design with Sniper Button.High Speed USB Max Polling/Report Rate: 8,000Hz.Customizable Weight System",
         "specifications": {
-            "model": "903-W1-17BK-KR",
+            "Model": "903-W1-17BK-KR",
             "Type ": "Wired",
             "Interface": "USB",
             "Tracking Method": "Optical",
-            "Maximum dpi ": "16000 dpi",
+            "Maximum Dpi ": "16000 dpi",
             "Buttons": "10",
             "Mouse Adjustable Weight": "Yes",
             "Color": "Black"
@@ -256,7 +256,7 @@
         "price": 239.99,
         "description": " The last mile for your game system! As an invisible gamer, the monitor is often underestimated. The truth is that monitors are incorporated as a synergistic effect and offer the best performance of PC components. GIGABYTE gaming monitors offer the best specifications and quality, users can truly enjoy top-notch performance without extravagance. Supports Adaptive-Sync Technology",
         "specifications": {
-            "model": "G27Q",
+            "Model": "G27Q",
             "Screen Size": "27",
             "Widescreen": "Yes",
             "Glare Screen": "Non-glare",
@@ -287,7 +287,7 @@
         "price": 189.99,
         "description": "Give yourself a competitive edge in eSports gaming with this ultra-fast 240 Hz refresh rate display. This 27' monitor also boasts a curved VA screen and Full HD resolution for an immersive, crystal-clear visual. Dual HDMI and one DisplayPort inputs play nice with the latest gaming desktops/laptops and game consoles. And a speaker is built in for added convenience. ",
         "specifications": {
-            "model": "ED270 Xbmiipx",
+            "Model": "ED270 Xbmiipx",
             "Part Numbe": "UM.HE0AA.X01",
             "Cabinet Color": "Black",
             "Bezel Design": "3 Sided Frameless",
@@ -321,7 +321,7 @@
         "price": 179.99,
         "description": "Trace Free Technology: Yes GamePlus (modes): Yes (Crosshair/Timer/FPS Counter/Display Alignment) Low Blue Light: YesHDCP support: YesGameVisual: 7 Modes (Scenery/Racing/Cinema/RTS/RPG/FPS/sRGB Modes/MOBA Mode)FreeSync technology supported Extreme Low Motion BlurGameFast Input technologyShadow Boost",
         "specifications": {
-            "model": "VG24VQ",
+            "Model": "VG24VQ",
             "Screen Size": "24' (Actual size 23.6')",
             "Widescreen": "Yes",
             "LED Backlight": "Yes",
@@ -354,7 +354,7 @@
         "price": 329.99,
         "description": "Performance-oriented gamers need a monitor that can keep up. With refresh rates up to 165 Hz, extreme MPRT response times of 1 ms and full AMD Freesync Premium support, you can be sure the G32A has the performance to keep up with your skills.",
         "specifications": {
-            "model": "LS32AG320NNXZA",
+            "Model": "LS32AG320NNXZA",
             "Screen Size": "32",
             "Widescreen": "Yes",
             "Panel": "VA",
@@ -383,7 +383,7 @@
         "price": 229.99,
         "description": "Here comes silky-smooth high definition gaming. Lagging and stuttering will be a thing of the past with VA Panel Technology, 165Hz refresh rate, 1ms response time[1], and AMD[2] FreeSync Premium[3]. More immersive gaming experience with Curved display (1500R), Quad HD Resolution, 165Hz, 1ms and AMD Freesync Premium, for seamless gaming and streaming.",
         "specifications": {
-            "model": "X27qc",
+            "Model": "X27qc",
             "Screen Size": "27'",
             "Widescreen": "Yes",
             "Glare Screen": "Anti-glare",
@@ -406,7 +406,7 @@
         "price": 249.99,
         "description": "The pinnacle of gaming monitors. Complete your battle station with a premium LG UltraGear Gaming Monitor. Built for gamers, it delivers the latest hardware, specs, ergonomics, sleek design and sensory experience. With gaming-focused features like 1ms GTG response times, pro-level customization and fast, vivid IPS panels, you're sure to gain an added edge.",
         "specifications": {
-            "model": "24GN650-B",
+            "Model": "24GN650-B",
             "Screen Size": "24'",
             "Widescreen": "Yes",
             "Glare Screen": "Anti-glare",
@@ -429,7 +429,7 @@
         "price": 159.99,
         "description": "Gamer Chair for PC, PS4, Desk, Office, etc. Executive chair reclining 180 degrees. Camouflage color leatherette material and high density foam padded backrest.",
         "specifications": {
-            "type": "Racing",
+            "Type": "Racing",
             "Primary Color": "Black",
             "Accent Color": "Black",
             "Material": "Faux Leather",
@@ -453,7 +453,7 @@
         "price": 129.99,
         "description": "High quality synthetic leather, microfiber, cloth, which are durable and environmentally friendly. Ergonomic design, high quality sponge. The chair is adjustable, you can change its height, backrest angle and armrest to find your most comfortable position.",
         "specifications": {
-            "model": "LS-669203",
+            "Model": "LS-669203",
             "Type": "Chair",
             "Primary Color": "Black / Red",
             "Material": "Mesh",
@@ -472,7 +472,7 @@
         "price": 84.99,
         "description": "Inch Gaming Desk Racing Style PC Computer Desk Y-shaped Home Office with Desk Large Carbon Fiber Desktop, Cup Holder, Headphone Hook, Full Mouse Pad, and Gaming Handle Rack (Black)",
         "specifications": {
-            "type": "Y-shape",
+            "Type": "Y-shape",
             "Surface Color": "Black",
             "Surface Material": "Carbon Fiber",
             "Surface Load Capacity": "170LBS",
@@ -492,7 +492,7 @@
         "price": 104.99,
         "description": "This Homall Gaming Chair extends the full length of the back with support for the shoulders, head, and neck. Our chairs are crafted to perfection and designed to the bodies natural shape, you will find complete comfort with its quality PU leather.",
         "specifications": {
-            "model": "T-OCRC0082",
+            "Model": "T-OCRC0082",
             "Type": "Chair",
             "Primary Color": "Black",
             "Accent Color": "Black",
@@ -515,7 +515,7 @@
         "price": 679.99,
         "description": "Heavyweight performance in a lightweight package. Powerful processor and graphics bring smooth, gorgeous visuals on the ultra fast 144 Hz IPS-level display. Play to the max with powerful yet quiet cooling and long battery life. And when it's time to hit the road, the GF63 Thin will never weigh you down.",
         "specifications": {
-            "model": "GF63 Thin 11UC-270",
+            "Model": "GF63 Thin 11UC-270",
             "Operating System": "Windows 11 Home",
             "Color": "Black",
             "CPU": "Intel Core i5-11400H 2.70 GHz",
@@ -541,7 +541,7 @@
         "price": 849.99,
         "description": "Always ready for action, the TUF Gaming F17 excels at gaming, streaming, and everything in between with the Intel® Core™ CPU and GeForce RTX™ GPU. A superfast NVMe™ PCIe® SSD speeds up load times, while an open SSD slot makes it easy to add terabytes for more space.",
         "specifications": {
-            "model": "FX706HCB-ES51",
+            "Model": "FX706HCB-ES51",
             "Color": "Graphite Black",
             "Operating System": "Windows 11 Home 64-bit",
             "CPU": "Intel Core i5-11400H 2.70 GHz",
@@ -568,7 +568,7 @@
         "price": 609.99,
         "description": "Stay on the top of leaderboard with the IdeaPad Gaming 3i, a truly eye-catching gaming PC that is power-packed with beast hardware and innovative thermal design. Immersive Nahimic surround sound audio and 15.6” FHD IPS display will make you totally lost in the game world.",
         "specifications": {
-            "model": "82K1015DUS",
+            "Model": "82K1015DUS",
             "Color": "Shadow Black",
             "Operating System": "Windows 11 Home 64-bit",
             "CPU ": "Intel Core i5-11300H 3.10 GHz",
@@ -591,7 +591,7 @@
         "price": 1899.99,
         "description": "Compete at the highest level of Windows 10 gaming with the ROG Strix SCAR 15. Take on any challenge with the powerful AMD Ryzen™ 9 5900HX CPU and GeForce RTX™ 3080 GPU. Input every strike with precision on a responsive optical mechanical keyboard. With a competitive edge this sharp, you can dominate any arena. ",
         "specifications": {
-            "model": "G533QS-DS96",
+            "Model": "G533QS-DS96",
             "Color": "Black",
             "Operating System": "Windows 10 Home 64-bit",
             "CPU ": "AMD Ryzen 9 5900HX 3.30 GHz",
@@ -614,17 +614,17 @@
         "price": 1599.0,
         "description": "GE66 Raider is equipped with the latest 11th Gen. Intel Core processors and powered by NVIDIA GeForce RTX 30 series graphics. Just as the spaceship traversing throughout the universe at warp speed with extreme performance, the GE66 landed at the gaming battlefield fully-armed. With the most comprehensive features, GE66 Raider will bring gamers to infinity and beyond.",
         "specifications": {
-            "model": "GE66 Raider 11UE-642",
-            "color": "Titanium Blue",
-            "operatingSystem": "Windows 11 Home",
-            "cpu": "Intel Core i7-11800H 2.30 GHz",
+            "Model": "GE66 Raider 11UE-642",
+            "Color": "Titanium Blue",
+            "Operating System": "Windows 11 Home",
+            "CPU": "Intel Core i7-11800H 2.30 GHz",
             "Screen": "15.6 4K/UHD OLED",
-            "memory": "16 GB DDR4",
-            "storage": "1 TB NVMe SSD",
-            "graphicsCard": "NVIDIA GeForce RTX 3060 Laptop GPU",
-            "videoMemory": "6 GB GDDR6",
-            "dimensions": "14.09 x 10.51 x 0.92",
-            "weight": "5.25 lbs"
+            "Memory": "16 GB DDR4",
+            "Storage": "1 TB NVMe SSD",
+            "Graphics Card": "NVIDIA GeForce RTX 3060 Laptop GPU",
+            "Video Memory": "6 GB GDDR6",
+            "Dimensions": "14.09 x 10.51 x 0.92",
+            "Weight": "5.25 lbs"
         },
         "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399197/RGBtech/ImageProduct/GE66_Raider_11UE-642_dvumhy.png",
         "stock": 73,
@@ -639,8 +639,8 @@
         "price": 1489.99,
         "description": "Maximum performance with the AMD Ryzen 7 5800H CPU (8C/16T, 3.2GHz/4.4GHz) outperforming the Core i9-10980HK CPU, you can enjoy the best competitive gaming performance in a thin and light notebook with incredible battery life. Never compromise on your gaming laptop again.",
         "specifications": {
-            "screenSize": "17.3",
-            "dateFirstAvailable": "December 21, 2021"
+            "Screen Size": "17.3",
+            "Date First Available": "December 21, 2021"
         },
         "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399197/RGBtech/ImageProduct/Legion_5_Pro_nfbvhf.png",
         "stock": 194,
@@ -655,17 +655,17 @@
         "price": 1399.99,
         "description": "A laptop PC that's packed with power for work or play. Crush all your productivity goals like never before, whether it's a work-related project or your personal to-do list. And when it's time to kick back, you can stream or game to your heart's content with stunning visuals and stellar audio, all powered by a long-lasting battery.",
         "specifications": {
-            "model": "NP762XDA-XA1US",
-            "color": "Mystic Black",
-            "operatingSystem": "Windows 11 Home 64-bit",
-            "cpu": "Intel Core i7-11600H 2.90 GHz",
+            "Model": "NP762XDA-XA1US",
+            "Color": "Mystic Black",
+            "Operating System": "Windows 11 Home 64-bit",
+            "CPU": "Intel Core i7-11600H 2.90 GHz",
             "Screen": "15.6",
-            "memory": "8 GB DDR4",
-            "storage": "512 GB SSD",
-            "graphicsCard": "NVIDIA GeForce RTX 3050 Ti Laptop GPU-NVIDIA Max-Q for peak performance and efficiency",
-            "videoMemory": "4 GB GDDR6",
-            "dimensions": "14.04 x 9.02 x 0.70",
-            "weight": "4.08 lbs",
+            "Memory": "8 GB DDR4",
+            "Storage": "512 GB SSD",
+            "Graphics Card": "NVIDIA GeForce RTX 3050 Ti Laptop GPU-NVIDIA Max-Q for peak performance and efficiency",
+            "Video Memory": "4 GB GDDR6",
+            "Dimensions": "14.04 x 9.02 x 0.70",
+            "Weight": "4.08 lbs",
             "Other Features": "Fingerprint reader"
         },
         "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399198/RGBtech/ImageProduct/Galaxy_Book_Odyssey_ecrx7w.png",
@@ -681,12 +681,12 @@
         "price": 69.99,
         "description": "In e-sports, we must race against time, because even the slightest delay can reverse the situation. Therefore, in order to create the most favorable situation for players, GameSir X2 uses a wired connection, which greatly reduces the time required for the device signal to reach the mobile phone, and truly realizes plug and play. With almost no delayed input, you can control the situation at any time without leaving the opponent's chances.",
         "specifications": {
-            "model": "GameSir X2",
-            "size": "177.8*84.3*36.8mm",
-            "androidBeam": "Android (Android 9.0 or later)",
-            "battery": "none",
-            "weight": "167g",
-            "dateFirstAvailable": "April 01, 2021"
+            "Model": "GameSir X2",
+            "Size": "177.8*84.3*36.8mm",
+            "Android Beam": "Android (Android 9.0 or later)",
+            "Battery": "none",
+            "Weight": "167g",
+            "Date First Available": "April 01, 2021"
         },
         "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399854/RGBtech/ImageProduct/GameSir_X2_sdg1ny.png",
         "stock": 20,
@@ -701,15 +701,15 @@
         "price": 49.99,
         "description": "The chip of GameSir G4 Pro has been upgraded to be compatible with more platforms. Gamers can use GameSir G4 Pro on Apple iPhone,Android mobile phone,Windows PC and Nintendo Switch!",
         "specifications": {
-            "model": "GameSir G4pro",
-            "color": "Titanium Black",
+            "Model": "GameSir G4pro",
+            "Color": "Titanium Black",
             "OS": "android Phone/Tablet/TV Box/iPhone/iPad/Apple TV/Windows PC",
-            "size": "4.21 x 6.14 x 2.52 inches",
+            "Size": "4.21 x 6.14 x 2.52 inches",
             "Wi-Fi": "2.4GHz Wireless",
-            "bluetooth": "bluetooth 4.2",
+            "Bluetooth": "bluetooth 4.2",
             "USB": "Type-C",
-            "battery": "built-in 800mAh rechargeable Lithium battery",
-            "weight": "1.15 pounds",
+            "Battery": "built-in 800mAh rechargeable Lithium battery",
+            "Weight": "1.15 pounds",
             "Date First Available": "April 08, 2021"
         },
         "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399854/RGBtech/ImageProduct/GameSir_G4pro_bwhaqk.png",
@@ -725,14 +725,14 @@
         "price": 32.96,
         "description": "1. Due to huawei's system reasons, huawei mobile phone does not support this product for the time being, RAM<2G, resolution 720P, mediatek 4 core and CPU kernel version MT65** start, etc. Some mediatek 4 cores can be used, such as zte xiaoxian 3 and gionee GN5001, and the CPU is 4-core MT6735. 2. 4G wireless bluetooth game controller, playing apple and android, mass games, intelligent chip, wireless connection, bluetooth 4.0, built-in lithium battery, comfortable handle, compatible with multiple systems. 3. Match bracket second - change game mobile phone, buy namely send handle bracket. 4. Compatibility with IOS & Andriod. 5. C8 Bluetooth gamepad 6. Support Android, iOS, Windows system 7. Intelligent power saving, long battery life 8. The material is made of ABS material, which has the characteristics of resistance to falling and environmental protection. 9. 3D rocker, 360 degree global high precision positioning, high sensitivity, meticulous control without pressure 10. Adopt one-point design to make the direction control more precise and flexible 11.",
         "specifications": {
-            "model": "C8",
-            "color": "Titanium Black",
+            "Model": "C8",
+            "Color": "Titanium Black",
             "OS": "For Android / iOS / PC / PS3",
-            "size": "15*10.5*5.4cm",
-            "bluetooth": "4.0",
-            "battery": "500mAh",
-            "batteryLife": "10-15Hours",
-            "dateFirstAvailable": "July 30, 2019"
+            "Size": "15*10.5*5.4cm",
+            "Bluetooth": "4.0",
+            "Battery": "500mAh",
+            "Battery Life": "10-15Hours",
+            "Date First Available": "July 30, 2019"
         },
         "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399855/RGBtech/ImageProduct/C8_aebd3c.png",
         "stock": 520,
@@ -747,8 +747,8 @@
         "price": 144,
         "description": "Bold JBL Original Pro Sound Take the amazing power of JBL Pro Sound with you. The JBL Charge 5 has an optimized long excursion driver, a separate tweeter, and dual JBL bass radiators, all delivering impressively rich and clear audio. Get that big room sound, even when outdoors. 20 hours of playtime The fun doesn’t have to stop. Packed with an incredible 20 hours of battery life, JBL Charge 5 lets you party all day and into the night. IP67 waterproof and dustproof To the pool. To the park.",
         "specifications": {
-            "color": "Teal",
-            "dateFirstAvailable": "January 12, 2022"
+            "Color": "Teal",
+            "Date First Available": "January 12, 2022"
         },
         "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399729/RGBtech/ImageProduct/Parlante_JBL_Charge_5_bwitxq.png",
         "stock": 90,
@@ -763,12 +763,12 @@
         "price": 76.99,
         "description": "Featuring IPX7 water resistance and up to five hours of playtime, the JBL GO 2 is a stylish, compact speaker designed to be taken with you anywhere you go. Enjoy JBL-quality sound either by wirelessly streaming music from Bluetooth-compatible devices or by using an audio cable to connect to non-Bluetooth devices. With the built-in speakerphone, you can also have crystal-clear conference calls, hands free.",
         "specifications": {
-            "model": "JBLGO2GRNAM",
-            "color": "Moss Green",
-            "wirelessTechnology": "Bluetooth",
-            "totalPower": "Output power: 3.1W RMS",
-            "battery": "Lithium-ion polymer(3.7V, 730mAh)",
-            "playbackTime": "Battery charge time: 2.5 hours"
+            "Model": "JBLGO2GRNAM",
+            "Color": "Moss Green",
+            "Wireless Technology": "Bluetooth",
+            "Total Power": "Output power: 3.1W RMS",
+            "Battery": "Lithium-ion polymer(3.7V, 730mAh)",
+            "Playback Time": "Battery charge time: 2.5 hours"
         },
         "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399729/RGBtech/ImageProduct/JBL_GO_2_Portable_Bluetooth_Waterproof_Speaker_Moss_Green_vmxvzu.png",
         "stock": 69,
@@ -783,8 +783,8 @@
         "price": 49.95,
         "description": "JBL Go 3 features bold styling and rich JBL Pro Sound. With its new eye-catching edgy design, colorful fabrics and expressive details this a must-have accessory for your next outing. Your tunes will lift you up with JBL Pro Sound, its IP67 waterproof and dustproof so you can keep listening rain or shine, and with its integrated loop, you can carry it anywhere. Go 3 comes in completely new shades and color combinations inspired by current street fashion. JBL Go 3 looks as vivid as it sounds.",
         "specifications": {
-            "type": "bluetoothAccessories",
-            "dateFirstAvailable": "December 21, 2021"
+            "Type": "bluetoothAccessories",
+            "Date First Available": "December 21, 2021"
         },
         "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399729/RGBtech/ImageProduct/JBL_GO3GRN_GO_3_Portable_Waterproof_Speaker_-_Green_einui8.png",
         "stock": 196,
@@ -799,13 +799,13 @@
         "price": 139.99,
         "description": "Deep, thunderous bass is necessary to complete a powerful home theater system. The Klipsch K-100SW powered subwoofer incorporates a 10' front-firing driver and all-digital amplifier, capable of producing room-filling low frequency effects that can not only be heard but felt as well. Plus, it accepts line/LFE inputs, so you can hook it up to most receivers available on the market.",
         "specifications": {
-            "model": "K100-SW",
-            "type": "Subwoofer",
-            "soldAs": "Sigle",
-            "driverUnits": "10 (25.4cm) poly-fiber front-firing woofer",
-            "powerRating": "Amplifier power: 100W / 250W",
-            "frequencyResponse": "32Hz-120Hz+/-3dB",
-            "connectors": "Line level / LFE RCA jacks"
+            "Model": "K100-SW",
+            "Type": "Subwoofer",
+            "Sold As": "Sigle",
+            "Driver Units": "10 (25.4cm) poly-fiber front-firing woofer",
+            "Power Rating": "Amplifier power: 100W / 250W",
+            "Frequency Response": "32Hz-120Hz+/-3dB",
+            "Connectors": "Line level / LFE RCA jacks"
         },
         "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399729/RGBtech/ImageProduct/Klipsch_K-100SW_10-Inch_Powered_Subwoofer_usu9ey.png",
         "stock": 332,
@@ -820,14 +820,14 @@
         "price": 212.9,
         "description": "Searching for powerful sound? Look no further than this LG audio system which pumps out a commanding 700 watts of audio, more than enough to fill your room with booming tunes.",
         "specifications": {
-            "totalOutputPower": "700W Hi-Fi Shelf System",
-            "bluetoothRemoteApp": "yes",
-            "usbDirectRecording": "yes(3)",
-            "frontSpeakerSystem": "2 Way 2 Speaker",
-            "fmTuningRange": "87.5 - 108.0 MHz",
-            "powerConsumption": "80W",
-            "remoteControl": "Yes",
-            "shippingWeight": "37.7 lbs"
+            "Total Output Power": "700W Hi-Fi Shelf System",
+            "Bluetooth Remote App": "yes",
+            "USB Direct Recording": "yes(3)",
+            "Front Speaker System": "2 Way 2 Speaker",
+            "Fm Tuning Range": "87.5 - 108.0 MHz",
+            "Power Consumption": "80W",
+            "Remote Control": "Yes",
+            "Shipping Weight": "37.7 lbs"
         },
         "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661432756/RGBtech/ImageProduct/LG_CM4590_XBOOM_700W_Bluetooth_Music_System_k7oc9i.png",
         "stock": 171,
@@ -841,7 +841,7 @@
         "name": "M-Track Solo 2-Channel USB Audio Interface",
         "price": 78.4,
         "description": "Product Key Features, Mic/Line Input Mic/Preamp XLR, Suited For Home Recording,Interface Type USB Interface, Max. Number of Channels 2, Form Factor Portable,Features Phantom Power, Software Included",
-        "specifications": { "dateFirstAvailable": "March 22, 2021" },
+        "specifications": { "Date First Available": "March 22, 2021" },
         "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399854/RGBtech/ImageProduct/M-Audio_M-Track_Solo_2-Channel_USB_Audio_Interface_cvhsbo.png",
         "stock": 304,
         "onDiscount": true,
@@ -854,7 +854,7 @@
         "name": "Scarlett Solo 3rd Generation Audio Interface",
         "price": 119.99,
         "description": "The simplest model in the range, the third-generation Scarlett Solo provides singer-songwriters with a reassuringly easy recording process. Equipped with high performance 24-bit/192 kHz AD-DA converters, Scarlett guarantees the same professional sound quality throughout the third-generation range. Its features include a single upgraded third-generation",
-        "specifications": { "dateFirstAvailable": "December 06, 2019" },
+        "specifications": { "Date First Available": "December 06, 2019" },
         "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399854/RGBtech/ImageProduct/Focusrite_Scarlett_Solo_3rd_Generation_Audio_Interface_xhv59c.png",
         "stock": 53,
         "onDiscount": false,
@@ -867,7 +867,7 @@
         "name": "M2 Audio Interface",
         "price": 199.95,
         "description": "Equipped with the same ESS Sabre32 Ultra DAC Technology found in audio interfaces costing thousands, the M2 delivers an astonishing 120 dB Dynamic Range on its main outputs. ESS converters also drive the headphone output, which rivals dedicated headphone amplifiers costing hundreds. Ultra-clean preamp circuits produce a measured -129 dBu EIN on the mic inputs. Capture and monitor your audio with pristine clarity.",
-        "specifications": { "dateFirstAvailable": "April 17, 2020" },
+        "specifications": { "Date First Available": "April 17, 2020" },
         "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399855/RGBtech/ImageProduct/MOTU_M2_Audio_Interface_a2pr6b.png",
         "stock": 143,
         "onDiscount": false,
@@ -881,10 +881,10 @@
         "price": 122.99,
         "description": "With the HyperX microphone, you'll discover a new way to capture and deliver audio. True to life. Ideal for various activities. It will give you a quality sound and get the clarity of the voices. A format to your needs. As it is a condenser, it will enable a clear and fine result. It is ideal for percussions, guitars, pianos, among others. Because of its defined response to the voice, it is the most chosen by professionals.",
         "specifications": {
-            "model": "4P5P6AA",
-            "type": "Microphone",
-            "sensitivity ": "-36dB",
-            "dateFirstAvailable": "April 20, 2022"
+            "Model": "4P5P6AA",
+            "Type": "Microphone",
+            "Sensitivity ": "-36dB",
+            "Date First Available": "April 20, 2022"
         },
         "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399254/RGBtech/ImageProduct/Hyperx_QuadCast_Microphone_pz9zcv.png",
         "stock": 66,
@@ -899,7 +899,7 @@
         "price": 300,
         "description": "Blue Microphone’s incredibly popular series of Yeti Microphones are the premier option to help you with broadcast-quality podcasting, YouTube productions, Skype/VoIP and voice-over work, and video game streaming. The Yeti provides all the tools you need to broadcast your message with crystal clear clarity. Featuring 16-bit sound quality and plug 'n play operation for instant streaming with your PC or Mac, this microphone is ready to go whenever inspiration strikes.",
         "specifications": {
-            "bundleIncludes": "Blue Microphones Yeti Microphone",
+            "Dundle Includes": "Blue Microphones Yeti Microphone",
             "Date First Available": "July 03, 2019"
         },
         "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399254/RGBtech/ImageProduct/Blue_Yeti_Microphone_Blackout_with_Boom_Arm_Stand_Pop_Filter_and_Shock_Mount_-_copia_ovqguf.png",
@@ -914,7 +914,7 @@
         "name": "SM7B SM-7B Dynamic",
         "price": 386.17,
         "description": "The Shure SM78 microphone is designed and built to capture smooth, warm vocals that connect the speaker to the listener. Both music and speech will sound clean and natural without off-axis audio, mechanical noise, breathiness, and hum from audio equipment. Perfect for broadcast, podcast, and recording in any professional studio where voices need to be handled with care.",
-        "specifications": { "model": "SM7B", "type": "Dynamic Microphones" },
+        "specifications": { "Model": "SM7B", "Type": "Dynamic Microphones" },
         "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399254/RGBtech/ImageProduct/Shure_SM7B_SM-7B_Dynamic_Broadcast_Recording_Microphone_NEW_a4mguz.png",
         "stock": 63,
         "onDiscount": true,
@@ -928,8 +928,8 @@
         "price": 122.99,
         "description": "No problems getting it up and running seconds on Windows 8 64-bit. No compatibility or quality issues what-so-ever. Compared this to the Blue Snowball and for the money having all of the different recording modes and the solid desktop stand sold me on the Yeti.",
         "specifications": {
-            "model": "988-000105",
-            "type": "Professional USB Microphone for Gaming, Streaming and Podcasting."
+            "Model": "988-000105",
+            "Type": "Professional USB Microphone for Gaming, Streaming and Podcasting."
         },
         "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399254/RGBtech/ImageProduct/Blue_Yeti_Microphone_-Black_Out_xil56f.png",
         "stock": 93,
@@ -944,10 +944,10 @@
         "price": 39.99,
         "description": "Closed, dynamic hi-fi stereo headphones Rich, crisp bass response and faithful dynamic audio reproduction Good attenuation of ambient noise, HD microphone Lightweight construction designed specifically for long studio or DJ sessions Powerful bass, rhythm-driven music and increased signal levels for modern Extremely comfortable to wear due to ultra-lightweight design, even for all-day listening 1/8 plug ( 3.5 mm) with 1/4 ( 6.3 mm) adapter included",
         "specifications": {
-            "model": "HD201",
-            "type": "Noise Cancelling",
-            "color": "Black",
-            "connector": "3.5mm"
+            "Model": "HD201",
+            "Type": "Noise Cancelling",
+            "Color": "Black",
+            "Connector": "3.5mm"
         },
         "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399791/RGBtech/ImageProduct/Sennheiser_HD_201_Over_Ear_Headphone_Gaming_Wired_Headset_3.5mm_Computer_Earphones_HD_Microphone_e9sqly.png",
         "stock": 140,
@@ -962,14 +962,14 @@
         "price": 65.91,
         "description": "Sennheiser HD 400S headphones come with a sturdy folding design that's great to be taken anywhere you go. Powered by Sennheiser dynamic drivers, it delivers an outstanding audio experience with well-extended response and dynamic bass. The closed-back design blocks unwanted background noise to keep your listening experience truly private. Also, users will enjoy easy music control and hands-free calls with the built-in remote and microphone.",
         "specifications": {
-            "model": "HD 400S",
-            "type": "Over the Ear",
-            "color": "Black",
-            "frequencyResponse": "18Hz-20KHz",
+            "Model": "HD 400S",
+            "Type": "Over the Ear",
+            "Color": "Black",
+            "Frequency Response": "18Hz-20KHz",
             "THD": "< 0.5 % (1 kHz, 100 dB SPL)",
-            "sensitivity": "120 dB SPL @ 1 kHz, 1V RMS",
-            "connector": "3.5mm",
-            "earCoupling": "Binaural"
+            "Sensitivity": "120 dB SPL @ 1 kHz, 1V RMS",
+            "Connector": "3.5mm",
+            "Ear Coupling": "Binaural"
         },
         "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661432809/RGBtech/ImageProduct/Sennheiser_HD_400S_Headphones_ffs2oe.png",
         "stock": 163,
@@ -984,10 +984,10 @@
         "price": 165.8,
         "description": "LIGHTSPEED wireless technology, only from Logitech G, lets you game wirelessly without compromises in latency, connectivity or battery. Play in complete freedom with 20+ hours battery life and a 13+ m range using robust 2.4 GHz frequency.",
         "specifications": {
-            "model": "981-000906",
-            "color": "Black",
-            "operatingTime": "20.0 hours",
-            "connectionType": "Wireless",
+            "Model": "981-000906",
+            "Color": "Black",
+            "Operating Time": "20.0 hours",
+            "Connection Type": "Wireless",
             "Wireless Type": "RF"
         },
         "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399791/RGBtech/ImageProduct/Logitech_-_G_PRO_X_WIRELESS_981-000906_DTS_timvm9.png",
@@ -1003,13 +1003,13 @@
         "price": 49.99,
         "description": "Hear everything in 7.1 surround sound from the lightest footstep to the most thundering explosion thanks to premium, custom-tuned 50 mm high-density neodymium audio drivers with an expanded frequency range of 20 Hz - 30,000 Hz.",
         "specifications": {
-            "model": "VOID RGB ELITE Wireless",
-            "partNumber": "CA-9011202-NA/RF",
-            "color": "Whiter",
-            "operatingTime": "Up to 16 hours",
-            "connectionType": "Wireless",
-            "wirelessType": "RF",
-            "driverUnit": "Custom 50mm Neodymium"
+            "Model": "VOID RGB ELITE Wireless",
+            "Part Number": "CA-9011202-NA/RF",
+            "Color": "Whiter",
+            "Operating Time": "Up to 16 hours",
+            "Connection Type": "Wireless",
+            "Wireless Type": "RF",
+            "Driver Unit": "Custom 50mm Neodymium"
         },
         "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399791/RGBtech/ImageProduct/Logitech_-_G_PRO_X_WIRELESS_981-000906_DTS_timvm9.png",
         "stock": 53,
@@ -1024,13 +1024,13 @@
         "price": 52.49,
         "description": "High-quality, custom-tuned 50mm neodymium audio drivers deliver the range to hear everything you need to on the battlefield. Immerse yourself in 7.1 surround sound, creating a multi-channel audio experience that puts you right in the middle of your game.",
         "specifications": {
-            "model": "HS60 PRO SURROUND",
-            "partNumber": "CA-9011213-NA",
-            "color": "Carbon",
-            "connector": "3.5mm",
-            "connectionType": "Wired",
-            "wirelessType": "2.4 GHz ISM",
-            "driverUnit": "50mm"
+            "Model": "HS60 PRO SURROUND",
+            "Part Number": "CA-9011213-NA",
+            "Color": "Carbon",
+            "Connector": "3.5mm",
+            "Connection Type": "Wired",
+            "Wireless Type": "2.4 GHz ISM",
+            "Driver Unit": "50mm"
         },
         "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399791/RGBtech/ImageProduct/Corsair_HS60_PRO_SURROUND_3.5mm_Connector_Circumaural_Gaming_Headset_Carbon_coxmve.png",
         "stock": 163,
@@ -1045,13 +1045,13 @@
         "price": 139.99,
         "description": "For decades now, professional users all around the world have placed their trust in our classic range: DT 770/880/990 PRO. These benchmark-setting studio headphones, available in three different models, boast extremely detailed resolution and very transparent sound.",
         "specifications": {
-            "model": "DT 770 Pro 250 Ohm",
-            "partNumber": "459046",
-            "color": "Carbon",
-            "connector": "Over the Ear",
-            "type": "Wired",
-            "cordLength": "9.84 ft. coiled cable",
-            "weight": "0.60 lb"
+            "Model": "DT 770 Pro 250 Ohm",
+            "Part Number": "459046",
+            "Color": "Carbon",
+            "Connector": "Over the Ear",
+            "Type": "Wired",
+            "Cord Length": "9.84 ft. coiled cable",
+            "Weight": "0.60 lb"
         },
         "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399791/RGBtech/ImageProduct/Beyerdynamic_DT_770_Pro_250_Ohm_Studio_Reference_Closed-Back_Headphones_cdomxy.png",
         "stock": 77,
