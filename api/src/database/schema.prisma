@@ -8,15 +8,20 @@ datasource db {
 }
 
 model User {
-  id          String  @id @default(uuid())
-  email       String  @unique
+  id          String    @id @default(uuid())
+  firstName   String
+  lastName    String
+  email       String    @unique
   password    String
   picture     String?
-  rol         Rol     @default(USER)
-  verificated Boolean @default(false)
-  RGBpoints   Int     @default(0)
-  google      Boolean @default(false)
-  disabled    Boolean @default(false)
+  birthDate   DateTime? @db.Date
+  nacionality String
+  country     Country   @relation(fields: [nacionality], references: [id])
+  rol         Rol       @default(USER)
+  verificated Boolean   @default(false)
+  RGBpoints   Float     @default(0)
+  google      Boolean   @default(false)
+  disabled    Boolean   @default(false)
 
   shoppingCart Cart?
   history      History?
@@ -31,7 +36,7 @@ model User {
 
 model Product {
   id                 String  @id @default(uuid())
-  brand              Brand   @relation(fields: [brandId], references: [id])
+  brand              Brand   @relation(fields: [brandId], references: [name])
   brandId            String
   name               String
   price              Float
@@ -40,9 +45,9 @@ model Product {
   picture            String
   stock              Int
   onDiscount         Boolean @default(false)
-  discountPercentage Float   @default(0)
+  discountPercentage Int     @default(0)
   freeShipping       Boolean @default(false)
-  rating             Int     @default(0)
+  rating             Float   @default(0)
   disabled           Boolean @default(false)
 
   usersFavorite Favorites[]
@@ -84,8 +89,7 @@ model Favorites {
 }
 
 model Tag {
-  id       String    @id @default(uuid())
-  name     String
+  name     String    @id
   disabled Boolean   @default(false)
   products Product[]
 }
@@ -96,8 +100,7 @@ enum Rol {
 }
 
 model Brand {
-  id       String    @id @default(uuid())
-  name     String
+  name     String    @id
   logo     String
   disabled Boolean   @default(false)
   products Product[]
@@ -133,4 +136,12 @@ model Transactions {
   amount     Int
   totalPrice Float
   date       DateTime @default(now())
+}
+
+model Country {
+  id      String @id
+  name    String
+  flag    String
+  demonym String
+  User    User[]
 }
