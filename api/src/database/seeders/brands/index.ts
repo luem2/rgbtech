@@ -1,23 +1,18 @@
-const brands = require('./brands.js')
-const { Brand } = require('../db.js')
-const crypto = require('crypto')
+import { db } from '../..'
 
-const addBrands = () => {
+import brands from './brands.json'
+
+export async function createBrands(): Promise<void> {
     try {
-        brands.map(async (brand) => {
-            const brandId = crypto
-                .createHash('md5')
-                .update(brand.name)
-                .digest('hex')
-            await Brand.create({
-                ...brand,
-                id: brandId,
-            })
+        await db.brand.createMany({
+            data: brands,
         })
-        console.log('Brands added to db')
+
+        console.info('☑️ Brands successfully seeded in the database')
     } catch (error) {
         console.error(error)
+        process.exit(1)
+    } finally {
+        await db.$disconnect()
     }
 }
-
-module.exports = addBrands

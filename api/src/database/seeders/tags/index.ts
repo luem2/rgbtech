@@ -1,16 +1,14 @@
-import crypto from 'crypto'
-
 import { db } from '../../'
 
 import tags from './tags.json'
 
 export async function createTags(): Promise<void> {
     try {
-        tags.map((tag) => {
-            const tagId = crypto.createHash('md5').update(tag).digest('hex')
-            db.tags.create({
-                name: tag,
-                id: tagId,
+        tags.forEach(async (tag) => {
+            await db.tag.createMany({
+                data: {
+                    name: tag,
+                },
             })
         })
 

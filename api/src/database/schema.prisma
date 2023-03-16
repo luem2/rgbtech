@@ -7,165 +7,141 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Awards {
-  id             String   @id @db.Uuid
-  name           String   @db.VarChar(255)
-  points         Float
-  description    String
-  specifications Json
-  img            String?  @db.VarChar(255)
-  stock          Int
-  freeShipping   Boolean? @default(false)
+model User {
+  id          String    @id @default(uuid())
+  firstName   String
+  lastName    String
+  email       String    @unique
+  password    String
+  picture     String?
+  birthDate   DateTime? @db.Date
+  nacionality String
+  country     Country   @relation(fields: [nacionality], references: [id])
+  rol         Rol       @default(USER)
+  verificated Boolean   @default(false)
+  RGBpoints   Float     @default(0)
+  google      Boolean   @default(false)
+  disabled    Boolean   @default(false)
+
+  shoppingCart Cart?
+  history      History?
+  favorites    Favorites?
+  transactions Transactions?
+  awards       Award[]
+  reviews      Review[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-model Brands {
-  id           String         @id @db.VarChar(255)
-  name         String         @db.VarChar(255)
-  logo         String?        @db.VarChar(255)
-  disabled     Boolean        @default(false)
-  productBrand ProductBrand[]
-  products     Products[]
-  saleBrand    SaleBrand[]
-  sales        Sales[]
-}
-
-model Comments {
-  id             String           @id @db.Uuid
-  comment        String?          @db.VarChar(255)
-  rating         String?          @db.VarChar(255)
-  user           String           @db.VarChar(255)
-  profilePhoto   String?          @db.VarChar(255)
-  productComment ProductComment[]
-}
-
-model ProductBrand {
-  createdAt DateTime @db.Timestamptz(6)
-  updatedAt DateTime @db.Timestamptz(6)
-  brandId   String   @db.VarChar(255)
-  productId String   @db.Uuid
-  brands    Brands   @relation(fields: [brandId], references: [id], onDelete: Cascade)
-  products  Products @relation(fields: [productId], references: [id], onDelete: Cascade)
-
-  @@id([brandId, productId])
-}
-
-model ProductComment {
-  createdAt DateTime @db.Timestamptz(6)
-  updatedAt DateTime @db.Timestamptz(6)
-  productId String   @db.Uuid
-  commentId String   @db.Uuid
-  comments  Comments @relation(fields: [commentId], references: [id], onDelete: Cascade)
-  products  Products @relation(fields: [productId], references: [id], onDelete: Cascade)
-
-  @@id([productId, commentId])
-}
-
-model ProductTag {
-  createdAt DateTime @db.Timestamptz(6)
-  updatedAt DateTime @db.Timestamptz(6)
-  productId String   @db.Uuid
-  tagId     String   @db.VarChar(255)
-  products  Products @relation(fields: [productId], references: [id], onDelete: Cascade)
-  tags      Tags     @relation(fields: [tagId], references: [id], onDelete: Cascade)
-
-  @@id([productId, tagId])
-}
-
-model Products {
-  id                 String           @id @db.Uuid
-  name               String           @db.VarChar(255)
+model Product {
+  id                 String  @id @default(uuid())
+  brand              Brand   @relation(fields: [brandId], references: [name])
+  brandId            String
+  name               String
   price              Float
   description        String
-  specifications     Json?
-  img                String?          @db.VarChar(255)
+  specifications     Json
+  picture            String
   stock              Int
-  onDiscount         Boolean?         @default(false)
-  discountPercentage Float?           @default(0)
-  freeShipping       Boolean?         @default(false)
-  rating             Int?
-  disabled           Boolean          @default(false)
-  brandId            String?          @db.VarChar(255)
-  productBrand       ProductBrand[]
-  productComment     ProductComment[]
-  productTag         ProductTag[]
-  brands             Brands?          @relation(fields: [brandId], references: [id])
+  onDiscount         Boolean @default(false)
+  discountPercentage Int     @default(0)
+  freeShipping       Boolean @default(false)
+  rating             Float   @default(0)
+  disabled           Boolean @default(false)
+
+  usersFavorite Favorites[]
+  tags          Tag[]
+  shoppingCarts Cart[]
+  usersHistory  History[]
+  reviews       Review[]
+  transactions  Transactions[]
 }
 
-model SaleBrand {
-  createdAt DateTime @db.Timestamptz(6)
-  updatedAt DateTime @db.Timestamptz(6)
-  brandId   String   @db.VarChar(255)
-  saleId    String   @db.Uuid
-  brands    Brands   @relation(fields: [brandId], references: [id], onDelete: Cascade)
-  sales     Sales    @relation(fields: [saleId], references: [id], onDelete: Cascade)
+model Cart {
+  id        String  @id @default(uuid())
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String  @unique
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
 
-  @@id([brandId, saleId])
+  amount Int
 }
 
-model SaleProduct {
-  createdAt DateTime @db.Timestamptz(6)
-  updatedAt DateTime @db.Timestamptz(6)
-  saleId    String   @db.Uuid
-  tagId     String   @db.VarChar(255)
-  sales     Sales    @relation(fields: [saleId], references: [id], onDelete: Cascade)
-  tags      Tags     @relation(fields: [tagId], references: [id], onDelete: Cascade)
+model History {
+  id        String  @id @default(uuid())
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String  @unique
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
 
-  @@id([saleId, tagId])
+  vistedOn DateTime @default(now())
 }
 
-model SaleUser {
-  createdAt DateTime @db.Timestamptz(6)
-  updatedAt DateTime @db.Timestamptz(6)
-  userId    String   @db.Uuid
-  saleId    String   @db.Uuid
-  sales     Sales    @relation(fields: [saleId], references: [id], onDelete: Cascade)
-  users     Users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+model Favorites {
+  id        String  @id @default(uuid())
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String  @unique
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
 
-  @@id([userId, saleId])
+  starredOn DateTime @default(now())
 }
 
-model Sales {
-  id           String        @id @db.Uuid
-  productId    String?       @db.VarChar(255)
-  name         String        @db.VarChar(255)
-  productPrice Float
-  amount       Int
-  totalPrice   Float
-  month        String        @db.VarChar(255)
-  year         Int
-  commented    Boolean       @default(false)
-  brandId      String?       @db.VarChar(255)
-  userId       String?       @db.Uuid
-  saleBrand    SaleBrand[]
-  saleProduct  SaleProduct[]
-  saleUser     SaleUser[]
-  brands       Brands?       @relation(fields: [brandId], references: [id])
-  users        Users?        @relation(fields: [userId], references: [id])
+model Tag {
+  name     String    @id
+  disabled Boolean   @default(false)
+  products Product[]
 }
 
-model Tags {
-  id          String        @id @db.VarChar(255)
-  name        String        @db.VarChar(255)
-  disabled    Boolean       @default(false)
-  productTag  ProductTag[]
-  saleProduct SaleProduct[]
+enum Rol {
+  USER
+  ADMIN
 }
 
-model Users {
-  id              String     @id @db.Uuid
-  user            String     @db.VarChar(255)
-  password        String?    @db.VarChar(255)
-  mail            String     @unique @db.VarChar(255)
-  userVerificate  Boolean    @default(false)
-  profilePhoto    String?    @db.VarChar(255)
-  cartShop        String[]   @db.VarChar(255)
-  favorite        Json?
-  RGBpoint        Int?       @default(0)
-  isAdmin         Boolean    @default(false)
-  LogGoogle       Boolean    @default(false)
-  shoppingHistory Json?
-  disabled        Boolean    @default(false)
-  lastVisited     String[]   @default(dbgenerated("(ARRAY[]::character varying[])::character varying(255)[]")) @db.VarChar(255)
-  saleUser        SaleUser[]
-  sales           Sales[]
+model Brand {
+  name     String    @id
+  logo     String
+  disabled Boolean   @default(false)
+  products Product[]
+}
+
+model Award {
+  id             String @id @default(uuid())
+  name           String
+  description    String
+  specifications Json
+  requiredPoints Int
+  picture        String
+  users          User[]
+}
+
+model Review {
+  id        String  @id @default(uuid())
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+  comment   String
+  rating    Float
+}
+
+model Transactions {
+  id        String  @id @default(uuid())
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String  @unique
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+
+  amount     Int
+  totalPrice Float
+  date       DateTime @default(now())
+}
+
+model Country {
+  id      String @id
+  name    String
+  flag    String
+  demonym String
+  User    User[]
 }

@@ -4,13 +4,18 @@
     "Wired",
     "Mouse",
     "Keyboard",
+    "Bluetooth",
     "Monitor",
+    "Mechanical",
     "Optical",
+    "Membrane",
     "Furniture",
     "Laptops",
     "Mobile",
     "Audio",
     "Microphone",
+    "Headphones",
     "RGB",
-    "Curveds"
+    "Curved",
+    "Chair"
 ]
