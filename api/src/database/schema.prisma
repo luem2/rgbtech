@@ -14,29 +14,29 @@ model User {
   email       String    @unique
   password    String
   picture     String?
-  birthDate   DateTime? @db.Date
+  birthDate   DateTime?
   nacionality String
-  country     Country   @relation(fields: [nacionality], references: [id])
-  rol         Rol       @default(USER)
+  role        Role      @default(USER)
   verificated Boolean   @default(false)
   RGBpoints   Float     @default(0)
   google      Boolean   @default(false)
   disabled    Boolean   @default(false)
 
-  shoppingCart Cart?
-  history      History?
-  favorites    Favorites?
-  transactions Transactions?
-  awards       Award[]
+  shoppingCart ItemCart[]
+  history      HistoryProduct[]
+  favorites    Favorites[]
+  transactions Transactions[]
   reviews      Review[]
+  awards       Award[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  country Country @relation(fields: [nacionality], references: [id])
 }
 
 model Product {
   id                 String  @id @default(uuid())
-  brand              Brand   @relation(fields: [brandId], references: [name])
   brandId            String
   name               String
   price              Float
@@ -52,40 +52,45 @@ model Product {
 
   usersFavorite Favorites[]
   tags          Tag[]
-  shoppingCarts Cart[]
-  usersHistory  History[]
+  shoppingCarts ItemCart[]
+  usersHistory  HistoryProduct[]
   reviews       Review[]
   transactions  Transactions[]
+
+  brand Brand @relation(fields: [brandId], references: [name])
 }
 
-model Cart {
-  id        String  @id @default(uuid())
-  user      User    @relation(fields: [userId], references: [id])
-  userId    String  @unique
-  product   Product @relation(fields: [productId], references: [id])
+model ItemCart {
+  userId    String
   productId String
+  quantity  Int
 
-  amount Int
+  user    User    @relation(fields: [userId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+
+  @@id([userId, productId])
 }
 
-model History {
-  id        String  @id @default(uuid())
-  user      User    @relation(fields: [userId], references: [id])
-  userId    String  @unique
-  product   Product @relation(fields: [productId], references: [id])
+model HistoryProduct {
+  userId    String
   productId String
+  vistedOn  DateTime @default(now())
 
-  vistedOn DateTime @default(now())
+  user    User    @relation(fields: [userId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+
+  @@id([userId, productId])
 }
 
 model Favorites {
-  id        String  @id @default(uuid())
-  user      User    @relation(fields: [userId], references: [id])
-  userId    String  @unique
-  product   Product @relation(fields: [productId], references: [id])
+  userId    String
   productId String
-
   starredOn DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+
+  @@id([userId, productId])
 }
 
 model Tag {
@@ -94,7 +99,7 @@ model Tag {
   products Product[]
 }
 
-enum Rol {
+enum Role {
   USER
   ADMIN
 }
@@ -117,25 +122,28 @@ model Award {
 }
 
 model Review {
-  id        String  @id @default(uuid())
-  user      User    @relation(fields: [userId], references: [id])
   userId    String
-  product   Product @relation(fields: [productId], references: [id])
   productId String
   comment   String
   rating    Float
+
+  user    User    @relation(fields: [userId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+
+  @@id([userId, productId])
 }
 
 model Transactions {
-  id        String  @id @default(uuid())
-  user      User    @relation(fields: [userId], references: [id])
-  userId    String  @unique
-  product   Product @relation(fields: [productId], references: [id])
+  userId    String
   productId String
+  amount    Int
+  listPrice Float
+  date      DateTime @default(now())
 
-  amount     Int
-  totalPrice Float
-  date       DateTime @default(now())
+  user    User    @relation(fields: [userId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+
+  @@id([userId, productId])
 }
 
 model Country {
