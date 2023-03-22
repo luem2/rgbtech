@@ -14,5 +14,6 @@
         "sourceMap": true
     },
     "include": ["src/**/*"],
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules"],
+    "files": ["./src/types/index.d.ts"]
 }
