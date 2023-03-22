@@ -15,7 +15,7 @@
             "Backlit": "Yes",
             "Type": "Wired"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399991/RGBtech/ImageProduct/K60_rgbPro_Mec%C3%A1nico_l6sl9q.png",
+        "picture": "/uploads/product-K60_rgbPro.png",
         "stock": 150,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -40,7 +40,7 @@
             "Power Supply": "4000 mAh (2 x 2000 mAh)",
             "Operating System Supported": "All"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399993/RGBtech/ImageProduct/SK622_Wireless_kavxg7.png",
+        "picture": "/uploads/product-SK622_Wireless.png",
         "stock": 320,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -67,7 +67,7 @@
             "Dimensions": "(19.57' x 7.80' x 2.05')",
             "Type": "Wired"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399990/RGBtech/ImageProduct/Z12_RGB_x65geb.png",
+        "picture": "/uploads/product-Z12_RGB.png",
         "stock": 299,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -90,7 +90,7 @@
             "Dimensions": "(1.50' x 17.13' x 5.31')",
             "Type": "Wired"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399993/RGBtech/ImageProduct/Vigor_GK50_Elite_j0yajg.png",
+        "picture": "/uploads/product-Vigor_GK50_Elite.png",
         "stock": 251,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -112,7 +112,7 @@
             "Type": "Wired"
         },
 
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399997/RGBtech/ImageProduct/K55_RGB_PRO_XT_wg7mpa.png",
+        "picture": "/uploads/product-K55_RGB_PRO_XT.png",
         "stock": 84,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -135,7 +135,7 @@
             "Type ": "Wired"
         },
 
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399994/RGBtech/ImageProduct/Devastator_3_ieiies.png",
+        "picture": "/uploads/product-Devastator_3.png",
         "stock": 120,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -158,7 +158,7 @@
             "Scrolling Capability": "Tilt Wheel",
             "Color": "Black"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399993/RGBtech/ImageProduct/Vigor_GK50_Elite_j0yajg.png",
+        "picture": "/uploads/product-g502-hero.png",
         "stock": 321,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -180,7 +180,7 @@
             "Buttons": "8",
             "Color": "Black"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399321/RGBtech/ImageProduct/Viper_8KHz_tmu44j.png",
+        "picture": "/uploads/product-Viper_8KHz.png",
         "stock": 211,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -202,7 +202,7 @@
             "Hand Orientation": "Right Hand",
             "Color": "Black"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661432725/RGBtech/ImageProduct/DeathAdder_V2_Pro_xrquxp.png",
+        "picture": "/uploads/product-DeathAdder_V2_Pro.png",
         "stock": 99,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -221,7 +221,7 @@
             "Tracking Method": "Optical",
             "Color": "Black"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661432729/RGBtech/ImageProduct/Clutch_GM08_jnfaqg.png",
+        "picture": "/uploads/product-Clutch_GM08.png",
         "stock": 182,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -243,7 +243,7 @@
             "Mouse Adjustable Weight": "Yes",
             "Color": "Black"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399321/RGBtech/ImageProduct/X17_kkzalg.png",
+        "picture": "/uploads/product-X17.png",
         "stock": 240,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -274,7 +274,7 @@
             "Refresh Rate": "144 Hz",
             "VESA Certified DisplayHDR": "DisplayHDR 400"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399941/RGBtech/ImageProduct/G27Q_nl9ebk.png",
+        "picture": "/uploads/product-G27Q.png",
         "stock": 420,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -308,7 +308,7 @@
             "Pixel Pitch": "0.3114mm",
             "Curvature Radius": "1500R"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399942/RGBtech/ImageProduct/ED270_Xbmiipx_vekewd.png",
+        "picture": "/uploads/product-ED270.png",
         "stock": 79,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -341,7 +341,7 @@
             "Horizontal Refresh Rate": "30 - 185 KHz",
             "Vertical Refresh Rate": "48 - 144 Hz"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399941/RGBtech/ImageProduct/TUF_GAMING_VG24VQ_r9hobb.png",
+        "picture": "/uploads/product-TUF_GAMING_VG24VQ.png",
         "stock": 50,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -370,7 +370,7 @@
             "Display Colors": "16.7 Million",
             "Refresh Rate": "165 Hz (Max)"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399941/RGBtech/ImageProduct/Odyssey_G32A_fun6rn.png",
+        "picture": "/uploads/product-Odyssey_G32A.png",
         "stock": 61,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -393,7 +393,7 @@
             "Recommended Resolution": "2560 x 1440 (2K)",
             "Viewing Angle": "178° (H) / 178° (V)"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399942/RGBtech/ImageProduct/X27qc_kin3ua.png",
+        "picture": "/uploads/product-X27qc.png",
         "stock": 95,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -416,7 +416,7 @@
             "Maximum Resolution": "1920 x 1080",
             "Viewing Angle": "178° (H) / 178° (V)"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399941/RGBtech/ImageProduct/UltraGear_24GN650-B_atrks8.png",
+        "picture": "/uploads/product-UltraGear_24GN650-B.png",
         "stock": 40,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -440,7 +440,7 @@
             "Wheels": "5",
             "Max Weight Supported": "250 lb."
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661432702/RGBtech/ImageProduct/Gaming_Chair_sbnmof.png",
+        "picture": "/uploads/product-Gaming_Chair_Ergonomic.png",
         "stock": 182,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -459,7 +459,7 @@
             "Material": "Mesh",
             "Frame Construction": "Metal"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661432702/RGBtech/ImageProduct/Gaming_Office_Chair_ohchvj.png",
+        "picture": "/uploads/product-Gaming_Office_Chair.png",
         "stock": 142,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -479,7 +479,7 @@
             "Surface Width": "43.3 inch",
             "Surface Thickness": "0.6 inch"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661432826/RGBtech/ImageProduct/Gaming_Desk_vr02u8.png",
+        "picture": "/uploads/product-Gaming_Desk.png",
         "stock": 26,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -488,7 +488,7 @@
         "tags": ["Furniture", "Gaming"]
     },
     {
-        "name": "Homall Chair T-OCRC0082",
+        "name": "Chair T-OCRC0082",
         "price": 104.99,
         "description": "This Homall Gaming Chair extends the full length of the back with support for the shoulders, head, and neck. Our chairs are crafted to perfection and designed to the bodies natural shape, you will find complete comfort with its quality PU leather.",
         "specifications": {
@@ -502,7 +502,7 @@
             "Swivel": "360 Degree",
             "Ergonomic": "Yes"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661432702/RGBtech/ImageProduct/Homall_Chair__T-OCRC0082_ob0upo.png",
+        "picture": "/uploads/product-Homall_Chair_T_OCRC0082.png",
         "stock": 91,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -528,7 +528,7 @@
             "Dimensions (W x D x H)": "14.13' x 9.99' x 0.85'",
             "Weight": "4.10 lbs."
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661432782/RGBtech/ImageProduct/GF_Series_GF63_Thin_11UC-270_pl6bkv.png",
+        "picture": "/uploads/product-GF_Series_GF63_Thin_11UC-270.png",
         "stock": 99,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -555,7 +555,7 @@
             "CPU Type": "Intel Core i5 11th Gen",
             "CPU Speed": "11400H (2.70GHz)"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399198/RGBtech/ImageProduct/TUF_Gaming_F17_knfdrn.png",
+        "picture": "/uploads/product-TUF_Gaming_F17.png",
         "stock": 52,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -578,7 +578,7 @@
             "Graphics Card": "NVIDIA GeForce GTX 1650",
             "Video Memory": "4 GB GDDR6"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399197/RGBtech/ImageProduct/IdeaPad_Gaming_315IHU6_yjwela.png",
+        "picture": "/uploads/product-IdeaPad_Gaming.png",
         "stock": 80,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -601,7 +601,7 @@
             "Graphics Card": "NVIDIA GeForce RTX 3080 Laptop GPU With ROG Boost up to 1645MHz at 115W (130W with Dynamic Boost)",
             "Video Memory ": "8 GB GDDR6"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399198/RGBtech/ImageProduct/ROG_Strix_SCAR_15_ur7k5y.png",
+        "picture": "/uploads/product-ROG_Strix_SCAR_15.png",
         "stock": 102,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -626,7 +626,7 @@
             "Dimensions": "14.09 x 10.51 x 0.92",
             "Weight": "5.25 lbs"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399197/RGBtech/ImageProduct/GE66_Raider_11UE-642_dvumhy.png",
+        "picture": "/uploads/product-GE66_Raider_11UE-642.png",
         "stock": 73,
         "onDiscount": true,
         "discountPercentage": 10,
@@ -642,7 +642,7 @@
             "Screen Size": "17.3",
             "Date First Available": "December 21, 2021"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399197/RGBtech/ImageProduct/Legion_5_Pro_nfbvhf.png",
+        "picture": "/uploads/product-Legion_5_Pro.png",
         "stock": 194,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -668,7 +668,7 @@
             "Weight": "4.08 lbs",
             "Other Features": "Fingerprint reader"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399198/RGBtech/ImageProduct/Galaxy_Book_Odyssey_ecrx7w.png",
+        "picture": "/uploads/product-Galaxy_Book_Odyssey.png",
         "stock": 82,
         "onDiscount": true,
         "discountPercentage": 5,
@@ -688,7 +688,7 @@
             "Weight": "167g",
             "Date First Available": "April 01, 2021"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399854/RGBtech/ImageProduct/GameSir_X2_sdg1ny.png",
+        "picture": "/uploads/product-GameSir_X2.png",
         "stock": 20,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -712,7 +712,7 @@
             "Weight": "1.15 pounds",
             "Date First Available": "April 08, 2021"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399854/RGBtech/ImageProduct/GameSir_G4pro_bwhaqk.png",
+        "picture": "/uploads/product-GameSir_G4pro.png",
         "stock": 483,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -734,7 +734,7 @@
             "Battery Life": "10-15Hours",
             "Date First Available": "July 30, 2019"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399855/RGBtech/ImageProduct/C8_aebd3c.png",
+        "picture": "/uploads/product-C8.png",
         "stock": 520,
         "onDiscount": true,
         "discountPercentage": 15,
@@ -750,7 +750,7 @@
             "Color": "Teal",
             "Date First Available": "January 12, 2022"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399729/RGBtech/ImageProduct/Parlante_JBL_Charge_5_bwitxq.png",
+        "picture": "/uploads/product-Parlante_JBL_Charge_5.png",
         "stock": 90,
         "onDiscount": true,
         "discountPercentage": 5,
@@ -770,7 +770,7 @@
             "Battery": "Lithium-ion polymer(3.7V, 730mAh)",
             "Playback Time": "Battery charge time: 2.5 hours"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399729/RGBtech/ImageProduct/JBL_GO_2_Portable_Bluetooth_Waterproof_Speaker_Moss_Green_vmxvzu.png",
+        "picture": "/uploads/product-JBL_GO_2_Portable_Bluetooth_Waterproof_Speaker_Moss_Green.png",
         "stock": 69,
         "onDiscount": true,
         "discountPercentage": 5,
@@ -786,7 +786,7 @@
             "Type": "bluetoothAccessories",
             "Date First Available": "December 21, 2021"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399729/RGBtech/ImageProduct/JBL_GO3GRN_GO_3_Portable_Waterproof_Speaker_-_Green_einui8.png",
+        "picture": "/uploads/product-JBL_GO3GRN_GO_3_Portable_Waterproof_Speaker_-_Green.png",
         "stock": 196,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -807,7 +807,7 @@
             "Frequency Response": "32Hz-120Hz+/-3dB",
             "Connectors": "Line level / LFE RCA jacks"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399729/RGBtech/ImageProduct/Klipsch_K-100SW_10-Inch_Powered_Subwoofer_usu9ey.png",
+        "picture": "/uploads/product-Klipsch_K-100SW_10-Inch_Powered_Subwoofer.png",
         "stock": 332,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -829,7 +829,7 @@
             "Remote Control": "Yes",
             "Shipping Weight": "37.7 lbs"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661432756/RGBtech/ImageProduct/LG_CM4590_XBOOM_700W_Bluetooth_Music_System_k7oc9i.png",
+        "picture": "/uploads/product-LG_CM4590_XBOOM_700W_Bluetooth_Music_System.png",
         "stock": 171,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -842,7 +842,7 @@
         "price": 78.4,
         "description": "Product Key Features, Mic/Line Input Mic/Preamp XLR, Suited For Home Recording,Interface Type USB Interface, Max. Number of Channels 2, Form Factor Portable,Features Phantom Power, Software Included",
         "specifications": { "Date First Available": "March 22, 2021" },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399854/RGBtech/ImageProduct/M-Audio_M-Track_Solo_2-Channel_USB_Audio_Interface_cvhsbo.png",
+        "picture": "/uploads/product-M-Audio_M-Track_Solo_2-Channel_USB_Audio_Interface.png",
         "stock": 304,
         "onDiscount": true,
         "discountPercentage": 10,
@@ -855,7 +855,7 @@
         "price": 119.99,
         "description": "The simplest model in the range, the third-generation Scarlett Solo provides singer-songwriters with a reassuringly easy recording process. Equipped with high performance 24-bit/192 kHz AD-DA converters, Scarlett guarantees the same professional sound quality throughout the third-generation range. Its features include a single upgraded third-generation",
         "specifications": { "Date First Available": "December 06, 2019" },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399854/RGBtech/ImageProduct/Focusrite_Scarlett_Solo_3rd_Generation_Audio_Interface_xhv59c.png",
+        "picture": "/uploads/product-Focusrite_Scarlett_Solo_3rd_Generation_Audio_Interface.png",
         "stock": 53,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -868,7 +868,7 @@
         "price": 199.95,
         "description": "Equipped with the same ESS Sabre32 Ultra DAC Technology found in audio interfaces costing thousands, the M2 delivers an astonishing 120 dB Dynamic Range on its main outputs. ESS converters also drive the headphone output, which rivals dedicated headphone amplifiers costing hundreds. Ultra-clean preamp circuits produce a measured -129 dBu EIN on the mic inputs. Capture and monitor your audio with pristine clarity.",
         "specifications": { "Date First Available": "April 17, 2020" },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399855/RGBtech/ImageProduct/MOTU_M2_Audio_Interface_a2pr6b.png",
+        "picture": "/uploads/product-MOTU_M2_Audio_Interface.png",
         "stock": 143,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -886,7 +886,7 @@
             "Sensitivity ": "-36dB",
             "Date First Available": "April 20, 2022"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399254/RGBtech/ImageProduct/Hyperx_QuadCast_Microphone_pz9zcv.png",
+        "picture": "/uploads/product-Hyperx_QuadCast_Microphone.png",
         "stock": 66,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -895,27 +895,11 @@
         "tags": ["Audio", "Microphone"]
     },
     {
-        "name": "Yeti Microphone",
-        "price": 300,
-        "description": "Blue Microphone’s incredibly popular series of Yeti Microphones are the premier option to help you with broadcast-quality podcasting, YouTube productions, Skype/VoIP and voice-over work, and video game streaming. The Yeti provides all the tools you need to broadcast your message with crystal clear clarity. Featuring 16-bit sound quality and plug 'n play operation for instant streaming with your PC or Mac, this microphone is ready to go whenever inspiration strikes.",
-        "specifications": {
-            "Dundle Includes": "Blue Microphones Yeti Microphone",
-            "Date First Available": "July 03, 2019"
-        },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399254/RGBtech/ImageProduct/Blue_Yeti_Microphone_Blackout_with_Boom_Arm_Stand_Pop_Filter_and_Shock_Mount_-_copia_ovqguf.png",
-        "stock": 142,
-        "onDiscount": false,
-        "discountPercentage": 0,
-        "freeShipping": true,
-        "brandId": "Blue",
-        "tags": ["Audio", "Microphone"]
-    },
-    {
         "name": "SM7B SM-7B Dynamic",
         "price": 386.17,
         "description": "The Shure SM78 microphone is designed and built to capture smooth, warm vocals that connect the speaker to the listener. Both music and speech will sound clean and natural without off-axis audio, mechanical noise, breathiness, and hum from audio equipment. Perfect for broadcast, podcast, and recording in any professional studio where voices need to be handled with care.",
         "specifications": { "Model": "SM7B", "Type": "Dynamic Microphones" },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399254/RGBtech/ImageProduct/Shure_SM7B_SM-7B_Dynamic_Broadcast_Recording_Microphone_NEW_a4mguz.png",
+        "picture": "/uploads/product-Shure_SM7B_SM-7B_Dynamic_Broadcast_Recording_Microphone_NEW.png",
         "stock": 63,
         "onDiscount": true,
         "discountPercentage": 15,
@@ -931,7 +915,7 @@
             "Model": "988-000105",
             "Type": "Professional USB Microphone for Gaming, Streaming and Podcasting."
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399254/RGBtech/ImageProduct/Blue_Yeti_Microphone_-Black_Out_xil56f.png",
+        "picture": "/uploads/product-Blue_Yeti_Microphone_-Black_Out.png",
         "stock": 93,
         "onDiscount": true,
         "discountPercentage": 20,
@@ -949,7 +933,7 @@
             "Color": "Black",
             "Connector": "3.5mm"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399791/RGBtech/ImageProduct/Sennheiser_HD_201_Over_Ear_Headphone_Gaming_Wired_Headset_3.5mm_Computer_Earphones_HD_Microphone_e9sqly.png",
+        "picture": "/uploads/product-Sennheiser_HD_201_Over_Ear_Headphone_Gaming_Wired_Headset_3.5mm_Computer_Earphones_HD_Microphone.png",
         "stock": 140,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -971,7 +955,7 @@
             "Connector": "3.5mm",
             "Ear Coupling": "Binaural"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661432809/RGBtech/ImageProduct/Sennheiser_HD_400S_Headphones_ffs2oe.png",
+        "picture": "/uploads/product-Sennheiser_HD_400S_Headphones.png",
         "stock": 163,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -990,7 +974,7 @@
             "Connection Type": "Wireless",
             "Wireless Type": "RF"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399791/RGBtech/ImageProduct/Logitech_-_G_PRO_X_WIRELESS_981-000906_DTS_timvm9.png",
+        "picture": "/uploads/product-Logitech_-_G_PRO_X_WIRELESS_981.png",
         "stock": 23,
         "onDiscount": false,
         "discountPercentage": 0,
@@ -1011,7 +995,7 @@
             "Wireless Type": "RF",
             "Driver Unit": "Custom 50mm Neodymium"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399791/RGBtech/ImageProduct/Logitech_-_G_PRO_X_WIRELESS_981-000906_DTS_timvm9.png",
+        "picture": "/uploads/product-Corsair-VOID-RGB-ELITE-WIRELESS.png",
         "stock": 53,
         "onDiscount": true,
         "discountPercentage": 3,
@@ -1032,7 +1016,7 @@
             "Wireless Type": "2.4 GHz ISM",
             "Driver Unit": "50mm"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399791/RGBtech/ImageProduct/Corsair_HS60_PRO_SURROUND_3.5mm_Connector_Circumaural_Gaming_Headset_Carbon_coxmve.png",
+        "picture": "/uploads/product-Corsair_HS60_PRO_SURROUND_3.5mm_Connector_Circumaural_Gaming_Headset_Carbon.png",
         "stock": 163,
         "onDiscount": true,
         "discountPercentage": 15,
@@ -1053,7 +1037,7 @@
             "Cord Length": "9.84 ft. coiled cable",
             "Weight": "0.60 lb"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661399791/RGBtech/ImageProduct/Beyerdynamic_DT_770_Pro_250_Ohm_Studio_Reference_Closed-Back_Headphones_cdomxy.png",
+        "picture": "/uploads/product-Beyerdynamic_DT_770_Pro_250_Ohm_Studio_Reference_Closed-Back_Headphones.png",
         "stock": 77,
         "onDiscount": false,
         "discountPercentage": 0,
