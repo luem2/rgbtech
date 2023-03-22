@@ -28,15 +28,17 @@ specifiers:
   jwt-decode: 3.1.2
   postcss: ^8.4.21
   prettier: ^2.8.4
+  prop-types: ^15.8.1
   react: 18.2.0
   react-chartjs-2: 5.2.0
+  react-confetti: ^6.1.0
   react-dom: 18.2.0
   react-icons: 4.8.0
   react-redux: 8.0.5
   react-router-dom: 6.8.2
   react-select: 5.7.0
   react-toastify: 9.1.1
-  recharts: 2.4.3
+  recharts: ^2.5.0
   sweetalert2: 11.7.3
   swiper: 9.1.0
   tailwindcss: ^3.2.7
@@ -50,15 +52,17 @@ dependencies:
   chart.js: 4.2.1
   jsonwebtoken: 9.0.0
   jwt-decode: 3.1.2
+  prop-types: 15.8.1
   react: 18.2.0
   react-chartjs-2: 5.2.0_t5yjg6ab35jnsudnh2qdighszm
+  react-confetti: 6.1.0_react@18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-icons: 4.8.0_react@18.2.0
   react-redux: 8.0.5_3xleytyzprlgycb2ded54tx72i
   react-router-dom: 6.8.2_biqbaboplfbrettd7655fr4n2y
   react-select: 5.7.0_zula6vjvt3wdocc4mwcxqa6nzi
   react-toastify: 9.1.1_biqbaboplfbrettd7655fr4n2y
-  recharts: 2.4.3_biqbaboplfbrettd7655fr4n2y
+  recharts: 2.5.0_v2m5e27vhdewzwhryxwfaorcca
   sweetalert2: 11.7.3
   swiper: 9.1.0
 
@@ -776,11 +780,6 @@ packages:
 
   /@types/d3-path/1.0.9:
     resolution: {integrity: sha512-NaIeSIBiFgSC6IGUBjZWcscUJEq7vpVu7KthHN8eieTV9d9MqkSOZLH4chq1PmcKy06PNe3axLeKmRIyxJ+PZQ==}
-    dev: true
-
-  /@types/d3-path/3.0.0:
-    resolution: {integrity: sha512-0g/A+mZXgFkQxN3HniRDbXMN79K3CdTpLsevj+PXiTcb2hVyvkZUBg37StmgCQkaD84cUJ4uaDAWq7UJOQy2Tg==}
-    dev: false
 
   /@types/d3-scale/4.0.3:
     resolution: {integrity: sha512-PATBiMCpvHJSMtZAMEhc2WyL+hnzarKzI6wAHYjhsonjWJYGq5BXTzQjv4l8m2jO183/4wZ90rKvSeT7o72xNQ==}
@@ -797,7 +796,7 @@ packages:
   /@types/d3-shape/3.1.1:
     resolution: {integrity: sha512-6Uh86YFF7LGg4PQkuO2oG6EMBRLuW9cbavUW46zkIO5kuS2PfTqo2o9SkgtQzguBHbLgNnU90UNsITpsX1My+A==}
     dependencies:
-      '@types/d3-path': 3.0.0
+      '@types/d3-path': 1.0.9
     dev: false
 
   /@types/d3-time/3.0.0:
@@ -2936,6 +2935,16 @@ packages:
       react: 18.2.0
     dev: false
 
+  /react-confetti/6.1.0_react@18.2.0:
+    resolution: {integrity: sha512-7Ypx4vz0+g8ECVxr88W9zhcQpbeujJAVqL14ZnXJ3I23mOI9/oBVTQ3dkJhUmB0D6XOtCZEM6N0Gm9PMngkORw==}
+    engines: {node: '>=10.18'}
+    peerDependencies:
+      react: ^16.3.0 || ^17.0.1 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+      tween-functions: 1.2.0
+    dev: false
+
   /react-dom/18.2.0_react@18.2.0:
     resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
     peerDependencies:
@@ -3003,8 +3012,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /react-resize-detector/7.1.2_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-zXnPJ2m8+6oq9Nn8zsep/orts9vQv3elrpA+R8XTcW7DVVUJ9vwDwMXaBtykAYjMnkCIaOoK9vObyR7ZgFNlOw==}
+  /react-resize-detector/8.0.4_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-ln9pMAob8y8mc9UI4aZuuWFiyMqBjnTs/sxe9Vs9dPXUjwCTeKK1FP8I75ufnb/2mEEZXG6wOo/fjMcBRRuAXw==}
     peerDependencies:
       react: ^16.0.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
@@ -3058,7 +3067,7 @@ packages:
       - '@types/react'
     dev: false
 
-  /react-smooth/2.0.2_biqbaboplfbrettd7655fr4n2y:
+  /react-smooth/2.0.2_v2m5e27vhdewzwhryxwfaorcca:
     resolution: {integrity: sha512-pgqSp1q8rAGtF1bXQE0m3CHGLNfZZh5oA5o1tsPLXRHnKtkujMIJ8Ws5nO1mTySZf1c4vgwlEk+pHi3Ln6eYLw==}
     peerDependencies:
       prop-types: ^15.6.0
@@ -3066,6 +3075,7 @@ packages:
       react-dom: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
     dependencies:
       fast-equals: 4.0.3
+      prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-transition-group: 2.9.0_biqbaboplfbrettd7655fr4n2y
@@ -3136,8 +3146,8 @@ packages:
       decimal.js-light: 2.5.1
     dev: false
 
-  /recharts/2.4.3_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-/hkRHTQShEOKDYd2OlKLIvGA0X9v/XVO/mNeRoDHg0lgFRL2KbGzeqVnStI3mMfORUZ6Hak4JbQ+uDiin1Foqg==}
+  /recharts/2.5.0_v2m5e27vhdewzwhryxwfaorcca:
+    resolution: {integrity: sha512-0EQYz3iA18r1Uq8VqGZ4dABW52AKBnio37kJgnztIqprELJXpOEsa0SzkqU1vjAhpCXCv52Dx1hiL9119xsqsQ==}
     engines: {node: '>=12'}
     peerDependencies:
       prop-types: ^15.6.0
@@ -3147,11 +3157,12 @@ packages:
       classnames: 2.3.2
       eventemitter3: 4.0.7
       lodash: 4.17.21
+      prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-is: 16.13.1
-      react-resize-detector: 7.1.2_biqbaboplfbrettd7655fr4n2y
-      react-smooth: 2.0.2_biqbaboplfbrettd7655fr4n2y
+      react-resize-detector: 8.0.4_biqbaboplfbrettd7655fr4n2y
+      react-smooth: 2.0.2_v2m5e27vhdewzwhryxwfaorcca
       recharts-scale: 0.4.5
       reduce-css-calc: 2.1.8
       victory-vendor: 36.6.8
@@ -3468,6 +3479,10 @@ packages:
       tslib: 1.14.1
       typescript: 4.9.5
     dev: true
+
+  /tween-functions/1.2.0:
+    resolution: {integrity: sha512-PZBtLYcCLtEcjL14Fzb1gSxPBeL7nWvGhO5ZFPGqziCcr8uvHp0NDmdjBchp6KHL+tExcg0m3NISmKxhU394dA==}
+    dev: false
 
   /type-check/0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
