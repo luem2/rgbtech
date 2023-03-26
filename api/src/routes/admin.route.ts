@@ -5,7 +5,7 @@ import { Op } from 'sequelize'
 import {
     validateToken,
     sendConfirmationBuyEmail,
-} from '../middlewares/userMiddleware.js'
+} from '../middlewares/users.middleware.js'
 
 const router = Router()
 

@@ -1,4 +1,4 @@
-import type { Rol } from '../../'
+import type { Role } from '../../'
 
 import { hashSync } from 'bcrypt'
 import { faker } from '@faker-js/faker'
@@ -15,7 +15,7 @@ interface IUser {
     picture: string
     verificated: boolean
     nacionality: string
-    rol: Rol
+    role: Role
     RGBpoints: number
 }
 
@@ -24,11 +24,11 @@ function createRandomUsers(): IUser {
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
         email: faker.internet.email(),
-        password: faker.internet.password(),
+        password: hashSync('password123', 5),
         picture: faker.internet.avatar(),
         verificated: faker.helpers.arrayElement([true, false]),
         nacionality: faker.address.countryCode('alpha-3'),
-        rol: 'USER' as Rol,
+        role: 'USER' as Role,
         RGBpoints: 2000,
     }
 }
@@ -40,7 +40,7 @@ export async function createUsers(): Promise<void> {
                 ...user,
                 password: hashSync(user.password, 10),
                 picture: faker.internet.avatar(),
-                rol: user.rol as Rol,
+                role: user.role as Role,
             }
         })
 

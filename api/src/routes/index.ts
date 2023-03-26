@@ -1,30 +1,46 @@
 import { Router } from 'express'
 
-import { create, capture, cancel } from '../controllers/paypal'
+// import { create, capture, cancel } from '../controllers/paypal'
 
-import productsRoute from './product.route'
-import usersRoute from './user.route.js'
-import brandsRoute from './brand.route.js'
-import tagsRoute from './tag.route.js'
-import adminRoute from './admin.route.js'
-import awardsRoute from './awards.route.js'
-import Updates from './updates.route.js'
-import salesRoute from './sales.route.js'
-import recoverPasswordRouter from './recoverPassword.route'
+// import productsRoute from './product.route'
+import authRoutes from './auth.route'
+import usersRoutes from './users.route'
+// import brandsRoutes from './brand.route'
+// import tagsRoutes from './tag.route'
+// import adminRoutes from './admin.route'
+// import awardsRoutes from './awards.route'
+// import Updates from './updates.route'
+// import salesRoutes from './sales.route'
+// import recoverPasswordRoutes from './recoverPassword.route'
 
 const router = Router()
 
-router.use('/products', productsRoute)
-router.use('/users', usersRoute)
-router.use('/brands', brandsRoute)
-router.use('/tags', tagsRoute)
-router.use('/admin', adminRoute)
-router.use('/awards', awardsRoute)
-router.use('/updates', Updates)
-router.use('/sales', salesRoute)
-router.use('/recoverPassword', recoverPasswordRouter)
-router.post('/create-order', create)
-router.get('/capture-order', capture)
-router.get('/cancel-order', cancel)
+router
+
+    // .use('/products', productsRoutes)
+
+    .use('/auth', authRoutes)
+
+    .use('/users', usersRoutes)
+
+// .use('/brands', brandsRoute)
+
+// .use('/tags', tagsRoute)
+
+// .use('/admin', adminRoute)
+
+// .use('/awards', awardsRoute)
+
+// .use('/updates', Updates)
+
+// .use('/sales', salesRoute)
+
+// .use('/recoverPassword', recoverPasswordRouter)
+
+// .post('/create-order', create)
+
+// .get('/capture-order', capture)
+
+// .get('/cancel-order', cancel)
 
 export default router

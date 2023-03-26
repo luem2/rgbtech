@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { User, Sale, Product, Brand, Tag, Comment, conn } from '../db'
 const router = Router()
-import { sendConfirmationBuyEmail } from '../middlewares/userMiddleware'
+import { sendConfirmationBuyEmail } from '../middlewares/users.middleware'
 router.post('/new-sale', async (req, res) => {
     try {
         const { userId, products } = req.body

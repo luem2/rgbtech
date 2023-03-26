@@ -4,10 +4,8 @@ import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
-// import swaggerUi from 'swagger-ui-express'
 
-// import swaggerSetup from '../docs/swagger'
-// import routes from '../routes'
+import routes from '../routes'
 import { handleError } from '../middlewares/handleError'
 
 import { config } from './env'
@@ -25,17 +23,13 @@ class Server {
         this.port = config.PORT
 
         this.middlewares()
-        // this.routes()
+        this.routes()
     }
 
     middlewares(): void {
         this.app.use(
             cors({
-                origin:
-                    config.NODE_ENV === 'production' &&
-                    typeof config.ORIGIN_CORS !== 'undefined'
-                        ? JSON.parse(config.ORIGIN_CORS)
-                        : config.ORIGIN_CORS,
+                origin: config.ORIGIN_CORS,
                 credentials: true,
                 methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
                 allowedHeaders: [
@@ -62,18 +56,13 @@ class Server {
             })
         )
         this.app.use(express.static('public'))
+        this.app.use('/uploads', express.static('uploads'))
         this.app.use(handleError)
     }
 
-    // routes(): void {
-    //     this.app.use(this.apiPaths.api, routes)
-
-    //     this.app.use(
-    //         this.apiPaths.docs,
-    //         swaggerUi.serve,
-    //         swaggerUi.setup(swaggerSetup)
-    //     )
-    // }
+    routes(): void {
+        this.app.use(this.apiPaths.api, routes)
+    }
 
     listen(): void {
         this.app.listen(this.port, () => {

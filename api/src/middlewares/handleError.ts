@@ -1,16 +1,17 @@
-import type { IError } from '../types'
 import type { Request, Response, NextFunction } from 'express'
 
 export function handleError(
-    err: IError,
+    err: Error,
     _req: Request,
     res: Response,
-    _next: NextFunction
+    next: NextFunction
 ): void {
-    const status = err.status ?? 500
-    const message = err.message ?? err
+    res.status(500).send({
+        status: 'Server Error',
+        name: err.name,
+        message: err.message,
+        cause: err.cause ?? undefined,
+    })
 
-    console.error(err)
-
-    res.status(status).send(message)
+    next()
 }
