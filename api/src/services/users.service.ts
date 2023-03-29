@@ -8,151 +8,34 @@ class UsersServices {
         return await db.user.findMany()
     }
 
-    async changeProfile(req: Request): Promise<User> {
+    async updateProfile(req: Request): Promise<User> {
         return await db.user.update({
             where: {
                 id: req.userId,
             },
-            data: req.body.user,
+            data: req.body,
         })
     }
 
-    // async changeAvatarProfile(req: Request): Promise<User> {
-    //     return await db.user.update({
-    //         where: {
-
-    //         }
-    //     })
-    // }
+    async changeProfilePhoto(req: Request): Promise<void> {
+        await db.user.update({
+            where: {
+                id: req.userId,
+            },
+            data: {
+                picture: req.file?.filename,
+            },
+        })
+    }
 
     // shoppingCart GET - PUT - POST - DELETE
 
     // favorites GET - PUT - POST - DELETE
 
-    // review GET - POST - (PUT Y DELETE SOLO ADMIN)
-
-    // router.put('/modifyUser', uploadExistingUserPhoto, async (req, res) => {
-    //     try {
-    //         const { id, user, mail, profilePhoto } = req.body
-
-    //         if (!id || !user || !mail) {
-    //             return res.sendStatus(400)
-    //         }
-
-    //         const coincidenceUser = await User.findAll({
-    //             where: {
-    //                 user: user,
-    //             },
-    //         })
-
-    //         const coincidenceMail = await User.findAll({
-    //             where: {
-    //                 mail: mail,
-    //             },
-    //         })
-
-    //         const userID = await User.findByPk(id)
-
-    //         if (userID.user !== user && coincidenceUser.length)
-    //             return res.status(401).send({ msg: 'user' })
-
-    //         if (userID.mail !== mail && coincidenceMail.length)
-    //             return res.status(401).send({ msg: 'mail' })
-
-    //         await User.update(
-    //             {
-    //                 user: user,
-    //                 mail: mail,
-    //                 profilePhoto: profilePhoto || null,
-    //             },
-    //             {
-    //                 where: {
-    //                     id: id,
-    //                 },
-    //             }
-    //         )
-
-    //         res.json(req.body)
-    //     } catch (e) {
-    //         res.status(400).send({ msg: e })
-    //     }
-    // })
+    // review GET - POST
 }
 
 export default new UsersServices()
-
-// router.post('/registerGoogle', async (req, res) => {
-//     try {
-//         let { user, mail, profilePhoto, password } = req.body
-//         const findedUser = await User.findOne({
-//             where: {
-//                 mail: mail,
-//             },
-//         })
-//         if (!findedUser) {
-//             const hashedPassword = await bcrypt.hash(password, 10)
-//             const newUser = await User.create({
-//                 user,
-//                 profilePhoto,
-//                 mail,
-//                 password: hashedPassword,
-//                 userVerificate: true,
-//                 LogGoogle: true,
-//             })
-//             const { id, cartShop, favorite } = newUser
-//             const infoFront = { id: id, cartShop: cartShop, favorite: favorite }
-//             const accessToken = jwt.sign(infoFront, process.env.SECRET)
-//             console.log(accessToken)
-//             return res.status(200).json({
-//                 mssage: 'usuario autenticado',
-//                 token: accessToken,
-//             })
-//         } else {
-//             const { id, cartShop, favorite } = findedUser.dataValues
-//             const infoFront = { id: id, cartShop: cartShop, favorite: favorite }
-//             const accessToken = jwt.sign(infoFront, process.env.SECRET)
-//             console.log(accessToken)
-//             return res.status(200).json({
-//                 mssage: 'usuario autenticado',
-//                 token: accessToken,
-//             })
-//         }
-//     } catch (error) {
-//         return res.send(error)
-//     }
-// })
-
-// // router.post("/loginGoogle", findOrCreate,async (req, res) => {
-// // 		try {
-// // 			const { mail } = req.body;
-// // 			console.log(req.body,"ee")
-// // 			const user = await User.findOne({
-// // 				where: {
-// // 					mail: mail,
-// // 				},
-// // 			});
-// // 			if (user) {
-// // 				const { id } = user.dataValues
-// // 				const logedUser = {id
-// // 					// id,
-// // 					// user,
-// // 					// mail,
-// // 					// profilePhoto,
-
-// // 					// isAdmin,
-// // 				}
-// // 				const accessToken = jwt.sign(logedUser, process.env.SECRET);
-// // 				console.log(accessToken)
-// // 				return res.status(200).json({
-// // 					mssage: "usuario autenticado",
-// // 					token: accessToken,
-// // 				});
-// // 			}
-// // 		} catch (error) {
-// // 			res.json({ message: error });
-// // 		}
-// // 	}
-// // );
 
 // router.put('/setCart/:id', validateToken, async (req, res) => {
 //     try {

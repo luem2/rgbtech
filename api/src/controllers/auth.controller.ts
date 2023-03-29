@@ -40,7 +40,7 @@ class AuthController {
     }
 
     async passwordRecovery(req: Request, res: Response): Promise<void> {
-        const userWithNewPassword = await authServices.passwordRecovery(req)
+        const userWithNewPassword = await authServices.passwordUpdate(req)
 
         res.status(200).send({
             status: 'Success',

@@ -76,7 +76,7 @@ class AuthMiddlewares {
         if (userExists) {
             return res.status(401).send({
                 status: 'Error',
-                msg: 'The User already exists',
+                msg: 'A user has already registered with the email address entered',
             })
         }
 

@@ -48,10 +48,12 @@ class AuthServices {
         return newUser
     }
 
-    async passwordRecovery(req: Request): Promise<User> {
+    async passwordUpdate(req: Request): Promise<User> {
+        const id = !req.params.id ? req.userId : req.params.id
+
         return await db.user.update({
             where: {
-                id: req.params.id,
+                id,
             },
             data: {
                 password: await bcrypt.hash(req.body.newPassword, 10),
@@ -82,5 +84,78 @@ class AuthServices {
         })
     }
 }
+
+// router.post('/registerGoogle', async (req, res) => {
+//     try {
+//         let { user, mail, profilePhoto, password } = req.body
+//         const findedUser = await User.findOne({
+//             where: {
+//                 mail: mail,
+//             },
+//         })
+//         if (!findedUser) {
+//             const hashedPassword = await bcrypt.hash(password, 10)
+//             const newUser = await User.create({
+//                 user,
+//                 profilePhoto,
+//                 mail,
+//                 password: hashedPassword,
+//                 userVerificate: true,
+//                 LogGoogle: true,
+//             })
+//             const { id, cartShop, favorite } = newUser
+//             const infoFront = { id: id, cartShop: cartShop, favorite: favorite }
+//             const accessToken = jwt.sign(infoFront, process.env.SECRET)
+//             console.log(accessToken)
+//             return res.status(200).json({
+//                 mssage: 'usuario autenticado',
+//                 token: accessToken,
+//             })
+//         } else {
+//             const { id, cartShop, favorite } = findedUser.dataValues
+//             const infoFront = { id: id, cartShop: cartShop, favorite: favorite }
+//             const accessToken = jwt.sign(infoFront, process.env.SECRET)
+//             console.log(accessToken)
+//             return res.status(200).json({
+//                 mssage: 'usuario autenticado',
+//                 token: accessToken,
+//             })
+//         }
+//     } catch (error) {
+//         return res.send(error)
+//     }
+// })
+
+// // router.post("/loginGoogle", findOrCreate,async (req, res) => {
+// // 		try {
+// // 			const { mail } = req.body;
+// // 			console.log(req.body,"ee")
+// // 			const user = await User.findOne({
+// // 				where: {
+// // 					mail: mail,
+// // 				},
+// // 			});
+// // 			if (user) {
+// // 				const { id } = user.dataValues
+// // 				const logedUser = {id
+// // 					// id,
+// // 					// user,
+// // 					// mail,
+// // 					// profilePhoto,
+
+// // 					// isAdmin,
+// // 				}
+// // 				const accessToken = jwt.sign(logedUser, process.env.SECRET);
+// // 				console.log(accessToken)
+// // 				return res.status(200).json({
+// // 					mssage: "usuario autenticado",
+// // 					token: accessToken,
+// // 				});
+// // 			}
+// // 		} catch (error) {
+// // 			res.json({ message: error });
+// // 		}
+// // 	}
+// // );
 
 export default new AuthServices()
