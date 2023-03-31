@@ -61,7 +61,6 @@ class UsersController {
         res.status(201).send({
             status: 'Success',
             msg: `The item ${product} has been added to cart`,
-            body: req.body.productId,
         })
     }
 
@@ -90,7 +89,96 @@ class UsersController {
 
         res.status(201).send({
             status: 'Success',
-            msg: 'The shopping cart was cleaned',
+            msg: `The user's shopping cart was cleaned`,
+        })
+    }
+
+    async getFavorites(req: Request, res: Response): Promise<void> {
+        const favorites = await usersServices.getFavorites(req)
+
+        res.status(200).send({
+            status: 'Success',
+            msg: `The user's favorites was successfully submitted`,
+            body: favorites,
+        })
+    }
+
+    async addItemToFavorites(req: Request, res: Response): Promise<void> {
+        await usersServices.addItemToFavorites(req)
+
+        const product = req.body.productId as string
+
+        res.status(201).send({
+            status: 'Success',
+            msg: `The item ${product} has been added to favorites`,
+        })
+    }
+
+    async deleteItemFromFavorites(req: Request, res: Response): Promise<void> {
+        const product = req.params.productId
+
+        await usersServices.deleteItemFromFavorites(req)
+
+        res.status(201).send({
+            status: 'Success',
+            msg: `The item ${product} has been deleted from favorites`,
+        })
+    }
+
+    async cleanFavorites(req: Request, res: Response): Promise<void> {
+        await usersServices.cleanFavorites(req)
+
+        res.status(201).send({
+            status: 'Success',
+            msg: `The user's favorites was cleaned`,
+        })
+    }
+
+    async getUserReviews(req: Request, res: Response): Promise<void> {
+        const user = await usersServices.getUserReviews(req)
+
+        res.status(201).send({
+            status: 'Success',
+            msg: `The user's reviews was successfully submitted`,
+            body: user?.reviews,
+        })
+    }
+
+    async addReview(req: Request, res: Response): Promise<void> {
+        await usersServices.addReview(req)
+
+        res.status(201).send({
+            status: 'Success',
+            msg: `The review has been posted`,
+        })
+    }
+
+    async getTransactions(req: Request, res: Response): Promise<void> {
+        const user = await usersServices.getTransactions(req)
+
+        res.status(200).send({
+            status: 'Success',
+            msg: `The user's transactions was successfully submitted`,
+            body: user?.transactions,
+        })
+    }
+
+    async getHistory(req: Request, res: Response): Promise<void> {
+        const user = await usersServices.getHistory(req)
+
+        res.status(200).send({
+            status: 'Success',
+            msg: `The user's history was successfully submitted`,
+            body: user?.history,
+        })
+    }
+
+    async addLastVisitedToHistory(req: Request, res: Response): Promise<void> {
+        await usersServices.addLastVisitedToHistory(req)
+
+        res.status(201).send({
+            status: 'Success',
+            msg: 'The last product visited has been added to history',
         })
     }
 }
