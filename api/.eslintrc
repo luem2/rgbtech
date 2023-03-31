@@ -26,13 +26,10 @@
     "rules": {
         "@typescript-eslint/no-floating-promises": "off",
         "@typescript-eslint/strict-boolean-expressions": "off",
-        // Only for this project
         "@typescript-eslint/no-misused-promises": "off",
         "@typescript-eslint/naming-convention": "off",
         "@typescript-eslint/no-unused-vars": "error",
-        // --------------------------------------------
         "import/no-unresolved": 0,
-        // "no-unused-vars": "error",
         "semi": "error",
         "no-console": [
             "warn",
@@ -42,7 +39,7 @@
         ],
         "eqeqeq": "warn",
         "no-var": "warn",
-        "quotes": "error",
+        "quotes": ["error", "single", { "allowTemplateLiterals": true }],
         "import/order": [
             "warn",
             {
