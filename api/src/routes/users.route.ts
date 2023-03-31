@@ -19,6 +19,18 @@ router
         usersControllers.getShoppingCart
     )
 
+    .get('/favorites', authMiddlewares.checkAuth, usersControllers.getFavorites)
+
+    .get('/reviews', authMiddlewares.checkAuth, usersControllers.getUserReviews)
+
+    .get(
+        '/transactions',
+        authMiddlewares.checkAuth,
+        usersControllers.getTransactions
+    )
+
+    .get('/history', authMiddlewares.checkAuth, usersControllers.getHistory)
+
     .put(
         '/profile',
         [
@@ -55,9 +67,31 @@ router
     )
 
     .post(
+        '/favorites',
+
+        [
+            authMiddlewares.checkAuth,
+            usersMiddlewares.itemAlreadyExistsInFavorites,
+        ],
+        usersControllers.addItemToFavorites
+    )
+
+    .post(
         '/shopping-cart',
         [authMiddlewares.checkAuth, usersMiddlewares.itemAlreadyExistsInCart],
         usersControllers.addItemToCart
+    )
+
+    .post(
+        '/reviews',
+        [authMiddlewares.checkAuth, usersMiddlewares.checkReviewBody],
+        usersControllers.addReview
+    )
+
+    .post(
+        '/history',
+        [authMiddlewares.checkAuth, usersMiddlewares.checkHistoryLength],
+        usersControllers.addLastVisitedToHistory
     )
 
     .delete(
@@ -73,6 +107,23 @@ router
         '/shopping-cart/:productId',
         [authMiddlewares.checkAuth, usersMiddlewares.itemNotFoundInsideCart],
         usersControllers.deleteItemFromCart
+    )
+
+    .delete(
+        '/favorites',
+
+        [authMiddlewares.checkAuth, usersMiddlewares.favoritesIsAlreadyEmpty],
+
+        usersControllers.cleanFavorites
+    )
+
+    .delete(
+        '/favorites/:productId',
+        [
+            authMiddlewares.checkAuth,
+            usersMiddlewares.itemNotFoundInsideFavorites,
+        ],
+        usersControllers.deleteItemFromFavorites
     )
 
 export default router
