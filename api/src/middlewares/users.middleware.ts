@@ -110,6 +110,32 @@ class UsersMiddlewares {
         } else next()
     }
 
+    async itemAlreadyExistsInFavorites(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<Response<unknown, Record<string, unknown>> | undefined> {
+        const user = await db.user.findUnique({
+            where: {
+                id: req.userId,
+            },
+            select: {
+                favorites: true,
+            },
+        })
+
+        const itemRepeated = user?.favorites.find(
+            ({ productId }) => productId === req.body.productId
+        )
+
+        if (itemRepeated) {
+            return res.status(401).send({
+                status: 'Error',
+                msg: 'The item is already in the favorites',
+            })
+        } else next()
+    }
+
     itemQuantityCannotBeNullOrNegative(
         req: Request,
         res: Response,
@@ -178,6 +204,125 @@ class UsersMiddlewares {
                 msg: 'Product not found inside cart',
             })
         } else next()
+    }
+
+    async favoritesIsAlreadyEmpty(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<Response<unknown, Record<string, unknown>> | undefined> {
+        const user = await db.user.findUnique({
+            where: {
+                id: req.userId,
+            },
+            select: {
+                favorites: true,
+            },
+        })
+
+        if (!user?.favorites.length) {
+            return res.status(401).send({
+                status: 'Error',
+                msg: `The user's favorites is already empty`,
+            })
+        } else next()
+    }
+
+    async itemNotFoundInsideFavorites(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<Response<unknown, Record<string, unknown>> | undefined> {
+        const user = await db.user.findUnique({
+            where: {
+                id: req.userId,
+            },
+            select: {
+                favorites: true,
+            },
+        })
+
+        const product = user?.favorites.find(
+            ({ productId }) => productId === req.params.productId
+        )
+
+        if (!product) {
+            return res.status(401).send({
+                status: 'Error',
+                msg: 'Product not found inside favorites',
+            })
+        } else next()
+    }
+
+    async checkReviewBody(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<Response<unknown, Record<string, unknown>> | undefined> {
+        if (!req.body.rating || !req.body.comment) {
+            return res.status(400).send({
+                status: 'Error',
+                msg: 'There are missing fields',
+            })
+        }
+
+        const user = await db.user.findUnique({
+            where: {
+                id: req.userId,
+            },
+            select: {
+                reviews: true,
+            },
+        })
+
+        const reviewExists = user?.reviews.find(
+            ({ productId }) => productId === req.body.productId
+        )
+
+        if (reviewExists) {
+            return res.status(401).send({
+                status: 'Error',
+                msg: 'There is already a review for this product',
+            })
+        } else next()
+    }
+
+    async checkHistoryLength(
+        req: Request,
+        _res: Response,
+        next: NextFunction
+    ): Promise<void> {
+        const user = await db.user.findUnique({
+            where: {
+                id: req.userId,
+            },
+            select: {
+                history: true,
+            },
+        })
+
+        if (user?.history.length === 20) {
+            const oldestProductVisited = user.history.shift()
+
+            await db.user.update({
+                where: {
+                    id: req.userId,
+                },
+                data: {
+                    history: {
+                        delete: {
+                            userId_productId: {
+                                userId: req.userId,
+                                productId:
+                                    oldestProductVisited?.productId as string,
+                            },
+                        },
+                    },
+                },
+            })
+        }
+
+        next()
     }
 }
 
