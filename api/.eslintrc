@@ -30,6 +30,12 @@
         "@typescript-eslint/naming-convention": "off",
         "@typescript-eslint/no-unused-vars": "error",
         "import/no-unresolved": 0,
+        "no-warning-comments": [
+            "warn",
+            {
+                "terms": ["TODO", "REVIEW", "FIXME", "REFACTOR"]
+            }
+        ],
         "semi": "error",
         "no-console": [
             "warn",
