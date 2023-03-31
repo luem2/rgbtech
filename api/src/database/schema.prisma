@@ -125,7 +125,7 @@ model Review {
   userId    String
   productId String
   comment   String
-  rating    Float
+  rating    Int
 
   user    User    @relation(fields: [userId], references: [id])
   product Product @relation(fields: [productId], references: [id])
