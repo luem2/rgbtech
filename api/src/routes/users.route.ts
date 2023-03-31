@@ -47,25 +47,31 @@ router
 
     .put(
         '/shopping-cart/',
-        authMiddlewares.checkAuth,
+        [
+            authMiddlewares.checkAuth,
+            usersMiddlewares.itemQuantityCannotBeNullOrNegative,
+        ],
         usersControllers.modifyItemQuantity
     )
 
     .post(
         '/shopping-cart',
-        authMiddlewares.checkAuth,
+        [authMiddlewares.checkAuth, usersMiddlewares.itemAlreadyExistsInCart],
         usersControllers.addItemToCart
     )
 
     .delete(
         '/shopping-cart',
-        authMiddlewares.checkAuth,
+        [
+            authMiddlewares.checkAuth,
+            usersMiddlewares.shoppingCartIsAlreadyEmpty,
+        ],
         usersControllers.cleanShoppingCart
     )
 
     .delete(
         '/shopping-cart/:productId',
-        authMiddlewares.checkAuth,
+        [authMiddlewares.checkAuth, usersMiddlewares.itemNotFoundInsideCart],
         usersControllers.deleteItemFromCart
     )
 

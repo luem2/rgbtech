@@ -57,7 +57,7 @@ class UsersMiddlewares {
 
         const passwordMatches = await compare(
             req.body.oldPassword,
-            user?.password
+            user.password
         )
 
         if (!passwordMatches) {
@@ -83,30 +83,104 @@ class UsersMiddlewares {
             cb(new Error('Only PNG, JPEG and JPG files are allowed'))
         }
     }
+
+    async itemAlreadyExistsInCart(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<Response<unknown, Record<string, unknown>> | undefined> {
+        const user = await db.user.findUnique({
+            where: {
+                id: req.userId,
+            },
+            select: {
+                shoppingCart: true,
+            },
+        })
+
+        const itemRepeated = user?.shoppingCart.find(
+            ({ productId }) => productId === req.body.productId
+        )
+
+        if (itemRepeated) {
+            return res.status(401).send({
+                status: 'Error',
+                msg: 'The item is already in the cart',
+            })
+        } else next()
+    }
+
+    itemQuantityCannotBeNullOrNegative(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Response<unknown, Record<string, unknown>> | undefined {
+        if (!req.body.quantity || !Object.keys(req.body.quantity).length) {
+            return res.status(401).send({
+                status: 'Error',
+                msg: 'Has not defined an amount',
+            })
+        }
+
+        if (req.body.quantity.set <= 0) {
+            return res.status(401).send({
+                status: 'Error',
+                msg: 'The amount cannot be negative, null or undefined',
+            })
+        }
+
+        next()
+    }
+
+    async shoppingCartIsAlreadyEmpty(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<Response<unknown, Record<string, unknown>> | undefined> {
+        const user = await db.user.findUnique({
+            where: {
+                id: req.userId,
+            },
+            select: {
+                shoppingCart: true,
+            },
+        })
+
+        if (!user?.shoppingCart.length) {
+            return res.status(401).send({
+                status: 'Error',
+                msg: 'The shopping cart is already empty',
+            })
+        } else next()
+    }
+
+    async itemNotFoundInsideCart(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<Response<unknown, Record<string, unknown>> | undefined> {
+        const user = await db.user.findUnique({
+            where: {
+                id: req.userId,
+            },
+            select: {
+                shoppingCart: true,
+            },
+        })
+
+        const product = user?.shoppingCart.find(
+            ({ productId }) => productId === req.params.productId
+        )
+
+        if (!product) {
+            return res.status(401).send({
+                status: 'Error',
+                msg: 'Product not found inside cart',
+            })
+        } else next()
+    }
 }
 
+// Google Middlewares
+
 export default new UsersMiddlewares()
-
-//     checkUserRegistrationGoogle: async (req, res, next) => {
-//         const { mail } = req.body
-//         try {
-//             const findedUser = await User.findOne({
-//                 where: {
-//                     email: mail,
-//                 },
-//             })
-
-//             if (findedUser === null) return res.sendStatus(404)
-//             console.log(findedUser, 'encontré el usuario')
-
-//             req.body.logged = true
-
-//             if (!findedUser?.userVerificate) {
-//                 return res.sendStatus(401)
-//             }
-//             req.body.findedUser = findedUser
-//             return Object.keys(findedUser).length ? next() : res.sendStatus(404)
-//         } catch {
-//             return res.sendStatus(500)
-//         }
-//     },
