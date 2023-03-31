@@ -1,5 +1,12 @@
 import type { Request } from 'express'
-import type { ItemCart, User } from '@prisma/client'
+import type {
+    Favorites,
+    HistoryProduct,
+    ItemCart,
+    Review,
+    Transactions,
+    User,
+} from '@prisma/client'
 
 import { db } from '../database'
 
@@ -114,14 +121,138 @@ class UsersServices {
             },
         })
     }
+
+    async getFavorites(req: Request): Promise<{
+        favorites: Favorites[]
+    } | null> {
+        return await db.user.findUnique({
+            where: {
+                id: req.userId,
+            },
+            select: {
+                favorites: true,
+            },
+        })
+    }
+
+    async addItemToFavorites(req: Request): Promise<void> {
+        await db.user.update({
+            where: {
+                id: req.userId,
+            },
+            data: {
+                favorites: {
+                    create: {
+                        productId: req.body.productId,
+                    },
+                },
+            },
+        })
+    }
+
+    async deleteItemFromFavorites(req: Request): Promise<void> {
+        const productId = req.params.productId
+
+        await db.user.update({
+            where: {
+                id: req.userId,
+            },
+            data: {
+                favorites: {
+                    delete: {
+                        userId_productId: {
+                            userId: req.userId,
+                            productId,
+                        },
+                    },
+                },
+            },
+        })
+    }
+
+    async cleanFavorites(req: Request): Promise<void> {
+        await db.user.update({
+            where: {
+                id: req.userId,
+            },
+            data: {
+                favorites: {
+                    deleteMany: {},
+                },
+            },
+        })
+    }
+
+    async getUserReviews(req: Request): Promise<{
+        reviews: Review[]
+    } | null> {
+        return await db.user.findUnique({
+            where: {
+                id: req.userId,
+            },
+            select: {
+                reviews: true,
+            },
+        })
+    }
+
+    async addReview(req: Request): Promise<void> {
+        await db.user.update({
+            where: {
+                id: req.userId,
+            },
+            data: {
+                reviews: {
+                    create: {
+                        productId: req.body.productId,
+                        comment: req.body.comment,
+                        rating: req.body.rating,
+                    },
+                },
+            },
+        })
+    }
+
+    async getTransactions(req: Request): Promise<{
+        transactions: Transactions[]
+    } | null> {
+        return await db.user.findUnique({
+            where: {
+                id: req.userId,
+            },
+            select: {
+                transactions: true,
+            },
+        })
+    }
+
+    async getHistory(req: Request): Promise<{
+        history: HistoryProduct[]
+    } | null> {
+        return await db.user.findUnique({
+            where: {
+                id: req.userId,
+            },
+            select: {
+                history: true,
+            },
+        })
+    }
+
+    async addLastVisitedToHistory(req: Request): Promise<void> {
+        await db.user.update({
+            where: {
+                id: req.userId,
+            },
+            data: {
+                history: {
+                    create: {
+                        productId: req.body.productId,
+                    },
+                },
+            },
+        })
+    }
 }
-
-// favorites GET - PUT - POST - DELETE
-
-// review GET - POST
-
-// shoppingHistory (SALES) - GET
-
-// lastVisited (PRODUCTS HISTORY) - GET - POST
 
 export default new UsersServices()
