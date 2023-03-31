@@ -13,6 +13,12 @@ router
 
     .get('/', authMiddlewares.checkAdminAuth, usersControllers.getAllUsers)
 
+    .get(
+        '/shopping-cart',
+        authMiddlewares.checkAuth,
+        usersControllers.getShoppingCart
+    )
+
     .put(
         '/profile',
         [
@@ -37,6 +43,30 @@ router
         '/profilePhoto',
         [authMiddlewares.checkAuth, multer.single('avatar')],
         usersControllers.changeProfilePhoto
+    )
+
+    .put(
+        '/shopping-cart/',
+        authMiddlewares.checkAuth,
+        usersControllers.modifyItemQuantity
+    )
+
+    .post(
+        '/shopping-cart',
+        authMiddlewares.checkAuth,
+        usersControllers.addItemToCart
+    )
+
+    .delete(
+        '/shopping-cart',
+        authMiddlewares.checkAuth,
+        usersControllers.cleanShoppingCart
+    )
+
+    .delete(
+        '/shopping-cart/:productId',
+        authMiddlewares.checkAuth,
+        usersControllers.deleteItemFromCart
     )
 
 export default router
