@@ -2,7 +2,7 @@ import { db } from '../../'
 
 import products from './products.json'
 
-export async function createProducts(): Promise<void> {
+export async function createProducts() {
     try {
         products.forEach(async (product) => {
             const tags = product.tags.map((tag) => {

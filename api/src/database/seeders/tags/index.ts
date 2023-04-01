@@ -2,7 +2,7 @@ import { db } from '../../'
 
 import tags from './tags.json'
 
-export async function createTags(): Promise<void> {
+export async function createTags() {
     try {
         tags.forEach(async (tag) => {
             await db.tag.createMany({

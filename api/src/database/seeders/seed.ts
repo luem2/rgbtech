@@ -8,7 +8,7 @@ import { createAwards } from './awards'
 import { createBrands } from './brands'
 import { createProducts } from './products'
 
-async function main(): Promise<void> {
+async function main() {
     const countriesCount = await db.country.count()
     const usersCount = await db.user.count()
     const tagsCount = await db.tag.count()
@@ -53,7 +53,7 @@ try {
     console.error(error)
     process.exit(1)
 } finally {
-    const disconnect = async function (): Promise<void> {
+    const disconnect = async function () {
         await db.$disconnect()
     }
 

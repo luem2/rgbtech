@@ -5,7 +5,7 @@ export function handleError(
     _req: Request,
     res: Response,
     next: NextFunction
-): void {
+) {
     res.status(500).send({
         status: 'Server Error',
         name: err.name,

@@ -27,7 +27,7 @@
 
 import Server from './config/server'
 
-async function bootstrap(): Promise<void> {
+async function bootstrap() {
     try {
         const server = new Server()
 

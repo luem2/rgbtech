@@ -7,19 +7,7 @@ import { db } from '../../'
 
 import usersJSON from './users.json'
 
-interface IUser {
-    firstName: string
-    lastName: string
-    email: string
-    password: string
-    picture: string
-    verificated: boolean
-    nacionality: string
-    role: Role
-    RGBpoints: number
-}
-
-function createRandomUsers(): IUser {
+function createRandomUsers() {
     return {
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
@@ -33,7 +21,7 @@ function createRandomUsers(): IUser {
     }
 }
 
-export async function createUsers(): Promise<void> {
+export async function createUsers() {
     try {
         const users = usersJSON.map((user) => {
             return {

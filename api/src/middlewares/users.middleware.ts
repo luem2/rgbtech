@@ -11,7 +11,7 @@ class UsersMiddlewares {
         req: Request,
         res: Response,
         next: NextFunction
-    ): Promise<void> {
+    ) {
         const user = await db.user.findUnique({
             where: {
                 id: req.userId,
@@ -45,7 +45,7 @@ class UsersMiddlewares {
         req: Request,
         res: Response,
         next: NextFunction
-    ): Promise<Response<unknown, Record<string, unknown>> | undefined> {
+    ) {
         const user = (await db.user.findUnique({
             where: {
                 id: req.userId,
@@ -74,7 +74,7 @@ class UsersMiddlewares {
         _req: Request,
         file: Express.Multer.File,
         cb: multer.FileFilterCallback
-    ): void {
+    ) {
         const mimeTypesAccepted = ['image/png', 'image/jpeg', 'image/jpg']
 
         if (mimeTypesAccepted.includes(file.mimetype)) {
@@ -88,7 +88,7 @@ class UsersMiddlewares {
         req: Request,
         res: Response,
         next: NextFunction
-    ): Promise<Response<unknown, Record<string, unknown>> | undefined> {
+    ) {
         const user = await db.user.findUnique({
             where: {
                 id: req.userId,
@@ -114,7 +114,7 @@ class UsersMiddlewares {
         req: Request,
         res: Response,
         next: NextFunction
-    ): Promise<Response<unknown, Record<string, unknown>> | undefined> {
+    ) {
         const user = await db.user.findUnique({
             where: {
                 id: req.userId,
@@ -140,7 +140,7 @@ class UsersMiddlewares {
         req: Request,
         res: Response,
         next: NextFunction
-    ): Response<unknown, Record<string, unknown>> | undefined {
+    ) {
         if (!req.body.quantity || !Object.keys(req.body.quantity).length) {
             return res.status(401).send({
                 status: 'Error',
@@ -162,7 +162,7 @@ class UsersMiddlewares {
         req: Request,
         res: Response,
         next: NextFunction
-    ): Promise<Response<unknown, Record<string, unknown>> | undefined> {
+    ) {
         const user = await db.user.findUnique({
             where: {
                 id: req.userId,
@@ -184,7 +184,7 @@ class UsersMiddlewares {
         req: Request,
         res: Response,
         next: NextFunction
-    ): Promise<Response<unknown, Record<string, unknown>> | undefined> {
+    ) {
         const user = await db.user.findUnique({
             where: {
                 id: req.userId,
@@ -210,7 +210,7 @@ class UsersMiddlewares {
         req: Request,
         res: Response,
         next: NextFunction
-    ): Promise<Response<unknown, Record<string, unknown>> | undefined> {
+    ) {
         const user = await db.user.findUnique({
             where: {
                 id: req.userId,
@@ -232,7 +232,7 @@ class UsersMiddlewares {
         req: Request,
         res: Response,
         next: NextFunction
-    ): Promise<Response<unknown, Record<string, unknown>> | undefined> {
+    ) {
         const user = await db.user.findUnique({
             where: {
                 id: req.userId,
@@ -254,11 +254,7 @@ class UsersMiddlewares {
         } else next()
     }
 
-    async checkReviewBody(
-        req: Request,
-        res: Response,
-        next: NextFunction
-    ): Promise<Response<unknown, Record<string, unknown>> | undefined> {
+    async checkReviewBody(req: Request, res: Response, next: NextFunction) {
         if (!req.body.rating || !req.body.comment) {
             return res.status(400).send({
                 status: 'Error',
@@ -287,11 +283,7 @@ class UsersMiddlewares {
         } else next()
     }
 
-    async checkHistoryLength(
-        req: Request,
-        _res: Response,
-        next: NextFunction
-    ): Promise<void> {
+    async checkHistoryLength(req: Request, _res: Response, next: NextFunction) {
         const user = await db.user.findUnique({
             where: {
                 id: req.userId,
@@ -325,7 +317,5 @@ class UsersMiddlewares {
         next()
     }
 }
-
-// Google Middlewares
 
 export default new UsersMiddlewares()

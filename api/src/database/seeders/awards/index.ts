@@ -2,7 +2,7 @@ import { db } from '../../'
 
 import awards from './awards.json'
 
-export async function createAwards(): Promise<void> {
+export async function createAwards() {
     try {
         await db.award.createMany({
             data: awards,

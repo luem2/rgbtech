@@ -4,7 +4,7 @@ import axios from 'axios'
 
 import { db } from '../../'
 
-export async function createCountries(): Promise<void> {
+export async function createCountries() {
     try {
         const result = await axios.get('https://restcountries.com/v3.1/all')
 

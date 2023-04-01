@@ -4,17 +4,7 @@ import authServices from '../services/auth.service'
 import usersServices from '../services/users.service'
 
 class UsersController {
-    async getAllUsers(_req: Request, res: Response): Promise<void> {
-        const allUsers = await usersServices.getAllUsers()
-
-        res.status(200).send({
-            status: 'Success',
-            msg: 'All users were sent correctly',
-            body: allUsers,
-        })
-    }
-
-    async updateProfile(req: Request, res: Response): Promise<void> {
+    async updateProfile(req: Request, res: Response) {
         const profileEdited = await usersServices.updateProfile(req)
 
         res.status(201).send({
@@ -24,7 +14,7 @@ class UsersController {
         })
     }
 
-    async updatePassword(req: Request, res: Response): Promise<void> {
+    async updatePassword(req: Request, res: Response) {
         const userWithPasswordUpdated = await authServices.passwordUpdate(req)
 
         res.status(201).send({
@@ -34,7 +24,7 @@ class UsersController {
         })
     }
 
-    async changeProfilePhoto(req: Request, res: Response): Promise<void> {
+    async changeProfilePhoto(req: Request, res: Response) {
         await usersServices.changeProfilePhoto(req)
 
         res.status(201).send({
@@ -43,7 +33,7 @@ class UsersController {
         })
     }
 
-    async getShoppingCart(req: Request, res: Response): Promise<void> {
+    async getShoppingCart(req: Request, res: Response) {
         const user = await usersServices.getShoppingCart(req)
 
         res.status(200).send({
@@ -53,7 +43,7 @@ class UsersController {
         })
     }
 
-    async addItemToCart(req: Request, res: Response): Promise<void> {
+    async addItemToCart(req: Request, res: Response) {
         await usersServices.addItemToCart(req)
 
         const product = req.body.productId as string
@@ -64,7 +54,7 @@ class UsersController {
         })
     }
 
-    async modifyItemQuantity(req: Request, res: Response): Promise<void> {
+    async modifyItemQuantity(req: Request, res: Response) {
         await usersServices.modifyItemQuantity(req)
 
         res.status(201).send({
@@ -73,7 +63,7 @@ class UsersController {
         })
     }
 
-    async deleteItemFromCart(req: Request, res: Response): Promise<void> {
+    async deleteItemFromCart(req: Request, res: Response) {
         const product = req.params.productId
 
         await usersServices.deleteItemFromCart(req)
@@ -84,7 +74,7 @@ class UsersController {
         })
     }
 
-    async cleanShoppingCart(req: Request, res: Response): Promise<void> {
+    async cleanShoppingCart(req: Request, res: Response) {
         await usersServices.cleanShoppingCart(req)
 
         res.status(201).send({
@@ -93,7 +83,7 @@ class UsersController {
         })
     }
 
-    async getFavorites(req: Request, res: Response): Promise<void> {
+    async getFavorites(req: Request, res: Response) {
         const favorites = await usersServices.getFavorites(req)
 
         res.status(200).send({
@@ -103,7 +93,7 @@ class UsersController {
         })
     }
 
-    async addItemToFavorites(req: Request, res: Response): Promise<void> {
+    async addItemToFavorites(req: Request, res: Response) {
         await usersServices.addItemToFavorites(req)
 
         const product = req.body.productId as string
@@ -114,7 +104,7 @@ class UsersController {
         })
     }
 
-    async deleteItemFromFavorites(req: Request, res: Response): Promise<void> {
+    async deleteItemFromFavorites(req: Request, res: Response) {
         const product = req.params.productId
 
         await usersServices.deleteItemFromFavorites(req)
@@ -125,7 +115,7 @@ class UsersController {
         })
     }
 
-    async cleanFavorites(req: Request, res: Response): Promise<void> {
+    async cleanFavorites(req: Request, res: Response) {
         await usersServices.cleanFavorites(req)
 
         res.status(201).send({
@@ -134,7 +124,7 @@ class UsersController {
         })
     }
 
-    async getUserReviews(req: Request, res: Response): Promise<void> {
+    async getUserReviews(req: Request, res: Response) {
         const user = await usersServices.getUserReviews(req)
 
         res.status(201).send({
@@ -144,7 +134,7 @@ class UsersController {
         })
     }
 
-    async addReview(req: Request, res: Response): Promise<void> {
+    async addReview(req: Request, res: Response) {
         await usersServices.addReview(req)
 
         res.status(201).send({
@@ -153,7 +143,7 @@ class UsersController {
         })
     }
 
-    async getTransactions(req: Request, res: Response): Promise<void> {
+    async getTransactions(req: Request, res: Response) {
         const user = await usersServices.getTransactions(req)
 
         res.status(200).send({
@@ -163,7 +153,7 @@ class UsersController {
         })
     }
 
-    async getHistory(req: Request, res: Response): Promise<void> {
+    async getHistory(req: Request, res: Response) {
         const user = await usersServices.getHistory(req)
 
         res.status(200).send({
@@ -173,7 +163,7 @@ class UsersController {
         })
     }
 
-    async addLastVisitedToHistory(req: Request, res: Response): Promise<void> {
+    async addLastVisitedToHistory(req: Request, res: Response) {
         await usersServices.addLastVisitedToHistory(req)
 
         res.status(201).send({

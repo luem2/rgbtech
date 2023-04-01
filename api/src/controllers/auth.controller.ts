@@ -3,24 +3,17 @@ import type { Request, Response } from 'express'
 import authServices from '../services/auth.service'
 
 class AuthController {
-    async login(req: Request, res: Response): Promise<void> {
-        const userToken = await authServices.login(req)
+    async login(req: Request, res: Response) {
+        const userToken = await authServices.login(req.body)
 
-        if (userToken !== null) {
-            res.status(200).header('auth-token', userToken).send({
-                status: 'Success',
-                msg: 'User was successfully logged in',
-            })
-        } else {
-            res.status(400).send({
-                status: 'Error',
-                msg: 'The login information provided is incorrect. Make sure you are entering the correct information and try again',
-            })
-        }
+        res.status(200).header('auth-token', userToken).send({
+            status: 'Success',
+            msg: 'User was successfully logged in',
+        })
     }
 
-    async register(req: Request, res: Response): Promise<void> {
-        const newUser = authServices.register(req.body)
+    async register(req: Request, res: Response) {
+        const newUser = await authServices.register(req.body)
 
         res.status(200).send({
             status: 'Success',
@@ -29,7 +22,7 @@ class AuthController {
         })
     }
 
-    async profile(req: Request, res: Response): Promise<void> {
+    async profile(req: Request, res: Response) {
         const userProfile = await authServices.getProfile(req)
 
         res.status(200).send({
@@ -39,7 +32,7 @@ class AuthController {
         })
     }
 
-    async passwordRecovery(req: Request, res: Response): Promise<void> {
+    async passwordRecovery(req: Request, res: Response) {
         const userWithNewPassword = await authServices.passwordUpdate(req)
 
         res.status(200).send({
@@ -49,7 +42,7 @@ class AuthController {
         })
     }
 
-    async passwordRecoveryEmail(req: Request, res: Response): Promise<void> {
+    async passwordRecoveryEmail(req: Request, res: Response) {
         await authServices.passwordRecoveryEmail(req)
 
         res.status(200).send({
@@ -58,7 +51,7 @@ class AuthController {
         })
     }
 
-    async accountConfirmation(req: Request, res: Response): Promise<void> {
+    async accountConfirmation(req: Request, res: Response) {
         await authServices.accountConfirmation(req)
 
         res.status(200).send({

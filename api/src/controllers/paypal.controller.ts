@@ -4,7 +4,7 @@ import axios from 'axios'
 
 import { config } from '../config/env'
 
-export async function create(req: Request, res: Response): Promise<void> {
+export async function create(req: Request, res: Response) {
     console.log('req.body', req.body)
 
     try {
@@ -60,7 +60,7 @@ export async function create(req: Request, res: Response): Promise<void> {
     }
 }
 
-export async function capture(req: Request, res: Response): Promise<void> {
+export async function capture(req: Request, res: Response) {
     try {
         const { token } = req.query
 
@@ -84,6 +84,6 @@ export async function capture(req: Request, res: Response): Promise<void> {
     }
 }
 
-export function cancel(req: Request, res: Response): void {
+export function cancel(_req: Request, res: Response) {
     res.redirect('http://localhost:5173/order-canceled')
 }

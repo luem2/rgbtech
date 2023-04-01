@@ -26,7 +26,7 @@ class Server {
         this.routes()
     }
 
-    middlewares(): void {
+    middlewares() {
         this.app.use(
             cors({
                 origin: config.ORIGIN_CORS,
@@ -60,11 +60,11 @@ class Server {
         this.app.use(handleError)
     }
 
-    routes(): void {
+    routes() {
         this.app.use(this.apiPaths.api, routes)
     }
 
-    listen(): void {
+    listen() {
         this.app.listen(this.port, () => {
             console.info(`🟢 Server listening on port ${this.port}`)
         })
