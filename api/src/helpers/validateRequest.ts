@@ -18,3 +18,32 @@ export function validateSchema(schema: AnySchema) {
         }
     }
 }
+
+export async function validateSchemaInsideMiddleware(
+    schema: AnySchema,
+    req: Request
+) {
+    interface SchemaValidProps {
+        valid: boolean
+        err?: unknown
+    }
+
+    const reqSchema: SchemaValidProps = {
+        valid: true,
+    }
+
+    try {
+        await schema.validate({
+            body: req.body,
+            params: req.params,
+            query: req.query,
+        })
+
+        return reqSchema
+    } catch (error) {
+        reqSchema.valid = false
+        reqSchema.err = error
+
+        return reqSchema
+    }
+}
