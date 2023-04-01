@@ -2,12 +2,7 @@ import { Router } from 'express'
 
 import authControllers from '../controllers/auth.controller'
 import authMiddlewares from '../middlewares/auth.middleware'
-import {
-    createUserSchema,
-    emailSchema,
-    loginUserSchema,
-    newPasswordSchema,
-} from '../helpers/dto'
+import { emailSchema, newPasswordSchema } from '../helpers/dto'
 import { validateSchema } from '../helpers/validateRequest'
 
 const router = Router()
@@ -30,18 +25,11 @@ router
         authControllers.passwordRecoveryEmail
     )
 
-    .post(
-        '/login',
-        [
-            validateSchema(loginUserSchema),
-            authMiddlewares.checkUserEmailVerificated,
-        ],
-        authControllers.login
-    )
+    .post('/login', authMiddlewares.checkLoginBody, authControllers.login)
 
     .post(
         '/register',
-        [validateSchema(createUserSchema), authMiddlewares.checkUserExists],
+        authMiddlewares.checkRegisterBody,
         authControllers.register
     )
 

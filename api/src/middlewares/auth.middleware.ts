@@ -1,15 +1,15 @@
 import type { NextFunction, Request, Response } from 'express'
 import type { JwtPayload } from 'jsonwebtoken'
 
+import bcrypt from 'bcrypt'
+
 import { db } from '../database'
 import { verifyToken } from '../helpers/generateToken'
+import { validateSchemaInsideMiddleware } from '../helpers/validateRequest'
+import { createUserSchema, createUserSchemaWithGoogle } from '../helpers/dto'
 
 class AuthMiddlewares {
-    async checkAuth(
-        req: Request,
-        res: Response,
-        next: NextFunction
-    ): Promise<void> {
+    async checkAuth(req: Request, res: Response, next: NextFunction) {
         const token = req.headers.authorization?.split(' ').pop()
 
         if (token) {
@@ -32,11 +32,7 @@ class AuthMiddlewares {
         }
     }
 
-    async checkAdminAuth(
-        req: Request,
-        res: Response,
-        next: NextFunction
-    ): Promise<void> {
+    async checkAdminAuth(req: Request, res: Response, next: NextFunction) {
         const token = req.headers.authorization?.split(' ').pop()
 
         if (token) {
@@ -62,69 +58,91 @@ class AuthMiddlewares {
         }
     }
 
-    async checkUserExists(
-        req: Request,
-        res: Response,
-        next: NextFunction
-    ): Promise<Response<unknown, Record<string, unknown>> | undefined> {
+    async checkRegisterBody(req: Request, res: Response, next: NextFunction) {
+        if (req.body.google) {
+            const userSchemaGoogle = await validateSchemaInsideMiddleware(
+                createUserSchemaWithGoogle,
+                req
+            )
+
+            if (!userSchemaGoogle.valid)
+                return res.status(401).send({
+                    status: 'Error',
+                    msg: userSchemaGoogle.err,
+                })
+        } else {
+            const userSchema = await validateSchemaInsideMiddleware(
+                createUserSchema,
+                req
+            )
+
+            if (!userSchema.valid)
+                return res.status(401).send({
+                    status: 'Error',
+                    msg: userSchema.err,
+                })
+        }
+
         const userExists = await db.user.findUnique({
             where: {
                 email: req.body.email,
             },
         })
 
-        if (userExists) {
+        if (userExists)
             return res.status(401).send({
                 status: 'Error',
                 msg: 'A user has already registered with the email address entered',
             })
-        }
 
         next()
     }
 
-    async checkUserEmailVerificated(
-        req: Request,
-        res: Response,
-        next: NextFunction
-    ): Promise<Response<unknown, Record<string, unknown>> | undefined> {
+    async checkLoginBody(req: Request, res: Response, next: NextFunction) {
+        if (!req.body.email)
+            return res.status(404).send({
+                status: 'Error',
+                msg: 'Email field missing',
+            })
+
         const user = await db.user.findUnique({
             where: {
                 email: req.body.email,
             },
-            select: {
-                verificated: true,
-            },
         })
 
-        if (!user?.verificated)
+        if (!user)
+            return res.status(404).send({
+                status: 'Error',
+                msg: 'User not found',
+            })
+
+        if (!user.google) {
+            if (!req.body.password)
+                return res.status(404).send({
+                    status: 'Error',
+                    msg: 'Password field missing',
+                })
+
+            const verificatedPassword = await bcrypt.compare(
+                req.body.password,
+                user.password
+            )
+
+            if (!verificatedPassword)
+                return res.status(401).send({
+                    status: 'Error',
+                    msg: 'Password entered is incorrect, try again or recover it',
+                })
+        }
+
+        if (!user.verificated)
             return res.status(401).send({
                 status: 'Error',
                 msg: 'You have not verified your email',
             })
 
-        next()
-    }
-
-    async checkEmailExists(
-        req: Request,
-        res: Response,
-        next: NextFunction
-    ): Promise<Response<unknown, Record<string, unknown>> | undefined> {
-        const user = await db.user.findUnique({
-            where: {
-                email: req.body.email,
-            },
-            select: {
-                email: true,
-            },
-        })
-
-        if (!user?.email)
-            return res.status(404).send({
-                status: 'Error',
-                msg: 'Email not found',
-            })
+        req.body = user
 
         next()
     }
