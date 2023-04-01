@@ -10,9 +10,6 @@ export const config = {
         process.env.NODE_ENV === 'production'
             ? process.env.ORIGIN_CORS
             : 'http://localhost:8080',
-    CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY ?? '',
-    CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET ?? '',
-    CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME ?? '',
     PAYPAL_API_CLIENTID: process.env.PAYPAL_API_CLIENTID ?? '',
     PAYPAL_API_SECRET: process.env.PAYPAL_API_SECRET ?? '',
     PAYPAL_API_URL: process.env.PAYPAL_API_URL ?? '',
