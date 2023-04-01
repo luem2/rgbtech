@@ -1,21 +1,9 @@
 import type { Request } from 'express'
-import type {
-    Favorites,
-    HistoryProduct,
-    ItemCart,
-    Review,
-    Transactions,
-    User,
-} from '@prisma/client'
 
 import { db } from '../database'
 
 class UsersServices {
-    async getAllUsers(): Promise<User[]> {
-        return await db.user.findMany()
-    }
-
-    async updateProfile(req: Request): Promise<User> {
+    async updateProfile(req: Request) {
         return await db.user.update({
             where: {
                 id: req.userId,
@@ -24,7 +12,7 @@ class UsersServices {
         })
     }
 
-    async changeProfilePhoto(req: Request): Promise<void> {
+    async changeProfilePhoto(req: Request) {
         await db.user.update({
             where: {
                 id: req.userId,
@@ -35,9 +23,7 @@ class UsersServices {
         })
     }
 
-    async getShoppingCart(req: Request): Promise<{
-        shoppingCart: ItemCart[]
-    } | null> {
+    async getShoppingCart(req: Request) {
         return await db.user.findUnique({
             where: {
                 id: req.userId,
@@ -48,7 +34,7 @@ class UsersServices {
         })
     }
 
-    async addItemToCart(req: Request): Promise<void> {
+    async addItemToCart(req: Request) {
         await db.user.update({
             where: {
                 id: req.userId,
@@ -64,7 +50,7 @@ class UsersServices {
         })
     }
 
-    async modifyItemQuantity(req: Request): Promise<void> {
+    async modifyItemQuantity(req: Request) {
         const quantity = req.body.quantity
 
         await db.user.update({
@@ -89,7 +75,7 @@ class UsersServices {
         })
     }
 
-    async deleteItemFromCart(req: Request): Promise<void> {
+    async deleteItemFromCart(req: Request) {
         const productId = req.params.productId
 
         await db.user.update({
@@ -109,7 +95,7 @@ class UsersServices {
         })
     }
 
-    async cleanShoppingCart(req: Request): Promise<void> {
+    async cleanShoppingCart(req: Request) {
         await db.user.update({
             where: {
                 id: req.userId,
@@ -122,9 +108,7 @@ class UsersServices {
         })
     }
 
-    async getFavorites(req: Request): Promise<{
-        favorites: Favorites[]
-    } | null> {
+    async getFavorites(req: Request) {
         return await db.user.findUnique({
             where: {
                 id: req.userId,
@@ -135,7 +119,7 @@ class UsersServices {
         })
     }
 
-    async addItemToFavorites(req: Request): Promise<void> {
+    async addItemToFavorites(req: Request) {
         await db.user.update({
             where: {
                 id: req.userId,
@@ -150,7 +134,7 @@ class UsersServices {
         })
     }
 
-    async deleteItemFromFavorites(req: Request): Promise<void> {
+    async deleteItemFromFavorites(req: Request) {
         const productId = req.params.productId
 
         await db.user.update({
@@ -170,7 +154,7 @@ class UsersServices {
         })
     }
 
-    async cleanFavorites(req: Request): Promise<void> {
+    async cleanFavorites(req: Request) {
         await db.user.update({
             where: {
                 id: req.userId,
@@ -183,9 +167,7 @@ class UsersServices {
         })
     }
 
-    async getUserReviews(req: Request): Promise<{
-        reviews: Review[]
-    } | null> {
+    async getUserReviews(req: Request) {
         return await db.user.findUnique({
             where: {
                 id: req.userId,
@@ -196,7 +178,7 @@ class UsersServices {
         })
     }
 
-    async addReview(req: Request): Promise<void> {
+    async addReview(req: Request) {
         await db.user.update({
             where: {
                 id: req.userId,
@@ -213,9 +195,7 @@ class UsersServices {
         })
     }
 
-    async getTransactions(req: Request): Promise<{
-        transactions: Transactions[]
-    } | null> {
+    async getTransactions(req: Request) {
         return await db.user.findUnique({
             where: {
                 id: req.userId,
@@ -226,9 +206,7 @@ class UsersServices {
         })
     }
 
-    async getHistory(req: Request): Promise<{
-        history: HistoryProduct[]
-    } | null> {
+    async getHistory(req: Request) {
         return await db.user.findUnique({
             where: {
                 id: req.userId,
@@ -239,7 +217,7 @@ class UsersServices {
         })
     }
 
-    async addLastVisitedToHistory(req: Request): Promise<void> {
+    async addLastVisitedToHistory(req: Request) {
         await db.user.update({
             where: {
                 id: req.userId,

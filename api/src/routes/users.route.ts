@@ -10,9 +10,6 @@ import { validateSchema } from '../helpers/validateRequest'
 const router = Router()
 
 router
-
-    .get('/', authMiddlewares.checkAdminAuth, usersControllers.getAllUsers)
-
     .get(
         '/shopping-cart',
         authMiddlewares.checkAuth,
