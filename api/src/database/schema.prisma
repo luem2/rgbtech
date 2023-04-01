@@ -15,7 +15,7 @@ model User {
   password    String
   picture     String?
   birthDate   DateTime?
-  nacionality String
+  nacionality String?
   role        Role      @default(USER)
   verificated Boolean   @default(false)
   RGBpoints   Float     @default(0)
@@ -32,7 +32,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  country Country @relation(fields: [nacionality], references: [id])
+  country Country? @relation(fields: [nacionality], references: [id])
 }
 
 model Product {
