@@ -8,7 +8,7 @@
             "width": "11.5cm",
             "adjustable": true
         },
-        "picture": "https://images-ext-2.discordapp.net/external/zD61UM2_75NzukIrvweHIzIukjGddQztku3sxRkOc10/https/res.cloudinary.com/ddroxn7iv/image/upload/v1662473130/RGBtech/Awards/Support_supports_cell_phone_zxiwv1.png?width=427&height=427"
+        "picture": "/uploads/core/award-support_supports_cell_phone.png"
     },
     {
         "name": "Led ring light",
@@ -19,7 +19,7 @@
             "LEDQuantity": "120",
             "itIsRechargeable": "No"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1662473130/RGBtech/Awards/led_ring_light_e9lbhf.png"
+        "picture": "/uploads/core/award-led_ring_light.png"
     },
     {
         "name": "Headphones in-ear wireless F9-5",
@@ -32,7 +32,7 @@
             "batteryLife": "5 hs",
             "waterproof": "Yes"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1662473130/RGBtech/Awards/Headphones_in-ear_wireless_F9-5_mvq9p0.png"
+        "picture": "/uploads/core/award-Headphones_in-ear_wireless_F9-5.png"
     },
     {
         "name": "Beanie with bluetooth",
@@ -45,7 +45,7 @@
             "washable": "Yes",
             "RGBTechOriginal": true
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1662488432/RGBtech/Awards/beanie_with_bluetooth_eurpjo.png"
+        "picture": "/uploads/core/award-beanie_with_bluetooth.png"
     },
     {
         "name": "Headphone stand",
@@ -56,7 +56,7 @@
             "compatibleDevices": "Headphones",
             "material": "Rubber Glass Polycarbonate Wood"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1662489327/RGBtech/Awards/headphone_stand_lug1hv.png"
+        "picture": "/uploads/core/award-headphone_stand.png"
     },
     {
         "name": "SABRENT Hub USB-C 3.0",
@@ -67,7 +67,7 @@
             "USB": "3.0",
             "dualSlot": "SD y TF + 3 hubs USB"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1662473130/RGBtech/Awards/SABRENT_Hub_USB-C_3.0_imtbwz.png"
+        "picture": "/uploads/core/award-SABRENT_Hub_USB-C_3.0.png"
     },
     {
         "name": "Led strip lights",
@@ -78,7 +78,7 @@
             "LightSourceType": "LED",
             "PowerSource": "Corded Electric"
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1662473131/RGBtech/Awards/led_strip_lights_n7lzdd.png"
+        "picture": "/uploads/core/award-led_strip_lights.png"
     },
     {
         "name": "RGBtech T-Shirt Logo",
@@ -88,7 +88,7 @@
             "color": "white",
             "RGBTechOriginal": true
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1662488445/RGBtech/Awards/rgbremera_zsox8t.png"
+        "picture": "/uploads/core/award-rgbremera.png"
     },
     {
         "name": "RGBtech T-Shirt Logo Background",
@@ -98,6 +98,6 @@
             "color": "white",
             "RGBTechOriginal": true
         },
-        "picture": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1662488444/RGBtech/Awards/Remera_astro_ceymen.png"
+        "picture": "/uploads/core/award-remera_astro.png"
     }
 ]

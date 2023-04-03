@@ -1,118 +1,118 @@
 [
     {
         "name": "Corsair",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661035098/RGBtech/TagLogo/corsair-logo-_uxfckf.png"
+        "logo": "/uploads/core/brand-corsair-logo.png"
     },
     {
         "name": "Gigabyte",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661036088/RGBtech/TagLogo/Logo-Gigabyte_zzqybs.png"
+        "logo": "/uploads/core/brand-gigabyte-logo.png"
     },
     {
         "name": "Razer",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661035600/RGBtech/TagLogo/Logo-Razer_xyoprs.png"
+        "logo": "/uploads/core/brand-razer-logo.png"
     },
     {
         "name": "Acer",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661036274/RGBtech/TagLogo/Logo-Acer_mwt8xi.png"
+        "logo": "/uploads/core/brand-acer-logo.png"
     },
     {
         "name": "ASUS",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661040712/RGBtech/TagLogo/Logo-Asus_bvrowo.png"
+        "logo": "/uploads/core/brand-asus-logo.png"
     },
     {
         "name": "Beyerdynamic",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661036653/RGBtech/TagLogo/Logo-Beyerdynamic_alhygm.png"
+        "logo": "/uploads/core/brand-beyerdynamic-logo.png"
     },
     {
         "name": "Blue",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661037165/RGBtech/TagLogo/Logo-Blue_umkd8l.png"
+        "logo": "/uploads/core/brand-blue-logo.png"
     },
     {
         "name": "Cooler Master",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661035358/RGBtech/TagLogo/Logo-Cooler-Master_y9pjqf.png"
+        "logo": "/uploads/core/brand-coolerMaster-logo.png"
     },
     {
         "name": "Dowinx",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661038714/RGBtech/TagLogo/Logo-Dowinx_fohagp.png"
+        "logo": "/uploads/core/brand-dowinx-logo.png"
     },
     {
         "name": "EVGA",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661035542/RGBtech/TagLogo/Logo-Evga_cv1cbt.png"
+        "logo": "/uploads/core/brand-evga-logo.png"
     },
     {
         "name": "Focusrite",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661037352/RGBtech/TagLogo/Logo-Focusrite_aybkq6.png"
+        "logo": "/uploads/core/brand-focusrite-logo.png"
     },
     {
         "name": "Samsung",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661037458/RGBtech/TagLogo/Logo-Samsung_bf7gaj.png"
+        "logo": "/uploads/core/brand-samsung-logo.png"
     },
     {
         "name": "MSI",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661035878/RGBtech/TagLogo/Logo-Msi_de8jvt.png"
+        "logo": "/uploads/core/brand-msi-logo.png"
     },
     {
         "name": "Logitech",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661035986/RGBtech/TagLogo/Logo-Logitech_wifs0y.png"
+        "logo": "/uploads/core/brand-logitech-logo.png"
     },
     {
         "name": "HP",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661038799/RGBtech/TagLogo/Logo-Hp_nsgang.png"
+        "logo": "/uploads/core/brand-hp-logo.png"
     },
     {
         "name": "LG",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661038884/RGBtech/TagLogo/Logo-Lg_d19ume.png"
+        "logo": "/uploads/core/brand-lg-logo.png"
     },
     {
         "name": "Killabee",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661039083/RGBtech/TagLogo/Logo-Killabee_yfkbsn.png"
+        "logo": "/uploads/core/brand-killabee-logo.png"
     },
     {
         "name": "Furmax",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661039517/RGBtech/TagLogo/Logo-Furmax_c4tn2v.png"
+        "logo": "/uploads/core/brand-furmax-logo.png"
     },
     {
         "name": "Sunsky",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661039712/RGBtech/TagLogo/Logo-Sunky_lphgv4.png"
+        "logo": "/uploads/core/brand-sunsky-logo.png"
     },
     {
         "name": "Shure",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661039850/RGBtech/TagLogo/Logo-Shure_xqocws.png"
+        "logo": "/uploads/core/brand-shure-logo.png"
     },
     {
         "name": "Sennheiser",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661039999/RGBtech/TagLogo/Logo-Sennheiser_q8tief.png"
+        "logo": "/uploads/core/brand-sennheiser-logo.png"
     },
     {
         "name": "Motus",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661040095/RGBtech/TagLogo/Logo-Motus_qoaajv.png"
+        "logo": "/uploads/core/brand-motus-logo.png"
     },
     {
         "name": "M-Audio",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661040823/RGBtech/TagLogo/Logo-M-Audio_opfc2a.png"
+        "logo": "/uploads/core/brand-mAudio-logo.png"
     },
     {
         "name": "Lenovo",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661040961/RGBtech/TagLogo/Logo-Lenovo_kpnwb0.png"
+        "logo": "/uploads/core/brand-lenovo-logo.png"
     },
     {
         "name": "Klipsch",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661041059/RGBtech/TagLogo/Logo-Klipsch_ggjy3z.png"
+        "logo": "/uploads/core/brand-klipsch-logo.png"
     },
     {
         "name": "JBL",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661041332/RGBtech/TagLogo/Logo-Jbl_iuxlo1.png"
+        "logo": "/uploads/core/brand-jbl-logo.png"
     },
     {
         "name": "HyperX",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661041633/RGBtech/TagLogo/Logo-Hyperx_wyv8qd.png"
+        "logo": "/uploads/core/brand-hyperX-logo.png"
     },
     {
         "name": "Homall",
-        "logo": "https://i.stack.imgur.com/l60Hf.png"
+        "logo": "/uploads/core/brand-homall-logo.png"
     },
     {
         "name": "GameSir",
-        "logo": "https://res.cloudinary.com/ddroxn7iv/image/upload/v1661131448/RGBtech/TagLogo/Logo-GamerSir_rz3flz.png"
+        "logo": "/uploads/core/brand-gameSir-logo.png"
     }
 ]
