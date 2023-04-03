@@ -38,6 +38,12 @@ class AuthMiddlewares {
         if (token) {
             const tokenData = await verifyToken(token)
 
+            if (!tokenData)
+                return res.status(401).send({
+                    status: 'Error',
+                    msg: 'Invalid Token (maybe expired)',
+                })
+
             const userData = await db.user.findUnique({
                 where: {
                     id: (tokenData as JwtPayload).id,

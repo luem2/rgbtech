@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import authControllers from '../controllers/auth.controller'
+import authController from '../controllers/auth.controller'
 import authMiddlewares from '../middlewares/auth.middleware'
 import { emailSchema, newPasswordSchema } from '../helpers/dto'
 import { validateSchema } from '../helpers/validateRequest'
@@ -9,28 +9,28 @@ const router = Router()
 
 router
 
-    .get('/profile', authMiddlewares.checkAuth, authControllers.profile)
+    .get('/profile', authMiddlewares.checkAuth, authController.profile)
 
-    .put('/account-confirmation/:id', authControllers.accountConfirmation)
+    .put('/account-confirmation/:id', authController.accountConfirmation)
 
     .put(
         '/password-recovery/:id',
         validateSchema(newPasswordSchema),
-        authControllers.passwordRecovery
+        authController.passwordRecovery
     )
 
     .post(
         '/password-recovery-email',
         validateSchema(emailSchema),
-        authControllers.passwordRecoveryEmail
+        authController.passwordRecoveryEmail
     )
 
-    .post('/login', authMiddlewares.checkLoginBody, authControllers.login)
+    .post('/login', authMiddlewares.checkLoginBody, authController.login)
 
     .post(
         '/register',
         authMiddlewares.checkRegisterBody,
-        authControllers.register
+        authController.register
     )
 
 export default router

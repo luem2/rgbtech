@@ -17,6 +17,29 @@ class AuthServices {
             where: {
                 id: req.userId,
             },
+            select: {
+                _count: true,
+                id: true,
+                email: true,
+                firstName: true,
+                lastName: true,
+                picture: true,
+                RGBpoints: true,
+                birthDate: true,
+                role: true,
+                verificated: true,
+
+                awards: true,
+                country: true,
+                favorites: true,
+                history: true,
+                reviews: true,
+                shoppingCart: true,
+                transactions: true,
+
+                createdAt: true,
+                updatedAt: true,
+            },
         })
     }
 
