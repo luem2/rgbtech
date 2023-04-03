@@ -47,7 +47,7 @@ model Product {
   onDiscount         Boolean @default(false)
   discountPercentage Int     @default(0)
   freeShipping       Boolean @default(false)
-  rating             Float   @default(0)
+  rating             Float?
   disabled           Boolean @default(false)
 
   usersFavorite Favorites[]
