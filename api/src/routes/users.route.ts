@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
 import multer from '../config/multer'
-import usersControllers from '../controllers/users.controller'
+import usersController from '../controllers/users.controller'
 import authMiddlewares from '../middlewares/auth.middleware'
 import usersMiddlewares from '../middlewares/users.middleware'
 import { editUserSchema, newPasswordSchema } from '../helpers/dto/'
@@ -10,32 +10,34 @@ import { validateSchema } from '../helpers/validateRequest'
 const router = Router()
 
 router
+    .get('/', authMiddlewares.checkAdminAuth, usersController.getAllUsers)
+
     .get(
         '/shopping-cart',
         authMiddlewares.checkAuth,
-        usersControllers.getShoppingCart
+        usersController.getShoppingCart
     )
 
-    .get('/favorites', authMiddlewares.checkAuth, usersControllers.getFavorites)
+    .get('/favorites', authMiddlewares.checkAuth, usersController.getFavorites)
 
-    .get('/reviews', authMiddlewares.checkAuth, usersControllers.getUserReviews)
+    .get('/reviews', authMiddlewares.checkAuth, usersController.getReviews)
 
     .get(
         '/transactions',
         authMiddlewares.checkAuth,
-        usersControllers.getTransactions
+        usersController.getTransactions
     )
 
-    .get('/history', authMiddlewares.checkAuth, usersControllers.getHistory)
+    .get('/history', authMiddlewares.checkAuth, usersController.getHistory)
 
     .put(
         '/profile',
         [
             authMiddlewares.checkAuth,
-            usersMiddlewares.checkUserEmailUpdateProfile,
+            usersMiddlewares.checkUserEmailProfileUpdate,
             validateSchema(editUserSchema),
         ],
-        usersControllers.updateProfile
+        usersController.profileUpdate
     )
 
     .put(
@@ -45,13 +47,13 @@ router
             usersMiddlewares.checkUserOldPassword,
             validateSchema(newPasswordSchema),
         ],
-        usersControllers.updatePassword
+        usersController.passwordUpdate
     )
 
     .put(
         '/profilePhoto',
         [authMiddlewares.checkAuth, multer.single('avatar')],
-        usersControllers.changeProfilePhoto
+        usersController.changeProfilePhoto
     )
 
     .put(
@@ -60,7 +62,7 @@ router
             authMiddlewares.checkAuth,
             usersMiddlewares.itemQuantityCannotBeNullOrNegative,
         ],
-        usersControllers.modifyItemQuantity
+        usersController.modifyItemQuantity
     )
 
     .post(
@@ -70,25 +72,25 @@ router
             authMiddlewares.checkAuth,
             usersMiddlewares.itemAlreadyExistsInFavorites,
         ],
-        usersControllers.addItemToFavorites
+        usersController.addItemToFavorites
     )
 
     .post(
         '/shopping-cart',
         [authMiddlewares.checkAuth, usersMiddlewares.itemAlreadyExistsInCart],
-        usersControllers.addItemToCart
+        usersController.addItemToCart
     )
 
     .post(
         '/reviews',
         [authMiddlewares.checkAuth, usersMiddlewares.checkReviewBody],
-        usersControllers.addReview
+        usersController.addReview
     )
 
     .post(
         '/history',
         [authMiddlewares.checkAuth, usersMiddlewares.checkHistoryLength],
-        usersControllers.addLastVisitedToHistory
+        usersController.addLastVisitedToHistory
     )
 
     .delete(
@@ -97,13 +99,13 @@ router
             authMiddlewares.checkAuth,
             usersMiddlewares.shoppingCartIsAlreadyEmpty,
         ],
-        usersControllers.cleanShoppingCart
+        usersController.cleanShoppingCart
     )
 
     .delete(
         '/shopping-cart/:productId',
         [authMiddlewares.checkAuth, usersMiddlewares.itemNotFoundInsideCart],
-        usersControllers.deleteItemFromCart
+        usersController.deleteItemFromCart
     )
 
     .delete(
@@ -111,7 +113,7 @@ router
 
         [authMiddlewares.checkAuth, usersMiddlewares.favoritesIsAlreadyEmpty],
 
-        usersControllers.cleanFavorites
+        usersController.cleanFavorites
     )
 
     .delete(
@@ -120,7 +122,7 @@ router
             authMiddlewares.checkAuth,
             usersMiddlewares.itemNotFoundInsideFavorites,
         ],
-        usersControllers.deleteItemFromFavorites
+        usersController.deleteItemFromFavorites
     )
 
 export default router

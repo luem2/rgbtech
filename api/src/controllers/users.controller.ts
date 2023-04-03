@@ -4,7 +4,20 @@ import authServices from '../services/auth.service'
 import usersServices from '../services/users.service'
 
 class UsersController {
-    async updateProfile(req: Request, res: Response) {
+    async getAllUsers(_req: Request, res: Response) {
+        const allUsers = await usersServices.getAllUsers()
+
+        res.status(200).send({
+            status: 'Success',
+            msg: 'All users were sent correctly',
+            body: {
+                users: allUsers,
+                count: allUsers.length,
+            },
+        })
+    }
+
+    async profileUpdate(req: Request, res: Response) {
         const profileEdited = await usersServices.updateProfile(req)
 
         res.status(201).send({
@@ -14,7 +27,7 @@ class UsersController {
         })
     }
 
-    async updatePassword(req: Request, res: Response) {
+    async passwordUpdate(req: Request, res: Response) {
         const userWithPasswordUpdated = await authServices.passwordUpdate(req)
 
         res.status(201).send({
@@ -124,8 +137,8 @@ class UsersController {
         })
     }
 
-    async getUserReviews(req: Request, res: Response) {
-        const user = await usersServices.getUserReviews(req)
+    async getReviews(req: Request, res: Response) {
+        const user = await usersServices.getReviews(req)
 
         res.status(201).send({
             status: 'Success',

@@ -7,7 +7,7 @@ import { compare } from 'bcrypt'
 import { db } from '../database'
 
 class UsersMiddlewares {
-    async checkUserEmailUpdateProfile(
+    async checkUserEmailProfileUpdate(
         req: Request,
         res: Response,
         next: NextFunction

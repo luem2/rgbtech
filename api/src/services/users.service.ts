@@ -3,6 +3,21 @@ import type { Request } from 'express'
 import { db } from '../database'
 
 class UsersServices {
+    async getAllUsers() {
+        return await db.user.findMany({
+            include: {
+                _count: true,
+                awards: true,
+                country: true,
+                favorites: true,
+                history: true,
+                reviews: true,
+                shoppingCart: true,
+                transactions: true,
+            },
+        })
+    }
+
     async updateProfile(req: Request) {
         return await db.user.update({
             where: {
@@ -167,7 +182,7 @@ class UsersServices {
         })
     }
 
-    async getUserReviews(req: Request) {
+    async getReviews(req: Request) {
         return await db.user.findUnique({
             where: {
                 id: req.userId,
