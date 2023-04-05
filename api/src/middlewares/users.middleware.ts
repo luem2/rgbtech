@@ -316,6 +316,32 @@ class UsersMiddlewares {
 
         next()
     }
+
+    async changeUpdateUserAvailability(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) {
+        const userFinded = await db.user.findUnique({
+            where: {
+                id: req.params.userId,
+            },
+        })
+
+        if (!userFinded)
+            return res.status(404).send({
+                status: 'Error',
+                msg: `The user doesn't exists`,
+            })
+
+        if (typeof req.body.disabled !== 'boolean')
+            return res.status(401).send({
+                status: 'Error',
+                msg: 'The disabled property is required and must be a boolean',
+            })
+
+        next()
+    }
 }
 
 export default new UsersMiddlewares()

@@ -93,6 +93,15 @@ router
         usersController.addLastVisitedToHistory
     )
 
+    .patch(
+        '/:userId',
+        [
+            authMiddlewares.checkAdminAuth,
+            usersMiddlewares.changeUpdateUserAvailability,
+        ],
+        usersController.changeUserAvailability
+    )
+
     .delete(
         '/shopping-cart',
         [

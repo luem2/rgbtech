@@ -246,6 +246,17 @@ class UsersServices {
             },
         })
     }
+
+    async changeUserAvailability(req: Request) {
+        return await db.user.update({
+            where: {
+                id: req.params.userId,
+            },
+            data: {
+                disabled: req.body.disabled,
+            },
+        })
+    }
 }
 
 export default new UsersServices()

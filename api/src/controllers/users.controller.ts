@@ -184,5 +184,15 @@ class UsersController {
             msg: 'The last product visited has been added to history',
         })
     }
+
+    async changeUserAvailability(req: Request, res: Response) {
+        const productDisabled = await usersServices.changeUserAvailability(req)
+
+        res.status(201).send({
+            status: 'Success',
+            msg: 'The user have been successfully disabled',
+            body: productDisabled,
+        })
+    }
 }
 export default new UsersController()
