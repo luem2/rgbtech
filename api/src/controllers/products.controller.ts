@@ -3,8 +3,8 @@ import type { Request, Response } from 'express'
 import productsServices from '../services/products.service'
 
 class ProductsController {
-    async getAllProducts(_req: Request, res: Response) {
-        const products = await productsServices.getAllProducts()
+    async getAllProducts(req: Request, res: Response) {
+        const products = await productsServices.getAllProducts(req)
 
         res.status(200).send({
             status: 'Success',
@@ -18,6 +18,12 @@ class ProductsController {
 
     async getProduct(req: Request, res: Response) {
         const product = await productsServices.getProduct(req)
+
+        if (!product)
+            return res.status(404).send({
+                status: 'Error',
+                msg: 'Product not found',
+            })
 
         res.status(200).send({
             status: 'Success',
@@ -33,6 +39,27 @@ class ProductsController {
             status: 'Success',
             msg: 'Product have been successfully updated',
             body: updatedProduct,
+        })
+    }
+
+    async addProduct(req: Request, res: Response) {
+        const newProduct = await productsServices.addProduct(req)
+
+        res.status(201).send({
+            status: 'Success',
+            msg: 'Product have been successfully created',
+            body: newProduct,
+        })
+    }
+
+    async changeProductAvailability(req: Request, res: Response) {
+        const productDisabled =
+            await productsServices.changeProductAvailability(req)
+
+        res.status(201).send({
+            status: 'Success',
+            msg: 'Product have been successfully disabled',
+            body: productDisabled,
         })
     }
 }
