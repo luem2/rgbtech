@@ -4,7 +4,13 @@ import productsServices from '../services/products.service'
 
 class ProductsController {
     async getAllProducts(req: Request, res: Response) {
-        const products = await productsServices.getAllProducts(req)
+        let products
+
+        if (Object.keys(req.query).length) {
+            products = await productsServices.getQueryProducts(req)
+        } else {
+            products = await productsServices.getAllProducts(req)
+        }
 
         res.status(200).send({
             status: 'Success',
