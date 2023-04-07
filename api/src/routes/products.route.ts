@@ -9,10 +9,6 @@ import { validateSchema } from '../helpers/validateRequest'
 const router = Router()
 
 router
-    // TODO: Agregar Multiples filtros con QUERY (Fijarse que filtros hay en rgbtech.vercel.app y agregar nuevos)
-    // [ ] freeShipping
-    // [ ] onDiscount
-    // [ ] rating
     .get(
         '/',
         productsMiddlewares.getProductsAuthMiddleware,
