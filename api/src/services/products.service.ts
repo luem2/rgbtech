@@ -1,5 +1,6 @@
 import type { Prisma } from '@prisma/client'
 import type { Request } from 'express'
+import type { IQueryParams } from '../types'
 
 import { db } from '../database'
 
@@ -57,86 +58,118 @@ class ProductsServices {
             })
     }
 
-    async getQueryProducts({ query, userRole }: Request) {
-        const queryObject = query as Record<string, string>
-        const queryParams = new URLSearchParams(queryObject)
+    async getQueryProducts({ parsedQuery, userRole }: Request) {
+        const queryParams: IQueryParams = parsedQuery
 
-        const queryProductsFilter: Prisma.ProductWhereInput = {
+        const wherePrismaFilter: Prisma.ProductWhereInput = {
             brand: {
-                name: queryObject.brand
+                name: this.isNotEmpty(queryParams.brand)
                     ? {
-                          equals: queryParams.get('brand') as string,
+                          equals: queryParams.brand,
                           mode: 'insensitive',
                       }
                     : undefined,
             },
 
-            name: queryObject.name
+            name: this.isNotEmpty(queryParams.name)
                 ? {
-                      contains: queryParams.get('name') as string,
+                      contains: queryParams.name,
                       mode: 'insensitive',
                   }
                 : undefined,
 
-            price: queryObject.price
+            price: this.isNotEmpty(queryParams.price)
                 ? {
-                      gte: Number(queryParams.get('greaterThan')),
-                      lte: Number(queryParams),
+                      gte: queryParams.price?.greaterThan,
+                      lte: queryParams.price?.lessThan,
                   }
                 : undefined,
 
-            rating: queryObject.rating
+            rating: this.isNotEmpty(queryParams.rating)
                 ? {
-                      //   lte: 5,
-                      //   gte: 2,
-                      //   equals: 5,
+                      lte: queryParams.rating?.lessThan,
+                      gte: queryParams.rating?.greaterThan,
+                      equals: queryParams.rating?.equals,
                   }
                 : undefined,
 
             tags: {
                 every: {
-                    name: queryObject.tags
+                    name: queryParams.tags?.length
                         ? {
-                              in: queryParams.getAll('tags'),
+                              in: queryParams.tags,
                               mode: 'insensitive',
                           }
                         : undefined,
                 },
             },
 
-            stock: queryObject.stock
+            stock: this.isNotEmpty(queryParams.stock)
                 ? {
-                      // gte: 2,
-                      // lte: 2,
+                      gte: queryParams.stock?.greaterThan,
+                      lte: queryParams.stock?.lessThan,
                   }
                 : undefined,
 
             onDiscount: {
-                equals: queryObject.onDiscount
-                    ? JSON.parse(queryParams.get('onDiscount') as string)
-                    : undefined,
+                equals: queryParams.onDiscount,
             },
 
             freeShipping: {
-                equals: queryObject.freeShipping
-                    ? JSON.parse(queryObject.freeShipping)
-                    : undefined,
+                equals: queryParams.freeShipping,
             },
+        }
 
-            disabled:
-                userRole !== 'ADMIN'
-                    ? {
-                          equals: false,
-                      }
+        const orderByPrismaFilter: Prisma.ProductOrderByWithRelationInput = {
+            brand: {
+                name:
+                    queryParams.orderBy?.value === 'brand'
+                        ? queryParams.orderBy.order
+                        : undefined,
+            },
+            name:
+                queryParams.orderBy?.value === 'name'
+                    ? queryParams.orderBy.order
+                    : undefined,
+            price:
+                queryParams.orderBy?.value === 'price'
+                    ? queryParams.orderBy.order
+                    : undefined,
+            rating:
+                queryParams.orderBy?.value === 'rating'
+                    ? queryParams.orderBy.order
+                    : undefined,
+            stock:
+                queryParams.orderBy?.value === 'stock'
+                    ? queryParams.orderBy.order
                     : undefined,
         }
 
-        return await db.product.findMany({
-            where: queryProductsFilter,
-            // orderBy: {},
-            // select: userRole !== 'ADMIN' ? this.userInfoSelectedToSubmit : undefined,
-            // include: userRole === 'ADMIN' ? this.adminInfoIncludedToSubmit : undefined,
-        })
+        if (userRole === 'ADMIN') {
+            return await db.product.findMany({
+                where: wherePrismaFilter,
+                orderBy: orderByPrismaFilter,
+                include: this.adminInfoIncludedToSubmit,
+            })
+        } else
+            return await db.product.findMany({
+                where: {
+                    ...wherePrismaFilter,
+                    disabled: {
+                        equals: false,
+                    },
+                },
+                orderBy: orderByPrismaFilter,
+                select: this.userInfoSelectedToSubmit,
+            })
+    }
+
+    isNotEmpty(arg: string | Record<string, unknown> | undefined) {
+        if (typeof arg === 'string') {
+            return Boolean(arg)
+        } else if (typeof arg === 'object') {
+            return Boolean(Object.keys(arg).length)
+        } else return false
     }
 
     async getProduct(req: Request) {

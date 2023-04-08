@@ -12,6 +12,7 @@ router
     .get(
         '/',
         productsMiddlewares.getProductsAuthMiddleware,
+        productsMiddlewares.checkQueryObjectFilters,
         productsController.getAllProducts
     )
 
