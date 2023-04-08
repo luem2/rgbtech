@@ -21,7 +21,7 @@ export function validateSchema(schema: AnySchema) {
 
 export async function validateSchemaInsideMiddleware(
     schema: AnySchema,
-    req: Request
+    { body, params, query, parsedQuery }: Request
 ) {
     interface SchemaValidProps {
         valid: boolean
@@ -34,9 +34,9 @@ export async function validateSchemaInsideMiddleware(
 
     try {
         await schema.validate({
-            body: req.body,
-            params: req.params,
-            query: req.query,
+            body,
+            params,
+            query: parsedQuery ?? query,
         })
 
         return reqSchema
