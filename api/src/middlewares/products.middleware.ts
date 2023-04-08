@@ -3,6 +3,8 @@ import type { JwtPayload } from 'jsonwebtoken'
 
 import { db } from '../database'
 import { verifyToken } from '../helpers/generateToken'
+import { validateSchemaInsideMiddleware } from '../helpers/validateRequest'
+import { querySchema } from '../helpers/dto'
 
 class ProductsMiddlewares {
     async getProductsAuthMiddleware(
@@ -105,6 +107,39 @@ class ProductsMiddlewares {
                 msg: 'The disabled property is required and must be a boolean',
             })
 
+        next()
+    }
+
+    async checkQueryObjectFilters(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) {
+        if (Object.keys(req.query).length) {
+            const query = req.query as Record<string, string>
+            const parsedQuery: Record<string, unknown> = {}
+
+            for (const key in query) {
+                try {
+                    parsedQuery[key] = JSON.parse(query[key])
+                } catch (e) {
+                    parsedQuery[key] = query[key]
+                }
+            }
+
+            req.parsedQuery = parsedQuery
+
+            const queryValidationSchema = await validateSchemaInsideMiddleware(
+                querySchema,
+                req
+            )
+
+            if (!queryValidationSchema.valid)
+                return res.status(401).send({
+                    status: 'Error',
+                    msg: queryValidationSchema.err,
+                })
+        }
         next()
     }
 }
