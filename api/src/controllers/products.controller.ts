@@ -2,7 +2,7 @@ import type { Request, Response } from 'express'
 
 import productsServices from '../services/products.service'
 
-class ProductsController {
+class ProductsControllers {
     async getAllProducts(req: Request, res: Response) {
         let products
 
@@ -70,4 +70,4 @@ class ProductsController {
     }
 }
 
-export default new ProductsController()
+export default new ProductsControllers()

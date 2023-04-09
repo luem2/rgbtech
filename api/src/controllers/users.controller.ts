@@ -3,7 +3,7 @@ import type { Request, Response } from 'express'
 import authServices from '../services/auth.service'
 import usersServices from '../services/users.service'
 
-class UsersController {
+class UsersControllers {
     async getAllUsers(_req: Request, res: Response) {
         const allUsers = await usersServices.getAllUsers()
 
@@ -195,4 +195,4 @@ class UsersController {
         })
     }
 }
-export default new UsersController()
+export default new UsersControllers()

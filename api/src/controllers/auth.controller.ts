@@ -2,7 +2,7 @@ import type { Request, Response } from 'express'
 
 import authServices from '../services/auth.service'
 
-class AuthController {
+class AuthControllers {
     async login(req: Request, res: Response) {
         const userToken = await authServices.login(req.body)
 
@@ -61,4 +61,4 @@ class AuthController {
     }
 }
 
-export default new AuthController()
+export default new AuthControllers()
