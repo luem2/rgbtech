@@ -5,12 +5,10 @@ import { Router } from 'express'
 import productsRoutes from './products.route'
 import authRoutes from './auth.route'
 import usersRoutes from './users.route'
-// import brandsRoutes from './brand.route'
+import brandsRoutes from './brands.route'
 // import tagsRoutes from './tag.route'
 // import awardsRoutes from './awards.route'
-// import Updates from './updates.route'
 // import salesRoutes from './sales.route'
-// import recoverPasswordRoutes from './recoverPassword.route'
 
 const router = Router()
 
@@ -22,17 +20,13 @@ router
 
     .use('/auth', authRoutes)
 
-// .use('/brands', brandsRoute)
+    .use('/brands', brandsRoutes)
 
 // .use('/tags', tagsRoute)
 
 // .use('/awards', awardsRoute)
 
-// .use('/updates', Updates)
-
 // .use('/sales', salesRoute)
-
-// .use('/recoverPassword', recoverPasswordRouter)
 
 /* TODO: Refactorizar las rutas a transactions */
 /* REFACTOR: UNIFICAR TODO ESTO EN .use('/transactions) */

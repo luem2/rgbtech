@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
 import multer from '../config/multer'
-import usersController from '../controllers/users.controller'
+import usersControllers from '../controllers/users.controller'
 import authMiddlewares from '../middlewares/auth.middleware'
 import usersMiddlewares from '../middlewares/users.middleware'
 import { editUserSchema, newPasswordSchema } from '../helpers/dto/'
@@ -10,25 +10,25 @@ import { validateSchema } from '../helpers/validateRequest'
 const router = Router()
 
 router
-    .get('/', authMiddlewares.checkAdminAuth, usersController.getAllUsers)
+    .get('/', authMiddlewares.checkAdminAuth, usersControllers.getAllUsers)
 
     .get(
         '/shopping-cart',
         authMiddlewares.checkAuth,
-        usersController.getShoppingCart
+        usersControllers.getShoppingCart
     )
 
-    .get('/favorites', authMiddlewares.checkAuth, usersController.getFavorites)
+    .get('/favorites', authMiddlewares.checkAuth, usersControllers.getFavorites)
 
-    .get('/reviews', authMiddlewares.checkAuth, usersController.getReviews)
+    .get('/reviews', authMiddlewares.checkAuth, usersControllers.getReviews)
 
     .get(
         '/transactions',
         authMiddlewares.checkAuth,
-        usersController.getTransactions
+        usersControllers.getTransactions
     )
 
-    .get('/history', authMiddlewares.checkAuth, usersController.getHistory)
+    .get('/history', authMiddlewares.checkAuth, usersControllers.getHistory)
 
     .put(
         '/profile',
@@ -37,7 +37,7 @@ router
             usersMiddlewares.checkUserEmailProfileUpdate,
             validateSchema(editUserSchema),
         ],
-        usersController.profileUpdate
+        usersControllers.profileUpdate
     )
 
     .put(
@@ -47,13 +47,13 @@ router
             usersMiddlewares.checkUserOldPassword,
             validateSchema(newPasswordSchema),
         ],
-        usersController.passwordUpdate
+        usersControllers.passwordUpdate
     )
 
     .put(
         '/profilePhoto',
         [authMiddlewares.checkAuth, multer.single('avatar')],
-        usersController.changeProfilePhoto
+        usersControllers.changeProfilePhoto
     )
 
     .put(
@@ -62,7 +62,7 @@ router
             authMiddlewares.checkAuth,
             usersMiddlewares.itemQuantityCannotBeNullOrNegative,
         ],
-        usersController.modifyItemQuantity
+        usersControllers.modifyItemQuantity
     )
 
     .post(
@@ -72,25 +72,25 @@ router
             authMiddlewares.checkAuth,
             usersMiddlewares.itemAlreadyExistsInFavorites,
         ],
-        usersController.addItemToFavorites
+        usersControllers.addItemToFavorites
     )
 
     .post(
         '/shopping-cart',
         [authMiddlewares.checkAuth, usersMiddlewares.itemAlreadyExistsInCart],
-        usersController.addItemToCart
+        usersControllers.addItemToCart
     )
 
     .post(
         '/reviews',
         [authMiddlewares.checkAuth, usersMiddlewares.checkReviewBody],
-        usersController.addReview
+        usersControllers.addReview
     )
 
     .post(
         '/history',
         [authMiddlewares.checkAuth, usersMiddlewares.checkHistoryLength],
-        usersController.addLastVisitedToHistory
+        usersControllers.addLastVisitedToHistory
     )
 
     .patch(
@@ -99,7 +99,7 @@ router
             authMiddlewares.checkAdminAuth,
             usersMiddlewares.changeUpdateUserAvailability,
         ],
-        usersController.changeUserAvailability
+        usersControllers.changeUserAvailability
     )
 
     .delete(
@@ -108,13 +108,13 @@ router
             authMiddlewares.checkAuth,
             usersMiddlewares.shoppingCartIsAlreadyEmpty,
         ],
-        usersController.cleanShoppingCart
+        usersControllers.cleanShoppingCart
     )
 
     .delete(
         '/shopping-cart/:productId',
         [authMiddlewares.checkAuth, usersMiddlewares.itemNotFoundInsideCart],
-        usersController.deleteItemFromCart
+        usersControllers.deleteItemFromCart
     )
 
     .delete(
@@ -122,7 +122,7 @@ router
 
         [authMiddlewares.checkAuth, usersMiddlewares.favoritesIsAlreadyEmpty],
 
-        usersController.cleanFavorites
+        usersControllers.cleanFavorites
     )
 
     .delete(
@@ -131,7 +131,7 @@ router
             authMiddlewares.checkAuth,
             usersMiddlewares.itemNotFoundInsideFavorites,
         ],
-        usersController.deleteItemFromFavorites
+        usersControllers.deleteItemFromFavorites
     )
 
 export default router

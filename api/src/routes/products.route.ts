@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import productsController from '../controllers/products.controller'
+import productsControllers from '../controllers/products.controller'
 import authMiddlewares from '../middlewares/auth.middleware'
 import productsMiddlewares from '../middlewares/products.middleware'
 import { productSchema } from '../helpers/dto/product.schema'
@@ -13,13 +13,13 @@ router
         '/',
         productsMiddlewares.getProductsAuthMiddleware,
         productsMiddlewares.checkQueryObjectFilters,
-        productsController.getAllProducts
+        productsControllers.getAllProducts
     )
 
     .get(
         '/:productId',
         productsMiddlewares.getProductsAuthMiddleware,
-        productsController.getProduct
+        productsControllers.getProduct
     )
 
     .put(
@@ -29,7 +29,7 @@ router
             validateSchema(productSchema),
             productsMiddlewares.checkBodyEditProduct,
         ],
-        productsController.productUpdate
+        productsControllers.productUpdate
     )
 
     .post(
@@ -39,7 +39,7 @@ router
             validateSchema(productSchema),
             productsMiddlewares.checkBodyAddProduct,
         ],
-        productsController.addProduct
+        productsControllers.addProduct
     )
 
     .patch(
@@ -48,7 +48,7 @@ router
             authMiddlewares.checkAdminAuth,
             productsMiddlewares.checkUpdateProductAvailability,
         ],
-        productsController.changeProductAvailability
+        productsControllers.changeProductAvailability
     )
 
 export default router
