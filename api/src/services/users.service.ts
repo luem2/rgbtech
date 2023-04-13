@@ -18,30 +18,30 @@ class UsersServices {
         })
     }
 
-    async updateProfile(req: Request) {
+    async updateProfile({ userId, body }: Request) {
         return await db.user.update({
             where: {
-                id: req.userId,
+                id: userId,
             },
-            data: req.body,
+            data: body,
         })
     }
 
-    async changeProfilePhoto(req: Request) {
+    async changeProfilePhoto({ userId, file }: Request) {
         await db.user.update({
             where: {
-                id: req.userId,
+                id: userId,
             },
             data: {
-                picture: req.file?.filename,
+                picture: file?.filename,
             },
         })
     }
 
-    async getShoppingCart(req: Request) {
+    async getShoppingCart(id: Request['userId']) {
         return await db.user.findUnique({
             where: {
-                id: req.userId,
+                id,
             },
             select: {
                 shoppingCart: true,
@@ -49,15 +49,15 @@ class UsersServices {
         })
     }
 
-    async addItemToCart(req: Request) {
+    async addItemToCart({ userId, body }: Request) {
         await db.user.update({
             where: {
-                id: req.userId,
+                id: userId,
             },
             data: {
                 shoppingCart: {
                     create: {
-                        productId: req.body.productId,
+                        productId: body.productId,
                         quantity: 1,
                     },
                 },
@@ -65,20 +65,20 @@ class UsersServices {
         })
     }
 
-    async modifyItemQuantity(req: Request) {
-        const quantity = req.body.quantity
+    async modifyItemQuantity({ userId, body }: Request) {
+        const quantity = body.quantity
 
         await db.user.update({
             where: {
-                id: req.userId,
+                id: userId,
             },
             data: {
                 shoppingCart: {
                     update: {
                         where: {
                             userId_productId: {
-                                userId: req.userId,
-                                productId: req.body.productId,
+                                userId,
+                                productId: body.productId,
                             },
                         },
                         data: {
@@ -90,18 +90,18 @@ class UsersServices {
         })
     }
 
-    async deleteItemFromCart(req: Request) {
-        const productId = req.params.productId
+    async deleteItemFromCart({ userId, params }: Request) {
+        const productId = params.productId
 
         await db.user.update({
             where: {
-                id: req.userId,
+                id: userId,
             },
             data: {
                 shoppingCart: {
                     delete: {
                         userId_productId: {
-                            userId: req.userId,
+                            userId,
                             productId,
                         },
                     },
@@ -110,10 +110,10 @@ class UsersServices {
         })
     }
 
-    async cleanShoppingCart(req: Request) {
+    async cleanShoppingCart(id: Request['userId']) {
         await db.user.update({
             where: {
-                id: req.userId,
+                id,
             },
             data: {
                 shoppingCart: {
@@ -123,10 +123,10 @@ class UsersServices {
         })
     }
 
-    async getFavorites(req: Request) {
+    async getFavorites(id: Request['userId']) {
         return await db.user.findUnique({
             where: {
-                id: req.userId,
+                id,
             },
             select: {
                 favorites: true,
@@ -134,33 +134,33 @@ class UsersServices {
         })
     }
 
-    async addItemToFavorites(req: Request) {
+    async addItemToFavorites({ userId, body }: Request) {
         await db.user.update({
             where: {
-                id: req.userId,
+                id: userId,
             },
             data: {
                 favorites: {
                     create: {
-                        productId: req.body.productId,
+                        productId: body.productId,
                     },
                 },
             },
         })
     }
 
-    async deleteItemFromFavorites(req: Request) {
-        const productId = req.params.productId
+    async deleteItemFromFavorites({ userId, params }: Request) {
+        const productId = params.productId
 
         await db.user.update({
             where: {
-                id: req.userId,
+                id: userId,
             },
             data: {
                 favorites: {
                     delete: {
                         userId_productId: {
-                            userId: req.userId,
+                            userId,
                             productId,
                         },
                     },
@@ -169,10 +169,10 @@ class UsersServices {
         })
     }
 
-    async cleanFavorites(req: Request) {
+    async cleanFavorites(id: Request['userId']) {
         await db.user.update({
             where: {
-                id: req.userId,
+                id,
             },
             data: {
                 favorites: {
@@ -182,10 +182,10 @@ class UsersServices {
         })
     }
 
-    async getReviews(req: Request) {
+    async getReviews(id: Request['userId']) {
         return await db.user.findUnique({
             where: {
-                id: req.userId,
+                id,
             },
             select: {
                 reviews: true,
@@ -193,27 +193,27 @@ class UsersServices {
         })
     }
 
-    async addReview(req: Request) {
+    async addReview({ userId, body }: Request) {
         await db.user.update({
             where: {
-                id: req.userId,
+                id: userId,
             },
             data: {
                 reviews: {
                     create: {
-                        productId: req.body.productId,
-                        comment: req.body.comment,
-                        rating: req.body.rating,
+                        productId: body.productId,
+                        comment: body.comment,
+                        rating: body.rating,
                     },
                 },
             },
         })
     }
 
-    async getTransactions(req: Request) {
+    async getTransactions(id: Request['userId']) {
         return await db.user.findUnique({
             where: {
-                id: req.userId,
+                id,
             },
             select: {
                 transactions: true,
@@ -221,10 +221,10 @@ class UsersServices {
         })
     }
 
-    async getHistory(req: Request) {
+    async getHistory(id: Request['userId']) {
         return await db.user.findUnique({
             where: {
-                id: req.userId,
+                id,
             },
             select: {
                 history: true,
@@ -232,28 +232,28 @@ class UsersServices {
         })
     }
 
-    async addLastVisitedToHistory(req: Request) {
+    async addLastVisitedToHistory({ userId, body }: Request) {
         await db.user.update({
             where: {
-                id: req.userId,
+                id: userId,
             },
             data: {
                 history: {
                     create: {
-                        productId: req.body.productId,
+                        productId: body.productId,
                     },
                 },
             },
         })
     }
 
-    async changeUserAvailability(req: Request) {
+    async changeUserAvailability({ params, body }: Request) {
         return await db.user.update({
             where: {
-                id: req.params.userId,
+                id: params.userId,
             },
             data: {
-                disabled: req.body.disabled,
+                disabled: body.disabled,
             },
         })
     }

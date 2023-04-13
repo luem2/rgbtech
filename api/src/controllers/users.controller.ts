@@ -47,7 +47,7 @@ class UsersControllers {
     }
 
     async getShoppingCart(req: Request, res: Response) {
-        const user = await usersServices.getShoppingCart(req)
+        const user = await usersServices.getShoppingCart(req.userId)
 
         res.status(200).send({
             status: 'Success',
@@ -88,7 +88,7 @@ class UsersControllers {
     }
 
     async cleanShoppingCart(req: Request, res: Response) {
-        await usersServices.cleanShoppingCart(req)
+        await usersServices.cleanShoppingCart(req.userId)
 
         res.status(201).send({
             status: 'Success',
@@ -97,7 +97,7 @@ class UsersControllers {
     }
 
     async getFavorites(req: Request, res: Response) {
-        const favorites = await usersServices.getFavorites(req)
+        const favorites = await usersServices.getFavorites(req.userId)
 
         res.status(200).send({
             status: 'Success',
@@ -129,7 +129,7 @@ class UsersControllers {
     }
 
     async cleanFavorites(req: Request, res: Response) {
-        await usersServices.cleanFavorites(req)
+        await usersServices.cleanFavorites(req.userId)
 
         res.status(201).send({
             status: 'Success',
@@ -138,7 +138,7 @@ class UsersControllers {
     }
 
     async getReviews(req: Request, res: Response) {
-        const user = await usersServices.getReviews(req)
+        const user = await usersServices.getReviews(req.userId)
 
         res.status(201).send({
             status: 'Success',
@@ -157,7 +157,7 @@ class UsersControllers {
     }
 
     async getTransactions(req: Request, res: Response) {
-        const user = await usersServices.getTransactions(req)
+        const user = await usersServices.getTransactions(req.userId)
 
         res.status(200).send({
             status: 'Success',
@@ -167,7 +167,7 @@ class UsersControllers {
     }
 
     async getHistory(req: Request, res: Response) {
-        const user = await usersServices.getHistory(req)
+        const user = await usersServices.getHistory(req.userId)
 
         res.status(200).send({
             status: 'Success',
