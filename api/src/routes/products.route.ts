@@ -28,6 +28,7 @@ router
             authMiddlewares.checkAdminAuth,
             validateSchema(productSchema),
             productsMiddlewares.checkBodyEditProduct,
+            productsMiddlewares.checkBrandAndTags,
         ],
         productsControllers.productUpdate
     )
@@ -38,6 +39,7 @@ router
             authMiddlewares.checkAdminAuth,
             validateSchema(productSchema),
             productsMiddlewares.checkBodyAddProduct,
+            productsMiddlewares.checkBrandAndTags,
         ],
         productsControllers.addProduct
     )
