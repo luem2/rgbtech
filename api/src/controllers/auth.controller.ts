@@ -23,7 +23,7 @@ class AuthControllers {
     }
 
     async profile(req: Request, res: Response) {
-        const userProfile = await authServices.getProfile(req)
+        const userProfile = await authServices.getProfile(req.userId)
 
         res.status(200).send({
             status: 'Success',
@@ -43,7 +43,7 @@ class AuthControllers {
     }
 
     async passwordRecoveryEmail(req: Request, res: Response) {
-        await authServices.passwordRecoveryEmail(req)
+        await authServices.passwordRecoveryEmail(req.body)
 
         res.status(200).send({
             status: 'Success',
@@ -52,7 +52,7 @@ class AuthControllers {
     }
 
     async accountConfirmation(req: Request, res: Response) {
-        await authServices.accountConfirmation(req)
+        await authServices.accountConfirmation(req.params)
 
         res.status(200).send({
             status: 'Success',

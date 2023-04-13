@@ -12,10 +12,10 @@ class AuthServices {
         return await tokenSign({ id: user.id, role: user.role })
     }
 
-    async getProfile(req: Request) {
+    async getProfile(id: Request['userId']) {
         return await db.user.findUnique({
             where: {
-                id: req.userId,
+                id,
             },
             select: {
                 _count: true,
@@ -56,23 +56,23 @@ class AuthServices {
         return newUser
     }
 
-    async passwordUpdate(req: Request) {
-        const id = !req.params.id ? req.userId : req.params.id
+    async passwordUpdate({ userId, params, body }: Request) {
+        const id = params.id ?? userId
 
         return await db.user.update({
             where: {
                 id,
             },
             data: {
-                password: await bcrypt.hash(req.body.newPassword, 10),
+                password: await bcrypt.hash(body.newPassword, 10),
             },
         })
     }
 
-    async passwordRecoveryEmail(req: Request) {
+    async passwordRecoveryEmail({ email }: Request['body']) {
         const user = await db.user.findUnique({
             where: {
-                email: req.body.email,
+                email,
             },
         })
 
@@ -81,10 +81,10 @@ class AuthServices {
         nodemailerService.sendPasswordRecoveryEmail(user)
     }
 
-    async accountConfirmation(req: Request) {
+    async accountConfirmation({ id }: Request['params']) {
         return await db.user.update({
             where: {
-                id: req.params.id,
+                id,
             },
             data: {
                 verificated: true,
