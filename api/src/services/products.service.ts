@@ -42,7 +42,7 @@ class ProductsServices {
         usersHistory: true,
     }
 
-    async getAllProducts({ userRole }: Request) {
+    async getAllProducts(userRole: Request['userRole']) {
         if (userRole !== 'ADMIN') {
             return await db.product.findMany({
                 where: {
@@ -255,19 +255,17 @@ class ProductsServices {
         })
     }
 
-    async addProduct(newProduct: Request['body']) {
-        const product = newProduct as ProductSchema
-
+    async addProduct(newProduct: ProductSchema) {
         return await db.product.create({
             data: {
-                ...product,
+                ...newProduct,
                 brand: {
                     connect: {
-                        name: product.brand,
+                        name: newProduct.brand,
                     },
                 },
                 tags: {
-                    connectOrCreate: product.tags.map((tag) => ({
+                    connectOrCreate: newProduct.tags.map((tag) => ({
                         where: {
                             name: tag,
                         },

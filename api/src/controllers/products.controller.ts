@@ -9,7 +9,7 @@ class ProductsControllers {
         if (Object.keys(req.query).length) {
             products = await productsServices.getQueryProducts(req)
         } else {
-            products = await productsServices.getAllProducts(req)
+            products = await productsServices.getAllProducts(req.userRole)
         }
 
         res.status(200).send({

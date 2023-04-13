@@ -53,3 +53,18 @@ export interface IQueryParams {
         order: 'asc' | 'desc'
     }
 }
+
+export interface ProductSchema {
+    id?: string
+    name: string
+    price: number
+    description: string
+    specifications: Record<string, string>
+    picture: string
+    stock: number
+    onDiscount: boolean
+    discountPercentage: number
+    freeShipping: boolean
+    tags: string[]
+    brand: string
+}
