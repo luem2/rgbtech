@@ -1,6 +1,6 @@
 import type { Prisma } from '@prisma/client'
 import type { Request } from 'express'
-import type { IQueryParams } from '../types'
+import type { IQueryParams, ProductSchema } from '../types'
 
 import { db } from '../database'
 
@@ -172,11 +172,11 @@ class ProductsServices {
         } else return false
     }
 
-    async getProduct(req: Request) {
-        if (req.userRole !== 'ADMIN') {
+    async getProduct({ userRole, params }: Request) {
+        if (userRole !== 'ADMIN') {
             return await db.product.findFirst({
                 where: {
-                    id: req.params.productId,
+                    id: params.productId,
                     AND: {
                         disabled: {
                             not: true,
@@ -211,7 +211,7 @@ class ProductsServices {
         } else {
             return await db.product.findUnique({
                 where: {
-                    id: req.params.productId,
+                    id: params.productId,
                 },
                 include: {
                     _count: true,
@@ -227,28 +227,66 @@ class ProductsServices {
         }
     }
 
-    async productUpdate(req: Request) {
+    async productUpdate(product: ProductSchema) {
+        const { id, ...body } = product
+
         return await db.product.update({
             where: {
-                id: req.params.productId,
-            },
-            data: req.body,
-        })
-    }
-
-    async addProduct(req: Request) {
-        return await db.product.create({
-            data: req.body,
-        })
-    }
-
-    async changeProductAvailability(req: Request) {
-        return await db.product.update({
-            where: {
-                id: req.params.productId,
+                id,
             },
             data: {
-                disabled: req.body.disabled,
+                ...body,
+                brand: {
+                    connect: {
+                        name: product.brand,
+                    },
+                },
+                tags: {
+                    connectOrCreate: product.tags.map((tag) => ({
+                        where: {
+                            name: tag,
+                        },
+                        create: {
+                            name: tag,
+                        },
+                    })),
+                },
+            },
+        })
+    }
+
+    async addProduct(newProduct: Request['body']) {
+        const product = newProduct as ProductSchema
+
+        return await db.product.create({
+            data: {
+                ...product,
+                brand: {
+                    connect: {
+                        name: product.brand,
+                    },
+                },
+                tags: {
+                    connectOrCreate: product.tags.map((tag) => ({
+                        where: {
+                            name: tag,
+                        },
+                        create: {
+                            name: tag,
+                        },
+                    })),
+                },
+            },
+        })
+    }
+
+    async changeProductAvailability({ params, body }: Request) {
+        return await db.product.update({
+            where: {
+                id: params.productId,
+            },
+            data: {
+                disabled: body.disabled,
             },
         })
     }
