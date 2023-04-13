@@ -1,5 +1,6 @@
 import type { Request, Response, NextFunction } from 'express'
 import type { JwtPayload } from 'jsonwebtoken'
+import type { ProductSchema } from '../types'
 
 import { db } from '../database'
 import { verifyToken } from '../helpers/generateToken'
@@ -17,19 +18,26 @@ class ProductsMiddlewares {
         if (token) {
             const tokenData = await verifyToken(token)
 
-            if (!tokenData) next()
-            else {
+            if (tokenData) {
                 req.userRole = (tokenData as JwtPayload).role
             }
-        }
 
-        next()
+            next()
+        }
     }
 
     async checkBodyAddProduct(req: Request, res: Response, next: NextFunction) {
+        const newProduct = req.body as ProductSchema
+
+        if (newProduct.id)
+            return res.status(401).send({
+                status: 'Error',
+                msg: 'This operation does not require an ID',
+            })
+
         const productFinded = await db.product.findUnique({
             where: {
-                name: req.body.name,
+                name: newProduct.name,
             },
         })
 
@@ -47,7 +55,9 @@ class ProductsMiddlewares {
         res: Response,
         next: NextFunction
     ) {
-        if (!req.body.id)
+        const product = req.body as ProductSchema
+
+        if (!product.id)
             return res.status(401).send({
                 status: 'Error',
                 msg: 'Product id is needed to perform the operation',
@@ -55,7 +65,7 @@ class ProductsMiddlewares {
 
         const productFinded = await db.product.findUnique({
             where: {
-                id: req.body.id,
+                id: product.id,
             },
         })
 
@@ -65,12 +75,12 @@ class ProductsMiddlewares {
                 msg: 'Product id not found, the product doesnt exists',
             })
 
-        if (productFinded.name === req.body.name) {
+        if (productFinded.name === product.name) {
             next()
         } else {
             const otherProduct = await db.product.findUnique({
                 where: {
-                    name: req.body.name,
+                    name: product.name,
                 },
             })
 
@@ -82,6 +92,37 @@ class ProductsMiddlewares {
 
             next()
         }
+    }
+
+    async checkBrandAndTags(req: Request, res: Response, next: NextFunction) {
+        const product = req.body as ProductSchema
+
+        const brandFinded = await db.brand.findUnique({
+            where: {
+                name: product.brand,
+            },
+        })
+
+        if (!brandFinded) {
+            return res.status(401).send({
+                status: 'Error',
+                msg: 'The brand does not exists',
+            })
+        }
+
+        product.tags.forEach((tag) => {
+            if (tag.length < 2)
+                return res.status(401).send({
+                    status: 'Error',
+                    msg: 'The tag must have at least 2 letters',
+                })
+        })
+
+        req.body.tags = product.tags.map(
+            (tag) => tag[0].toUpperCase() + tag.slice(1)
+        )
+
+        next()
     }
 
     async checkUpdateProductAvailability(
