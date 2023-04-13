@@ -11,7 +11,11 @@ router
 
     .get('/profile', authMiddlewares.checkAuth, authControllers.profile)
 
-    .put('/account-confirmation/:id', authControllers.accountConfirmation)
+    .put(
+        '/account-confirmation/:id',
+        authMiddlewares.userIsAlreadyConfirmed,
+        authControllers.accountConfirmation
+    )
 
     .put(
         '/password-recovery/:id',

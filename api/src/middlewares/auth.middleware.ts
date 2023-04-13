@@ -152,6 +152,29 @@ class AuthMiddlewares {
 
         next()
     }
+
+    async userIsAlreadyConfirmed(
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) {
+        const user = await db.user.findUnique({
+            where: {
+                id: req.params.id,
+            },
+            select: {
+                verificated: true,
+            },
+        })
+
+        if (user?.verificated)
+            return res.status(401).send({
+                status: 'Error',
+                msg: 'The account is already confirmed',
+            })
+
+        next()
+    }
 }
 
 export default new AuthMiddlewares()
