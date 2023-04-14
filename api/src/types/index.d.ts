@@ -68,3 +68,8 @@ export interface ProductSchema {
     tags: string[]
     brand: string
 }
+
+export interface BrandSchema {
+    name: string
+    logo: string
+}
