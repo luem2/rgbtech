@@ -190,7 +190,7 @@ class UsersControllers {
 
         res.status(201).send({
             status: 'Success',
-            msg: 'The user have been successfully disabled',
+            msg: 'The user have been successfully updated',
             body: productDisabled,
         })
     }

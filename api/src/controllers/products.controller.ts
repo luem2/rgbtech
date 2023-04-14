@@ -64,7 +64,7 @@ class ProductsControllers {
 
         res.status(201).send({
             status: 'Success',
-            msg: 'Product have been successfully disabled',
+            msg: 'Product have been successfully updated',
             body: productDisabled,
         })
     }
