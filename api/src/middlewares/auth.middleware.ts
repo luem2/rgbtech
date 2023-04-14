@@ -7,6 +7,7 @@ import { db } from '../database'
 import { verifyToken } from '../helpers/generateToken'
 import { validateSchemaInsideMiddleware } from '../helpers/validateRequest'
 import { createUserSchema, createUserSchemaWithGoogle } from '../helpers/dto'
+import { defaultAvatar } from '../helpers/constants'
 
 class AuthMiddlewares {
     async checkAuth(req: Request, res: Response, next: NextFunction) {
@@ -87,6 +88,12 @@ class AuthMiddlewares {
                     status: 'Error',
                     msg: userSchema.err,
                 })
+
+            if (!req.file) {
+                req.body.picture = defaultAvatar
+            } else {
+                req.body.picture = req.file?.filename
+            }
         }
 
         const userExists = await db.user.findUnique({
