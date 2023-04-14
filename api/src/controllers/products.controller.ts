@@ -41,7 +41,7 @@ class ProductsControllers {
     async productUpdate(req: Request, res: Response) {
         const updatedProduct = await productsServices.productUpdate(req.body)
 
-        res.status(201).send({
+        res.status(200).send({
             status: 'Success',
             msg: 'Product have been successfully updated',
             body: updatedProduct,

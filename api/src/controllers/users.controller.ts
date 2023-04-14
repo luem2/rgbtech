@@ -20,7 +20,7 @@ class UsersControllers {
     async profileUpdate(req: Request, res: Response) {
         const profileEdited = await usersServices.updateProfile(req)
 
-        res.status(201).send({
+        res.status(200).send({
             status: 'Success',
             msg: 'The profile was successfully updated',
             body: profileEdited,
@@ -30,7 +30,7 @@ class UsersControllers {
     async passwordUpdate(req: Request, res: Response) {
         const userWithPasswordUpdated = await authServices.passwordUpdate(req)
 
-        res.status(201).send({
+        res.status(200).send({
             status: 'Success',
             msg: 'The password was successfully updated',
             body: userWithPasswordUpdated,
@@ -40,7 +40,7 @@ class UsersControllers {
     async changeProfilePhoto(req: Request, res: Response) {
         await usersServices.changeProfilePhoto(req)
 
-        res.status(201).send({
+        res.status(200).send({
             status: 'Success',
             msg: 'The profile photo was successfully updated',
         })
@@ -70,7 +70,7 @@ class UsersControllers {
     async modifyItemQuantity(req: Request, res: Response) {
         await usersServices.modifyItemQuantity(req)
 
-        res.status(201).send({
+        res.status(200).send({
             status: 'Success',
             msg: 'The item quantity has been modified',
         })
@@ -81,7 +81,7 @@ class UsersControllers {
 
         await usersServices.deleteItemFromCart(req)
 
-        res.status(201).send({
+        res.status(200).send({
             status: 'Success',
             msg: `The item ${product} has been deleted from cart`,
         })
@@ -90,7 +90,7 @@ class UsersControllers {
     async cleanShoppingCart(req: Request, res: Response) {
         await usersServices.cleanShoppingCart(req.userId)
 
-        res.status(201).send({
+        res.status(200).send({
             status: 'Success',
             msg: `The user's shopping cart was cleaned`,
         })
@@ -122,7 +122,7 @@ class UsersControllers {
 
         await usersServices.deleteItemFromFavorites(req)
 
-        res.status(201).send({
+        res.status(200).send({
             status: 'Success',
             msg: `The item ${product} has been deleted from favorites`,
         })
@@ -131,7 +131,7 @@ class UsersControllers {
     async cleanFavorites(req: Request, res: Response) {
         await usersServices.cleanFavorites(req.userId)
 
-        res.status(201).send({
+        res.status(200).send({
             status: 'Success',
             msg: `The user's favorites was cleaned`,
         })
@@ -140,7 +140,7 @@ class UsersControllers {
     async getReviews(req: Request, res: Response) {
         const user = await usersServices.getReviews(req.userId)
 
-        res.status(201).send({
+        res.status(200).send({
             status: 'Success',
             msg: `The user's reviews was successfully submitted`,
             body: user?.reviews,
@@ -188,7 +188,7 @@ class UsersControllers {
     async changeUserAvailability(req: Request, res: Response) {
         const productDisabled = await usersServices.changeUserAvailability(req)
 
-        res.status(201).send({
+        res.status(200).send({
             status: 'Success',
             msg: 'The user have been successfully updated',
             body: productDisabled,
