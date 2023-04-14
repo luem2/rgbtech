@@ -14,7 +14,6 @@ export const createUserSchema = object({
             )
             .required('Password is required'),
         nacionality: string().optional(),
-        picture: string().url().optional(),
         birthDate: date().optional().nullable().min(new Date(1900, 0, 1)),
     }),
 }) as never

@@ -38,6 +38,12 @@ class UsersControllers {
     }
 
     async changeProfilePhoto(req: Request, res: Response) {
+        if (!req.file)
+            return res.status(401).send({
+                status: 'Error',
+                msg: 'You have not sent the image',
+            })
+
         await usersServices.changeProfilePhoto(req)
 
         res.status(200).send({
