@@ -1,32 +1,51 @@
 import { Router } from 'express'
-import { Tag } from '../db.js'
+
+import tagsControllers from '../controllers/tags.controller'
+import authMiddlewares from '../middlewares/auth.middleware'
+import tagsMiddlewares from '../middlewares/tags.middleware'
 
 const router = Router()
 
-router.get('/', async (req, res) => {
-    try {
-        const tags = await Tag.findAll({
-            attributes: ['id', 'name'],
-        })
-        res.status(200).send(tags)
-    } catch (error) {
-        res.status(500).send('Internal error server')
-    }
-})
+router
 
-router.post('/', async (req, res) => {
-    let { name, id } = req.body
-    if (!name || !id)
-        return res.status(404).send('Falta enviar datos obligatorios')
-    try {
-        await Tag.create({
-            name,
-            id,
-        })
-        return res.send('Tag created successfully')
-    } catch (error) {
-        return res.status(404).send('Error en alguno de los datos provistos')
-    }
-})
+    .get('/', authMiddlewares.checkAdminAuth, tagsControllers.getAllTags)
+
+    .get(
+        '/:name',
+        [authMiddlewares.checkAdminAuth, tagsMiddlewares.normalizeTag],
+        tagsControllers.getTag
+    )
+
+    .put(
+        '/:name',
+        [
+            authMiddlewares.checkAdminAuth,
+            tagsMiddlewares.checkNameTag,
+            tagsMiddlewares.normalizeTag,
+            tagsMiddlewares.checkBodyEditTag,
+        ],
+        tagsControllers.tagUpdate
+    )
+
+    .post(
+        '/',
+        [
+            authMiddlewares.checkAdminAuth,
+            tagsMiddlewares.checkNameTag,
+            tagsMiddlewares.normalizeTag,
+            tagsMiddlewares.checkBodyAddTag,
+        ],
+        tagsControllers.addTag
+    )
+
+    .patch(
+        '/:name',
+        [
+            authMiddlewares.checkAdminAuth,
+            tagsMiddlewares.normalizeTag,
+            tagsMiddlewares.checkUpdateTagAvailability,
+        ],
+        tagsControllers.changeTagAvailability
+    )
 
 export default router

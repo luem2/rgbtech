@@ -1,12 +1,10 @@
 import { Router } from 'express'
 
-// import { create, capture, cancel } from '../controllers/paypal'
-
 import productsRoutes from './products.route'
 import authRoutes from './auth.route'
 import usersRoutes from './users.route'
 import brandsRoutes from './brands.route'
-// import tagsRoutes from './tag.route'
+import tagsRoutes from './tags.route'
 // import awardsRoutes from './awards.route'
 // import salesRoutes from './sales.route'
 
@@ -22,7 +20,7 @@ router
 
     .use('/brands', brandsRoutes)
 
-// .use('/tags', tagsRoute)
+    .use('/tags', tagsRoutes)
 
 // .use('/awards', awardsRoute)
 
