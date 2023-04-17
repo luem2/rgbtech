@@ -25,7 +25,6 @@
         "nodemailer": "^6.9.1",
         "pg": "^8.9.0",
         "pg-hstore": "^2.3.4",
-        "uuid": "^9.0.0",
         "yup": "^1.0.2"
     },
     "devDependencies": {
@@ -40,7 +39,6 @@
         "@types/node": "^18.14.6",
         "@types/nodemailer": "^6.4.7",
         "@types/pg": "^8.6.6",
-        "@types/uuid": "^9.0.1",
         "@typescript-eslint/eslint-plugin": "^5.54.0",
         "@typescript-eslint/parser": "^5.54.0",
         "eslint": "^8.35.0",
