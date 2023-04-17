@@ -1,6 +1,8 @@
 import type { Request } from 'express'
 
 import { db } from '../database'
+import { PICTURES } from '../helpers/constants'
+import { deleteOldFile } from '../helpers/fsFunctions'
 
 class UsersServices {
     async getAllUsers() {
@@ -28,12 +30,31 @@ class UsersServices {
     }
 
     async changeProfilePhoto({ userId, file }: Request) {
-        await db.user.update({
+        const user = await db.user.findUnique({
+            where: {
+                id: userId,
+            },
+            select: {
+                picture: true,
+            },
+        })
+
+        if (!user) return null
+
+        const oldFileName = user.picture?.split('/').at(-1) as string
+        const fileName = (file as Express.Multer.File).filename
+
+        deleteOldFile({
+            nameFolder: PICTURES,
+            fileName: oldFileName,
+        })
+
+        return await db.user.update({
             where: {
                 id: userId,
             },
             data: {
-                picture: file?.filename,
+                picture: `/uploads/${PICTURES}/${fileName}`,
             },
         })
     }

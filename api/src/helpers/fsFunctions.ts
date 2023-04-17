@@ -31,7 +31,7 @@ export function deleteOldFile(config: ConfigProps) {
 
     fs.unlink(pathFile, (err) => {
         if (err) {
-            throw new Error(err.message)
+            console.info(err.message)
         }
 
         console.info(`The file ${fileName} was successfully removed`)
