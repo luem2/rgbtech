@@ -5,6 +5,8 @@ import authMiddlewares from '../middlewares/auth.middleware'
 import productsMiddlewares from '../middlewares/products.middleware'
 import { productSchema } from '../helpers/dto/product.schema'
 import { validateSchema } from '../helpers/validateRequest'
+import { multerCore, multerTemp } from '../config/multer'
+import { parseBody } from '../helpers/parseBody'
 
 const router = Router()
 
@@ -27,19 +29,31 @@ router
         [
             authMiddlewares.checkAdminAuth,
             validateSchema(productSchema),
-            productsMiddlewares.checkBodyEditProduct,
             productsMiddlewares.checkBrandAndTags,
+            productsMiddlewares.checkBodyEditProduct,
         ],
         productsControllers.productUpdate
+    )
+
+    .put(
+        '/picture',
+        [
+            authMiddlewares.checkAdminAuth,
+            productsMiddlewares.checkUpdatePictureProduct,
+            multerCore.single('product'),
+        ],
+        productsControllers.productPictureUpdate
     )
 
     .post(
         '/',
         [
+            multerTemp.single('product'),
             authMiddlewares.checkAdminAuth,
+            parseBody,
             validateSchema(productSchema),
-            productsMiddlewares.checkBodyAddProduct,
             productsMiddlewares.checkBrandAndTags,
+            productsMiddlewares.checkBodyAddProduct,
         ],
         productsControllers.addProduct
     )
