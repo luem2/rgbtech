@@ -6,6 +6,7 @@ import { db } from '../database'
 import { verifyToken } from '../helpers/generateToken'
 import { validateSchemaInsideMiddleware } from '../helpers/validateRequest'
 import { querySchema } from '../helpers/dto'
+import { generateFileName } from '../helpers/filename'
 
 class ProductsMiddlewares {
     async getProductsAuthMiddleware(
@@ -21,9 +22,9 @@ class ProductsMiddlewares {
             if (tokenData) {
                 req.userRole = (tokenData as JwtPayload).role
             }
-
-            next()
         }
+
+        next()
     }
 
     async checkBodyAddProduct(req: Request, res: Response, next: NextFunction) {
@@ -47,6 +48,17 @@ class ProductsMiddlewares {
                 msg: 'The product already exists',
             })
 
+        if (!req.file) {
+            return res.status(401).send({
+                status: 'Error',
+                msg: 'The product needs an image',
+            })
+        }
+
+        const fileName = generateFileName(req.file)
+
+        req.body.picture = `/uploads/core/${fileName}`
+
         next()
     }
 
@@ -61,6 +73,12 @@ class ProductsMiddlewares {
             return res.status(401).send({
                 status: 'Error',
                 msg: 'Product id is needed to perform the operation',
+            })
+
+        if (product.picture)
+            return res.status(401).send({
+                status: 'Error',
+                msg: 'This operation can not change the picture',
             })
 
         const productFinded = await db.product.findUnique({
@@ -181,6 +199,16 @@ class ProductsMiddlewares {
                     msg: queryValidationSchema.err,
                 })
         }
+        next()
+    }
+
+    checkUpdatePictureProduct(req: Request, res: Response, next: NextFunction) {
+        if (!req.query.id)
+            return res.status(401).send({
+                status: 'Error',
+                msg: 'Product id is needed to perform the operation',
+            })
+
         next()
     }
 }
