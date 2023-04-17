@@ -3,6 +3,8 @@ import type { Request } from 'express'
 import type { IQueryParams, ProductSchema } from '../types'
 
 import { db } from '../database'
+import { deleteOldFile, writeNewFile } from '../helpers/fsFunctions'
+import { CORE } from '../helpers/constants'
 
 class ProductsServices {
     readonly userInfoSelectedToSubmit: Prisma.ProductSelect = {
@@ -255,7 +257,46 @@ class ProductsServices {
         })
     }
 
-    async addProduct(newProduct: ProductSchema) {
+    async productPictureUpdate({ file, query }: Request) {
+        const id = query.id as string
+
+        const product = await db.product.findUnique({
+            where: {
+                id,
+            },
+            select: {
+                picture: true,
+            },
+        })
+
+        if (!product) return null
+
+        const oldFileName = product.picture.split('/').at(-1) as string
+        const fileName = (file as Express.Multer.File).filename
+
+        deleteOldFile({
+            nameFolder: CORE,
+            fileName: oldFileName,
+        })
+
+        return await db.product.update({
+            where: {
+                id,
+            },
+            data: {
+                picture: `/uploads/${CORE}/${fileName}`,
+            },
+        })
+    }
+
+    async addProduct({ file, body }: Request) {
+        const newProduct = body as ProductSchema
+
+        writeNewFile(file, {
+            nameFolder: CORE,
+            fileName: body.picture.split('/').at(-1),
+        })
+
         return await db.product.create({
             data: {
                 ...newProduct,
