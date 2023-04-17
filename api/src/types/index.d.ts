@@ -1,4 +1,4 @@
-import type { Prisma, Product } from '@prisma/client'
+import type { Prisma } from '@prisma/client'
 
 export {}
 declare global {
@@ -7,7 +7,6 @@ declare global {
             userId: string
             userRole: string
             parsedQuery: Record<string, unknown>
-            product: Product
         }
     }
 }
