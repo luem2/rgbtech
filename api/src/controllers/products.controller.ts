@@ -48,8 +48,30 @@ class ProductsControllers {
         })
     }
 
+    async productPictureUpdate(req: Request, res: Response) {
+        if (!req.file)
+            return res.status(401).send({
+                status: 'Error',
+                msg: 'The new product image is needed',
+            })
+
+        const updatedProduct = await productsServices.productPictureUpdate(req)
+
+        if (!updatedProduct)
+            return res.status(401).send({
+                status: 'Error',
+                msg: 'Product not found',
+            })
+
+        res.status(200).send({
+            status: 'Success',
+            msg: 'Product picture have been successfully updated',
+            body: updatedProduct,
+        })
+    }
+
     async addProduct(req: Request, res: Response) {
-        const newProduct = await productsServices.addProduct(req.body)
+        const newProduct = await productsServices.addProduct(req)
 
         res.status(201).send({
             status: 'Success',
