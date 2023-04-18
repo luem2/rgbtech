@@ -24,7 +24,7 @@ export function writeNewFile(file: Request['file'], config: ConfigProps) {
     })
 }
 
-export function deleteOldFile(config: ConfigProps) {
+export function deleteFile(config: ConfigProps) {
     const { fileName, nameFolder } = config
 
     const pathFile = `${path.resolve()}/uploads/${nameFolder}/${fileName}`

@@ -3,7 +3,7 @@ import type { User } from '@prisma/client'
 
 import { db } from '../database'
 import { PICTURES } from '../helpers/constants'
-import { deleteOldFile } from '../helpers/fsFunctions'
+import { deleteFile } from '../helpers/fsFunctions'
 
 class UsersServices {
     async getAllUsers() {
@@ -62,7 +62,7 @@ class UsersServices {
         const oldFileName = user.picture?.split('/').at(-1) as string
         const fileName = (file as Express.Multer.File).filename
 
-        deleteOldFile({
+        deleteFile({
             nameFolder: PICTURES,
             fileName: oldFileName,
         })
