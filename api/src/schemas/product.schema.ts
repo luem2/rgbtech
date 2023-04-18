@@ -12,5 +12,5 @@ export const productSchema = object({
         freeShipping: boolean().required('FreeShipping is required'),
         tags: array().of(string()).required('Tags is required'),
         brand: string().required('Brand is required'),
-    }),
+    }).noUnknown(),
 }) as never

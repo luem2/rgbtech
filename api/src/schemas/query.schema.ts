@@ -33,5 +33,5 @@ export const querySchema = object({
                 `The order can be 'asc' or 'desc' only.`
             ),
         }),
-    }),
+    }).noUnknown(),
 }) as never
