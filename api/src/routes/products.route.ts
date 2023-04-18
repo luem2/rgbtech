@@ -3,10 +3,9 @@ import { Router } from 'express'
 import productsControllers from '../controllers/products.controller'
 import authMiddlewares from '../middlewares/auth.middleware'
 import productsMiddlewares from '../middlewares/products.middleware'
-import { productSchema } from '../helpers/dto/product.schema'
-import { validateSchema } from '../helpers/validateRequest'
+import { productSchema } from '../schemas/product.schema'
+import { validateSchema, parseBody } from '../middlewares'
 import { multerCore, multerTemp } from '../config/multer'
-import { parseBody } from '../helpers/parseBody'
 
 const router = Router()
 

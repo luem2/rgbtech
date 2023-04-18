@@ -4,7 +4,7 @@ import authServices from '../services/auth.service'
 
 class AuthControllers {
     async login(req: Request, res: Response) {
-        const userToken = await authServices.login(req.body)
+        const userToken = await authServices.login(req)
 
         res.status(200).header('auth-token', userToken).send({
             status: 'Success',

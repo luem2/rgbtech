@@ -1,11 +1,11 @@
 import { Router } from 'express'
 
-import multer from '../config/multer'
+import { multerAvatar } from '../config/multer'
 import usersControllers from '../controllers/users.controller'
 import authMiddlewares from '../middlewares/auth.middleware'
 import usersMiddlewares from '../middlewares/users.middleware'
-import { editUserSchema, newPasswordSchema } from '../helpers/dto/'
-import { validateSchema } from '../helpers/validateRequest'
+import { editUserSchema, newPasswordSchema } from '../schemas'
+import { validateSchema } from '../middlewares'
 
 const router = Router()
 
@@ -34,8 +34,8 @@ router
         '/profile',
         [
             authMiddlewares.checkAuth,
-            usersMiddlewares.checkUserEmailProfileUpdate,
             validateSchema(editUserSchema),
+            usersMiddlewares.checkUserEmailProfileUpdate,
         ],
         usersControllers.profileUpdate
     )
@@ -52,7 +52,7 @@ router
 
     .put(
         '/profilePhoto',
-        [authMiddlewares.checkAuth, multer.single('avatar')],
+        [authMiddlewares.checkAuth, multerAvatar.single('avatar')],
         usersControllers.changeProfilePhoto
     )
 

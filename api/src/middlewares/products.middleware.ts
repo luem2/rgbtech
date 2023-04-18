@@ -4,8 +4,8 @@ import type { ProductSchema } from '../types'
 
 import { db } from '../database'
 import { verifyToken } from '../helpers/generateToken'
-import { validateSchemaInsideMiddleware } from '../helpers/validateRequest'
-import { querySchema } from '../helpers/dto'
+import { validateSchemaInsideMiddleware } from '../middlewares'
+import { querySchema } from '../schemas'
 import { generateFileName } from '../helpers/filename'
 
 class ProductsMiddlewares {

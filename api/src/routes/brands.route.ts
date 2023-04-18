@@ -3,8 +3,8 @@ import { Router } from 'express'
 import brandsControllers from '../controllers/brands.controller'
 import authMiddlewares from '../middlewares/auth.middleware'
 import brandsMiddlewares from '../middlewares/brands.middleware'
-import { validateSchema } from '../helpers/validateRequest'
-import { brandSchema } from '../helpers/dto'
+import { validateSchema } from '../middlewares'
+import { brandSchema } from '../schemas'
 
 const router = Router()
 

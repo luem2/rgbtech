@@ -2,9 +2,9 @@ import { Router } from 'express'
 
 import authControllers from '../controllers/auth.controller'
 import authMiddlewares from '../middlewares/auth.middleware'
-import { emailSchema, newPasswordSchema } from '../helpers/dto'
-import { validateSchema } from '../helpers/validateRequest'
-import multer from '../config/multer'
+import { emailSchema, newPasswordSchema } from '../schemas'
+import { validateSchema } from '../middlewares'
+import { multerAvatar } from '../config/multer'
 
 const router = Router()
 
@@ -34,7 +34,7 @@ router
 
     .post(
         '/register',
-        [multer.single('avatar'), authMiddlewares.checkRegisterBody],
+        [multerAvatar.single('avatar'), authMiddlewares.checkRegisterBody],
         authControllers.register
     )
 

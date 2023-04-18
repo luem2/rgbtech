@@ -5,9 +5,9 @@ import bcrypt from 'bcrypt'
 
 import { db } from '../database'
 import { verifyToken } from '../helpers/generateToken'
-import { validateSchemaInsideMiddleware } from '../helpers/validateRequest'
-import { createUserSchema, createUserSchemaWithGoogle } from '../helpers/dto'
-import { defaultAvatar } from '../helpers/constants'
+import { validateSchemaInsideMiddleware } from '../middlewares/'
+import { createUserSchema, createUserSchemaWithGoogle } from '../schemas'
+import { DEFAULT_AVATAR } from '../helpers/constants'
 
 class AuthMiddlewares {
     async checkAuth(req: Request, res: Response, next: NextFunction) {
@@ -19,18 +19,18 @@ class AuthMiddlewares {
             if (tokenData) {
                 req.userId = (tokenData as JwtPayload).id
                 next()
-            } else {
-                res.status(401).send({
+            } else
+                return res.status(401).send({
                     status: 'Error',
                     msg: 'Invalid Token',
                 })
-            }
-        } else {
-            res.status(404).send({
+        } else
+            return res.status(404).send({
                 status: 'Error',
                 msg: 'Token not found',
             })
-        }
+
+        next()
     }
 
     async checkAdminAuth(req: Request, res: Response, next: NextFunction) {
@@ -58,7 +58,7 @@ class AuthMiddlewares {
                   })
                 : next()
         } else {
-            res.status(404).send({
+            return res.status(404).send({
                 status: 'Error',
                 msg: 'Token not found',
             })
@@ -90,7 +90,7 @@ class AuthMiddlewares {
                 })
 
             if (!req.file) {
-                req.body.picture = defaultAvatar
+                req.body.picture = DEFAULT_AVATAR
             } else {
                 req.body.picture = req.file?.filename
             }

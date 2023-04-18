@@ -1,6 +1,5 @@
 import type { User } from '@prisma/client'
 import type { NextFunction, Request, Response } from 'express'
-import type multer from 'multer'
 
 import { compare } from 'bcrypt'
 
@@ -23,22 +22,22 @@ class UsersMiddlewares {
 
         if ((user as User).email === req.body.email) {
             next()
-        }
-
-        const otherUser = await db.user.findUnique({
-            where: {
-                email: req.body.email,
-            },
-        })
-
-        if (otherUser) {
-            res.status(401).send({
-                status: 'Error',
-                msg: 'A user has already registered with the email address entered',
-            })
         } else {
-            next()
+            const otherUser = await db.user.findUnique({
+                where: {
+                    email: req.body.email,
+                },
+            })
+
+            if (otherUser) {
+                return res.status(401).send({
+                    status: 'Error',
+                    msg: 'A user has already registered with the email address entered',
+                })
+            }
         }
+
+        next()
     }
 
     async checkUserOldPassword(
@@ -68,20 +67,6 @@ class UsersMiddlewares {
         }
 
         next()
-    }
-
-    filePhotoProfileFilter(
-        _req: Request,
-        file: Express.Multer.File,
-        cb: multer.FileFilterCallback
-    ) {
-        const mimeTypesAccepted = ['image/png', 'image/jpeg', 'image/jpg']
-
-        if (mimeTypesAccepted.includes(file.mimetype)) {
-            cb(null, true)
-        } else {
-            cb(new Error('Only PNG, JPEG and JPG files are allowed'))
-        }
     }
 
     async itemAlreadyExistsInCart(

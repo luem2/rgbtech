@@ -8,7 +8,11 @@ import { tokenSign } from '../helpers/generateToken'
 import nodemailerService from '../helpers/nodemailer'
 
 class AuthServices {
-    async login(user: User) {
+    async login({ body, userId }: Request) {
+        const user = body as User
+
+        userId = user.id
+
         return await tokenSign({ id: user.id, role: user.role })
     }
 
@@ -28,6 +32,9 @@ class AuthServices {
                 birthDate: true,
                 role: true,
                 verificated: true,
+                nationality: true,
+                google: true,
+                disabled: true,
 
                 awards: true,
                 country: true,
