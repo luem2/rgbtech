@@ -41,7 +41,7 @@ async function main() {
         await createBrands()
     }
 
-    if (productsCount !== 49) {
+    if (productsCount !== 48) {
         await db.product.deleteMany()
         await createProducts()
     }

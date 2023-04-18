@@ -4,6 +4,7 @@ import { hashSync } from 'bcrypt'
 import { faker } from '@faker-js/faker'
 
 import { db } from '../../'
+import { DEFAULT_AVATAR } from '../../../helpers/constants'
 
 import usersJSON from './users.json'
 
@@ -13,9 +14,10 @@ function createRandomUsers() {
         lastName: faker.name.lastName(),
         email: faker.internet.email(),
         password: hashSync('password123', 5),
-        picture: faker.internet.avatar(),
+        picture: `/uploads/pictures/${DEFAULT_AVATAR}`,
         verificated: faker.helpers.arrayElement([true, false]),
-        nacionality: faker.address.countryCode('alpha-3'),
+        birthDate: faker.date.birthdate({ min: 18, max: 90, mode: 'age' }),
+        nationality: faker.address.countryCode('alpha-3'),
         role: 'USER' as Role,
         RGBpoints: 2000,
     }
@@ -26,8 +28,9 @@ export async function createUsers() {
         const users = usersJSON.map((user) => {
             return {
                 ...user,
+                birthDate: new Date(user.birthDate),
                 password: hashSync(user.password, 10),
-                picture: faker.internet.avatar(),
+                picture: `/uploads/pictures/${DEFAULT_AVATAR}`,
                 role: user.role as Role,
             }
         })
