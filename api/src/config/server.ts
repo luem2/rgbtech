@@ -57,11 +57,11 @@ class Server {
         )
         this.app.use(express.static('public'))
         this.app.use('/uploads', express.static('uploads'))
-        this.app.use(handleError)
     }
 
     routes() {
         this.app.use(this.apiPaths.api, routes)
+        this.app.use(handleError)
     }
 
     listen() {
