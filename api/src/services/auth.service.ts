@@ -6,6 +6,8 @@ import bcrypt from 'bcrypt'
 import { db } from '../database'
 import { tokenSign } from '../helpers/generateToken'
 import nodemailerService from '../helpers/nodemailer'
+import { deleteFile } from '../helpers/fsFunctions'
+import { PICTURES } from '../helpers/constants'
 
 class AuthServices {
     async login({ body, userId }: Request) {
@@ -95,6 +97,32 @@ class AuthServices {
             },
             data: {
                 verificated: true,
+            },
+        })
+    }
+
+    async deleteUser(id: Request['userId']) {
+        const user = await db.user.findUnique({
+            where: {
+                id,
+            },
+            select: {
+                picture: true,
+            },
+        })
+
+        if (!user) return null
+
+        const userPicture = user.picture?.split('/').at(-1) as string
+
+        deleteFile({
+            nameFolder: PICTURES,
+            fileName: userPicture,
+        })
+
+        return await db.user.delete({
+            where: {
+                id,
             },
         })
     }

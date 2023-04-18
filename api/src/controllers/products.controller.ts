@@ -90,6 +90,22 @@ class ProductsControllers {
             body: productDisabled,
         })
     }
+
+    async deleteProduct(req: Request, res: Response) {
+        const deletedProduct = await productsServices.deleteProduct(req)
+
+        if (!deletedProduct)
+            return res.status(404).send({
+                status: 'Error',
+                msg: 'Product not found',
+            })
+
+        res.status(200).send({
+            status: 'Success',
+            msg: 'Product have been successfully deleted',
+            body: deletedProduct,
+        })
+    }
 }
 
 export default new ProductsControllers()

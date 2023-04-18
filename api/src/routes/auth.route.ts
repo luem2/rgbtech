@@ -38,4 +38,10 @@ router
         authControllers.register
     )
 
+    .delete(
+        '/:userId',
+        authMiddlewares.checkAdminAuth,
+        authControllers.deleteUser
+    )
+
 export default router

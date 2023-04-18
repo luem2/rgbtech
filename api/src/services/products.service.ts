@@ -3,7 +3,7 @@ import type { Request } from 'express'
 import type { IQueryParams, ProductSchema } from '../types'
 
 import { db } from '../database'
-import { deleteOldFile, writeNewFile } from '../helpers/fsFunctions'
+import { deleteFile, writeNewFile } from '../helpers/fsFunctions'
 import { CORE } from '../helpers/constants'
 
 class ProductsServices {
@@ -274,7 +274,7 @@ class ProductsServices {
         const oldFileName = product.picture.split('/').at(-1) as string
         const fileName = (file as Express.Multer.File).filename
 
-        deleteOldFile({
+        deleteFile({
             nameFolder: CORE,
             fileName: oldFileName,
         })
@@ -326,6 +326,32 @@ class ProductsServices {
             },
             data: {
                 disabled: body.disabled,
+            },
+        })
+    }
+
+    async deleteProduct({ params }: Request) {
+        const product = await db.product.findUnique({
+            where: {
+                id: params.productId,
+            },
+            select: {
+                picture: true,
+            },
+        })
+
+        if (!product) return null
+
+        const fileName = product.picture.split('/').at(-1) as string
+
+        deleteFile({
+            nameFolder: CORE,
+            fileName,
+        })
+
+        return await db.product.delete({
+            where: {
+                id: params.productId,
             },
         })
     }

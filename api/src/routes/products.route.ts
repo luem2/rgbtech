@@ -57,6 +57,12 @@ router
         productsControllers.addProduct
     )
 
+    .delete(
+        '/:productId',
+        authMiddlewares.checkAdminAuth,
+        productsControllers.deleteProduct
+    )
+
     .patch(
         '/:productId',
         [

@@ -59,6 +59,23 @@ class AuthControllers {
             msg: 'The email was successfully verified',
         })
     }
+
+    async deleteUser(req: Request, res: Response) {
+        const userDeleted = await authServices.deleteUser(req.params.userId)
+
+        if (!userDeleted) {
+            return res.status(404).send({
+                status: 'Error',
+                msg: 'The user not found',
+            })
+        }
+
+        res.status(200).send({
+            status: 'Success',
+            msg: 'The user have been successfully deleted',
+            body: userDeleted,
+        })
+    }
 }
 
 export default new AuthControllers()
