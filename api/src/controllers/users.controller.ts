@@ -20,6 +20,14 @@ class UsersControllers {
     async profileUpdate(req: Request, res: Response) {
         const profileEdited = await usersServices.updateProfile(req)
 
+        if (!profileEdited) {
+            return res.status(401).send({
+                status: 'Error',
+                msg: 'Country sent is invalid',
+                body: profileEdited,
+            })
+        }
+
         res.status(200).send({
             status: 'Success',
             msg: 'The profile was successfully updated',
@@ -44,7 +52,13 @@ class UsersControllers {
                 msg: 'You have not sent the image',
             })
 
-        await usersServices.changeProfilePhoto(req)
+        const userUpdated = await usersServices.changeProfilePhoto(req)
+
+        if (!userUpdated)
+            return res.status(401).send({
+                status: 'Error',
+                msg: 'User not found',
+            })
 
         res.status(200).send({
             status: 'Success',

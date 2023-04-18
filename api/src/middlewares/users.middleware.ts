@@ -6,7 +6,7 @@ import { compare } from 'bcrypt'
 import { db } from '../database'
 
 class UsersMiddlewares {
-    async checkUserEmailProfileUpdate(
+    async checkBodyProfileUpdate(
         req: Request,
         res: Response,
         next: NextFunction
@@ -20,9 +20,7 @@ class UsersMiddlewares {
             },
         })
 
-        if ((user as User).email === req.body.email) {
-            next()
-        } else {
+        if ((user as User).email !== req.body.email) {
             const otherUser = await db.user.findUnique({
                 where: {
                     email: req.body.email,
@@ -38,6 +36,17 @@ class UsersMiddlewares {
         }
 
         next()
+    }
+
+    async checkBirthDateType(req: Request, _res: Response, next: NextFunction) {
+        try {
+            if (typeof req.body.birthDate === 'object') {
+                req.body.birthDate = req.body.birthDate.toISOString()
+            }
+            next()
+        } catch (error) {
+            next(error)
+        }
     }
 
     async checkUserOldPassword(

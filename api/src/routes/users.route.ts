@@ -34,8 +34,9 @@ router
         '/profile',
         [
             authMiddlewares.checkAuth,
+            usersMiddlewares.checkBirthDateType,
             validateSchema(editUserSchema),
-            usersMiddlewares.checkUserEmailProfileUpdate,
+            usersMiddlewares.checkBodyProfileUpdate,
         ],
         usersControllers.profileUpdate
     )

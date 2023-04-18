@@ -1,4 +1,5 @@
 import type { Request } from 'express'
+import type { User } from '@prisma/client'
 
 import { db } from '../database'
 import { PICTURES } from '../helpers/constants'
@@ -21,11 +22,28 @@ class UsersServices {
     }
 
     async updateProfile({ userId, body }: Request) {
+        const { nationality, ...bodyUser } = body as User
+
+        const countryFounded = await db.country.findUnique({
+            where: {
+                id: nationality,
+            },
+        })
+
+        if (!countryFounded) return null
+
         return await db.user.update({
             where: {
                 id: userId,
             },
-            data: body,
+            data: {
+                ...bodyUser,
+                country: {
+                    connect: {
+                        id: nationality,
+                    },
+                },
+            },
         })
     }
 
