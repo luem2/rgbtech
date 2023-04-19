@@ -113,7 +113,7 @@ model Brand {
 
 model Award {
   id             String @id @default(uuid())
-  name           String
+  name           String @unique
   description    String
   specifications Json
   requiredPoints Int

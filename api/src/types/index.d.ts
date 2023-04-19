@@ -73,3 +73,12 @@ export interface BrandSchema {
     name: string
     logo: string
 }
+
+export interface AwardSchema {
+    id?: string
+    name: string
+    description: string
+    specifications: Record<string, string>
+    requiredPoints: number
+    picture: string
+}
