@@ -3,8 +3,9 @@ import { Router } from 'express'
 import brandsControllers from '../controllers/brands.controller'
 import authMiddlewares from '../middlewares/auth.middleware'
 import brandsMiddlewares from '../middlewares/brands.middleware'
-import { validateSchema } from '../middlewares'
+import { parseBody, validateSchema } from '../middlewares'
 import { brandSchema } from '../schemas'
+import { multerTemp } from '../config/multer'
 
 const router = Router()
 
@@ -17,7 +18,9 @@ router
     .put(
         '/:name',
         [
+            multerTemp.single('brand'),
             authMiddlewares.checkAdminAuth,
+            parseBody,
             validateSchema(brandSchema),
             brandsMiddlewares.checkBodyEditBrand,
         ],
@@ -27,11 +30,19 @@ router
     .post(
         '/',
         [
+            multerTemp.single('brand'),
             authMiddlewares.checkAdminAuth,
+            parseBody,
             validateSchema(brandSchema),
             brandsMiddlewares.checkBodyAddBrand,
         ],
         brandsControllers.addBrand
+    )
+
+    .delete(
+        '/:name',
+        authMiddlewares.checkAdminAuth,
+        brandsControllers.deleteBrand
     )
 
     .patch(

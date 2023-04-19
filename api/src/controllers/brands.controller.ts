@@ -45,7 +45,7 @@ class BrandsControllers {
     }
 
     async addBrand(req: Request, res: Response) {
-        const newProduct = await brandsServices.addBrand(req.body)
+        const newProduct = await brandsServices.addBrand(req)
 
         res.status(201).send({
             status: 'Success',
@@ -63,6 +63,23 @@ class BrandsControllers {
             status: 'Success',
             msg: 'Brand have been successfully updated',
             body: productDisabled,
+        })
+    }
+
+    async deleteBrand(req: Request, res: Response) {
+        const deletedBrand = await brandsServices.deleteBrand(req)
+
+        if (!deletedBrand)
+            return res.status(404).send({
+                status: 'Error',
+                msg: 'Brand have not been found',
+                body: deletedBrand,
+            })
+
+        res.status(200).send({
+            status: 'Success',
+            msg: 'Brand have been successfully deleted',
+            body: deletedBrand,
         })
     }
 }

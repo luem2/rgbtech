@@ -1,6 +1,7 @@
 import type { NextFunction, Request, Response } from 'express'
 
 import { db } from '../database'
+import { generateFileName } from '../helpers/filename'
 
 class BrandsMiddlewares {
     async checkBodyAddBrand(req: Request, res: Response, next: NextFunction) {
@@ -15,6 +16,16 @@ class BrandsMiddlewares {
                 status: 'Error',
                 msg: 'The brand already exists',
             })
+
+        if (!req.file)
+            return res.status(401).send({
+                status: 'Error',
+                msg: 'The brand needs an image',
+            })
+
+        const fileName = generateFileName(req.file)
+
+        req.body.logo = `/uploads/core/${fileName}`
 
         next()
     }
@@ -32,9 +43,7 @@ class BrandsMiddlewares {
                 msg: 'Brand not found',
             })
 
-        if (brandFinded.name === req.body.name) {
-            next()
-        } else {
+        if (brandFinded.name !== req.body.name) {
             const otherBrand = await db.brand.findUnique({
                 where: {
                     name: req.body.name,
@@ -46,9 +55,16 @@ class BrandsMiddlewares {
                     status: 'Error',
                     msg: 'The brand already exists',
                 })
-
-            next()
         }
+
+        if (req.file) {
+            const fileName = generateFileName(req.file)
+
+            req.body.oldLogo = brandFinded.logo
+            req.body.logo = `/uploads/core/${fileName}`
+        }
+
+        next()
     }
 
     async checkUpdateBrandAvailability(
