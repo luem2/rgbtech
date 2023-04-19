@@ -4,7 +4,7 @@ import authControllers from '../controllers/auth.controller'
 import authMiddlewares from '../middlewares/auth.middleware'
 import { emailSchema, newPasswordSchema } from '../schemas'
 import { validateSchema } from '../middlewares'
-import { multerAvatar } from '../config/multer'
+import { multerTemp } from '../config/multer'
 
 const router = Router()
 
@@ -34,7 +34,7 @@ router
 
     .post(
         '/register',
-        [multerAvatar.single('avatar'), authMiddlewares.checkRegisterBody],
+        [multerTemp.single('avatar'), authMiddlewares.checkRegisterBody],
         authControllers.register
     )
 

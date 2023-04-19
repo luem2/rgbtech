@@ -7,7 +7,9 @@ import { db } from '../database'
 import { verifyToken } from '../helpers/generateToken'
 import { validateSchemaInsideMiddleware } from '../middlewares/'
 import { createUserSchema, createUserSchemaWithGoogle } from '../schemas'
-import { DEFAULT_AVATAR } from '../helpers/constants'
+import { DEFAULT_AVATAR, PICTURES } from '../helpers/constants'
+import { writeNewFile } from '../helpers/fsFunctions'
+import { generateFileName } from '../helpers/filename'
 
 class AuthMiddlewares {
     async checkAuth(req: Request, res: Response, next: NextFunction) {
@@ -92,7 +94,14 @@ class AuthMiddlewares {
             if (!req.file) {
                 req.body.picture = DEFAULT_AVATAR
             } else {
-                req.body.picture = req.file?.filename
+                const fileName = generateFileName(req.file)
+
+                writeNewFile(req.file, {
+                    fileName,
+                    nameFolder: PICTURES,
+                })
+
+                req.body.picture = fileName
             }
         }
 

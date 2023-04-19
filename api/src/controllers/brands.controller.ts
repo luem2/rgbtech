@@ -67,7 +67,7 @@ class BrandsControllers {
     }
 
     async deleteBrand(req: Request, res: Response) {
-        const deletedBrand = await brandsServices.deleteBrand(req)
+        const deletedBrand = await brandsServices.deleteBrand(req.params)
 
         if (!deletedBrand)
             return res.status(404).send({

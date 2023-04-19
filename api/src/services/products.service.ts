@@ -3,7 +3,7 @@ import type { Request } from 'express'
 import type { IQueryParams, ProductSchema } from '../types'
 
 import { db } from '../database'
-import { deleteFile, writeNewFile } from '../helpers/fsFunctions'
+import { deleteFile } from '../helpers/fsFunctions'
 import { CORE } from '../helpers/constants'
 
 class ProductsServices {
@@ -258,6 +258,7 @@ class ProductsServices {
     }
 
     async productPictureUpdate({ file, query }: Request) {
+        // REFACTOR: REFACTORIZAR PARA PONER EL FILE EN MIDDLEWARES, Y LA VALIDACION DE SI EXISTE EL PRODUCTO
         const id = query.id as string
 
         const product = await db.product.findUnique({
@@ -289,13 +290,8 @@ class ProductsServices {
         })
     }
 
-    async addProduct({ file, body }: Request) {
+    async addProduct(body: Request['body']) {
         const newProduct = body as ProductSchema
-
-        writeNewFile(file, {
-            nameFolder: CORE,
-            fileName: body.picture.split('/').at(-1),
-        })
 
         return await db.product.create({
             data: {
@@ -331,6 +327,7 @@ class ProductsServices {
     }
 
     async deleteProduct({ params }: Request) {
+        // REFACTOR: REFACTORIZAR PARA PONER ELIMINAR EL FILE EN MIDDLEWARES, Y LA VALIDACION DE SI EXISTE EL PRODUCTO
         const product = await db.product.findUnique({
             where: {
                 id: params.productId,

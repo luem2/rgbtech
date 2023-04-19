@@ -7,6 +7,8 @@ import { verifyToken } from '../helpers/generateToken'
 import { validateSchemaInsideMiddleware } from '../middlewares'
 import { querySchema } from '../schemas'
 import { generateFileName } from '../helpers/filename'
+import { writeNewFile } from '../helpers/fsFunctions'
+import { CORE } from '../helpers/constants'
 
 class ProductsMiddlewares {
     async getProductsAuthMiddleware(
@@ -56,6 +58,11 @@ class ProductsMiddlewares {
         }
 
         const fileName = generateFileName(req.file)
+
+        writeNewFile(req.file, {
+            nameFolder: CORE,
+            fileName: req.body.picture.split('/').at(-1),
+        })
 
         req.body.picture = `/uploads/core/${fileName}`
 

@@ -82,10 +82,10 @@ class BrandsServices {
         })
     }
 
-    async deleteBrand({ params }: Request) {
+    async deleteBrand({ name }: Request['params']) {
         const brand = await db.brand.findUnique({
             where: {
-                name: params.name,
+                name,
             },
         })
 
@@ -98,7 +98,7 @@ class BrandsServices {
 
         return await db.brand.delete({
             where: {
-                name: params.name,
+                name,
             },
         })
     }

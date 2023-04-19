@@ -71,7 +71,7 @@ class ProductsControllers {
     }
 
     async addProduct(req: Request, res: Response) {
-        const newProduct = await productsServices.addProduct(req)
+        const newProduct = await productsServices.addProduct(req.body)
 
         res.status(201).send({
             status: 'Success',
