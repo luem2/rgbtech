@@ -1,93 +1,55 @@
 import { Router } from 'express'
 
-import { Award, User } from '../db.js'
-import { Op } from 'sequelize'
+import awardsControllers from '../controllers/awards.controller'
+import authMiddlewares from '../middlewares/auth.middleware'
+import awardsMiddlewares from '../middlewares/awards.middleware'
+import { awardSchema } from '../schemas/'
+import { parseBody, validateSchema } from '../middlewares'
+import { multerTemp } from '../config/multer'
 
 const router = Router()
 
-router.post('/', async (req, res) => {
-    try {
-        const {
-            name,
-            stock,
-            points,
-            description,
-            specifications,
-            img,
-            freeShipping,
-        } = req.body
-        if (
-            !name ||
-            !stock ||
-            !points ||
-            !description ||
-            !specifications ||
-            !img ||
-            !freeShipping
-        ) {
-            return res.send('mandatory information is missing to continue')
-        }
-        let newAward = await Award.create({
-            name,
-            description,
-            stock,
-            points,
-            img,
-            specifications,
-            freeShipping,
-        })
-        res.send('creating correctly')
-    } catch (error) {
-        res.sendStatus(500)
-    }
-})
+router
+    .get(
+        '/',
+        awardsMiddlewares.getAwardsAuthMiddleware,
+        awardsControllers.getAllAwards
+    )
 
-router.get('/', async (req, res) => {
-    try {
-        const findAwards = await Award.findAll({
-            where: {
-                stock: { [Op.gt]: 0 },
-            },
-        })
-        res.json(findAwards)
-    } catch (error) {
-        console.log(error)
-        res.sendStatus(500)
-    }
-})
+    .get(
+        '/:awardId',
+        awardsMiddlewares.getAwardsAuthMiddleware,
+        awardsControllers.getAward
+    )
 
-router.put('/claim-award', async (req, res) => {
-    const { id, points, userId } = req.body
-    try {
-        const user = await User.findByPk(userId)
-        const RGBpoints = user.dataValues.RGBpoint - points
-        await User.update(
-            {
-                RGBpoint: RGBpoints,
-            },
-            {
-                where: {
-                    id: userId,
-                },
-            }
-        )
-        const award = await Award.findByPk(id)
-        const newStock = award.dataValues.stock - 1
-        await Award.update(
-            {
-                stock: newStock,
-            },
-            {
-                where: {
-                    id: id,
-                },
-            }
-        )
-        res.send(201)
-    } catch (error) {
-        console.log(error)
-        res.sendStatus(500)
-    }
-})
+    .put(
+        '/',
+        [
+            multerTemp.single('award'),
+            authMiddlewares.checkAdminAuth,
+            parseBody,
+            validateSchema(awardSchema),
+            awardsMiddlewares.checkBodyEditAward,
+        ],
+        awardsControllers.awardUpdate
+    )
+
+    .post(
+        '/',
+        [
+            multerTemp.single('award'),
+            authMiddlewares.checkAdminAuth,
+            parseBody,
+            validateSchema(awardSchema),
+            awardsMiddlewares.checkBodyAddAward,
+        ],
+        awardsControllers.addAward
+    )
+
+    .delete(
+        '/:id',
+        authMiddlewares.checkAdminAuth,
+        awardsControllers.deleteAward
+    )
 
 export default router
