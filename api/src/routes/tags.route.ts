@@ -38,6 +38,8 @@ router
         tagsControllers.addTag
     )
 
+    .delete('/:name', authMiddlewares.checkAdminAuth, tagsControllers.deleteTag)
+
     .patch(
         '/:name',
         [

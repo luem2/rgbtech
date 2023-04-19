@@ -51,6 +51,22 @@ class TagsServices {
             },
         })
     }
+
+    async deleteTag({ params }: Request) {
+        const brand = await db.tag.findUnique({
+            where: {
+                name: params.name,
+            },
+        })
+
+        if (!brand) return null
+
+        return await db.tag.delete({
+            where: {
+                name: params.name,
+            },
+        })
+    }
 }
 
 export default new TagsServices()

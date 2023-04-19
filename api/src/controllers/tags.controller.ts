@@ -63,6 +63,24 @@ class TagsControllers {
             body: tagUpdated,
         })
     }
+
+    async deleteTag(req: Request, res: Response) {
+        const tagDeleted = await tagsServices.deleteTag(req)
+
+        if (!tagDeleted) {
+            return res.status(404).send({
+                status: 'Error',
+                msg: 'The tag has not been found',
+                body: tagDeleted,
+            })
+        }
+
+        res.status(200).send({
+            status: 'Success',
+            msg: 'Tag have been successfully deleted',
+            body: tagDeleted,
+        })
+    }
 }
 
 export default new TagsControllers()
