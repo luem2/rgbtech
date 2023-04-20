@@ -2,15 +2,17 @@ import type { Request, Response, NextFunction } from 'express'
 
 import { ValidationError } from 'yup'
 
-export function handleError(
+export function errorHandler(
     err: Error,
     _req: Request,
     res: Response,
-    next: NextFunction
+    _next: NextFunction
 ) {
+    // if (err instanceof )
+
     if (err instanceof ValidationError) {
         res.status(400).send({
-            status: 'Error',
+            status: 'Validation Error',
             msg: err,
         })
     } else {
@@ -22,6 +24,4 @@ export function handleError(
             cause: err.cause ?? undefined,
         })
     }
-
-    next()
 }
