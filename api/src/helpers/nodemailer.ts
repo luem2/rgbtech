@@ -10,7 +10,7 @@ import {
     purchaseDetailsHtmlEmail,
     passwordRecoveryHtmlEmail,
 } from '../config/emailTemplate'
-import { config } from '../config/env'
+import { config } from '../config'
 
 class NodemailerEmail {
     readonly transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo>

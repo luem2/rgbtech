@@ -2,7 +2,7 @@ import type { Request, Response } from 'express'
 
 import axios from 'axios'
 
-import { config } from '../config/env'
+import { config } from '../config'
 
 export async function create(req: Request, res: Response) {
     console.log('req.body', req.body)

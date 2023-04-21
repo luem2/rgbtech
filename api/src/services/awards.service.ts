@@ -78,37 +78,3 @@ class AwardsServices {
 }
 
 export default new AwardsServices()
-
-// .put('/claim-award', async (req, res) => {
-//     const { id, points, userId } = req.body
-//     try {
-//         const user = await User.findByPk(userId)
-//         const RGBpoints = user.dataValues.RGBpoint - points
-//         await User.update(
-//             {
-//                 RGBpoint: RGBpoints,
-//             },
-//             {
-//                 where: {
-//                     id: userId,
-//                 },
-//             }
-//         )
-//         const award = await Award.findByPk(id)
-//         const newStock = award.dataValues.stock - 1
-//         await Award.update(
-//             {
-//                 stock: newStock,
-//             },
-//             {
-//                 where: {
-//                     id: id,
-//                 },
-//             }
-//         )
-//         res.send(201)
-//     } catch (error) {
-//         console.log(error)
-//         res.sendStatus(500)
-//     }
-// })

@@ -10,17 +10,15 @@ import cookieParser from 'cookie-parser'
 
 import routes from './routes'
 import { errorHandler } from './middlewares/errorHandler'
-import { ConfigServer } from './config'
+import { config } from './config'
 
-class ServerBootstrap extends ConfigServer {
+class ServerBootstrap {
     readonly app: Application
     readonly port: number
 
     constructor() {
-        super()
-
         this.app = express()
-        this.port = this.getNumberEnv('PORT') ?? 3000
+        this.port = Number(config.PORT) ?? 3000
 
         this.middlewares()
         this.routes()
@@ -30,8 +28,7 @@ class ServerBootstrap extends ConfigServer {
     middlewares() {
         this.app.use(
             cors({
-                origin: this.getEnvironment('ORIGIN_CORS'),
-                // origin: config.ORIGIN_CORS,
+                origin: config.ORIGIN_CORS,
                 credentials: true,
                 methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
                 allowedHeaders: [
