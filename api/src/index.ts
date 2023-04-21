@@ -8,17 +8,18 @@ import cors from 'cors'
 import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
 
-import routes from './routes'
-import { errorHandler } from './middlewares/errorHandler'
-import { config } from './config'
+import routes from './routers'
+import { ErrorHandler } from './middlewares/errorHandler'
+import { ConfigServer } from './config'
 
-class ServerBootstrap {
+class ServerBootstrap extends ConfigServer {
     readonly app: Application
     readonly port: number
 
     constructor() {
+        super()
         this.app = express()
-        this.port = Number(config.PORT) ?? 3000
+        this.port = this.getNumberVarEnv('PORT') ?? 3000
 
         this.middlewares()
         this.routes()
@@ -28,7 +29,7 @@ class ServerBootstrap {
     middlewares() {
         this.app.use(
             cors({
-                origin: config.ORIGIN_CORS,
+                origin: this.getVarEnv('ORIGIN_CORS'),
                 credentials: true,
                 methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
                 allowedHeaders: [
@@ -60,13 +61,12 @@ class ServerBootstrap {
 
     routes() {
         this.app.use('/api', routes)
-        this.app.use(errorHandler)
+        this.app.use(new ErrorHandler().throw)
     }
 
     listen() {
-        console.info(readFileSync(path.resolve('./src/banner.md'), 'utf-8'))
-
         this.app.listen(this.port, () => {
+            console.info(readFileSync(path.resolve('./src/banner.md'), 'utf-8'))
             console.info(`🟢 Server listening on port ${this.port}`)
         })
     }
