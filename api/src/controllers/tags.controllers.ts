@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express'
 
-import tagsServices from '../services/tags.service'
+import tagsServices from '../services/tags.services'
 
 class TagsControllers {
     async getAllTags(_req: Request, res: Response) {

@@ -1,24 +1,25 @@
 import type { Request, Response } from 'express'
 
-import authServices from '../services/auth.service'
-import usersServices from '../services/users.service'
+import authServices from '../services/auth.services'
+import { UserServices } from '../services/users.services'
+import { BaseControllers } from '../config/bases'
 
-class UsersControllers {
-    async getAllUsers(_req: Request, res: Response) {
-        const allUsers = await usersServices.getAllUsers()
+export class UserControllers extends BaseControllers<UserServices> {
+    constructor() {
+        super(UserServices)
+    }
 
-        res.status(200).send({
-            status: 'Success',
-            msg: 'All users were sent correctly',
-            body: {
-                users: allUsers,
-                count: allUsers.length,
-            },
+    getAllUsers = async (_req: Request, res: Response) => {
+        const allUsers = await this.services.getAllUsers()
+
+        this.httpResponse.Ok(res, {
+            users: allUsers,
+            count: allUsers.length,
         })
     }
 
-    async profileUpdate(req: Request, res: Response) {
-        const profileEdited = await usersServices.updateProfile(req)
+    profileUpdate = async (req: Request, res: Response) => {
+        const profileEdited = await this.services.updateProfile(req)
 
         if (!profileEdited) {
             return res.status(401).send({
@@ -35,7 +36,7 @@ class UsersControllers {
         })
     }
 
-    async passwordUpdate(req: Request, res: Response) {
+    passwordUpdate = async (req: Request, res: Response) => {
         const userWithPasswordUpdated = await authServices.passwordUpdate(req)
 
         res.status(200).send({
@@ -45,14 +46,14 @@ class UsersControllers {
         })
     }
 
-    async changeProfilePhoto(req: Request, res: Response) {
+    changeProfilePhoto = async (req: Request, res: Response) => {
         if (!req.file)
             return res.status(401).send({
                 status: 'Error',
                 msg: 'You have not sent the image',
             })
 
-        const userUpdated = await usersServices.changeProfilePhoto(req)
+        const userUpdated = await this.services.changeProfilePhoto(req)
 
         if (!userUpdated)
             return res.status(401).send({
@@ -66,18 +67,20 @@ class UsersControllers {
         })
     }
 
-    async getShoppingCart(req: Request, res: Response) {
-        const user = await usersServices.getShoppingCart(req.userId)
+    getShoppingCart = async (req: Request, res: Response) => {
+        const user = await this.services.getShoppingCart(req.userId)
 
-        res.status(200).send({
-            status: 'Success',
-            msg: `The user's shopping cart was successfully submitted`,
-            body: user?.shoppingCart,
-        })
+        this.httpResponse.Ok(res, user?.shoppingCart)
+
+        // res.status(200).send({
+        //     status: 'Success',
+        //     msg: `The user's shopping cart was successfully submitted`,
+        //     body: user?.shoppingCart,
+        // })
     }
 
-    async addItemToCart(req: Request, res: Response) {
-        await usersServices.addItemToCart(req)
+    addItemToCart = async (req: Request, res: Response) => {
+        await this.services.addItemToCart(req)
 
         const product = req.body.productId as string
 
@@ -87,8 +90,8 @@ class UsersControllers {
         })
     }
 
-    async modifyItemQuantity(req: Request, res: Response) {
-        await usersServices.modifyItemQuantity(req)
+    modifyItemQuantity = async (req: Request, res: Response) => {
+        await this.services.modifyItemQuantity(req)
 
         res.status(200).send({
             status: 'Success',
@@ -96,10 +99,10 @@ class UsersControllers {
         })
     }
 
-    async deleteItemFromCart(req: Request, res: Response) {
+    deleteItemFromCart = async (req: Request, res: Response) => {
         const product = req.params.productId
 
-        await usersServices.deleteItemFromCart(req)
+        await this.services.deleteItemFromCart(req)
 
         res.status(200).send({
             status: 'Success',
@@ -107,8 +110,8 @@ class UsersControllers {
         })
     }
 
-    async cleanShoppingCart(req: Request, res: Response) {
-        await usersServices.cleanShoppingCart(req.userId)
+    cleanShoppingCart = async (req: Request, res: Response) => {
+        await this.services.cleanShoppingCart(req.userId)
 
         res.status(200).send({
             status: 'Success',
@@ -116,8 +119,8 @@ class UsersControllers {
         })
     }
 
-    async getFavorites(req: Request, res: Response) {
-        const favorites = await usersServices.getFavorites(req.userId)
+    getFavorites = async (req: Request, res: Response) => {
+        const favorites = await this.services.getFavorites(req.userId)
 
         res.status(200).send({
             status: 'Success',
@@ -126,8 +129,8 @@ class UsersControllers {
         })
     }
 
-    async addItemToFavorites(req: Request, res: Response) {
-        await usersServices.addItemToFavorites(req)
+    addItemToFavorites = async (req: Request, res: Response) => {
+        await this.services.addItemToFavorites(req)
 
         const product = req.body.productId as string
 
@@ -137,10 +140,10 @@ class UsersControllers {
         })
     }
 
-    async deleteItemFromFavorites(req: Request, res: Response) {
+    deleteItemFromFavorites = async (req: Request, res: Response) => {
         const product = req.params.productId
 
-        await usersServices.deleteItemFromFavorites(req)
+        await this.services.deleteItemFromFavorites(req)
 
         res.status(200).send({
             status: 'Success',
@@ -148,8 +151,8 @@ class UsersControllers {
         })
     }
 
-    async cleanFavorites(req: Request, res: Response) {
-        await usersServices.cleanFavorites(req.userId)
+    cleanFavorites = async (req: Request, res: Response) => {
+        await this.services.cleanFavorites(req.userId)
 
         res.status(200).send({
             status: 'Success',
@@ -157,8 +160,8 @@ class UsersControllers {
         })
     }
 
-    async getReviews(req: Request, res: Response) {
-        const user = await usersServices.getReviews(req.userId)
+    getReviews = async (req: Request, res: Response) => {
+        const user = await this.services.getReviews(req.userId)
 
         res.status(200).send({
             status: 'Success',
@@ -167,8 +170,8 @@ class UsersControllers {
         })
     }
 
-    async addReview(req: Request, res: Response) {
-        await usersServices.addReview(req)
+    addReview = async (req: Request, res: Response) => {
+        await this.services.addReview(req)
 
         res.status(201).send({
             status: 'Success',
@@ -176,8 +179,8 @@ class UsersControllers {
         })
     }
 
-    async getTransactions(req: Request, res: Response) {
-        const user = await usersServices.getTransactions(req.userId)
+    getTransactions = async (req: Request, res: Response) => {
+        const user = await this.services.getTransactions(req.userId)
 
         res.status(200).send({
             status: 'Success',
@@ -186,8 +189,8 @@ class UsersControllers {
         })
     }
 
-    async getHistory(req: Request, res: Response) {
-        const user = await usersServices.getHistory(req.userId)
+    getHistory = async (req: Request, res: Response) => {
+        const user = await this.services.getHistory(req.userId)
 
         res.status(200).send({
             status: 'Success',
@@ -196,8 +199,8 @@ class UsersControllers {
         })
     }
 
-    async addLastVisitedToHistory(req: Request, res: Response) {
-        await usersServices.addLastVisitedToHistory(req)
+    addLastVisitedToHistory = async (req: Request, res: Response) => {
+        await this.services.addLastVisitedToHistory(req)
 
         res.status(201).send({
             status: 'Success',
@@ -205,14 +208,18 @@ class UsersControllers {
         })
     }
 
-    async changeUserAvailability(req: Request, res: Response) {
-        const productDisabled = await usersServices.changeUserAvailability(req)
+    changeUserAvailability = async (req: Request, res: Response) => {
+        const productDisabled = await this.services.changeUserAvailability(req)
 
-        res.status(200).send({
-            status: 'Success',
+        this.httpResponse.Ok(res, {
             msg: 'The user have been successfully updated',
-            body: productDisabled,
+            product: productDisabled,
         })
     }
+
+    claimAward = async (req: Request, res: Response) => {
+        await this.services.claimAward(req)
+
+        this.httpResponse.Ok(res, 'Award was successfully claimed')
+    }
 }
-export default new UsersControllers()

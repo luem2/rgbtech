@@ -5,7 +5,7 @@ import { db } from '../database'
 import { PICTURES } from '../helpers/constants'
 import { deleteFile } from '../helpers/fsFunctions'
 
-class UsersServices {
+export class UserServices {
     async getAllUsers() {
         return await db.user.findMany({
             include: {
@@ -296,6 +296,20 @@ class UsersServices {
             },
         })
     }
-}
 
-export default new UsersServices()
+    async claimAward({ userId, params, body }: Request) {
+        return await db.user.update({
+            where: {
+                id: userId,
+            },
+
+            data: {
+                awards: {
+                    connect: {
+                        id: params.id,
+                    },
+                },
+            },
+        })
+    }
+}

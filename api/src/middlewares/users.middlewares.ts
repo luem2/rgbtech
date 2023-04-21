@@ -5,7 +5,7 @@ import { compare } from 'bcrypt'
 
 import { db } from '../database'
 
-class UsersMiddlewares {
+export class UserMiddlewares {
     async checkBodyProfileUpdate(
         req: Request,
         res: Response,
@@ -28,6 +28,8 @@ class UsersMiddlewares {
             })
 
             if (otherUser) {
+                next()
+
                 return res.status(401).send({
                     status: 'Error',
                     msg: 'A user has already registered with the email address entered',
@@ -337,5 +339,3 @@ class UsersMiddlewares {
         next()
     }
 }
-
-export default new UsersMiddlewares()

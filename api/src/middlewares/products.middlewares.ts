@@ -4,7 +4,7 @@ import type { ProductSchema } from '../types'
 
 import { db } from '../database'
 import { verifyToken } from '../helpers/generateToken'
-import { validateSchemaInsideMiddleware } from '../middlewares'
+import { validateSchemaInsideMiddleware } from '.'
 import { querySchema } from '../schemas'
 import { generateFileName } from '../helpers/filename'
 import { writeNewFile } from '../helpers/fsFunctions'

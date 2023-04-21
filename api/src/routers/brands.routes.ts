@@ -1,8 +1,8 @@
 import { Router } from 'express'
 
-import brandsControllers from '../controllers/brands.controller'
-import authMiddlewares from '../middlewares/auth.middleware'
-import brandsMiddlewares from '../middlewares/brands.middleware'
+import brandsControllers from '../controllers/brands.controllers'
+import authMiddlewares from '../middlewares/auth.middlewares'
+import brandsMiddlewares from '../middlewares/brands.middlewares'
 import { parseBody, validateSchema } from '../middlewares'
 import { brandSchema } from '../schemas'
 import { multerTemp } from '../config/multer'

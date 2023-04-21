@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express'
 
-import awardsServices from '../services/awards.service'
+import awardsServices from '../services/awards.services'
 
 class AwardsControllers {
     async getAllAwards(req: Request, res: Response) {

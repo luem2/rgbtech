@@ -2,7 +2,7 @@ import type { Role } from '@prisma/client'
 
 import jwt from 'jsonwebtoken'
 
-import { config } from '../config/env'
+import { config } from '../config'
 
 export interface ITokenSignProps {
     id: string

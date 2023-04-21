@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
-import authControllers from '../controllers/auth.controller'
-import authMiddlewares from '../middlewares/auth.middleware'
+import authControllers from '../controllers/auth.controllers'
+import authMiddlewares from '../middlewares/auth.middlewares'
 import { emailSchema, newPasswordSchema } from '../schemas'
 import { validateSchema } from '../middlewares'
 import { multerTemp } from '../config/multer'

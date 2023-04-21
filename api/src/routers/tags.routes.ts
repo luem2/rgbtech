@@ -1,8 +1,8 @@
 import { Router } from 'express'
 
-import tagsControllers from '../controllers/tags.controller'
-import authMiddlewares from '../middlewares/auth.middleware'
-import tagsMiddlewares from '../middlewares/tags.middleware'
+import tagsControllers from '../controllers/tags.controllers'
+import authMiddlewares from '../middlewares/auth.middlewares'
+import tagsMiddlewares from '../middlewares/tags.middlewares'
 
 const router = Router()
 

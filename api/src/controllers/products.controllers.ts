@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express'
 
-import productsServices from '../services/products.service'
+import productsServices from '../services/products.services'
 
 class ProductsControllers {
     async getAllProducts(req: Request, res: Response) {
