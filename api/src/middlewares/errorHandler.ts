@@ -2,26 +2,35 @@ import type { Request, Response, NextFunction } from 'express'
 
 import { ValidationError } from 'yup'
 
-export function errorHandler(
-    err: Error,
-    _req: Request,
-    res: Response,
-    _next: NextFunction
-) {
-    // if (err instanceof )
+import { HttpError } from '../helpers/customError'
+import { HttpResponse, HttpStatus } from '../helpers/httpResponse'
 
-    if (err instanceof ValidationError) {
-        res.status(400).send({
-            status: 'Validation Error',
-            msg: err,
-        })
-    } else {
-        res.status(500).send({
-            error: 'Internal server error',
-            stack: err.stack,
-            name: err.name,
-            message: err.message,
-            cause: err.cause ?? undefined,
-        })
+export class ErrorHandler extends HttpResponse {
+    throw = (err: Error, _req: Request, res: Response, _next: NextFunction) => {
+        if (err instanceof HttpError) {
+            switch (err.statusCode) {
+                case HttpStatus.BAD_REQUEST:
+                    this.BadRequest(res, err.message)
+
+                    return
+
+                case HttpStatus.UNAUTHORIZED:
+                    this.Unauthorized(res, err.message)
+
+                    return
+                case HttpStatus.NOT_FOUND:
+                    this.NotFound(res, err.message)
+
+                    return
+            }
+        }
+
+        if (err instanceof ValidationError) {
+            this.BadRequest(res, err)
+
+            return
+        }
+
+        this.InternalServerError(res, err.message)
     }
 }
