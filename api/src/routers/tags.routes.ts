@@ -1,53 +1,62 @@
-import { Router } from 'express'
+import { TagControllers } from '../controllers/tags.controllers'
+import { TagMiddlewares } from '../middlewares/tags.middlewares'
+import { BaseRouter } from '../config/bases'
 
-import tagsControllers from '../controllers/tags.controllers'
-import authMiddlewares from '../middlewares/auth.middlewares'
-import tagsMiddlewares from '../middlewares/tags.middlewares'
+export class TagRouter extends BaseRouter<TagControllers, TagMiddlewares> {
+    constructor() {
+        super(TagControllers, TagMiddlewares)
+        this.routes()
+    }
 
-const router = Router()
+    routes() {
+        this.router.get(
+            '/',
+            this.auth.checkAdminAuth,
+            this.controllers.getAllTags
+        )
 
-router
+        this.router.get(
+            '/:name',
+            [this.auth.checkAdminAuth, this.middlewares.normalizeTag],
+            this.controllers.getTag
+        )
 
-    .get('/', authMiddlewares.checkAdminAuth, tagsControllers.getAllTags)
+        this.router.put(
+            '/:name',
+            [
+                this.auth.checkAdminAuth,
+                this.middlewares.checkNameTag,
+                this.middlewares.normalizeTag,
+                this.middlewares.checkBodyEditTag,
+            ],
+            this.controllers.tagUpdate
+        )
 
-    .get(
-        '/:name',
-        [authMiddlewares.checkAdminAuth, tagsMiddlewares.normalizeTag],
-        tagsControllers.getTag
-    )
+        this.router.post(
+            '/',
+            [
+                this.auth.checkAdminAuth,
+                this.middlewares.checkNameTag,
+                this.middlewares.normalizeTag,
+                this.middlewares.checkBodyAddTag,
+            ],
+            this.controllers.addTag
+        )
 
-    .put(
-        '/:name',
-        [
-            authMiddlewares.checkAdminAuth,
-            tagsMiddlewares.checkNameTag,
-            tagsMiddlewares.normalizeTag,
-            tagsMiddlewares.checkBodyEditTag,
-        ],
-        tagsControllers.tagUpdate
-    )
+        this.router.delete(
+            '/:name',
+            this.auth.checkAdminAuth,
+            this.controllers.deleteTag
+        )
 
-    .post(
-        '/',
-        [
-            authMiddlewares.checkAdminAuth,
-            tagsMiddlewares.checkNameTag,
-            tagsMiddlewares.normalizeTag,
-            tagsMiddlewares.checkBodyAddTag,
-        ],
-        tagsControllers.addTag
-    )
-
-    .delete('/:name', authMiddlewares.checkAdminAuth, tagsControllers.deleteTag)
-
-    .patch(
-        '/:name',
-        [
-            authMiddlewares.checkAdminAuth,
-            tagsMiddlewares.normalizeTag,
-            tagsMiddlewares.checkUpdateTagAvailability,
-        ],
-        tagsControllers.changeTagAvailability
-    )
-
-export default router
+        this.router.patch(
+            '/:name',
+            [
+                this.auth.checkAdminAuth,
+                this.middlewares.normalizeTag,
+                this.middlewares.checkUpdateTagAvailability,
+            ],
+            this.controllers.changeTagAvailability
+        )
+    }
+}

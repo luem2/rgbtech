@@ -1,66 +1,77 @@
 import type { NextFunction, Request, Response } from 'express'
 
 import { db } from '../database'
+import { BaseMiddlewares } from '../config/bases'
 
-class TagsMiddlewares {
-    async checkBodyAddTag(req: Request, res: Response, next: NextFunction) {
+export class TagMiddlewares extends BaseMiddlewares {
+    checkBodyAddTag = async (
+        req: Request,
+        _res: Response,
+        next: NextFunction
+    ) => {
         const tagFinded = await db.tag.findUnique({
             where: {
                 name: req.body.name,
             },
         })
 
-        if (tagFinded)
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'The tag already exists',
-            })
+        if (tagFinded) {
+            next(new this.HttpError(401, 'The tag already exists'))
+
+            return
+        }
 
         next()
     }
 
-    async checkBodyEditTag(req: Request, res: Response, next: NextFunction) {
+    checkBodyEditTag = async (
+        req: Request,
+        _res: Response,
+        next: NextFunction
+    ) => {
         const tagFinded = await db.tag.findUnique({
             where: {
                 name: req.params.name,
             },
         })
 
-        if (!tagFinded)
-            return res.status(404).send({
-                status: 'Error',
-                msg: 'Tag not found',
-            })
+        if (!tagFinded) {
+            next(new this.HttpError(404, 'The tag does not exist'))
 
-        if (tagFinded.name === req.body.name) {
-            next()
-        } else {
+            return
+        }
+
+        if (tagFinded.name !== req.body.name) {
             const otherTag = await db.tag.findUnique({
                 where: {
                     name: req.body.name,
                 },
             })
 
-            if (otherTag)
-                return res.status(401).send({
-                    status: 'Error',
-                    msg: 'The tag already exists',
-                })
+            if (otherTag) {
+                next(new this.HttpError(401, 'The tag already exists'))
 
-            next()
+                return
+            }
         }
+
+        next()
     }
 
-    normalizeTag(req: Request, res: Response, next: NextFunction) {
+    normalizeTag = (req: Request, _res: Response, next: NextFunction) => {
         if (req.params.name && req.body.name) {
             const tagParams = req.params.name
             const tagBody = req.body.name as string
 
             if (tagParams.length < 2 || tagBody.length < 2) {
-                return res.status(401).send({
-                    status: 'Error',
-                    msg: 'The tag must have at least 2 letters',
-                })
+                next(
+                    new this.HttpError(
+                        401,
+                        'The tag must have at least 2 letters'
+                    )
+                )
+
+                return
             }
 
             const normalizedTagParams =
@@ -74,11 +85,16 @@ class TagsMiddlewares {
         } else {
             const tag = req.params.name ?? req.body.name
 
-            if (tag.length < 2)
-                return res.status(401).send({
-                    status: 'Error',
-                    msg: 'The tag must have at least 2 letters',
-                })
+            if (tag.length < 2) {
+                next(
+                    new this.HttpError(
+                        401,
+                        'The tag must have at least 2 letters'
+                    )
+                )
+
+                return
+            }
 
             const normalizedTag =
                 tag[0].toUpperCase() + tag.slice(1).toLowerCase()
@@ -93,47 +109,50 @@ class TagsMiddlewares {
         next()
     }
 
-    checkNameTag(req: Request, res: Response, next: NextFunction) {
-        if (!req.body.name)
-            res.status(401).send({
-                status: 'Error',
-                msg: 'A name for the tag is required',
-            })
+    checkNameTag = (req: Request, _res: Response, next: NextFunction) => {
+        if (!req.body.name) {
+            next(new this.HttpError(401, 'A name for the tag is required'))
 
-        if (typeof req.body.name !== 'string')
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'The name must be a string',
-            })
+            return
+        }
+
+        if (typeof req.body.name !== 'string') {
+            next(new this.HttpError(401, 'The name must be a string'))
+
+            return
+        }
 
         next()
     }
 
-    async checkUpdateTagAvailability(
+    checkUpdateTagAvailability = async (
         req: Request,
-        res: Response,
+        _res: Response,
         next: NextFunction
-    ) {
+    ) => {
         const tagFinded = await db.tag.findUnique({
             where: {
                 name: req.params.name,
             },
         })
 
-        if (!tagFinded)
-            return res.status(404).send({
-                status: 'Error',
-                msg: `The tag doesn't exists`,
-            })
+        if (!tagFinded) {
+            next(new this.HttpError(404, `The tag doesn't exists`))
 
-        if (typeof req.body.disabled !== 'boolean')
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'The disabled property is required and must be a boolean',
-            })
+            return
+        }
+
+        if (typeof req.body.disabled !== 'boolean') {
+            next(
+                new this.HttpError(
+                    401,
+                    'The disabled property must be a boolean'
+                )
+            )
+
+            return
+        }
 
         next()
     }
 }
-
-export default new TagsMiddlewares()

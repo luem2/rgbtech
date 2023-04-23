@@ -2,7 +2,7 @@ import type { Request } from 'express'
 
 import { db } from '../database'
 
-class TagsServices {
+export class TagServices {
     async getAllTags() {
         return await db.tag.findMany({
             include: {
@@ -68,5 +68,3 @@ class TagsServices {
         })
     }
 }
-
-export default new TagsServices()

@@ -1,86 +1,73 @@
 import type { Request, Response } from 'express'
 
-import tagsServices from '../services/tags.services'
+import { TagServices } from '../services/tags.services'
+import { BaseControllers } from '../config/bases'
 
-class TagsControllers {
-    async getAllTags(_req: Request, res: Response) {
-        const tags = await tagsServices.getAllTags()
+export class TagControllers extends BaseControllers<TagServices> {
+    constructor() {
+        super(TagServices)
+    }
 
-        res.status(200).send({
-            status: 'Success',
+    getAllTags = async (_req: Request, res: Response) => {
+        const tags = await this.services.getAllTags()
+
+        this.httpResponse.Ok(res, {
             msg: 'All tags have been successfully sent',
-            body: {
-                tags,
-                count: tags.length,
-            },
+            tags_count: tags.length,
+            tags,
         })
     }
 
-    async getTag(req: Request, res: Response) {
-        const tag = await tagsServices.getTag(req.params)
+    getTag = async (req: Request, res: Response) => {
+        const tag = await this.services.getTag(req.params)
 
         if (tag) {
-            res.status(200).send({
-                status: 'Success',
+            this.httpResponse.Ok(res, {
                 msg: 'The tag has been successfully sent',
-                body: tag,
+                tag,
             })
         } else {
-            res.status(404).send({
-                status: 'Error',
-                msg: 'The tag has not been found',
-                body: tag,
-            })
+            this.httpResponse.NotFound(res, 'The tag has not been found')
         }
     }
 
-    async tagUpdate(req: Request, res: Response) {
-        const updatedTag = await tagsServices.tagUpdate(req)
+    tagUpdate = async (req: Request, res: Response) => {
+        const updatedTag = await this.services.tagUpdate(req)
 
-        res.status(200).send({
-            status: 'Success',
-            msg: 'Tag have been successfully updated',
-            body: updatedTag,
+        this.httpResponse.Ok(res, {
+            msg: 'The tag has been successfully updated',
+            brand: updatedTag,
         })
     }
 
-    async addTag(req: Request, res: Response) {
-        const newTag = await tagsServices.addTag(req.body.name)
+    addTag = async (req: Request, res: Response) => {
+        const newTag = await this.services.addTag(req.body.name)
 
-        res.status(201).send({
-            status: 'Success',
-            msg: 'Tag have been successfully created',
-            body: newTag,
+        this.httpResponse.Created(res, {
+            msg: 'The tag has been successfully created',
+            brand: newTag,
         })
     }
 
-    async changeTagAvailability(req: Request, res: Response) {
-        const tagUpdated = await tagsServices.changeTagAvailability(req)
+    changeTagAvailability = async (req: Request, res: Response) => {
+        const tagUpdated = await this.services.changeTagAvailability(req)
 
-        res.status(200).send({
-            status: 'Success',
-            msg: 'Tag have been successfully updated',
-            body: tagUpdated,
+        this.httpResponse.Ok(res, {
+            msg: 'The tag has been successfully updated',
+            brand: tagUpdated,
         })
     }
 
-    async deleteTag(req: Request, res: Response) {
-        const tagDeleted = await tagsServices.deleteTag(req)
+    deleteTag = async (req: Request, res: Response) => {
+        const tagDeleted = await this.services.deleteTag(req)
 
         if (!tagDeleted) {
-            return res.status(404).send({
-                status: 'Error',
-                msg: 'The tag has not been found',
-                body: tagDeleted,
-            })
+            this.httpResponse.NotFound(res, 'The tag has not been found')
         }
 
-        res.status(200).send({
-            status: 'Success',
-            msg: 'Tag have been successfully deleted',
-            body: tagDeleted,
+        this.httpResponse.Ok(res, {
+            msg: 'The tag has been successfully deleted',
+            brand: tagDeleted,
         })
     }
 }
-
-export default new TagsControllers()
