@@ -22,61 +22,42 @@ export class UserControllers extends BaseControllers<UserServices> {
         const profileEdited = await this.services.updateProfile(req)
 
         if (!profileEdited) {
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'Country sent is invalid',
-                body: profileEdited,
-            })
+            this.httpResponse.BadRequest(res, 'Country sent is invalid')
         }
 
-        res.status(200).send({
-            status: 'Success',
+        this.httpResponse.Ok(res, {
             msg: 'The profile was successfully updated',
-            body: profileEdited,
+            userUpdated: profileEdited,
         })
     }
 
     passwordUpdate = async (req: Request, res: Response) => {
-        const userWithPasswordUpdated = await authServices.passwordUpdate(req)
+        await authServices.passwordUpdate(req)
 
-        res.status(200).send({
-            status: 'Success',
-            msg: 'The password was successfully updated',
-            body: userWithPasswordUpdated,
-        })
+        this.httpResponse.Ok(res, 'The password was successfully updated')
     }
 
     changeProfilePhoto = async (req: Request, res: Response) => {
-        if (!req.file)
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'You have not sent the image',
-            })
+        if (!req.file) {
+            this.httpResponse.BadRequest(res, 'The image was not sent')
+        }
 
         const userUpdated = await this.services.changeProfilePhoto(req)
 
-        if (!userUpdated)
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'User not found',
-            })
+        if (!userUpdated) {
+            this.httpResponse.BadRequest(res, 'User not found')
+        }
 
-        res.status(200).send({
-            status: 'Success',
-            msg: 'The profile photo was successfully updated',
-        })
+        this.httpResponse.Ok(res, 'The profile photo was successfully updated')
     }
 
     getShoppingCart = async (req: Request, res: Response) => {
         const user = await this.services.getShoppingCart(req.userId)
 
-        this.httpResponse.Ok(res, user?.shoppingCart)
-
-        // res.status(200).send({
-        //     status: 'Success',
-        //     msg: `The user's shopping cart was successfully submitted`,
-        //     body: user?.shoppingCart,
-        // })
+        this.httpResponse.Ok(res, {
+            msg: 'The user shopping cart was successfully submitted',
+            shoppingCart: user?.shoppingCart,
+        })
     }
 
     addItemToCart = async (req: Request, res: Response) => {
@@ -84,19 +65,16 @@ export class UserControllers extends BaseControllers<UserServices> {
 
         const product = req.body.productId as string
 
-        res.status(201).send({
-            status: 'Success',
-            msg: `The item ${product} has been added to cart`,
-        })
+        this.httpResponse.Created(
+            res,
+            `The item ${product} has been added to cart`
+        )
     }
 
     modifyItemQuantity = async (req: Request, res: Response) => {
         await this.services.modifyItemQuantity(req)
 
-        res.status(200).send({
-            status: 'Success',
-            msg: 'The item quantity has been modified',
-        })
+        this.httpResponse.Ok(res, 'The item quantity has been modified')
     }
 
     deleteItemFromCart = async (req: Request, res: Response) => {
@@ -104,28 +82,24 @@ export class UserControllers extends BaseControllers<UserServices> {
 
         await this.services.deleteItemFromCart(req)
 
-        res.status(200).send({
-            status: 'Success',
-            msg: `The item ${product} has been deleted from cart`,
-        })
+        this.httpResponse.Ok(
+            res,
+            `The item ${product} has been deleted from cart`
+        )
     }
 
     cleanShoppingCart = async (req: Request, res: Response) => {
         await this.services.cleanShoppingCart(req.userId)
 
-        res.status(200).send({
-            status: 'Success',
-            msg: `The user's shopping cart was cleaned`,
-        })
+        this.httpResponse.Ok(res, `The user's shopping cart was cleaned`)
     }
 
     getFavorites = async (req: Request, res: Response) => {
         const favorites = await this.services.getFavorites(req.userId)
 
-        res.status(200).send({
-            status: 'Success',
+        this.httpResponse.Ok(res, {
             msg: `The user's favorites was successfully submitted`,
-            body: favorites,
+            favorites,
         })
     }
 
@@ -134,10 +108,10 @@ export class UserControllers extends BaseControllers<UserServices> {
 
         const product = req.body.productId as string
 
-        res.status(201).send({
-            status: 'Success',
-            msg: `The item ${product} has been added to favorites`,
-        })
+        this.httpResponse.Created(
+            res,
+            `The item ${product} has been added to favorites`
+        )
     }
 
     deleteItemFromFavorites = async (req: Request, res: Response) => {
@@ -145,66 +119,60 @@ export class UserControllers extends BaseControllers<UserServices> {
 
         await this.services.deleteItemFromFavorites(req)
 
-        res.status(200).send({
-            status: 'Success',
-            msg: `The item ${product} has been deleted from favorites`,
-        })
+        this.httpResponse.Ok(
+            res,
+            `The item ${product} has been deleted from favorites`
+        )
     }
 
     cleanFavorites = async (req: Request, res: Response) => {
         await this.services.cleanFavorites(req.userId)
 
-        res.status(200).send({
-            status: 'Success',
-            msg: `The user's favorites was cleaned`,
-        })
+        this.httpResponse.Ok(res, `The user's favorites was cleaned`)
     }
 
     getReviews = async (req: Request, res: Response) => {
         const user = await this.services.getReviews(req.userId)
 
-        res.status(200).send({
-            status: 'Success',
+        this.httpResponse.Ok(res, {
             msg: `The user's reviews was successfully submitted`,
-            body: user?.reviews,
+            reviews: user?.reviews,
         })
     }
 
     addReview = async (req: Request, res: Response) => {
         await this.services.addReview(req)
 
-        res.status(201).send({
-            status: 'Success',
-            msg: `The review has been posted`,
+        this.httpResponse.Created(res, {
+            msg: 'The review has been posted',
+            reviewAdded: req.body,
         })
     }
 
     getTransactions = async (req: Request, res: Response) => {
         const user = await this.services.getTransactions(req.userId)
 
-        res.status(200).send({
-            status: 'Success',
+        this.httpResponse.Ok(res, {
             msg: `The user's transactions was successfully submitted`,
-            body: user?.transactions,
+            transactions: user?.transactions,
         })
     }
 
     getHistory = async (req: Request, res: Response) => {
         const user = await this.services.getHistory(req.userId)
 
-        res.status(200).send({
-            status: 'Success',
+        this.httpResponse.Ok(res, {
             msg: `The user's history was successfully submitted`,
-            body: user?.history,
+            history: user?.history,
         })
     }
 
     addLastVisitedToHistory = async (req: Request, res: Response) => {
         await this.services.addLastVisitedToHistory(req)
 
-        res.status(201).send({
-            status: 'Success',
+        this.httpResponse.Created(res, {
             msg: 'The last product visited has been added to history',
+            productAdded: req.body.productId,
         })
     }
 
@@ -220,6 +188,9 @@ export class UserControllers extends BaseControllers<UserServices> {
     claimAward = async (req: Request, res: Response) => {
         await this.services.claimAward(req)
 
-        this.httpResponse.Ok(res, 'Award was successfully claimed')
+        this.httpResponse.Ok(res, {
+            msg: 'Award was successfully claimed',
+            awardClaimed: req.body.awardClaimed,
+        })
     }
 }
