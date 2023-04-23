@@ -297,7 +297,7 @@ export class UserServices {
         })
     }
 
-    async claimAward({ userId, params, body }: Request) {
+    async claimAward({ userId, query, body }: Request) {
         return await db.user.update({
             where: {
                 id: userId,
@@ -306,9 +306,11 @@ export class UserServices {
             data: {
                 awards: {
                     connect: {
-                        id: params.id,
+                        id: query.id as string,
                     },
                 },
+
+                RGBpoints: body.userPointsUpdated,
             },
         })
     }

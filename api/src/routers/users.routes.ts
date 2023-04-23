@@ -86,7 +86,7 @@ export class UserRouter extends BaseRouter<UserControllers, UserMiddlewares> {
 
         this.router.put(
             '/claim-award',
-            this.auth.checkAuth,
+            [this.auth.checkAuth, this.middlewares.checkClaimAward],
             this.controllers.claimAward
         )
 

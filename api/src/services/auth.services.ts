@@ -68,7 +68,7 @@ class AuthServices {
     async passwordUpdate({ userId, params, body }: Request) {
         const id = params.id ?? userId
 
-        return await db.user.update({
+        await db.user.update({
             where: {
                 id,
             },
