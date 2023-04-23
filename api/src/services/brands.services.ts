@@ -5,7 +5,7 @@ import { db } from '../database'
 import { deleteFile, writeNewFile } from '../helpers/fsFunctions'
 import { CORE } from '../helpers/constants'
 
-class BrandsServices {
+export class BrandServices {
     async getAllBrands() {
         return await db.brand.findMany({
             include: {
@@ -103,5 +103,3 @@ class BrandsServices {
         })
     }
 }
-
-export default new BrandsServices()

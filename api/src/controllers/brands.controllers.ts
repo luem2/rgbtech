@@ -1,87 +1,73 @@
 import type { Request, Response } from 'express'
 
-import brandsServices from '../services/brands.services'
+import { BrandServices } from '../services/brands.services'
+import { BaseControllers } from '../config/bases'
 
-class BrandsControllers {
-    async getAllBrands(_req: Request, res: Response) {
-        const brands = await brandsServices.getAllBrands()
+export class BrandControllers extends BaseControllers<BrandServices> {
+    constructor() {
+        super(BrandServices)
+    }
 
-        res.status(200).send({
-            status: 'Success',
+    getAllBrands = async (_req: Request, res: Response) => {
+        const brands = await this.services.getAllBrands()
+
+        this.httpResponse.Ok(res, {
             msg: 'All brands have been successfully sent',
-            body: {
-                brands,
-                count: brands.length,
-            },
+            brands_count: brands.length,
+            brands,
         })
     }
 
-    async getBrand(req: Request, res: Response) {
-        const brand = await brandsServices.getBrand(req.params)
+    getBrand = async (req: Request, res: Response) => {
+        const brand = await this.services.getBrand(req.params)
 
         if (brand) {
-            res.status(200).send({
-                status: 'Success',
+            this.httpResponse.Ok(res, {
                 msg: 'The brand has been successfully sent',
-                body: brand,
+                brand,
             })
         } else {
-            res.status(404).send({
-                status: 'Error',
-                msg: 'The brand has not been found',
-                body: brand,
-            })
+            this.httpResponse.NotFound(res, 'The brand has not been found')
         }
     }
 
-    async brandUpdate(req: Request, res: Response) {
-        const updatedBrand = await brandsServices.brandUpdate(req)
+    brandUpdate = async (req: Request, res: Response) => {
+        const updatedBrand = await this.services.brandUpdate(req)
 
-        res.status(200).send({
-            status: 'Success',
+        this.httpResponse.Ok(res, {
             msg: 'Brand have been successfully updated',
-            body: updatedBrand,
+            brand: updatedBrand,
         })
     }
 
-    async addBrand(req: Request, res: Response) {
-        const newProduct = await brandsServices.addBrand(req)
+    addBrand = async (req: Request, res: Response) => {
+        const newBrand = await this.services.addBrand(req)
 
-        res.status(201).send({
-            status: 'Success',
+        this.httpResponse.Created(res, {
             msg: 'Brand have been successfully created',
-            body: newProduct,
+            brand: newBrand,
         })
     }
 
-    async changeBrandAvailability(req: Request, res: Response) {
-        const productDisabled = await brandsServices.changeBrandAvailability(
-            req
-        )
+    changeBrandAvailability = async (req: Request, res: Response) => {
+        const brandUpdated = await this.services.changeBrandAvailability(req)
 
-        res.status(200).send({
-            status: 'Success',
+        this.httpResponse.Ok(res, {
             msg: 'Brand have been successfully updated',
-            body: productDisabled,
+            brand: brandUpdated,
         })
     }
 
-    async deleteBrand(req: Request, res: Response) {
-        const deletedBrand = await brandsServices.deleteBrand(req.params)
+    deleteBrand = async (req: Request, res: Response) => {
+        const deletedBrand = await this.services.deleteBrand(req.params)
 
-        if (!deletedBrand)
-            return res.status(404).send({
-                status: 'Error',
-                msg: 'Brand have not been found',
-                body: deletedBrand,
-            })
+        if (!deletedBrand) {
+            this.httpResponse.NotFound(res, 'Brand have not been found')
+        }
 
-        res.status(200).send({
-            status: 'Success',
+        this.httpResponse.Ok(res, {
             msg: 'Brand have been successfully deleted',
-            body: deletedBrand,
+            brand: deletedBrand,
         })
     }
 }
-
-export default new BrandsControllers()

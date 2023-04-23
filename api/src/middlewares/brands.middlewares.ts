@@ -2,26 +2,31 @@ import type { NextFunction, Request, Response } from 'express'
 
 import { db } from '../database'
 import { generateFileName } from '../helpers/filename'
+import { BaseMiddlewares } from '../config/bases'
 
-class BrandsMiddlewares {
-    async checkBodyAddBrand(req: Request, res: Response, next: NextFunction) {
+export class BrandMiddlewares extends BaseMiddlewares {
+    checkBodyAddBrand = async (
+        req: Request,
+        _res: Response,
+        next: NextFunction
+    ) => {
         const brandFinded = await db.brand.findUnique({
             where: {
                 name: req.body.name,
             },
         })
 
-        if (brandFinded)
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'The brand already exists',
-            })
+        if (brandFinded) {
+            next(new this.HttpError(400, 'The brand already exists'))
 
-        if (!req.file)
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'The brand needs an image',
-            })
+            return
+        }
+
+        if (!req.file) {
+            next(new this.HttpError(400, 'The brand needs an image'))
+
+            return
+        }
 
         const fileName = generateFileName(req.file)
 
@@ -30,18 +35,22 @@ class BrandsMiddlewares {
         next()
     }
 
-    async checkBodyEditBrand(req: Request, res: Response, next: NextFunction) {
+    checkBodyEditBrand = async (
+        req: Request,
+        _res: Response,
+        next: NextFunction
+    ) => {
         const brandFinded = await db.brand.findUnique({
             where: {
                 name: req.params.name,
             },
         })
 
-        if (!brandFinded)
-            return res.status(404).send({
-                status: 'Error',
-                msg: 'Brand not found',
-            })
+        if (!brandFinded) {
+            next(new this.HttpError(404, 'Brand not found'))
+
+            return
+        }
 
         if (brandFinded.name !== req.body.name) {
             const otherBrand = await db.brand.findUnique({
@@ -50,11 +59,11 @@ class BrandsMiddlewares {
                 },
             })
 
-            if (otherBrand)
-                return res.status(401).send({
-                    status: 'Error',
-                    msg: 'The brand already exists',
-                })
+            if (otherBrand) {
+                next(new this.HttpError(400, 'The brand already exists'))
+
+                return
+            }
         }
 
         if (req.file) {
@@ -67,31 +76,34 @@ class BrandsMiddlewares {
         next()
     }
 
-    async checkUpdateBrandAvailability(
+    checkUpdateBrandAvailability = async (
         req: Request,
-        res: Response,
+        _res: Response,
         next: NextFunction
-    ) {
+    ) => {
         const brandFinded = await db.brand.findUnique({
             where: {
                 name: req.params.name,
             },
         })
 
-        if (!brandFinded)
-            return res.status(404).send({
-                status: 'Error',
-                msg: `The brand doesn't exists`,
-            })
+        if (!brandFinded) {
+            next(new this.HttpError(404, 'Brand not found'))
 
-        if (typeof req.body.disabled !== 'boolean')
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'The disabled property is required and must be a boolean',
-            })
+            return
+        }
+
+        if (typeof req.body.disabled !== 'boolean') {
+            next(
+                new this.HttpError(
+                    400,
+                    'The disabled property is required and must be a boolean'
+                )
+            )
+
+            return
+        }
 
         next()
     }
 }
-
-export default new BrandsMiddlewares()

@@ -1,57 +1,69 @@
-import { Router } from 'express'
-
-import brandsControllers from '../controllers/brands.controllers'
-import authMiddlewares from '../middlewares/auth.middlewares'
-import brandsMiddlewares from '../middlewares/brands.middlewares'
+import { BrandControllers } from '../controllers/brands.controllers'
+import { BrandMiddlewares } from '../middlewares/brands.middlewares'
 import { parseBody, validateSchema } from '../middlewares'
 import { brandSchema } from '../schemas'
 import { multerTemp } from '../config/multer'
+import { BaseRouter } from '../config/bases'
 
-const router = Router()
+export class BrandRouter extends BaseRouter<
+    BrandControllers,
+    BrandMiddlewares
+> {
+    constructor() {
+        super(BrandControllers, BrandMiddlewares)
+        this.routes()
+    }
 
-router
+    routes() {
+        this.router.get(
+            '/',
+            this.auth.checkAdminAuth,
+            this.controllers.getAllBrands
+        )
 
-    .get('/', authMiddlewares.checkAdminAuth, brandsControllers.getAllBrands)
+        this.router.get(
+            '/:name',
+            this.auth.checkAdminAuth,
+            this.controllers.getBrand
+        )
 
-    .get('/:name', authMiddlewares.checkAdminAuth, brandsControllers.getBrand)
+        this.router.put(
+            '/:name',
+            [
+                multerTemp.single('brand'),
+                this.auth.checkAdminAuth,
+                parseBody,
+                validateSchema(brandSchema),
+                this.middlewares.checkBodyEditBrand,
+            ],
+            this.controllers.brandUpdate
+        )
 
-    .put(
-        '/:name',
-        [
-            multerTemp.single('brand'),
-            authMiddlewares.checkAdminAuth,
-            parseBody,
-            validateSchema(brandSchema),
-            brandsMiddlewares.checkBodyEditBrand,
-        ],
-        brandsControllers.brandUpdate
-    )
+        this.router.post(
+            '/',
+            [
+                multerTemp.single('brand'),
+                this.auth.checkAdminAuth,
+                parseBody,
+                validateSchema(brandSchema),
+                this.middlewares.checkBodyAddBrand,
+            ],
+            this.controllers.addBrand
+        )
 
-    .post(
-        '/',
-        [
-            multerTemp.single('brand'),
-            authMiddlewares.checkAdminAuth,
-            parseBody,
-            validateSchema(brandSchema),
-            brandsMiddlewares.checkBodyAddBrand,
-        ],
-        brandsControllers.addBrand
-    )
+        this.router.delete(
+            '/:name',
+            this.auth.checkAdminAuth,
+            this.controllers.deleteBrand
+        )
 
-    .delete(
-        '/:name',
-        authMiddlewares.checkAdminAuth,
-        brandsControllers.deleteBrand
-    )
-
-    .patch(
-        '/:name',
-        [
-            authMiddlewares.checkAdminAuth,
-            brandsMiddlewares.checkUpdateBrandAvailability,
-        ],
-        brandsControllers.changeBrandAvailability
-    )
-
-export default router
+        this.router.patch(
+            '/:name',
+            [
+                this.auth.checkAdminAuth,
+                this.middlewares.checkUpdateBrandAvailability,
+            ],
+            this.controllers.changeBrandAvailability
+        )
+    }
+}
