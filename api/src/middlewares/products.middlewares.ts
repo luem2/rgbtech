@@ -2,20 +2,24 @@ import type { Request, Response, NextFunction } from 'express'
 import type { JwtPayload } from 'jsonwebtoken'
 import type { ProductSchema } from '../types'
 
+import { ValidationError } from 'yup'
+
 import { db } from '../database'
 import { verifyToken } from '../helpers/generateToken'
-import { validateSchemaInsideMiddleware } from '.'
 import { querySchema } from '../schemas'
 import { generateFileName } from '../helpers/filename'
 import { writeNewFile } from '../helpers/fsFunctions'
 import { CORE } from '../helpers/constants'
+import { BaseMiddlewares } from '../config/bases'
 
-class ProductsMiddlewares {
-    async getProductsAuthMiddleware(
+import { validateSchemaInsideMiddleware } from '.'
+
+export class ProductMiddlewares extends BaseMiddlewares {
+    getProductsAuthMiddleware = async (
         req: Request,
         _res: Response,
         next: NextFunction
-    ) {
+    ) => {
         const token = req.headers.authorization?.split(' ').pop()
 
         if (token) {
@@ -29,14 +33,20 @@ class ProductsMiddlewares {
         next()
     }
 
-    async checkBodyAddProduct(req: Request, res: Response, next: NextFunction) {
+    checkBodyAddProduct = async (
+        req: Request,
+        _res: Response,
+        next: NextFunction
+    ) => {
         const newProduct = req.body as ProductSchema
 
-        if (newProduct.id)
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'This operation does not require an ID',
-            })
+        if (newProduct.id) {
+            next(
+                new this.HttpError(400, 'This operation does not require an ID')
+            )
+
+            return
+        }
 
         const productFinded = await db.product.findUnique({
             where: {
@@ -44,17 +54,21 @@ class ProductsMiddlewares {
             },
         })
 
-        if (productFinded)
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'The product already exists',
-            })
+        if (productFinded) {
+            next(new this.HttpError(400, 'The product already exists'))
+
+            return
+        }
 
         if (!req.file) {
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'The product needs an image',
-            })
+            next(
+                new this.HttpError(
+                    401,
+                    'The product needs an image to be added'
+                )
+            )
+
+            return
         }
 
         const fileName = generateFileName(req.file)
@@ -69,24 +83,34 @@ class ProductsMiddlewares {
         next()
     }
 
-    async checkBodyEditProduct(
+    checkBodyEditProduct = async (
         req: Request,
-        res: Response,
+        _res: Response,
         next: NextFunction
-    ) {
+    ) => {
         const product = req.body as ProductSchema
 
-        if (!product.id)
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'Product id is needed to perform the operation',
-            })
+        if (!product.id) {
+            next(
+                new this.HttpError(
+                    400,
+                    ' This operation requires the product id'
+                )
+            )
 
-        if (product.picture)
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'This operation can not change the picture',
-            })
+            return
+        }
+
+        if (product.picture) {
+            next(
+                new this.HttpError(
+                    400,
+                    'This operation can not change the picture'
+                )
+            )
+
+            return
+        }
 
         const productFinded = await db.product.findUnique({
             where: {
@@ -94,11 +118,11 @@ class ProductsMiddlewares {
             },
         })
 
-        if (!productFinded)
-            return res.status(404).send({
-                status: 'Error',
-                msg: 'Product id not found, the product doesnt exists',
-            })
+        if (!productFinded) {
+            next(new this.HttpError(404, 'Product not found'))
+
+            return
+        }
 
         if (productFinded.name === product.name) {
             next()
@@ -109,17 +133,21 @@ class ProductsMiddlewares {
                 },
             })
 
-            if (otherProduct)
-                return res.status(401).send({
-                    status: 'Error',
-                    msg: 'The product already exists',
-                })
+            if (otherProduct) {
+                next(new this.HttpError(400, 'The product already exists'))
+
+                return
+            }
 
             next()
         }
     }
 
-    async checkBrandAndTags(req: Request, res: Response, next: NextFunction) {
+    checkBrandAndTags = async (
+        req: Request,
+        _res: Response,
+        next: NextFunction
+    ) => {
         const product = req.body as ProductSchema
 
         const brandFinded = await db.brand.findUnique({
@@ -129,18 +157,20 @@ class ProductsMiddlewares {
         })
 
         if (!brandFinded) {
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'The brand does not exists',
-            })
+            next(new this.HttpError(401, 'The brand does not exists'))
+
+            return
         }
 
         product.tags.forEach((tag) => {
-            if (tag.length < 2)
-                return res.status(401).send({
-                    status: 'Error',
-                    msg: 'The tag must have at least 2 letters',
-                })
+            if (tag.length < 2) {
+                next(
+                    new this.HttpError(
+                        401,
+                        'The tag must have at least 2 letters'
+                    )
+                )
+            }
         })
 
         req.body.tags = product.tags.map(
@@ -150,37 +180,42 @@ class ProductsMiddlewares {
         next()
     }
 
-    async checkUpdateProductAvailability(
+    checkUpdateProductAvailability = async (
         req: Request,
-        res: Response,
+        _res: Response,
         next: NextFunction
-    ) {
+    ) => {
         const productFinded = await db.product.findUnique({
             where: {
                 id: req.params.productId,
             },
         })
 
-        if (!productFinded)
-            return res.status(404).send({
-                status: 'Error',
-                msg: `The product doesn't exists`,
-            })
+        if (!productFinded) {
+            next(new this.HttpError(404, 'Product not found'))
 
-        if (typeof req.body.disabled !== 'boolean')
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'The disabled property is required and must be a boolean',
-            })
+            return
+        }
+
+        if (typeof req.body.disabled !== 'boolean') {
+            next(
+                new this.HttpError(
+                    401,
+                    'The disabled property must be a boolean'
+                )
+            )
+
+            return
+        }
 
         next()
     }
 
-    async checkQueryObjectFilters(
+    checkQueryObjectFilters = async (
         req: Request,
-        res: Response,
+        _res: Response,
         next: NextFunction
-    ) {
+    ) => {
         if (Object.keys(req.query).length) {
             const query = req.query as Record<string, string>
             const parsedQuery: Record<string, unknown> = {}
@@ -200,24 +235,36 @@ class ProductsMiddlewares {
                 req
             )
 
-            if (!queryValidationSchema.valid)
-                return res.status(401).send({
-                    status: 'Error',
-                    msg: queryValidationSchema.err,
-                })
+            if (!queryValidationSchema.valid) {
+                next(
+                    new ValidationError(
+                        queryValidationSchema.err as ValidationError
+                    )
+                )
+
+                return
+            }
         }
+
         next()
     }
 
-    checkUpdatePictureProduct(req: Request, res: Response, next: NextFunction) {
-        if (!req.query.id)
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'Product id is needed to perform the operation',
-            })
+    checkUpdatePictureProduct = (
+        req: Request,
+        _res: Response,
+        next: NextFunction
+    ) => {
+        if (!req.query.id) {
+            next(
+                new this.HttpError(
+                    401,
+                    'Product id is needed to perform the operation'
+                )
+            )
+
+            return
+        }
 
         next()
     }
 }
-
-export default new ProductsMiddlewares()

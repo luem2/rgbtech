@@ -6,42 +6,46 @@ import { db } from '../database'
 import { deleteFile } from '../helpers/fsFunctions'
 import { CORE } from '../helpers/constants'
 
-class ProductsServices {
-    readonly userInfoSelectedToSubmit: Prisma.ProductSelect = {
-        _count: {
-            select: {
-                usersFavorite: true,
-                reviews: true,
-                tags: true,
-                transactions: true,
+export class ProductServices {
+    readonly userInfoSelectedToSubmit: Prisma.ProductSelect
+    readonly adminInfoIncludedToSubmit: Prisma.ProductInclude
+
+    constructor() {
+        this.userInfoSelectedToSubmit = {
+            _count: {
+                select: {
+                    usersFavorite: true,
+                    reviews: true,
+                    tags: true,
+                    transactions: true,
+                },
             },
-        },
-        id: true,
-        name: true,
-        description: true,
-        price: true,
-        specifications: true,
-        picture: true,
-        stock: true,
-        onDiscount: true,
-        discountPercentage: true,
-        freeShipping: true,
-        rating: true,
+            id: true,
+            name: true,
+            description: true,
+            price: true,
+            specifications: true,
+            picture: true,
+            stock: true,
+            onDiscount: true,
+            discountPercentage: true,
+            freeShipping: true,
+            rating: true,
 
-        tags: true,
-        brand: true,
-        reviews: true,
-    }
-
-    readonly adminInfoIncludedToSubmit: Prisma.ProductInclude = {
-        _count: true,
-        brand: true,
-        reviews: true,
-        shoppingCarts: true,
-        tags: true,
-        transactions: true,
-        usersFavorite: true,
-        usersHistory: true,
+            tags: true,
+            brand: true,
+            reviews: true,
+        }
+        this.adminInfoIncludedToSubmit = {
+            _count: true,
+            brand: true,
+            reviews: true,
+            shoppingCarts: true,
+            tags: true,
+            transactions: true,
+            usersFavorite: true,
+            usersHistory: true,
+        }
     }
 
     async getAllProducts(userRole: Request['userRole']) {
@@ -96,7 +100,7 @@ class ProductsServices {
                 : undefined,
 
             tags: {
-                every: {
+                some: {
                     name: queryParams.tags?.length
                         ? {
                               in: queryParams.tags,
@@ -167,11 +171,14 @@ class ProductsServices {
     }
 
     isNotEmpty(arg: string | Record<string, unknown> | undefined) {
-        if (typeof arg === 'string') {
-            return Boolean(arg)
-        } else if (typeof arg === 'object') {
-            return Boolean(Object.keys(arg).length)
-        } else return false
+        switch (typeof arg) {
+            case 'string':
+                return Boolean(arg)
+            case 'object':
+                return Boolean(Object.keys(arg).length)
+            default:
+                return false
+        }
     }
 
     async getProduct({ userRole, params }: Request) {
@@ -353,5 +360,3 @@ class ProductsServices {
         })
     }
 }
-
-export default new ProductsServices()

@@ -1,111 +1,98 @@
 import type { Request, Response } from 'express'
 
-import productsServices from '../services/products.services'
+import { ProductServices } from '../services/products.services'
+import { BaseControllers } from '../config/bases'
 
-class ProductsControllers {
-    async getAllProducts(req: Request, res: Response) {
+export class ProductControllers extends BaseControllers<ProductServices> {
+    constructor() {
+        super(ProductServices)
+    }
+
+    getAllProducts = async (req: Request, res: Response) => {
         let products
 
         if (Object.keys(req.query).length) {
-            products = await productsServices.getQueryProducts(req)
+            products = await this.services.getQueryProducts(req)
         } else {
-            products = await productsServices.getAllProducts(req.userRole)
+            products = await this.services.getAllProducts(req.userRole)
         }
 
-        res.status(200).send({
-            status: 'Success',
+        this.httpResponse.Ok(res, {
             msg: 'All products have been successfully sent',
-            body: {
-                products,
-                count: products.length,
-            },
+            products_count: products.length,
+            products,
         })
     }
 
-    async getProduct(req: Request, res: Response) {
-        const product = await productsServices.getProduct(req)
+    getProduct = async (req: Request, res: Response) => {
+        const product = await this.services.getProduct(req)
 
-        if (!product)
-            return res.status(404).send({
-                status: 'Error',
-                msg: 'Product not found',
-            })
+        if (!product) {
+            this.httpResponse.NotFound(res, 'Product not found')
+        }
 
-        res.status(200).send({
-            status: 'Success',
+        this.httpResponse.Ok(res, {
             msg: 'Product have been successfully sent',
-            body: product,
+            product,
         })
     }
 
-    async productUpdate(req: Request, res: Response) {
-        const updatedProduct = await productsServices.productUpdate(req.body)
+    productUpdate = async (req: Request, res: Response) => {
+        const updatedProduct = await this.services.productUpdate(req.body)
 
-        res.status(200).send({
-            status: 'Success',
+        this.httpResponse.Ok(res, {
             msg: 'Product have been successfully updated',
-            body: updatedProduct,
+            product: updatedProduct,
         })
     }
 
-    async productPictureUpdate(req: Request, res: Response) {
-        if (!req.file)
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'The new product image is needed',
-            })
+    productPictureUpdate = async (req: Request, res: Response) => {
+        if (!req.file) {
+            this.httpResponse.BadRequest(res, 'The new product image is needed')
+        }
 
-        const updatedProduct = await productsServices.productPictureUpdate(req)
+        const updatedProduct = await this.services.productPictureUpdate(req)
 
-        if (!updatedProduct)
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'Product not found',
-            })
+        if (!updatedProduct) {
+            this.httpResponse.NotFound(res, 'Product not found')
+        }
 
-        res.status(200).send({
-            status: 'Success',
+        this.httpResponse.Ok(res, {
             msg: 'Product picture have been successfully updated',
-            body: updatedProduct,
+            product: updatedProduct,
         })
     }
 
-    async addProduct(req: Request, res: Response) {
-        const newProduct = await productsServices.addProduct(req.body)
+    addProduct = async (req: Request, res: Response) => {
+        const newProduct = await this.services.addProduct(req.body)
 
-        res.status(201).send({
-            status: 'Success',
+        this.httpResponse.Created(res, {
             msg: 'Product have been successfully created',
-            body: newProduct,
+            product: newProduct,
         })
     }
 
-    async changeProductAvailability(req: Request, res: Response) {
-        const productDisabled =
-            await productsServices.changeProductAvailability(req)
+    changeProductAvailability = async (req: Request, res: Response) => {
+        const productUpdated = await this.services.changeProductAvailability(
+            req
+        )
 
-        res.status(201).send({
-            status: 'Success',
-            msg: 'Product have been successfully updated',
-            body: productDisabled,
+        this.httpResponse.Ok(res, {
+            msg: 'Product availability have been successfully updated',
+            product: productUpdated,
         })
     }
 
-    async deleteProduct(req: Request, res: Response) {
-        const deletedProduct = await productsServices.deleteProduct(req)
+    deleteProduct = async (req: Request, res: Response) => {
+        const deletedProduct = await this.services.deleteProduct(req)
 
-        if (!deletedProduct)
-            return res.status(404).send({
-                status: 'Error',
-                msg: 'Product not found',
-            })
+        if (!deletedProduct) {
+            this.httpResponse.NotFound(res, 'Product not found')
+        }
 
-        res.status(200).send({
-            status: 'Success',
+        this.httpResponse.Ok(res, {
             msg: 'Product have been successfully deleted',
-            body: deletedProduct,
+            product: deletedProduct,
         })
     }
 }
-
-export default new ProductsControllers()
