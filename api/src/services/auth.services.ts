@@ -9,7 +9,7 @@ import nodemailerService from '../helpers/nodemailer'
 import { deleteFile } from '../helpers/fsFunctions'
 import { PICTURES } from '../helpers/constants'
 
-class AuthServices {
+export class AuthServices {
     async login({ body, userId }: Request) {
         const user = body as User
 
@@ -127,5 +127,3 @@ class AuthServices {
         })
     }
 }
-
-export default new AuthServices()

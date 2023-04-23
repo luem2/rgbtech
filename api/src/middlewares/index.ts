@@ -17,7 +17,7 @@ export function filePhotoProfileFilter(
 }
 
 export function validateSchema(schema: AnySchema) {
-    return async function (req: Request, res: Response, next: NextFunction) {
+    return async function (req: Request, _res: Response, next: NextFunction) {
         try {
             await schema.validate(
                 {

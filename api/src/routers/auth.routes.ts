@@ -1,47 +1,57 @@
-import { Router } from 'express'
-
-import authControllers from '../controllers/auth.controllers'
-import authMiddlewares from '../middlewares/auth.middlewares'
 import { emailSchema, newPasswordSchema } from '../schemas'
 import { validateSchema } from '../middlewares'
 import { multerTemp } from '../config/multer'
+import { BaseRouter } from '../config/bases'
+import { AuthControllers } from '../controllers/auth.controllers'
+import { AuthMiddlewares } from '../middlewares/auth.middlewares'
 
-const router = Router()
+export class AuthRouter extends BaseRouter<AuthControllers, AuthMiddlewares> {
+    constructor() {
+        super(AuthControllers, AuthMiddlewares)
+        this.routes()
+    }
 
-router
+    routes() {
+        this.router.get(
+            '/profile',
+            this.middlewares.checkAuth,
+            this.controllers.profile
+        )
 
-    .get('/profile', authMiddlewares.checkAuth, authControllers.profile)
+        this.router.put(
+            '/account-confirmation/:id',
+            this.middlewares.userIsAlreadyConfirmed,
+            this.controllers.accountConfirmation
+        )
 
-    .put(
-        '/account-confirmation/:id',
-        authMiddlewares.userIsAlreadyConfirmed,
-        authControllers.accountConfirmation
-    )
+        this.router.put(
+            '/password-recovery/:id',
+            validateSchema(newPasswordSchema),
+            this.controllers.passwordRecovery
+        )
 
-    .put(
-        '/password-recovery/:id',
-        validateSchema(newPasswordSchema),
-        authControllers.passwordRecovery
-    )
+        this.router.post(
+            '/password-recovery-email',
+            validateSchema(emailSchema),
+            this.controllers.passwordRecoveryEmail
+        )
 
-    .post(
-        '/password-recovery-email',
-        validateSchema(emailSchema),
-        authControllers.passwordRecoveryEmail
-    )
+        this.router.post(
+            '/login',
+            this.middlewares.checkLoginBody,
+            this.controllers.login
+        )
 
-    .post('/login', authMiddlewares.checkLoginBody, authControllers.login)
+        this.router.post(
+            '/register',
+            [multerTemp.single('avatar'), this.middlewares.checkRegisterBody],
+            this.controllers.register
+        )
 
-    .post(
-        '/register',
-        [multerTemp.single('avatar'), authMiddlewares.checkRegisterBody],
-        authControllers.register
-    )
-
-    .delete(
-        '/:userId',
-        authMiddlewares.checkAdminAuth,
-        authControllers.deleteUser
-    )
-
-export default router
+        this.router.delete(
+            '/:userId',
+            this.middlewares.checkAdminAuth,
+            this.controllers.deleteUser
+        )
+    }
+}

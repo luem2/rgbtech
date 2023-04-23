@@ -1,81 +1,67 @@
 import type { Request, Response } from 'express'
 
-import authServices from '../services/auth.services'
+import { BaseControllers } from '../config/bases'
+import { AuthServices } from '../services/auth.services'
 
-class AuthControllers {
-    async login(req: Request, res: Response) {
-        const userToken = await authServices.login(req)
-
-        res.status(200).header('auth-token', userToken).send({
-            status: 'Success',
-            msg: 'User was successfully logged in',
-        })
+export class AuthControllers extends BaseControllers<AuthServices> {
+    constructor() {
+        super(AuthServices)
     }
 
-    async register(req: Request, res: Response) {
-        const newUser = await authServices.register(req.body)
+    login = async (req: Request, res: Response) => {
+        const userToken = await this.services.login(req)
 
-        res.status(200).send({
-            status: 'Success',
+        res.header('auth-token', userToken)
+
+        this.httpResponse.Ok(res, ' User was successfully logged in')
+    }
+
+    register = async (req: Request, res: Response) => {
+        const newUser = await this.services.register(req.body)
+
+        this.httpResponse.Created(res, {
             msg: 'User has been successfully created, please confirm your account. We have sent you a confirmation email',
-            body: newUser,
+            user: newUser,
         })
     }
 
-    async profile(req: Request, res: Response) {
-        const userProfile = await authServices.getProfile(req.userId)
+    profile = async (req: Request, res: Response) => {
+        const userProfile = await this.services.getProfile(req.userId)
 
-        res.status(200).send({
-            status: 'Success',
-            msg: 'User found! Data was sent',
-            body: userProfile,
+        this.httpResponse.Ok(res, {
+            msg: 'User profile was successfully found',
+            user: userProfile,
         })
     }
 
-    async passwordRecovery(req: Request, res: Response) {
-        const userWithNewPassword = await authServices.passwordUpdate(req)
+    passwordRecovery = async (req: Request, res: Response) => {
+        await this.services.passwordUpdate(req)
 
-        res.status(200).send({
-            status: 'Success',
-            msg: 'User Password was successfully updated',
-            body: userWithNewPassword,
-        })
+        this.httpResponse.Ok(res, ' User Password was successfully updated')
     }
 
-    async passwordRecoveryEmail(req: Request, res: Response) {
-        await authServices.passwordRecoveryEmail(req.body)
+    passwordRecoveryEmail = async (req: Request, res: Response) => {
+        await this.services.passwordRecoveryEmail(req.body)
 
-        res.status(200).send({
-            status: 'Success',
-            msg: 'The email has been sent, check your mailbox',
-        })
+        this.httpResponse.Ok(res, 'The email has been sent, check your mailbox')
     }
 
-    async accountConfirmation(req: Request, res: Response) {
-        await authServices.accountConfirmation(req.params)
+    accountConfirmation = async (req: Request, res: Response) => {
+        await this.services.accountConfirmation(req.params)
 
-        res.status(200).send({
-            status: 'Success',
-            msg: 'The email was successfully verified',
-        })
+        this.httpResponse.Ok(res, 'The account has been successfully confirmed')
     }
 
-    async deleteUser(req: Request, res: Response) {
-        const userDeleted = await authServices.deleteUser(req.params.userId)
+    deleteUser = async (req: Request, res: Response) => {
+        const userDeleted = await this.services.deleteUser(req.params.userId)
 
         if (!userDeleted) {
-            return res.status(404).send({
-                status: 'Error',
-                msg: 'The user not found',
-            })
+            this.httpResponse.NotFound(res, 'The user not found')
         }
 
-        res.status(200).send({
-            status: 'Success',
-            msg: 'The user have been successfully deleted',
-            body: userDeleted,
+        this.httpResponse.Ok(res, {
+            msg: 'The user has been successfully deleted',
+            userDeleted,
         })
     }
 }
-
-export default new AuthControllers()

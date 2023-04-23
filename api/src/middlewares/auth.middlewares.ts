@@ -9,11 +9,17 @@ import { createUserSchema, createUserSchemaWithGoogle } from '../schemas'
 import { DEFAULT_AVATAR, PICTURES } from '../helpers/constants'
 import { writeNewFile } from '../helpers/fsFunctions'
 import { generateFileName } from '../helpers/filename'
-import { BaseMiddlewares } from '../config/bases'
+import { HttpError } from '../helpers/customError'
 
 import { validateSchemaInsideMiddleware } from '.'
 
-export class AuthMiddlewares extends BaseMiddlewares {
+export class AuthMiddlewares {
+    public HttpError: typeof HttpError
+
+    constructor() {
+        this.HttpError = HttpError
+    }
+
     checkAuth = async (req: Request, _res: Response, next: NextFunction) => {
         const token = req.headers.authorization?.split(' ').pop()
 
