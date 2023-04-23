@@ -1,12 +1,12 @@
 import { Router } from 'express'
 
-import productsRoutes from './products.routes'
-import authRoutes from './auth.routes'
+import { ProductRouter } from './products.routes'
 import { UserRouter } from './users.routes'
-import brandsRoutes from './brands.routes'
-import tagsRoutes from './tags.routes'
-import awardsRoutes from './awards.routes'
-// import salesRoutes from './sales.route'
+import { AuthRouter } from './auth.routes'
+import { BrandRouter } from './brands.routes'
+import { TagRouter } from './tags.routes'
+import { AwardRouter } from './awards.routes'
+import { TransactionRouter } from './transactions.routes'
 
 const router = Router()
 
@@ -19,29 +19,24 @@ router
     // TODO: SIMPLIFICAR LOS MIDDLEWARES PONER MAS FUNCIONES EN 1 (REFACTORIZAR)
     // TODO: AGREGAR FUNCION TRY/CATCH EN LOS CONTROLADORES
     // TODO: FIJARSE EL TEMA DE LOS NEXT Y LOS RETURNS DE LOS MIDDLEWARES, PROBAR
+    // TODO: AGREGAR VALIDACION SOBRE COMENTARIO DE PRODUCTO (QUE PUEDA SOLAMENTE COMENTAR 1 VEZ Y SI LO HA COMPRADO)
+    // TODO: CREAR NUEVO ARCHIVO DE AUTH MIDDLEWARES PARA VER SI SE VA EL BUG DE BASEMIDDLEWARE
+    // TODO: AUTOMATIZAR EL TEMA DEL SEED DE PRODUCTOS (POR EJEMPLO, CREAR AUTOMATICAMENTE EL NOMBRE DEL ARCHIVO LEYENDO CON FS PARA NO TENER QUE PONERLO MANUALMENTE DENTRO DEL JSON)
+    // TODO: DELETE USER
+    // TODO: VER SI HAY QUE MODIFICAR EL SCHEMA DE TRANSACTIONS
 
-    .use('/products', productsRoutes)
+    .use('/products', new ProductRouter().router)
 
     .use('/users', new UserRouter().router)
 
-    .use('/auth', authRoutes)
+    .use('/auth', new AuthRouter().router)
 
-    .use('/brands', brandsRoutes)
+    .use('/brands', new BrandRouter().router)
 
-    .use('/tags', tagsRoutes)
+    .use('/tags', new TagRouter().router)
 
-    .use('/awards', awardsRoutes)
+    .use('/awards', new AwardRouter().router)
 
-// TODO: HACER TODO CREATE Y READ
-// .use('/sales', salesRoute)
-
-/* TODO: Refactorizar las rutas a transactions */
-/* REFACTOR: UNIFICAR TODO ESTO EN .use('/transactions) */
-
-// .post('/create-order', create)
-
-// .get('/capture-order', capture)
-
-// .get('/cancel-order', cancel)
+    .use('/transactions', new TransactionRouter().router)
 
 export default router
