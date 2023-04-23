@@ -7,13 +7,14 @@ import { verifyToken } from '../helpers/generateToken'
 import { deleteFile, writeNewFile } from '../helpers/fsFunctions'
 import { generateFileName } from '../helpers/filename'
 import { CORE } from '../helpers/constants'
+import { BaseMiddlewares } from '../config/bases'
 
-class AwardsMiddlewares {
-    async getAwardsAuthMiddleware(
+export class AwardMiddlewares extends BaseMiddlewares {
+    getAwardsAuthMiddleware = async (
         req: Request,
         _res: Response,
         next: NextFunction
-    ) {
+    ) => {
         const token = req.headers.authorization?.split(' ').pop()
 
         if (token) {
@@ -27,14 +28,20 @@ class AwardsMiddlewares {
         next()
     }
 
-    async checkBodyAddAward(req: Request, res: Response, next: NextFunction) {
+    checkBodyAddAward = async (
+        req: Request,
+        _res: Response,
+        next: NextFunction
+    ) => {
         const newAward = req.body as AwardSchema
 
-        if (newAward.id)
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'This operation does not require an ID',
-            })
+        if (newAward.id) {
+            next(
+                new this.HttpError(401, 'This operation does not require an ID')
+            )
+
+            return
+        }
 
         const awardFinded = await db.award.findUnique({
             where: {
@@ -42,17 +49,17 @@ class AwardsMiddlewares {
             },
         })
 
-        if (awardFinded)
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'The award already exists',
-            })
+        if (awardFinded) {
+            next(new this.HttpError(401, 'The award already exists'))
 
-        if (!req.file)
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'The image is required',
-            })
+            return
+        }
+
+        if (!req.file) {
+            next(new this.HttpError(401, 'The image is required'))
+
+            return
+        }
 
         const fileName = generateFileName(req.file)
 
@@ -66,14 +73,18 @@ class AwardsMiddlewares {
         next()
     }
 
-    async checkBodyEditAward(req: Request, res: Response, next: NextFunction) {
+    checkBodyEditAward = async (
+        req: Request,
+        _res: Response,
+        next: NextFunction
+    ) => {
         const award = req.body as AwardSchema
 
-        if (!award.id)
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'Award id is needed to perform the operation',
-            })
+        if (!award.id) {
+            next(new this.HttpError(401, 'This operation requires an award id'))
+
+            return
+        }
 
         const awardFinded = await db.award.findUnique({
             where: {
@@ -81,11 +92,11 @@ class AwardsMiddlewares {
             },
         })
 
-        if (!awardFinded)
-            return res.status(404).send({
-                status: 'Error',
-                msg: 'Award id not found, the award doesnt exists',
-            })
+        if (!awardFinded) {
+            next(new this.HttpError(404, 'The award doesnt exists'))
+
+            return
+        }
 
         if (awardFinded.name !== award.name) {
             const otherAward = await db.award.findUnique({
@@ -94,11 +105,16 @@ class AwardsMiddlewares {
                 },
             })
 
-            if (otherAward)
-                return res.status(401).send({
-                    status: 'Error',
-                    msg: 'The award already exists',
-                })
+            if (otherAward) {
+                next(
+                    new this.HttpError(
+                        401,
+                        'The award already exists, please try another name'
+                    )
+                )
+
+                return
+            }
         }
 
         if (req.file) {
@@ -120,5 +136,3 @@ class AwardsMiddlewares {
         next()
     }
 }
-
-export default new AwardsMiddlewares()

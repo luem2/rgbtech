@@ -1,55 +1,60 @@
-import { Router } from 'express'
-
-import awardsControllers from '../controllers/awards.controllers'
-import authMiddlewares from '../middlewares/auth.middlewares'
-import awardsMiddlewares from '../middlewares/awards.middlewares'
+import { AwardControllers } from '../controllers/awards.controllers'
+import { AwardMiddlewares } from '../middlewares/awards.middlewares'
 import { awardSchema } from '../schemas'
 import { parseBody, validateSchema } from '../middlewares'
 import { multerTemp } from '../config/multer'
+import { BaseRouter } from '../config/bases'
 
-const router = Router()
+export class AwardRouter extends BaseRouter<
+    AwardControllers,
+    AwardMiddlewares
+> {
+    constructor() {
+        super(AwardControllers, AwardMiddlewares)
+        this.routes()
+    }
 
-router
-    .get(
-        '/',
-        awardsMiddlewares.getAwardsAuthMiddleware,
-        awardsControllers.getAllAwards
-    )
+    routes() {
+        this.router.get(
+            '/',
+            this.middlewares.getAwardsAuthMiddleware,
+            this.controllers.getAllAwards
+        )
 
-    .get(
-        '/:awardId',
-        awardsMiddlewares.getAwardsAuthMiddleware,
-        awardsControllers.getAward
-    )
+        this.router.get(
+            '/:awardId',
+            this.middlewares.getAwardsAuthMiddleware,
+            this.controllers.getAward
+        )
 
-    .put(
-        '/',
-        [
-            multerTemp.single('award'),
-            authMiddlewares.checkAdminAuth,
-            parseBody,
-            validateSchema(awardSchema),
-            awardsMiddlewares.checkBodyEditAward,
-        ],
-        awardsControllers.awardUpdate
-    )
+        this.router.put(
+            '/',
+            [
+                multerTemp.single('award'),
+                this.auth.checkAdminAuth,
+                parseBody,
+                validateSchema(awardSchema),
+                this.middlewares.checkBodyEditAward,
+            ],
+            this.controllers.awardUpdate
+        )
 
-    .post(
-        '/',
-        [
-            multerTemp.single('award'),
-            authMiddlewares.checkAdminAuth,
-            parseBody,
-            validateSchema(awardSchema),
-            awardsMiddlewares.checkBodyAddAward,
-        ],
-        awardsControllers.addAward
-    )
+        this.router.post(
+            '/',
+            [
+                multerTemp.single('award'),
+                this.auth.checkAdminAuth,
+                parseBody,
+                validateSchema(awardSchema),
+                this.middlewares.checkBodyAddAward,
+            ],
+            this.controllers.addAward
+        )
 
-    .delete(
-        '/:id',
-        authMiddlewares.checkAdminAuth,
-        awardsControllers.deleteAward
-    )
-
-export default router
+        this.router.delete(
+            '/:id',
+            this.auth.checkAdminAuth,
+            this.controllers.deleteAward
+        )
+    }
+}

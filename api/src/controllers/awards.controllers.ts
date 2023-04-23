@@ -1,72 +1,64 @@
 import type { Request, Response } from 'express'
 
-import awardsServices from '../services/awards.services'
+import { AwardServices } from '../services/awards.services'
+import { BaseControllers } from '../config/bases'
 
-class AwardsControllers {
-    async getAllAwards(req: Request, res: Response) {
-        const awards = await awardsServices.getAllAwards(req.userRole)
+export class AwardControllers extends BaseControllers<AwardServices> {
+    constructor() {
+        super(AwardServices)
+    }
 
-        res.status(200).send({
-            status: 'Success',
+    getAllAwards = async (req: Request, res: Response) => {
+        const awards = await this.services.getAllAwards(req.userRole)
+
+        this.httpResponse.Ok(res, {
             msg: 'All awards have been successfully sent',
-            body: {
-                awards,
-                count: awards.length,
-            },
+            awards_count: awards.length,
+            awards,
         })
     }
 
-    async getAward(req: Request, res: Response) {
-        const award = await awardsServices.getAward(req)
+    getAward = async (req: Request, res: Response) => {
+        const award = await this.services.getAward(req)
 
-        if (!award)
-            return res.status(404).send({
-                status: 'Error',
-                msg: 'Award not found',
-            })
+        if (!award) {
+            this.httpResponse.NotFound(res, 'Award not found')
+        }
 
-        res.status(200).send({
-            status: 'Success',
+        this.httpResponse.Ok(res, {
             msg: 'Award have been successfully sent',
-            body: award,
+            award,
         })
     }
 
-    async awardUpdate(req: Request, res: Response) {
-        const updatedAward = await awardsServices.awardUpdate(req.body)
+    awardUpdate = async (req: Request, res: Response) => {
+        const updatedAward = await this.services.awardUpdate(req.body)
 
-        res.status(200).send({
-            status: 'Success',
+        this.httpResponse.Ok(res, {
             msg: 'Award have been successfully updated',
-            body: updatedAward,
+            updatedAward,
         })
     }
 
-    async addAward(req: Request, res: Response) {
-        const newAward = await awardsServices.addAward(req.body)
+    addAward = async (req: Request, res: Response) => {
+        const newAward = await this.services.addAward(req.body)
 
-        res.status(201).send({
-            status: 'Success',
+        this.httpResponse.Created(res, {
             msg: 'Award have been successfully created',
-            body: newAward,
+            award: newAward,
         })
     }
 
-    async deleteAward(req: Request, res: Response) {
-        const deletedAward = await awardsServices.deleteAward(req.params)
+    deleteAward = async (req: Request, res: Response) => {
+        const deletedAward = await this.services.deleteAward(req.params)
 
-        if (!deletedAward)
-            return res.status(404).send({
-                status: 'Error',
-                msg: 'Award have not been found',
-            })
+        if (!deletedAward) {
+            this.httpResponse.NotFound(res, 'Award not found')
+        }
 
-        res.status(200).send({
-            status: 'Success',
+        this.httpResponse.Ok(res, {
             msg: 'Award have been successfully deleted',
-            body: deletedAward,
+            award: deletedAward,
         })
     }
 }
-
-export default new AwardsControllers()

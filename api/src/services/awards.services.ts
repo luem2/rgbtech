@@ -5,7 +5,7 @@ import { db } from '../database'
 import { deleteFile } from '../helpers/fsFunctions'
 import { CORE } from '../helpers/constants'
 
-class AwardsServices {
+export class AwardServices {
     async getAllAwards(userRole: Request['userRole']) {
         if (userRole !== 'ADMIN') {
             return await db.award.findMany({})
@@ -76,5 +76,3 @@ class AwardsServices {
         })
     }
 }
-
-export default new AwardsServices()
