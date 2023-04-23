@@ -18,6 +18,7 @@ class ServerBootstrap extends ConfigServer {
 
     constructor() {
         super()
+
         this.app = express()
         this.port = this.getNumberVarEnv('PORT') ?? 3000
 

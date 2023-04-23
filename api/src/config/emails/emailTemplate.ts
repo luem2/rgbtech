@@ -1,4 +1,4 @@
-import type { UserWithCart } from '../types'
+import type { UserWithCart } from '../../types'
 
 export const accountConfirmationHtmlEmail = (link: string) => {
     return `<div style={{display:flex; flex-direction:column; justify-content:center; align-items:center; background-color:#FCFBFA; border-radius:10px; color:black;   font-family:sans-serif; box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;}}>
