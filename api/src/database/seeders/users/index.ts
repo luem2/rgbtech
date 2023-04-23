@@ -13,7 +13,7 @@ function createRandomUsers() {
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
         email: faker.internet.email(),
-        password: hashSync('password123', 5),
+        password: hashSync('Password.123', 5),
         picture: `/uploads/pictures/${DEFAULT_AVATAR}`,
         verificated: faker.helpers.arrayElement([true, false]),
         birthDate: faker.date.birthdate({ min: 18, max: 90, mode: 'age' }),

@@ -1,12 +1,15 @@
 import type { Request, Response } from 'express'
 
-import authServices from '../services/auth.services'
+import { AuthServices } from '../services/auth.services'
 import { UserServices } from '../services/users.services'
 import { BaseControllers } from '../config/bases'
 
 export class UserControllers extends BaseControllers<UserServices> {
+    declare auth: AuthServices
+
     constructor() {
         super(UserServices)
+        this.auth = new AuthServices()
     }
 
     getAllUsers = async (_req: Request, res: Response) => {
@@ -32,7 +35,7 @@ export class UserControllers extends BaseControllers<UserServices> {
     }
 
     passwordUpdate = async (req: Request, res: Response) => {
-        await authServices.passwordUpdate(req)
+        await this.auth.passwordUpdate(req)
 
         this.httpResponse.Ok(res, 'The password was successfully updated')
     }

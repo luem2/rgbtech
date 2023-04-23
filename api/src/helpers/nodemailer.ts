@@ -9,7 +9,7 @@ import {
     accountConfirmationHtmlEmail,
     purchaseDetailsHtmlEmail,
     passwordRecoveryHtmlEmail,
-} from '../config/emailTemplate'
+} from '../config/emails/emailTemplate'
 import { config } from '../config'
 
 class NodemailerEmail {

@@ -10,7 +10,7 @@ export class ErrorHandler extends HttpResponse {
         if (err instanceof HttpError) {
             switch (err.statusCode) {
                 case HttpStatus.BAD_REQUEST:
-                    this.BadRequest(res, err.message)
+                    this.BadRequest(res, err)
 
                     return
 

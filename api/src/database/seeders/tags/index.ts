@@ -4,12 +4,10 @@ import tags from './tags.json'
 
 export async function createTags() {
     try {
-        tags.forEach(async (tag) => {
-            await db.tag.createMany({
-                data: {
-                    name: tag,
-                },
-            })
+        await db.tag.createMany({
+            data: tags.map((tag) => ({
+                name: tag,
+            })),
         })
 
         console.info('☑️ Tags successfully seeded in the database')

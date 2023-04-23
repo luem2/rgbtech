@@ -19,7 +19,7 @@ export class HttpResponse {
     }
 
     Created(res: Response, data: unknown) {
-        return res.status(HttpStatus.BAD_REQUEST).json({
+        return res.status(HttpStatus.CREATED).json({
             statusCode: HttpStatus.CREATED,
             msg: 'Created',
             body: data,
