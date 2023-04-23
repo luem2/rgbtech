@@ -4,13 +4,14 @@ import type { NextFunction, Request, Response } from 'express'
 import { compare } from 'bcrypt'
 
 import { db } from '../database'
+import { BaseMiddlewares } from '../config/bases'
 
-export class UserMiddlewares {
-    async checkBodyProfileUpdate(
+export class UserMiddlewares extends BaseMiddlewares {
+    checkBodyProfileUpdate = async (
         req: Request,
-        res: Response,
+        _res: Response,
         next: NextFunction
-    ) {
+    ) => {
         const user = await db.user.findUnique({
             where: {
                 id: req.userId,
@@ -28,19 +29,25 @@ export class UserMiddlewares {
             })
 
             if (otherUser) {
-                next()
+                next(
+                    new this.HttpError(
+                        401,
+                        'A user has already registered with the email address entered'
+                    )
+                )
 
-                return res.status(401).send({
-                    status: 'Error',
-                    msg: 'A user has already registered with the email address entered',
-                })
+                return
             }
         }
 
         next()
     }
 
-    async checkBirthDateType(req: Request, _res: Response, next: NextFunction) {
+    checkBirthDateType = async (
+        req: Request,
+        _res: Response,
+        next: NextFunction
+    ) => {
         try {
             if (typeof req.body.birthDate === 'object') {
                 req.body.birthDate = req.body.birthDate.toISOString()
@@ -51,11 +58,11 @@ export class UserMiddlewares {
         }
     }
 
-    async checkUserOldPassword(
+    checkUserOldPassword = async (
         req: Request,
-        res: Response,
+        _res: Response,
         next: NextFunction
-    ) {
+    ) => {
         const user = (await db.user.findUnique({
             where: {
                 id: req.userId,
@@ -71,20 +78,24 @@ export class UserMiddlewares {
         )
 
         if (!passwordMatches) {
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'The sent password does not match the current password',
-            })
+            next(
+                new this.HttpError(
+                    401,
+                    'The sent password does not match the current password'
+                )
+            )
+
+            return
         }
 
         next()
     }
 
-    async itemAlreadyExistsInCart(
+    itemAlreadyExistsInCart = async (
         req: Request,
-        res: Response,
+        _res: Response,
         next: NextFunction
-    ) {
+    ) => {
         const user = await db.user.findUnique({
             where: {
                 id: req.userId,
@@ -99,18 +110,15 @@ export class UserMiddlewares {
         )
 
         if (itemRepeated) {
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'The item is already in the cart',
-            })
+            next(new this.HttpError(401, 'The item is already in the cart'))
         } else next()
     }
 
-    async itemAlreadyExistsInFavorites(
+    itemAlreadyExistsInFavorites = async (
         req: Request,
-        res: Response,
+        _res: Response,
         next: NextFunction
-    ) {
+    ) => {
         const user = await db.user.findUnique({
             where: {
                 id: req.userId,
@@ -125,40 +133,42 @@ export class UserMiddlewares {
         )
 
         if (itemRepeated) {
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'The item is already in the favorites',
-            })
+            next(
+                new this.HttpError(401, 'The item is already in the favorites')
+            )
         } else next()
     }
 
-    itemQuantityCannotBeNullOrNegative(
+    itemQuantityCannotBeNullOrNegative = async (
         req: Request,
-        res: Response,
+        _res: Response,
         next: NextFunction
-    ) {
+    ) => {
         if (!req.body.quantity || !Object.keys(req.body.quantity).length) {
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'Has not defined an amount',
-            })
+            next(new this.HttpError(401, 'Has not defined an amount'))
+
+            return
         }
 
         if (req.body.quantity.set <= 0) {
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'The amount cannot be negative, null or undefined',
-            })
+            next(
+                new this.HttpError(
+                    401,
+                    'The amount cannot be negative, null or undefined'
+                )
+            )
+
+            return
         }
 
         next()
     }
 
-    async shoppingCartIsAlreadyEmpty(
+    shoppingCartIsAlreadyEmpty = async (
         req: Request,
-        res: Response,
+        _res: Response,
         next: NextFunction
-    ) {
+    ) => {
         const user = await db.user.findUnique({
             where: {
                 id: req.userId,
@@ -169,18 +179,15 @@ export class UserMiddlewares {
         })
 
         if (!user?.shoppingCart.length) {
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'The shopping cart is already empty',
-            })
+            next(new this.HttpError(401, 'The shopping cart is already empty'))
         } else next()
     }
 
-    async itemNotFoundInsideCart(
+    itemNotFoundInsideCart = async (
         req: Request,
-        res: Response,
+        _res: Response,
         next: NextFunction
-    ) {
+    ) => {
         const user = await db.user.findUnique({
             where: {
                 id: req.userId,
@@ -195,18 +202,15 @@ export class UserMiddlewares {
         )
 
         if (!product) {
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'Product not found inside cart',
-            })
+            next(new this.HttpError(401, 'Product not found inside cart'))
         } else next()
     }
 
-    async favoritesIsAlreadyEmpty(
+    favoritesIsAlreadyEmpty = async (
         req: Request,
-        res: Response,
+        _res: Response,
         next: NextFunction
-    ) {
+    ) => {
         const user = await db.user.findUnique({
             where: {
                 id: req.userId,
@@ -217,18 +221,17 @@ export class UserMiddlewares {
         })
 
         if (!user?.favorites.length) {
-            return res.status(401).send({
-                status: 'Error',
-                msg: `The user's favorites is already empty`,
-            })
+            next(
+                new this.HttpError(401, `The user's favorites is already empty`)
+            )
         } else next()
     }
 
-    async itemNotFoundInsideFavorites(
+    itemNotFoundInsideFavorites = async (
         req: Request,
-        res: Response,
+        _res: Response,
         next: NextFunction
-    ) {
+    ) => {
         const user = await db.user.findUnique({
             where: {
                 id: req.userId,
@@ -243,19 +246,19 @@ export class UserMiddlewares {
         )
 
         if (!product) {
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'Product not found inside favorites',
-            })
+            next(new this.HttpError(401, 'Product not found inside favorites'))
         } else next()
     }
 
-    async checkReviewBody(req: Request, res: Response, next: NextFunction) {
+    checkReviewBody = async (
+        req: Request,
+        _res: Response,
+        next: NextFunction
+    ) => {
         if (!req.body.rating || !req.body.comment) {
-            return res.status(400).send({
-                status: 'Error',
-                msg: 'There are missing fields',
-            })
+            next(new this.HttpError(400, 'There are missing fields'))
+
+            return
         }
 
         const user = await db.user.findUnique({
@@ -272,14 +275,20 @@ export class UserMiddlewares {
         )
 
         if (reviewExists) {
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'There is already a review for this product',
-            })
+            next(
+                new this.HttpError(
+                    401,
+                    'There is already a review for this product'
+                )
+            )
         } else next()
     }
 
-    async checkHistoryLength(req: Request, _res: Response, next: NextFunction) {
+    checkHistoryLength = async (
+        req: Request,
+        _res: Response,
+        next: NextFunction
+    ) => {
         const user = await db.user.findUnique({
             where: {
                 id: req.userId,
@@ -313,28 +322,98 @@ export class UserMiddlewares {
         next()
     }
 
-    async changeUpdateUserAvailability(
+    changeUpdateUserAvailability = async (
         req: Request,
-        res: Response,
+        _res: Response,
         next: NextFunction
-    ) {
+    ) => {
         const userFinded = await db.user.findUnique({
             where: {
                 id: req.params.userId,
             },
         })
 
-        if (!userFinded)
-            return res.status(404).send({
-                status: 'Error',
-                msg: `The user doesn't exists`,
-            })
+        if (!userFinded) {
+            next(new this.HttpError(404, `The user doesn't exists`))
 
-        if (typeof req.body.disabled !== 'boolean')
-            return res.status(401).send({
-                status: 'Error',
-                msg: 'The disabled property is required and must be a boolean',
-            })
+            return
+        }
+
+        if (typeof req.body.disabled !== 'boolean') {
+            next(
+                new this.HttpError(
+                    400,
+                    'The disabled property is required and must be a boolean'
+                )
+            )
+
+            return
+        }
+
+        next()
+    }
+
+    checkClaimAward = async (
+        req: Request,
+        _res: Response,
+        next: NextFunction
+    ) => {
+        if (!req.query.id) {
+            next(new this.HttpError(400, 'The award id is required'))
+
+            return
+        }
+
+        const award = await db.award.findUnique({
+            where: {
+                id: req.query.id as string,
+            },
+            select: {
+                name: true,
+                requiredPoints: true,
+            },
+        })
+
+        if (!award) {
+            next(new this.HttpError(404, 'The award not found'))
+
+            return
+        }
+
+        const user = await db.user.findUnique({
+            where: {
+                id: req.userId,
+            },
+            select: {
+                RGBpoints: true,
+                awards: true,
+            },
+        })
+
+        if (!user) {
+            next(new this.HttpError(404, 'The user not found'))
+
+            return
+        }
+
+        const awardFound = user.awards.find(
+            (userAward) => userAward.id === req.query.id
+        )
+
+        if (awardFound) {
+            next(new this.HttpError(401, 'The award is already claimed'))
+
+            return
+        }
+
+        if (user.RGBpoints < award.requiredPoints) {
+            next(new this.HttpError(401, 'Insufficient RGBPoints'))
+
+            return
+        }
+
+        req.body.userPointsUpdated = user.RGBpoints - award.requiredPoints
+        req.body.awardClaimed = award
 
         next()
     }
