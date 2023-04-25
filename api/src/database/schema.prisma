@@ -22,7 +22,7 @@ model User {
   google      Boolean  @default(false)
   disabled    Boolean  @default(false)
 
-  shoppingCart ItemCart[]
+  shoppingCart CartItem[]
   history      HistoryProduct[]
   favorites    Favorites[]
   transactions Transactions[]
@@ -52,15 +52,15 @@ model Product {
 
   usersFavorite Favorites[]
   tags          Tag[]
-  shoppingCarts ItemCart[]
+  shoppingCarts CartItem[]
   usersHistory  HistoryProduct[]
   reviews       Review[]
-  transactions  Transactions[]
+  orders        OrderItem[]
 
   brand Brand @relation(fields: [brandId], references: [name])
 }
 
-model ItemCart {
+model CartItem {
   userId    String
   productId String
   quantity  Int
@@ -134,15 +134,32 @@ model Review {
 }
 
 model Transactions {
-  id String @id @default(uuid())
+  id     String @id @default(uuid())
+  userId String
 
-  userId    String
-  productId String
-  amount    Int
-  date      DateTime @default(now())
+  order  OrderItem[]
+  status Status
+  date   DateTime    @default(now())
 
-  user    User    @relation(fields: [userId], references: [id])
-  product Product @relation(fields: [productId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+}
+
+enum Status {
+  Canceled
+  Pending
+  Completed
+}
+
+model OrderItem {
+  transactionId String
+  productId     String
+
+  amount Int
+
+  transaction Transactions @relation(fields: [transactionId], references: [id])
+  Product     Product?     @relation(fields: [productId], references: [id])
+
+  @@id([transactionId, productId])
 }
 
 model Country {
