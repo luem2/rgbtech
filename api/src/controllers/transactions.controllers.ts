@@ -12,8 +12,44 @@ export class TransactionControllers extends BaseControllers<TransactionServices>
         const allTransactions = await this.services.getAllTransactions()
 
         this.httpResponse.Ok(res, {
-            msg: 'All transactions are successfully submitted',
+            msg: 'Transactions were successfully sent',
             transactions: allTransactions,
+        })
+    }
+
+    getTransactionsByUser = async (req: Request, res: Response) => {
+        const user = await this.services.getTransactionsByUser(req.params)
+
+        this.httpResponse.Ok(res, {
+            msg: 'Transactions were successfully sent',
+            transactions: user?.transactions,
+        })
+    }
+
+    createOrder = async (req: Request, res: Response) => {
+        const newOrder = await this.services.createOrder(req)
+
+        this.httpResponse.Created(res, {
+            msg: 'Order successfully created',
+            order: newOrder,
+        })
+    }
+
+    completeTransaction = async (req: Request, res: Response) => {
+        await this.services.completeTransaction(req.body)
+
+        this.httpResponse.Ok(res, {
+            msg: 'Transaction successfully completed',
+            transaction: req.body,
+        })
+    }
+
+    cancelTransaction = async (req: Request, res: Response) => {
+        await this.services.cancelTransaction(req.body)
+
+        this.httpResponse.Ok(res, {
+            msg: 'Transaction successfully cancelled',
+            transaction: req.body,
         })
     }
 }
