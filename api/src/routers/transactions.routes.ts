@@ -17,5 +17,29 @@ export class TransactionRouter extends BaseRouter<
             this.auth.checkAdminAuth,
             this.controllers.getAllTransactions
         )
+
+        this.router.get(
+            '/:id',
+            this.auth.checkAdminAuth,
+            this.controllers.getTransactionsByUser
+        )
+
+        this.router.put(
+            '/complete-transaction/:idTransaction',
+            this.auth.checkAuth,
+            this.controllers.completeTransaction
+        )
+
+        this.router.put(
+            '/cancel-transaction/:idTransaction',
+            this.auth.checkAuth,
+            this.controllers.cancelTransaction
+        )
+
+        this.router.post(
+            '/create-order',
+            [this.auth.checkAuth, this.middlewares.checkCreateOrder],
+            this.controllers.createOrder
+        )
     }
 }
