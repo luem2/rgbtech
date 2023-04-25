@@ -1,10 +1,61 @@
+import type { Request } from 'express'
+
 import { db } from '../database'
-// import { User, Sale, Product, Brand, Tag, Comment, conn } from '../db'
-// import { sendConfirmationBuyEmail } from '../middlewares/users.middlewares'
 
 export class TransactionServices {
     async getAllTransactions() {
-        return await db.transactions.findMany()
+        return await db.transactions.findMany({
+            include: {
+                _count: true,
+                order: true,
+            },
+        })
+    }
+
+    async getTransactionsByUser({ id }: Request['params']) {
+        return await db.user.findUnique({
+            where: {
+                id,
+            },
+            select: {
+                transactions: true,
+            },
+        })
+    }
+
+    async createOrder({ userId, body }: Request) {
+        return await db.transactions.create({
+            data: {
+                userId,
+                status: 'Pending',
+                order: {
+                    createMany: {
+                        data: body,
+                    },
+                },
+            },
+            include: {
+                order: true,
+            },
+        })
+    }
+
+    async completeTransaction({ userId, body }: Request) {
+        // await db.user.update({
+        //     where: {
+        //         id: userId,
+        //     },
+        //     data: {
+        //         shoppingCart: {
+        //             deleteMany: {},
+        //         },
+        //     },
+        // })
+        // return await db.transactions.create({})
+    }
+
+    async cancelTransaction({ userId, body }: Request) {
+        // return algo XD
     }
 
     // router.post('/new-sale', async (req, res) => {
