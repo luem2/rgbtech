@@ -1,3 +1,5 @@
+import type { AnySchema } from 'yup'
+
 import { array, boolean, number, object, string } from 'yup'
 
 export const productSchema = object({
@@ -13,4 +15,4 @@ export const productSchema = object({
         tags: array().of(string()).required('Tags is required'),
         brand: string().required('Brand is required'),
     }).noUnknown(),
-}) as never
+}) as unknown as AnySchema

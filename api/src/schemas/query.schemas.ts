@@ -1,3 +1,5 @@
+import type { AnySchema } from 'yup'
+
 import { array, boolean, number, object, string } from 'yup'
 
 export const querySchema = object({
@@ -34,4 +36,4 @@ export const querySchema = object({
             ),
         }),
     }).noUnknown(),
-}) as never
+}) as unknown as AnySchema

@@ -1,3 +1,5 @@
+import type { AnySchema } from 'yup'
+
 import { object, string } from 'yup'
 
 export default object({
@@ -11,4 +13,4 @@ export default object({
                 'The password must contain at least one uppercase letter, one lowercase letter, one number and one special character.'
             ),
     }).noUnknown(),
-}) as never
+}) as unknown as AnySchema

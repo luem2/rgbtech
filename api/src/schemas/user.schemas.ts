@@ -1,3 +1,5 @@
+import type { AnySchema } from 'yup'
+
 import { object, string } from 'yup'
 
 export const createUserSchema = object({
@@ -36,7 +38,7 @@ export const createUserSchema = object({
             })
             .required('Birthdate is required'),
     }).noUnknown(),
-}) as never
+}) as unknown as AnySchema
 
 export const createUserSchemaWithGoogle = object({
     body: object({
@@ -48,7 +50,7 @@ export const createUserSchemaWithGoogle = object({
         password: string().required(),
         picture: string().url().required(),
     }).noUnknown(),
-}) as never
+}) as unknown as AnySchema
 
 export const editUserSchema = object({
     body: object({
@@ -80,4 +82,4 @@ export const editUserSchema = object({
             })
             .required('Birthdate is required'),
     }).noUnknown(),
-}) as never
+}) as unknown as AnySchema

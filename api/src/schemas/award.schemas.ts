@@ -1,3 +1,5 @@
+import type { AnySchema } from 'yup'
+
 import { number, object, string } from 'yup'
 
 export const awardSchema = object({
@@ -8,4 +10,4 @@ export const awardSchema = object({
         specifications: object().required('Specifications must be an object'),
         requiredPoints: number().required('Required Points is required'),
     }).noUnknown(),
-}) as never
+}) as unknown as AnySchema

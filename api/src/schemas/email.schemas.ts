@@ -1,3 +1,5 @@
+import type { AnySchema } from 'yup'
+
 import { object, string } from 'yup'
 
 export default object({
@@ -6,4 +8,4 @@ export default object({
             .required('Email is required')
             .email('Must be a valid email'),
     }).noUnknown(),
-}) as never
+}) as unknown as AnySchema
