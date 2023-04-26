@@ -26,16 +26,16 @@ export abstract class ConfigServer {
         })
     }
 
-    public getVarEnv(k: string) {
+    public getEnvironment(k: string) {
         return process.env[k] ?? ''
     }
 
-    public getNumberVarEnv(k: string) {
-        return Number(this.getVarEnv(k))
+    public getNumberEnvironment(k: string) {
+        return Number(this.getEnvironment(k))
     }
 
     public get nodeEnv() {
-        return this.getVarEnv('NODE_ENV')?.trim() ?? ''
+        return this.getEnvironment('NODE_ENV')?.trim() ?? ''
     }
 
     public createPathEnv(path: string) {

@@ -20,7 +20,7 @@ class ServerBootstrap extends ConfigServer {
         super()
 
         this.app = express()
-        this.port = this.getNumberVarEnv('PORT') ?? 3000
+        this.port = this.getNumberEnvironment('PORT') ?? 3000
 
         this.middlewares()
         this.routes()
@@ -30,7 +30,7 @@ class ServerBootstrap extends ConfigServer {
     middlewares() {
         this.app.use(
             cors({
-                origin: this.getVarEnv('ORIGIN_CORS'),
+                origin: this.getEnvironment('ORIGIN_CORS'),
                 credentials: true,
                 methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
                 allowedHeaders: [
