@@ -63,6 +63,8 @@ export class BrandControllers extends BaseControllers<BrandServices> {
 
         if (!deletedBrand) {
             this.httpResponse.NotFound(res, 'Brand have not been found')
+
+            return
         }
 
         this.httpResponse.Ok(res, {

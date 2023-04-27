@@ -29,6 +29,8 @@ export class ProductControllers extends BaseControllers<ProductServices> {
 
         if (!product) {
             this.httpResponse.NotFound(res, 'Product not found')
+
+            return
         }
 
         this.httpResponse.Ok(res, {
@@ -55,6 +57,8 @@ export class ProductControllers extends BaseControllers<ProductServices> {
 
         if (!updatedProduct) {
             this.httpResponse.NotFound(res, 'Product not found')
+
+            return
         }
 
         this.httpResponse.Ok(res, {
@@ -88,6 +92,8 @@ export class ProductControllers extends BaseControllers<ProductServices> {
 
         if (!deletedProduct) {
             this.httpResponse.NotFound(res, 'Product not found')
+
+            return
         }
 
         this.httpResponse.Ok(res, {

@@ -20,6 +20,14 @@ export class TransactionControllers extends BaseControllers<TransactionServices>
     getTransactionsByUser = async (req: Request, res: Response) => {
         const user = await this.services.getTransactionsByUser(req.params)
 
+        if (!user) {
+            this.httpResponse.NotFound(res, {
+                msg: 'User not found',
+            })
+
+            return
+        }
+
         this.httpResponse.Ok(res, {
             msg: 'Transactions were successfully sent',
             transactions: user?.transactions,
@@ -27,12 +35,16 @@ export class TransactionControllers extends BaseControllers<TransactionServices>
     }
 
     createOrder = async (req: Request, res: Response) => {
-        const newOrder = await this.services.createOrder(req)
+        try {
+            const newOrder = await this.services.createOrder(req)
 
-        this.httpResponse.Created(res, {
-            msg: 'Order successfully created',
-            order: newOrder,
-        })
+            this.httpResponse.Created(res, {
+                msg: 'Order successfully created',
+                order: newOrder,
+            })
+        } catch (error) {
+            this.httpResponse.BadRequest(res, error)
+        }
     }
 
     completeTransaction = async (req: Request, res: Response) => {

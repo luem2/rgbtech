@@ -26,6 +26,8 @@ export class UserControllers extends BaseControllers<UserServices> {
 
         if (!profileEdited) {
             this.httpResponse.BadRequest(res, 'Country sent is invalid')
+
+            return
         }
 
         this.httpResponse.Ok(res, {
@@ -43,12 +45,16 @@ export class UserControllers extends BaseControllers<UserServices> {
     changeProfilePhoto = async (req: Request, res: Response) => {
         if (!req.file) {
             this.httpResponse.BadRequest(res, 'The image was not sent')
+
+            return
         }
 
         const userUpdated = await this.services.changeProfilePhoto(req)
 
         if (!userUpdated) {
             this.httpResponse.BadRequest(res, 'User not found')
+
+            return
         }
 
         this.httpResponse.Ok(res, 'The profile photo was successfully updated')

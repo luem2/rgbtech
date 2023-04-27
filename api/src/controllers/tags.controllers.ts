@@ -63,6 +63,8 @@ export class TagControllers extends BaseControllers<TagServices> {
 
         if (!tagDeleted) {
             this.httpResponse.NotFound(res, 'The tag has not been found')
+
+            return
         }
 
         this.httpResponse.Ok(res, {

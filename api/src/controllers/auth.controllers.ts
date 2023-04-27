@@ -41,7 +41,13 @@ export class AuthControllers extends BaseControllers<AuthServices> {
     }
 
     passwordRecoveryEmail = async (req: Request, res: Response) => {
-        await this.services.passwordRecoveryEmail(req.body)
+        const userFounded = await this.services.passwordRecoveryEmail(req.body)
+
+        if (!userFounded) {
+            this.httpResponse.NotFound(res, 'The user not found')
+
+            return
+        }
 
         this.httpResponse.Ok(res, 'The email has been sent, check your mailbox')
     }
@@ -57,6 +63,8 @@ export class AuthControllers extends BaseControllers<AuthServices> {
 
         if (!userDeleted) {
             this.httpResponse.NotFound(res, 'The user not found')
+
+            return
         }
 
         this.httpResponse.Ok(res, {

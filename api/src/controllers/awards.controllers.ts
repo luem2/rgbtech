@@ -23,6 +23,8 @@ export class AwardControllers extends BaseControllers<AwardServices> {
 
         if (!award) {
             this.httpResponse.NotFound(res, 'Award not found')
+
+            return
         }
 
         this.httpResponse.Ok(res, {
@@ -54,6 +56,8 @@ export class AwardControllers extends BaseControllers<AwardServices> {
 
         if (!deletedAward) {
             this.httpResponse.NotFound(res, 'Award not found')
+
+            return
         }
 
         this.httpResponse.Ok(res, {
