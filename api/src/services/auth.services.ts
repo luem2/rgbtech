@@ -7,7 +7,7 @@ import { db } from '../database'
 import { tokenSign } from '../helpers/generateToken'
 import nodemailerService from '../helpers/nodemailer'
 import { deleteFile } from '../helpers/fsFunctions'
-import { PICTURES } from '../helpers/constants'
+import { DEFAULT_AVATAR, PICTURES } from '../helpers/constants'
 
 export class AuthServices {
     async login({ body, userId }: Request) {
@@ -85,7 +85,7 @@ export class AuthServices {
             },
         })
 
-        if (!user) return
+        if (!user) return null
 
         nodemailerService.sendPasswordRecoveryEmail(user)
     }
@@ -115,10 +115,12 @@ export class AuthServices {
 
         const userPicture = user.picture?.split('/').at(-1) as string
 
-        deleteFile({
-            nameFolder: PICTURES,
-            fileName: userPicture,
-        })
+        if (userPicture !== DEFAULT_AVATAR) {
+            deleteFile({
+                nameFolder: PICTURES,
+                fileName: userPicture,
+            })
+        }
 
         return await db.user.delete({
             where: {

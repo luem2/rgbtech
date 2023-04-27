@@ -10,6 +10,7 @@ import { DEFAULT_AVATAR, PICTURES } from '../helpers/constants'
 import { writeNewFile } from '../helpers/fsFunctions'
 import { generateFileName } from '../helpers/filename'
 import { HttpError } from '../helpers/customError'
+import { isISOString } from '../helpers'
 
 import { validateSchemaInsideMiddleware } from '.'
 
@@ -104,8 +105,26 @@ export class AuthMiddlewares {
                 return
             }
 
+            if (!isISOString(req.body.birthDate)) {
+                req.body.birthDate = new Date(req.body.birthDate)
+            }
+
+            const countries = (
+                await db.country.findMany({
+                    select: {
+                        id: true,
+                    },
+                })
+            ).map((country) => country.id)
+
+            if (!countries.includes(req.body.nationality)) {
+                next(new this.HttpError(401, 'Invalid nationality'))
+
+                return
+            }
+
             if (!req.file) {
-                req.body.picture = DEFAULT_AVATAR
+                req.body.picture = `/uploads/pictures/${DEFAULT_AVATAR}`
             } else {
                 const fileName = generateFileName(req.file)
 
