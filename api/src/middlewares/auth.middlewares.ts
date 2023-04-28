@@ -24,17 +24,20 @@ export class AuthMiddlewares {
     checkAuth = async (req: Request, _res: Response, next: NextFunction) => {
         const token = req.headers.authorization?.split(' ').pop()
 
-        if (token) {
-            const tokenData = await verifyToken(token)
+        if (!token) {
+            next(new this.HttpError(404, 'Token not found'))
 
-            if (tokenData) {
-                req.userId = (tokenData as JwtPayload).id
-                next()
-            } else {
-                next(new this.HttpError(401, 'Invalid Token'))
-            }
+            return
+        }
+
+        const verifiedToken = await verifyToken(token)
+
+        if (verifiedToken) {
+            req.userId = (verifiedToken as JwtPayload).id
+
+            next()
         } else {
-            next(new this.HttpError(404, 'Token not Found'))
+            next(new this.HttpError(401, 'Invalid Token'))
         }
     }
 
@@ -45,36 +48,38 @@ export class AuthMiddlewares {
     ) => {
         const token = req.headers.authorization?.split(' ').pop()
 
-        if (token) {
-            const tokenData = await verifyToken(token)
-
-            if (!tokenData) {
-                next(new this.HttpError(401, 'Invalid Token (maybe expired)'))
-
-                return
-            }
-
-            const userData = await db.user.findUnique({
-                where: {
-                    id: (tokenData as JwtPayload).id,
-                },
-            })
-
-            if (userData?.role !== 'ADMIN') {
-                next(
-                    new this.HttpError(
-                        401,
-                        'You are not authorized to access this resource'
-                    )
-                )
-
-                return
-            }
-
-            next()
-        } else {
+        if (!token) {
             next(new this.HttpError(404, 'Token not found'))
+
+            return
         }
+
+        const verifiedToken = await verifyToken(token)
+
+        if (!verifiedToken) {
+            next(new this.HttpError(401, 'Invalid Token (maybe expired)'))
+
+            return
+        }
+
+        const user = await db.user.findUnique({
+            where: {
+                id: (verifiedToken as JwtPayload).id,
+            },
+        })
+
+        if (user?.role !== 'ADMIN') {
+            next(
+                new this.HttpError(
+                    401,
+                    'You are not authorized to access this resource'
+                )
+            )
+
+            return
+        }
+
+        next()
     }
 
     checkRegisterBody = async (
@@ -82,7 +87,7 @@ export class AuthMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        if (req.body.google) {
+        if (!req.body.google) {
             const userSchemaGoogle = await validateSchemaInsideMiddleware(
                 createUserSchemaWithGoogle,
                 req
@@ -179,6 +184,7 @@ export class AuthMiddlewares {
 
             return
         }
+
         if (!user.google) {
             if (!req.body.password) {
                 next(new this.HttpError(404, 'Password field missing'))
