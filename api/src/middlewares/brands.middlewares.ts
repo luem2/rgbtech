@@ -3,6 +3,8 @@ import type { NextFunction, Request, Response } from 'express'
 import { db } from '../database'
 import { generateFileName } from '../helpers/filename'
 import { BaseMiddlewares } from '../config/bases'
+import { deleteFile, writeNewFile } from '../helpers/fsFunctions'
+import { CORE } from '../helpers/constants'
 
 export class BrandMiddlewares extends BaseMiddlewares {
     checkBodyAddBrand = async (
@@ -30,6 +32,11 @@ export class BrandMiddlewares extends BaseMiddlewares {
 
         const fileName = generateFileName(req.file)
 
+        writeNewFile(req.file, {
+            nameFolder: CORE,
+            fileName,
+        })
+
         req.body.logo = `/uploads/core/${fileName}`
 
         next()
@@ -40,19 +47,19 @@ export class BrandMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        const brandFinded = await db.brand.findUnique({
+        const brand = await db.brand.findUnique({
             where: {
                 name: req.params.name,
             },
         })
 
-        if (!brandFinded) {
+        if (!brand) {
             next(new this.HttpError(404, 'Brand not found'))
 
             return
         }
 
-        if (brandFinded.name !== req.body.name) {
+        if (brand.name !== req.body.name) {
             const otherBrand = await db.brand.findUnique({
                 where: {
                     name: req.body.name,
@@ -69,8 +76,17 @@ export class BrandMiddlewares extends BaseMiddlewares {
         if (req.file) {
             const fileName = generateFileName(req.file)
 
-            req.body.oldLogo = brandFinded.logo
             req.body.logo = `/uploads/core/${fileName}`
+
+            deleteFile({
+                nameFolder: CORE,
+                fileName: brand.logo.split('/').pop() as string,
+            })
+
+            writeNewFile(req.file, {
+                nameFolder: CORE,
+                fileName,
+            })
         }
 
         next()
@@ -81,13 +97,13 @@ export class BrandMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        const brandFinded = await db.brand.findUnique({
+        const brand = await db.brand.findUnique({
             where: {
                 name: req.params.name,
             },
         })
 
-        if (!brandFinded) {
+        if (!brand) {
             next(new this.HttpError(404, 'Brand not found'))
 
             return
@@ -103,6 +119,31 @@ export class BrandMiddlewares extends BaseMiddlewares {
 
             return
         }
+
+        next()
+    }
+
+    checkIfBrandExists = async (
+        req: Request,
+        _res: Response,
+        next: NextFunction
+    ) => {
+        const brand = await db.brand.findUnique({
+            where: {
+                name: req.params.name,
+            },
+            include: {
+                _count: true,
+            },
+        })
+
+        if (!brand) {
+            next(new this.HttpError(404, 'Brand not found'))
+
+            return
+        }
+
+        req.body = brand
 
         next()
     }

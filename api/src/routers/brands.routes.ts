@@ -2,8 +2,8 @@ import { BrandControllers } from '../controllers/brands.controllers'
 import { BrandMiddlewares } from '../middlewares/brands.middlewares'
 import { parseBody, validateSchema } from '../middlewares'
 import { brandSchema } from '../schemas'
-import { multerTemp } from '../config/multer'
 import { BaseRouter } from '../config/bases'
+import multer from '../config/multer'
 
 export class BrandRouter extends BaseRouter<
     BrandControllers,
@@ -23,14 +23,14 @@ export class BrandRouter extends BaseRouter<
 
         this.router.get(
             '/:name',
-            this.auth.checkAdminAuth,
+            [this.auth.checkAdminAuth, this.middlewares.checkIfBrandExists],
             this.controllers.getBrand
         )
 
         this.router.put(
             '/:name',
             [
-                multerTemp.single('brand'),
+                multer.single('brand'),
                 this.auth.checkAdminAuth,
                 parseBody,
                 validateSchema(brandSchema),
@@ -42,19 +42,13 @@ export class BrandRouter extends BaseRouter<
         this.router.post(
             '/',
             [
-                multerTemp.single('brand'),
+                multer.single('brand'),
                 this.auth.checkAdminAuth,
                 parseBody,
                 validateSchema(brandSchema),
                 this.middlewares.checkBodyAddBrand,
             ],
             this.controllers.addBrand
-        )
-
-        this.router.delete(
-            '/:name',
-            this.auth.checkAdminAuth,
-            this.controllers.deleteBrand
         )
 
         this.router.patch(
@@ -64,6 +58,12 @@ export class BrandRouter extends BaseRouter<
                 this.middlewares.checkUpdateBrandAvailability,
             ],
             this.controllers.changeBrandAvailability
+        )
+
+        this.router.delete(
+            '/:name',
+            [this.auth.checkAdminAuth, this.middlewares.checkIfBrandExists],
+            this.controllers.deleteBrand
         )
     }
 }

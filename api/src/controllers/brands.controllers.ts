@@ -18,17 +18,11 @@ export class BrandControllers extends BaseControllers<BrandServices> {
         })
     }
 
-    getBrand = async (req: Request, res: Response) => {
-        const brand = await this.services.getBrand(req.params)
-
-        if (brand) {
-            this.httpResponse.Ok(res, {
-                msg: 'The brand has been successfully sent',
-                brand,
-            })
-        } else {
-            this.httpResponse.NotFound(res, 'The brand has not been found')
-        }
+    getBrand = async ({ body }: Request, res: Response) => {
+        this.httpResponse.Ok(res, {
+            msg: 'The brand has been successfully sent',
+            brand: body,
+        })
     }
 
     brandUpdate = async (req: Request, res: Response) => {
@@ -41,7 +35,7 @@ export class BrandControllers extends BaseControllers<BrandServices> {
     }
 
     addBrand = async (req: Request, res: Response) => {
-        const newBrand = await this.services.addBrand(req)
+        const newBrand = await this.services.addBrand(req.body)
 
         this.httpResponse.Created(res, {
             msg: 'Brand have been successfully created',
@@ -59,13 +53,7 @@ export class BrandControllers extends BaseControllers<BrandServices> {
     }
 
     deleteBrand = async (req: Request, res: Response) => {
-        const deletedBrand = await this.services.deleteBrand(req.params)
-
-        if (!deletedBrand) {
-            this.httpResponse.NotFound(res, 'Brand have not been found')
-
-            return
-        }
+        const deletedBrand = await this.services.deleteBrand(req.body)
 
         this.httpResponse.Ok(res, {
             msg: 'Brand have been successfully deleted',
