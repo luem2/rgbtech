@@ -1,33 +1,13 @@
 import type { Request, Response, NextFunction } from 'express'
-import type { JwtPayload } from 'jsonwebtoken'
 import type { AwardSchema } from '../types'
 
 import { db } from '../database'
-import { verifyToken } from '../helpers/generateToken'
 import { deleteFile, writeNewFile } from '../helpers/fsFunctions'
 import { generateFileName } from '../helpers/filename'
 import { CORE } from '../helpers/constants'
 import { BaseMiddlewares } from '../config/bases'
 
 export class AwardMiddlewares extends BaseMiddlewares {
-    getAwardsAuthMiddleware = async (
-        req: Request,
-        _res: Response,
-        next: NextFunction
-    ) => {
-        const token = req.headers.authorization?.split(' ').pop()
-
-        if (token) {
-            const tokenData = await verifyToken(token)
-
-            if (tokenData) {
-                req.userRole = (tokenData as JwtPayload).role
-            }
-        }
-
-        next()
-    }
-
     checkBodyAddAward = async (
         req: Request,
         _res: Response,
@@ -132,6 +112,31 @@ export class AwardMiddlewares extends BaseMiddlewares {
 
             req.body.picture = `/uploads/core/${fileName}`
         }
+
+        next()
+    }
+
+    checkIfAwardExists = async (
+        req: Request,
+        _res: Response,
+        next: NextFunction
+    ) => {
+        const award = await db.award.findUnique({
+            where: {
+                id: req.params.id,
+            },
+            include: {
+                _count: true,
+            },
+        })
+
+        if (!award) {
+            next(new this.HttpError(404, 'The award doesnt exists'))
+
+            return
+        }
+
+        req.body = award
 
         next()
     }

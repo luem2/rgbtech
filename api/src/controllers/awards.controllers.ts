@@ -8,8 +8,8 @@ export class AwardControllers extends BaseControllers<AwardServices> {
         super(AwardServices)
     }
 
-    getAllAwards = async (req: Request, res: Response) => {
-        const awards = await this.services.getAllAwards(req.userRole)
+    getAllAwards = async (_req: Request, res: Response) => {
+        const awards = await this.services.getAllAwards()
 
         this.httpResponse.Ok(res, {
             msg: 'All awards have been successfully sent',
@@ -18,18 +18,10 @@ export class AwardControllers extends BaseControllers<AwardServices> {
         })
     }
 
-    getAward = async (req: Request, res: Response) => {
-        const award = await this.services.getAward(req)
-
-        if (!award) {
-            this.httpResponse.NotFound(res, 'Award not found')
-
-            return
-        }
-
+    getAward = async ({ body }: Request, res: Response) => {
         this.httpResponse.Ok(res, {
             msg: 'Award have been successfully sent',
-            award,
+            award: body,
         })
     }
 
@@ -52,13 +44,7 @@ export class AwardControllers extends BaseControllers<AwardServices> {
     }
 
     deleteAward = async (req: Request, res: Response) => {
-        const deletedAward = await this.services.deleteAward(req.params)
-
-        if (!deletedAward) {
-            this.httpResponse.NotFound(res, 'Award not found')
-
-            return
-        }
+        const deletedAward = await this.services.deleteAward(req.body)
 
         this.httpResponse.Ok(res, {
             msg: 'Award have been successfully deleted',

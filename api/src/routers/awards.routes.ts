@@ -2,8 +2,8 @@ import { AwardControllers } from '../controllers/awards.controllers'
 import { AwardMiddlewares } from '../middlewares/awards.middlewares'
 import { awardSchema } from '../schemas'
 import { parseBody, validateSchema } from '../middlewares'
-import { multerTemp } from '../config/multer'
 import { BaseRouter } from '../config/bases'
+import multer from '../config/multer'
 
 export class AwardRouter extends BaseRouter<
     AwardControllers,
@@ -15,22 +15,18 @@ export class AwardRouter extends BaseRouter<
     }
 
     routes() {
-        this.router.get(
-            '/',
-            this.middlewares.getAwardsAuthMiddleware,
-            this.controllers.getAllAwards
-        )
+        this.router.get('/', this.controllers.getAllAwards)
 
         this.router.get(
-            '/:awardId',
-            this.middlewares.getAwardsAuthMiddleware,
+            '/:id',
+            this.middlewares.checkIfAwardExists,
             this.controllers.getAward
         )
 
         this.router.put(
             '/',
             [
-                multerTemp.single('award'),
+                multer.single('award'),
                 this.auth.checkAdminAuth,
                 parseBody,
                 validateSchema(awardSchema),
@@ -42,7 +38,7 @@ export class AwardRouter extends BaseRouter<
         this.router.post(
             '/',
             [
-                multerTemp.single('award'),
+                multer.single('award'),
                 this.auth.checkAdminAuth,
                 parseBody,
                 validateSchema(awardSchema),
@@ -53,7 +49,7 @@ export class AwardRouter extends BaseRouter<
 
         this.router.delete(
             '/:id',
-            this.auth.checkAdminAuth,
+            [this.auth.checkAdminAuth, this.middlewares.checkIfAwardExists],
             this.controllers.deleteAward
         )
     }

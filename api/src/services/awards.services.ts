@@ -1,39 +1,17 @@
-import type { Request } from 'express'
 import type { AwardSchema } from '../types'
+import type { Award } from '@prisma/client'
 
 import { db } from '../database'
 import { deleteFile } from '../helpers/fsFunctions'
 import { CORE } from '../helpers/constants'
 
 export class AwardServices {
-    async getAllAwards(userRole: Request['userRole']) {
-        if (userRole !== 'ADMIN') {
-            return await db.award.findMany({})
-        } else
-            return await db.award.findMany({
-                include: {
-                    _count: true,
-                },
-            })
-    }
-
-    async getAward({ userRole, params }: Request) {
-        if (userRole !== 'ADMIN') {
-            return await db.award.findUnique({
-                where: {
-                    id: params.awardId,
-                },
-            })
-        } else {
-            return await db.award.findUnique({
-                where: {
-                    id: params.awardId,
-                },
-                include: {
-                    _count: true,
-                },
-            })
-        }
+    async getAllAwards() {
+        return await db.award.findMany({
+            include: {
+                _count: true,
+            },
+        })
     }
 
     async awardUpdate(award: AwardSchema) {
@@ -55,15 +33,7 @@ export class AwardServices {
         })
     }
 
-    async deleteAward({ id }: Request['params']) {
-        const award = await db.award.findUnique({
-            where: {
-                id,
-            },
-        })
-
-        if (!award) return null
-
+    async deleteAward(award: Award) {
         deleteFile({
             nameFolder: CORE,
             fileName: award.picture.split('/').at(-1) as string,
@@ -71,7 +41,7 @@ export class AwardServices {
 
         return await db.award.delete({
             where: {
-                id,
+                id: award.id,
             },
         })
     }
