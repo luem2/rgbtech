@@ -1,9 +1,9 @@
-import { multerAvatar } from '../config/multer'
 import { editUserSchema, newPasswordSchema } from '../schemas'
 import { validateSchema } from '../middlewares'
 import { BaseRouter } from '../config/bases'
 import { UserControllers } from '../controllers/users.controllers'
 import { UserMiddlewares } from '../middlewares/users.middlewares'
+import multer from '../config/multer'
 
 export class UserRouter extends BaseRouter<UserControllers, UserMiddlewares> {
     constructor() {
@@ -71,7 +71,7 @@ export class UserRouter extends BaseRouter<UserControllers, UserMiddlewares> {
 
         this.router.put(
             '/profilePhoto',
-            [this.auth.checkAuth, multerAvatar.single('avatar')],
+            [this.auth.checkAuth, multer.single('avatar')],
             this.controllers.changeProfilePhoto
         )
 

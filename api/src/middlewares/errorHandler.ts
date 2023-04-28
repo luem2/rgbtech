@@ -6,31 +6,41 @@ import { HttpError } from '../helpers/customError'
 import { HttpResponse, HttpStatus } from '../helpers/httpResponse'
 
 export class ErrorHandler extends HttpResponse {
-    throw = (err: Error, _req: Request, res: Response, _next: NextFunction) => {
-        if (err instanceof HttpError) {
-            switch (err.statusCode) {
-                case HttpStatus.BAD_REQUEST:
-                    this.BadRequest(res, err)
+    throw = (
+        err: Error | ValidationError | HttpError,
+        _req: Request,
+        res: Response,
+        _next: NextFunction
+    ) => {
+        switch (true) {
+            case err instanceof HttpError:
+                if (HttpStatus.BAD_REQUEST) {
+                    this.BadRequest(res, err.message)
 
                     return
+                }
 
-                case HttpStatus.UNAUTHORIZED:
+                if (HttpStatus.UNAUTHORIZED) {
                     this.Unauthorized(res, err.message)
 
                     return
-                case HttpStatus.NOT_FOUND:
+                }
+
+                if (HttpStatus.NOT_FOUND) {
                     this.NotFound(res, err.message)
 
                     return
-            }
+                }
+
+                return
+
+            case err instanceof ValidationError:
+                this.BadRequest(res, err)
+
+                return
+
+            default:
+                this.InternalServerError(res, err.message)
         }
-
-        if (err instanceof ValidationError) {
-            this.BadRequest(res, err)
-
-            return
-        }
-
-        this.InternalServerError(res, err.message)
     }
 }

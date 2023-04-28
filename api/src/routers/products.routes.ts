@@ -2,8 +2,8 @@ import { ProductControllers } from '../controllers/products.controllers'
 import { ProductMiddlewares } from '../middlewares/products.middlewares'
 import { productSchema } from '../schemas/product.schemas'
 import { validateSchema, parseBody } from '../middlewares'
-import { multerCore, multerTemp } from '../config/multer'
 import { BaseRouter } from '../config/bases'
+import multer from '../config/multer'
 
 export class ProductRouter extends BaseRouter<
     ProductControllers,
@@ -44,7 +44,7 @@ export class ProductRouter extends BaseRouter<
             [
                 this.auth.checkAdminAuth,
                 this.middlewares.checkUpdatePictureProduct,
-                multerCore.single('product'),
+                multer.single('product'),
             ],
             this.controllers.productPictureUpdate
         )
@@ -52,7 +52,7 @@ export class ProductRouter extends BaseRouter<
         this.router.post(
             '/',
             [
-                multerTemp.single('product'),
+                multer.single('product'),
                 this.auth.checkAdminAuth,
                 parseBody,
                 validateSchema(productSchema),
