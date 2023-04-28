@@ -11,7 +11,7 @@ export class AuthControllers extends BaseControllers<AuthServices> {
     login = async (req: Request, res: Response) => {
         const userToken = await this.services.login(req)
 
-        res.header('auth-token', userToken)
+        res.setHeader('Authorization', `Bearer ${userToken}`)
 
         this.httpResponse.Ok(res, ' User was successfully logged in')
     }
@@ -41,19 +41,22 @@ export class AuthControllers extends BaseControllers<AuthServices> {
     }
 
     passwordRecoveryEmail = async (req: Request, res: Response) => {
-        const userFounded = await this.services.passwordRecoveryEmail(req.body)
+        const userName = await this.services.passwordRecoveryEmail(req.body)
 
-        if (!userFounded) {
+        if (!userName) {
             this.httpResponse.NotFound(res, 'The user not found')
 
             return
         }
 
-        this.httpResponse.Ok(res, 'The email has been sent, check your mailbox')
+        this.httpResponse.Ok(
+            res,
+            `The email has been sent, check your mailbox ${userName}`
+        )
     }
 
     accountConfirmation = async (req: Request, res: Response) => {
-        await this.services.accountConfirmation(req.params)
+        await this.services.accountConfirmation(req.userId)
 
         this.httpResponse.Ok(res, 'The account has been successfully confirmed')
     }

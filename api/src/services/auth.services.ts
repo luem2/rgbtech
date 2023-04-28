@@ -65,12 +65,10 @@ export class AuthServices {
         return newUser
     }
 
-    async passwordUpdate({ userId, params, body }: Request) {
-        const id = params.id ?? userId
-
+    async passwordUpdate({ userId, body }: Request) {
         await db.user.update({
             where: {
-                id,
+                id: userId,
             },
             data: {
                 password: await bcrypt.hash(body.newPassword, 10),
@@ -88,9 +86,11 @@ export class AuthServices {
         if (!user) return null
 
         nodemailerService.sendPasswordRecoveryEmail(user)
+
+        return user.firstName
     }
 
-    async accountConfirmation({ id }: Request['params']) {
+    async accountConfirmation(id: Request['userId']) {
         return await db.user.update({
             where: {
                 id,

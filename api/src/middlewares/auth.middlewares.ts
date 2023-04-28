@@ -133,7 +133,7 @@ export class AuthMiddlewares {
                     nameFolder: PICTURES,
                 })
 
-                req.body.picture = fileName
+                req.body.picture = `/uploads/pictures/${fileName}`
             }
         }
 
@@ -221,7 +221,7 @@ export class AuthMiddlewares {
     ) => {
         const user = await db.user.findUnique({
             where: {
-                id: req.params.id,
+                id: req.userId,
             },
             select: {
                 verificated: true,

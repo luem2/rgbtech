@@ -19,13 +19,15 @@ export class AuthRouter extends BaseRouter<AuthControllers, AuthMiddlewares> {
         )
 
         this.router.put(
-            '/account-confirmation/:id',
+            '/account-confirmation',
+            this.middlewares.checkAuth,
             this.middlewares.userIsAlreadyConfirmed,
             this.controllers.accountConfirmation
         )
 
         this.router.put(
-            '/password-recovery/:id',
+            '/password-recovery',
+            this.middlewares.checkAuth,
             validateSchema(newPasswordSchema),
             this.controllers.passwordRecovery
         )
