@@ -17,7 +17,6 @@ export class ProductServices {
                     usersFavorite: true,
                     reviews: true,
                     tags: true,
-                    transactions: true,
                 },
             },
             id: true,
@@ -42,7 +41,6 @@ export class ProductServices {
             reviews: true,
             shoppingCarts: true,
             tags: true,
-            transactions: true,
             usersFavorite: true,
             usersHistory: true,
         }
@@ -228,7 +226,6 @@ export class ProductServices {
                     reviews: true,
                     shoppingCarts: true,
                     tags: true,
-                    transactions: true,
                     usersFavorite: true,
                     usersHistory: true,
                 },
