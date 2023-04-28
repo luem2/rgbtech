@@ -1,9 +1,9 @@
 import { emailSchema, newPasswordSchema } from '../schemas'
 import { validateSchema } from '../middlewares'
-import { multerTemp } from '../config/multer'
 import { BaseRouter } from '../config/bases'
 import { AuthControllers } from '../controllers/auth.controllers'
 import { AuthMiddlewares } from '../middlewares/auth.middlewares'
+import multer from '../config/multer'
 
 export class AuthRouter extends BaseRouter<AuthControllers, AuthMiddlewares> {
     constructor() {
@@ -20,21 +20,22 @@ export class AuthRouter extends BaseRouter<AuthControllers, AuthMiddlewares> {
 
         this.router.put(
             '/account-confirmation',
-            this.middlewares.checkAuth,
-            this.middlewares.userIsAlreadyConfirmed,
+            [
+                this.middlewares.checkAuth,
+                this.middlewares.userIsAlreadyConfirmed,
+            ],
             this.controllers.accountConfirmation
         )
 
         this.router.put(
             '/password-recovery',
-            this.middlewares.checkAuth,
-            validateSchema(newPasswordSchema),
+            [this.middlewares.checkAuth, validateSchema(newPasswordSchema)],
             this.controllers.passwordRecovery
         )
 
         this.router.post(
             '/password-recovery-email',
-            validateSchema(emailSchema),
+            [validateSchema(emailSchema), this.middlewares.userExists],
             this.controllers.passwordRecoveryEmail
         )
 
@@ -46,13 +47,13 @@ export class AuthRouter extends BaseRouter<AuthControllers, AuthMiddlewares> {
 
         this.router.post(
             '/register',
-            [multerTemp.single('avatar'), this.middlewares.checkRegisterBody],
+            [multer.single('avatar'), this.middlewares.checkRegisterBody],
             this.controllers.register
         )
 
         this.router.delete(
             '/:userId',
-            this.middlewares.checkAdminAuth,
+            [this.middlewares.checkAdminAuth, this.middlewares.userExists],
             this.controllers.deleteUser
         )
     }

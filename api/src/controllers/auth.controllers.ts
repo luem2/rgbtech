@@ -9,20 +9,11 @@ export class AuthControllers extends BaseControllers<AuthServices> {
     }
 
     login = async (req: Request, res: Response) => {
-        const userToken = await this.services.login(req)
+        const userToken = await this.services.login(req.body)
 
         res.setHeader('Authorization', `Bearer ${userToken}`)
 
         this.httpResponse.Ok(res, ' User was successfully logged in')
-    }
-
-    register = async (req: Request, res: Response) => {
-        const newUser = await this.services.register(req.body)
-
-        this.httpResponse.Created(res, {
-            msg: 'User has been successfully created, please confirm your account. We have sent you a confirmation email',
-            user: newUser,
-        })
     }
 
     profile = async (req: Request, res: Response) => {
@@ -34,6 +25,15 @@ export class AuthControllers extends BaseControllers<AuthServices> {
         })
     }
 
+    register = async (req: Request, res: Response) => {
+        const newUser = await this.services.register(req.body)
+
+        this.httpResponse.Created(res, {
+            msg: 'User has been successfully created, please confirm your account. We have sent you a confirmation email',
+            user: newUser,
+        })
+    }
+
     passwordRecovery = async (req: Request, res: Response) => {
         await this.services.passwordUpdate(req)
 
@@ -42,12 +42,6 @@ export class AuthControllers extends BaseControllers<AuthServices> {
 
     passwordRecoveryEmail = async (req: Request, res: Response) => {
         const userName = await this.services.passwordRecoveryEmail(req.body)
-
-        if (!userName) {
-            this.httpResponse.NotFound(res, 'The user not found')
-
-            return
-        }
 
         this.httpResponse.Ok(
             res,
@@ -62,13 +56,7 @@ export class AuthControllers extends BaseControllers<AuthServices> {
     }
 
     deleteUser = async (req: Request, res: Response) => {
-        const userDeleted = await this.services.deleteUser(req.params.userId)
-
-        if (!userDeleted) {
-            this.httpResponse.NotFound(res, 'The user not found')
-
-            return
-        }
+        const userDeleted = await this.services.deleteUser(req.body)
 
         this.httpResponse.Ok(res, {
             msg: 'The user has been successfully deleted',

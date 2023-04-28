@@ -10,12 +10,8 @@ import { deleteFile } from '../helpers/fsFunctions'
 import { DEFAULT_AVATAR, PICTURES } from '../helpers/constants'
 
 export class AuthServices {
-    async login({ body, userId }: Request) {
-        const user = body as User
-
-        userId = user.id
-
-        return await tokenSign({ id: user.id, role: user.role })
+    async login({ id, role }: User) {
+        return await tokenSign({ id, role })
     }
 
     async getProfile(id: Request['userId']) {
@@ -76,15 +72,7 @@ export class AuthServices {
         })
     }
 
-    async passwordRecoveryEmail({ email }: Request['body']) {
-        const user = await db.user.findUnique({
-            where: {
-                email,
-            },
-        })
-
-        if (!user) return null
-
+    async passwordRecoveryEmail(user: User) {
         nodemailerService.sendPasswordRecoveryEmail(user)
 
         return user.firstName
@@ -101,19 +89,8 @@ export class AuthServices {
         })
     }
 
-    async deleteUser(id: Request['userId']) {
-        const user = await db.user.findUnique({
-            where: {
-                id,
-            },
-            select: {
-                picture: true,
-            },
-        })
-
-        if (!user) return null
-
-        const userPicture = user.picture?.split('/').at(-1) as string
+    async deleteUser(user: User) {
+        const userPicture = user.picture.split('/').at(-1) as string
 
         if (userPicture !== DEFAULT_AVATAR) {
             deleteFile({
@@ -124,7 +101,7 @@ export class AuthServices {
 
         return await db.user.delete({
             where: {
-                id,
+                id: user.id,
             },
         })
     }

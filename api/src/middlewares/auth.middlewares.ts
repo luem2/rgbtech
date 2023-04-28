@@ -87,7 +87,24 @@ export class AuthMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        if (!req.body.google) {
+        const userExists = await db.user.findUnique({
+            where: {
+                email: req.body.email,
+            },
+        })
+
+        if (userExists) {
+            next(
+                new this.HttpError(
+                    401,
+                    'A user has already registered with the email address entered'
+                )
+            )
+
+            return
+        }
+
+        if (req.body.google) {
             const userSchemaGoogle = await validateSchemaInsideMiddleware(
                 createUserSchemaWithGoogle,
                 req
@@ -140,23 +157,6 @@ export class AuthMiddlewares {
 
                 req.body.picture = `/uploads/pictures/${fileName}`
             }
-        }
-
-        const userExists = await db.user.findUnique({
-            where: {
-                email: req.body.email,
-            },
-        })
-
-        if (userExists) {
-            next(
-                new this.HttpError(
-                    401,
-                    'A user has already registered with the email address entered'
-                )
-            )
-
-            return
         }
 
         next()
@@ -239,6 +239,25 @@ export class AuthMiddlewares {
 
             return
         }
+
+        next()
+    }
+
+    userExists = async (req: Request, _res: Response, next: NextFunction) => {
+        const user = await db.user.findUnique({
+            where: {
+                id: req.params.userId ?? undefined,
+                email: req.body.email ?? undefined,
+            },
+        })
+
+        if (!user) {
+            next(new this.HttpError(404, 'User not found'))
+
+            return
+        }
+
+        req.body = user
 
         next()
     }
