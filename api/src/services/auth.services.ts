@@ -90,7 +90,7 @@ export class AuthServices {
     }
 
     async deleteUser(user: User) {
-        const userPicture = user.picture.split('/').at(-1) as string
+        const userPicture = user.picture.split('/').pop() as string
 
         if (userPicture !== DEFAULT_AVATAR) {
             deleteFile({

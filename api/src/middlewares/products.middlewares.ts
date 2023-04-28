@@ -75,7 +75,7 @@ export class ProductMiddlewares extends BaseMiddlewares {
 
         writeNewFile(req.file, {
             nameFolder: CORE,
-            fileName: req.body.picture.split('/').at(-1),
+            fileName: req.body.picture.split('/').pop(),
         })
 
         req.body.picture = `/uploads/core/${fileName}`

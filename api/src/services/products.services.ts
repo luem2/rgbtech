@@ -276,7 +276,7 @@ export class ProductServices {
 
         if (!product) return null
 
-        const oldFileName = product.picture.split('/').at(-1) as string
+        const oldFileName = product.picture.split('/').pop() as string
         const fileName = (file as Express.Multer.File).filename
 
         deleteFile({
@@ -343,7 +343,7 @@ export class ProductServices {
 
         if (!product) return null
 
-        const fileName = product.picture.split('/').at(-1) as string
+        const fileName = product.picture.split('/').pop() as string
 
         deleteFile({
             nameFolder: CORE,

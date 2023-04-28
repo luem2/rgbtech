@@ -59,7 +59,7 @@ export class UserServices {
 
         if (!user) return null
 
-        const oldFileName = user.picture?.split('/').at(-1) as string
+        const oldFileName = user.picture?.split('/').pop() as string
         const fileName = (file as Express.Multer.File).filename
 
         deleteFile({
