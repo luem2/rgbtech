@@ -1,6 +1,6 @@
 import { BrandControllers } from '../controllers/brands.controllers'
 import { BrandMiddlewares } from '../middlewares/brands.middlewares'
-import { parseBody, validateSchema } from '../middlewares'
+import { parseRequest, validateSchema } from '../middlewares'
 import { brandSchema } from '../schemas'
 import { BaseRouter } from '../config/bases'
 import multer from '../config/multer'
@@ -32,7 +32,7 @@ export class BrandRouter extends BaseRouter<
             [
                 multer.single('brand'),
                 this.auth.checkAdminAuth,
-                parseBody,
+                parseRequest('body'),
                 validateSchema(brandSchema),
                 this.middlewares.checkBodyEditBrand,
             ],
@@ -44,7 +44,7 @@ export class BrandRouter extends BaseRouter<
             [
                 multer.single('brand'),
                 this.auth.checkAdminAuth,
-                parseBody,
+                parseRequest('body'),
                 validateSchema(brandSchema),
                 this.middlewares.checkBodyAddBrand,
             ],

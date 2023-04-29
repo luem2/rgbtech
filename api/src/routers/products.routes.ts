@@ -1,7 +1,7 @@
 import { ProductControllers } from '../controllers/products.controllers'
 import { ProductMiddlewares } from '../middlewares/products.middlewares'
 import { productSchema } from '../schemas/product.schemas'
-import { validateSchema, parseBody } from '../middlewares'
+import { validateSchema, parseRequest } from '../middlewares'
 import { BaseRouter } from '../config/bases'
 import multer from '../config/multer'
 
@@ -17,13 +17,16 @@ export class ProductRouter extends BaseRouter<
     routes() {
         this.router.get(
             '/',
-            this.middlewares.getProductsAuthMiddleware,
-            this.middlewares.checkQueryObjectFilters,
+            [
+                this.middlewares.getProductsAuthMiddleware,
+                parseRequest('query'),
+                this.middlewares.checkQueryObjectFilters,
+            ],
             this.controllers.getAllProducts
         )
 
         this.router.get(
-            '/:productId',
+            '/:id',
             this.middlewares.getProductsAuthMiddleware,
             this.controllers.getProduct
         )
@@ -42,9 +45,9 @@ export class ProductRouter extends BaseRouter<
         this.router.put(
             '/picture',
             [
+                multer.single('product'),
                 this.auth.checkAdminAuth,
                 this.middlewares.checkUpdatePictureProduct,
-                multer.single('product'),
             ],
             this.controllers.productPictureUpdate
         )
@@ -54,7 +57,7 @@ export class ProductRouter extends BaseRouter<
             [
                 multer.single('product'),
                 this.auth.checkAdminAuth,
-                parseBody,
+                parseRequest('body'),
                 validateSchema(productSchema),
                 this.middlewares.checkBrandAndTags,
                 this.middlewares.checkBodyAddProduct,
@@ -63,13 +66,13 @@ export class ProductRouter extends BaseRouter<
         )
 
         this.router.delete(
-            '/:productId',
+            '/:id',
             this.auth.checkAdminAuth,
             this.controllers.deleteProduct
         )
 
         this.router.patch(
-            '/:productId',
+            '/:id',
             [
                 this.auth.checkAdminAuth,
                 this.middlewares.checkUpdateProductAvailability,

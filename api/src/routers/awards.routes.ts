@@ -1,7 +1,7 @@
 import { AwardControllers } from '../controllers/awards.controllers'
 import { AwardMiddlewares } from '../middlewares/awards.middlewares'
 import { awardSchema } from '../schemas'
-import { parseBody, validateSchema } from '../middlewares'
+import { parseRequest, validateSchema } from '../middlewares'
 import { BaseRouter } from '../config/bases'
 import multer from '../config/multer'
 
@@ -28,7 +28,7 @@ export class AwardRouter extends BaseRouter<
             [
                 multer.single('award'),
                 this.auth.checkAdminAuth,
-                parseBody,
+                parseRequest('body'),
                 validateSchema(awardSchema),
                 this.middlewares.checkBodyEditAward,
             ],
@@ -40,7 +40,7 @@ export class AwardRouter extends BaseRouter<
             [
                 multer.single('award'),
                 this.auth.checkAdminAuth,
-                parseBody,
+                parseRequest('body'),
                 validateSchema(awardSchema),
                 this.middlewares.checkBodyAddAward,
             ],
