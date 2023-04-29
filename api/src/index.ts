@@ -49,7 +49,6 @@ class ServerBootstrap extends ConfigServer {
                 limit: '50mb',
             })
         )
-
         this.app.use(
             express.urlencoded({
                 extended: true,

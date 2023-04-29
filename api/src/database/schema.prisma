@@ -8,19 +8,19 @@ datasource db {
 }
 
 model User {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   firstName   String
   lastName    String
-  email       String   @unique
+  email       String    @unique
   password    String
   picture     String
-  birthDate   DateTime
-  nationality String
-  role        Role     @default(USER)
-  verificated Boolean  @default(false)
-  RGBpoints   Float    @default(0)
-  google      Boolean  @default(false)
-  disabled    Boolean  @default(false)
+  birthDate   DateTime?
+  nationality String?
+  role        Role      @default(USER)
+  verificated Boolean   @default(false)
+  RGBpoints   Float     @default(0)
+  google      Boolean   @default(false)
+  disabled    Boolean   @default(false)
 
   shoppingCart CartItem[]
   history      HistoryProduct[]
