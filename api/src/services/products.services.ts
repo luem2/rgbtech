@@ -99,21 +99,11 @@ export class ProductServices {
 
             tags: {
                 some: {
-                    name: queryParams.tags?.length
-                        ? {
-                              in: queryParams.tags,
-                              mode: 'insensitive',
-                          }
+                    name: this.isNotEmpty(queryParams.tag)
+                        ? { equals: queryParams.tag, mode: 'insensitive' }
                         : undefined,
                 },
             },
-
-            stock: this.isNotEmpty(queryParams.stock)
-                ? {
-                      gte: queryParams.stock?.greaterThan,
-                      lte: queryParams.stock?.lessThan,
-                  }
-                : undefined,
 
             onDiscount: {
                 equals: queryParams.onDiscount,
@@ -168,22 +158,11 @@ export class ProductServices {
             })
     }
 
-    isNotEmpty(arg: string | Record<string, unknown> | undefined) {
-        switch (typeof arg) {
-            case 'string':
-                return Boolean(arg)
-            case 'object':
-                return Boolean(Object.keys(arg).length)
-            default:
-                return false
-        }
-    }
-
     async getProduct({ userRole, params }: Request) {
         if (userRole !== 'ADMIN') {
             return await db.product.findFirst({
                 where: {
-                    id: params.productId,
+                    id: params.id,
                     AND: {
                         disabled: {
                             not: true,
@@ -218,7 +197,7 @@ export class ProductServices {
         } else {
             return await db.product.findUnique({
                 where: {
-                    id: params.productId,
+                    id: params.id,
                 },
                 include: {
                     _count: true,
