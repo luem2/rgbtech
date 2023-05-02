@@ -22,36 +22,23 @@ export type UserWithCart = Prisma.UserGetPayload<{
 }>
 
 export interface IQueryParams {
-    brand?: string
-
     name?: string
 
-    price?: {
-        greaterThan?: number
-        lessThan?: number
-    }
+    brand?: string
 
-    rating?: {
-        greaterThan?: number
-        lessThan?: number
-        equals?: number
-    }
+    price?: number[] | number
 
-    tags?: string[]
+    rating?: number[] | number
 
-    stock?: {
-        greaterThan?: number
-        lessThan?: number
-    }
+    tag?: string
 
     onDiscount?: boolean
 
     freeShipping?: boolean
 
-    orderBy?: {
-        value: 'brand' | 'name' | 'price' | 'rating' | 'stock'
-        order: 'asc' | 'desc'
-    }
+    sortBy?: 'brand' | 'name' | 'price' | 'rating' | 'stock'
+
+    sortOrder?: 'asc' | 'desc'
 }
 
 export interface ProductSchema {
