@@ -2,17 +2,12 @@ import type { Request, Response, NextFunction } from 'express'
 import type { JwtPayload } from 'jsonwebtoken'
 import type { ProductSchema } from '../types'
 
-import { ValidationError } from 'yup'
-
 import { db } from '../database'
 import { verifyToken } from '../helpers/generateToken'
-import { querySchema } from '../schemas'
 import { generateFileName } from '../helpers/filename'
 import { writeNewFile } from '../helpers/fsFunctions'
 import { CORE } from '../helpers/constants'
 import { BaseMiddlewares } from '../config/bases'
-
-import { validateSchemaInsideMiddleware } from '.'
 
 export class ProductMiddlewares extends BaseMiddlewares {
     getProductsAuthMiddleware = async (
@@ -217,33 +212,18 @@ export class ProductMiddlewares extends BaseMiddlewares {
         next: NextFunction
     ) => {
         if (Object.keys(req.query).length) {
-            const query = req.query as Record<string, string>
-            const parsedQuery: Record<string, unknown> = {}
-
-            for (const key in query) {
-                try {
-                    parsedQuery[key] = JSON.parse(query[key])
-                } catch (e) {
-                    parsedQuery[key] = query[key]
-                }
-            }
-
-            req.parsedQuery = parsedQuery
-
-            const queryValidationSchema = await validateSchemaInsideMiddleware(
-                querySchema,
-                req
-            )
-
-            if (!queryValidationSchema.valid) {
-                next(
-                    new ValidationError(
-                        queryValidationSchema.err as ValidationError
-                    )
-                )
-
-                return
-            }
+            // const queryValidationSchema = await validateSchemaInsideMiddleware(
+            //     querySchema,
+            //     req
+            // )
+            // if (!queryValidationSchema.valid) {
+            //     next(
+            //         new ValidationError(
+            //             queryValidationSchema.err as ValidationError
+            //         )
+            //     )
+            //     return
+            // }
         }
 
         next()
