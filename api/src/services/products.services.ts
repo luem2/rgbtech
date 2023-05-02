@@ -3,7 +3,7 @@ import type { Request } from 'express'
 import type { IQueryParams, ProductSchema } from '../types'
 
 import { db } from '../database'
-import { deleteFile } from '../helpers/fsFunctions'
+import { deleteFile, writeNewFile } from '../helpers/fsFunctions'
 import { CORE } from '../helpers/constants'
 
 export class ProductServices {
@@ -62,12 +62,12 @@ export class ProductServices {
             })
     }
 
-    async getQueryProducts({ parsedQuery, userRole }: Request) {
-        const queryParams: IQueryParams = parsedQuery
+    async getQueryProducts({ query, userRole }: Request) {
+        const queryParams = query as IQueryParams
 
         const wherePrismaFilter: Prisma.ProductWhereInput = {
             brand: {
-                name: this.isNotEmpty(queryParams.brand)
+                name: query.brand?.length
                     ? {
                           equals: queryParams.brand,
                           mode: 'insensitive',
@@ -75,31 +75,27 @@ export class ProductServices {
                     : undefined,
             },
 
-            name: this.isNotEmpty(queryParams.name)
+            name: queryParams.name?.length
                 ? {
                       contains: queryParams.name,
                       mode: 'insensitive',
                   }
                 : undefined,
 
-            price: this.isNotEmpty(queryParams.price)
-                ? {
-                      gte: queryParams.price?.greaterThan,
-                      lte: queryParams.price?.lessThan,
-                  }
-                : undefined,
+            price: {
+                gte: queryParams.price_gte ?? undefined,
+                lte: queryParams.price_lte ?? undefined,
+            },
 
-            rating: this.isNotEmpty(queryParams.rating)
-                ? {
-                      lte: queryParams.rating?.lessThan,
-                      gte: queryParams.rating?.greaterThan,
-                      equals: queryParams.rating?.equals,
-                  }
-                : undefined,
+            rating: {
+                gte: queryParams.rating_gte ?? undefined,
+                lte: queryParams.rating_lte ?? undefined,
+                equals: queryParams.rating ?? undefined,
+            },
 
             tags: {
                 some: {
-                    name: this.isNotEmpty(queryParams.tag)
+                    name: queryParams.tag
                         ? { equals: queryParams.tag, mode: 'insensitive' }
                         : undefined,
                 },
@@ -117,25 +113,25 @@ export class ProductServices {
         const orderByPrismaFilter: Prisma.ProductOrderByWithRelationInput = {
             brand: {
                 name:
-                    queryParams.orderBy?.value === 'brand'
-                        ? queryParams.orderBy.order
+                    queryParams.sortBy === 'brand'
+                        ? queryParams.sortOrder
                         : undefined,
             },
             name:
-                queryParams.orderBy?.value === 'name'
-                    ? queryParams.orderBy.order
+                queryParams.sortBy === 'name'
+                    ? queryParams.sortOrder
                     : undefined,
             price:
-                queryParams.orderBy?.value === 'price'
-                    ? queryParams.orderBy.order
+                queryParams.sortBy === 'price'
+                    ? queryParams.sortOrder
                     : undefined,
             rating:
-                queryParams.orderBy?.value === 'rating'
-                    ? queryParams.orderBy.order
+                queryParams.sortBy === 'rating'
+                    ? queryParams.sortOrder
                     : undefined,
             stock:
-                queryParams.orderBy?.value === 'stock'
-                    ? queryParams.orderBy.order
+                queryParams.sortBy === 'stock'
+                    ? queryParams.sortOrder
                     : undefined,
         }
 
@@ -241,31 +237,16 @@ export class ProductServices {
     }
 
     async productPictureUpdate({ file, query }: Request) {
-        // REFACTOR: REFACTORIZAR PARA PONER EL FILE EN MIDDLEWARES, Y LA VALIDACION DE SI EXISTE EL PRODUCTO
-        const id = query.id as string
-
-        const product = await db.product.findUnique({
-            where: {
-                id,
-            },
-            select: {
-                picture: true,
-            },
-        })
-
-        if (!product) return null
-
-        const oldFileName = product.picture.split('/').pop() as string
         const fileName = (file as Express.Multer.File).filename
 
-        deleteFile({
+        writeNewFile(file, {
             nameFolder: CORE,
-            fileName: oldFileName,
+            fileName,
         })
 
         return await db.product.update({
             where: {
-                id,
+                id: query.id as string,
             },
             data: {
                 picture: `/uploads/${CORE}/${fileName}`,
@@ -273,9 +254,7 @@ export class ProductServices {
         })
     }
 
-    async addProduct(body: Request['body']) {
-        const newProduct = body as ProductSchema
-
+    async addProduct(newProduct: ProductSchema) {
         return await db.product.create({
             data: {
                 ...newProduct,
@@ -301,7 +280,7 @@ export class ProductServices {
     async changeProductAvailability({ params, body }: Request) {
         return await db.product.update({
             where: {
-                id: params.productId,
+                id: params.id,
             },
             data: {
                 disabled: body.disabled,
@@ -309,18 +288,17 @@ export class ProductServices {
         })
     }
 
-    async deleteProduct({ params }: Request) {
-        // REFACTOR: REFACTORIZAR PARA PONER ELIMINAR EL FILE EN MIDDLEWARES, Y LA VALIDACION DE SI EXISTE EL PRODUCTO
-        const product = await db.product.findUnique({
+    async deleteProduct({ id }: Request['params']) {
+        const product = (await db.product.findUnique({
             where: {
-                id: params.productId,
+                id,
             },
             select: {
                 picture: true,
             },
-        })
-
-        if (!product) return null
+        })) as {
+            picture: string
+        }
 
         const fileName = product.picture.split('/').pop() as string
 
@@ -331,7 +309,7 @@ export class ProductServices {
 
         return await db.product.delete({
             where: {
-                id: params.productId,
+                id,
             },
         })
     }

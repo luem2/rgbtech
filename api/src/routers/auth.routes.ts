@@ -64,7 +64,6 @@ export class AuthRouter extends BaseRouter<AuthControllers, AuthMiddlewares> {
         this.router.post(
             '/register-google',
             [
-                // TODO: DEBERIA HACER ESTO CON TOKEN, SINO ES VULNERABLE
                 validateSchema(createUserSchemaWithGoogle),
                 this.middlewares.userIsAlreadyConfirmed,
             ],
