@@ -1,4 +1,9 @@
-import { emailSchema, newPasswordSchema } from '../schemas'
+import {
+    createUserSchema,
+    createUserSchemaWithGoogle,
+    emailSchema,
+    newPasswordSchema,
+} from '../schemas'
 import { validateSchema } from '../middlewares'
 import { BaseRouter } from '../config/bases'
 import { AuthControllers } from '../controllers/auth.controllers'
@@ -35,7 +40,7 @@ export class AuthRouter extends BaseRouter<AuthControllers, AuthMiddlewares> {
 
         this.router.post(
             '/password-recovery-email',
-            [validateSchema(emailSchema), this.middlewares.userExists],
+            [validateSchema(emailSchema), this.middlewares.checkIfUserExists],
             this.controllers.passwordRecoveryEmail
         )
 
@@ -47,13 +52,31 @@ export class AuthRouter extends BaseRouter<AuthControllers, AuthMiddlewares> {
 
         this.router.post(
             '/register',
-            [multer.single('avatar'), this.middlewares.checkRegisterBody],
+            [
+                multer.single('avatar'),
+                validateSchema(createUserSchema),
+                this.middlewares.checkIfUserAlreadyExists,
+                this.middlewares.checkRegisterBody,
+            ],
+            this.controllers.register
+        )
+
+        this.router.post(
+            '/register-google',
+            [
+                // TODO: DEBERIA HACER ESTO CON TOKEN, SINO ES VULNERABLE
+                validateSchema(createUserSchemaWithGoogle),
+                this.middlewares.userIsAlreadyConfirmed,
+            ],
             this.controllers.register
         )
 
         this.router.delete(
-            '/:userId',
-            [this.middlewares.checkAdminAuth, this.middlewares.userExists],
+            '/:id',
+            [
+                this.middlewares.checkAdminAuth,
+                this.middlewares.checkIfUserExists,
+            ],
             this.controllers.deleteUser
         )
     }

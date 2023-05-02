@@ -108,6 +108,7 @@ export class UserRouter extends BaseRouter<UserControllers, UserMiddlewares> {
 
         this.router.post(
             '/reviews',
+            // TODO: AGREGAR VALIDACION QUE PUEDA SOLAMENTE COMENTAR EL PRODUCTO, SI LO HA COMPRADO (FIJARSE EN EL HISTORIAL DE COMPRAS)
             [this.auth.checkAuth, this.middlewares.checkReviewBody],
             this.controllers.addReview
         )
