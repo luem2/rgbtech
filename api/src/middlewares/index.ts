@@ -17,13 +17,17 @@ export function filePhotoProfileFilter(
 }
 
 export function validateSchema(schema: AnySchema) {
-    return async function (req: Request, _res: Response, next: NextFunction) {
+    return async function (
+        { body, params, query }: Request,
+        _res: Response,
+        next: NextFunction
+    ) {
         try {
             await schema.validate(
                 {
-                    body: req.body,
-                    params: req.params,
-                    query: req.query,
+                    body,
+                    params,
+                    query,
                 },
                 {
                     strict: true,
@@ -37,48 +41,16 @@ export function validateSchema(schema: AnySchema) {
     }
 }
 
-export async function validateSchemaInsideMiddleware(
-    schema: AnySchema,
-    { body, params, query, parsedQuery }: Request
-) {
-    interface SchemaValidProps {
-        valid: boolean
-        err?: unknown
-    }
-
-    const reqSchema: SchemaValidProps = {
-        valid: true,
-    }
-
-    try {
-        await schema.validate(
-            {
-                body,
-                params,
-                query: parsedQuery ?? query,
-            },
-            {
-                strict: true,
+export function parseRequest(prop: 'body' | 'query') {
+    return (req: Request, _res: Response, next: NextFunction) => {
+        for (const key in req[prop]) {
+            try {
+                req[prop][key] = JSON.parse(req[prop][key])
+            } catch (error) {
+                continue
             }
-        )
-
-        return reqSchema
-    } catch (error) {
-        reqSchema.valid = false
-        reqSchema.err = error
-
-        return reqSchema
-    }
-}
-
-export function parseBody(req: Request, _res: Response, next: NextFunction) {
-    for (const key in req.body) {
-        try {
-            req.body[key] = JSON.parse(req.body[key])
-        } catch (error) {
-            continue
         }
-    }
 
-    next()
+        next()
+    }
 }
