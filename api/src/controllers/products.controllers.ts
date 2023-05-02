@@ -27,12 +27,6 @@ export class ProductControllers extends BaseControllers<ProductServices> {
     getProduct = async (req: Request, res: Response) => {
         const product = await this.services.getProduct(req)
 
-        if (!product) {
-            this.httpResponse.NotFound(res, 'Product not found')
-
-            return
-        }
-
         this.httpResponse.Ok(res, {
             msg: 'Product have been successfully sent',
             product,
@@ -49,17 +43,7 @@ export class ProductControllers extends BaseControllers<ProductServices> {
     }
 
     productPictureUpdate = async (req: Request, res: Response) => {
-        if (!req.file) {
-            this.httpResponse.BadRequest(res, 'The new product image is needed')
-        }
-
         const updatedProduct = await this.services.productPictureUpdate(req)
-
-        if (!updatedProduct) {
-            this.httpResponse.NotFound(res, 'Product not found')
-
-            return
-        }
 
         this.httpResponse.Ok(res, {
             msg: 'Product picture have been successfully updated',
@@ -88,13 +72,7 @@ export class ProductControllers extends BaseControllers<ProductServices> {
     }
 
     deleteProduct = async (req: Request, res: Response) => {
-        const deletedProduct = await this.services.deleteProduct(req)
-
-        if (!deletedProduct) {
-            this.httpResponse.NotFound(res, 'Product not found')
-
-            return
-        }
+        const deletedProduct = await this.services.deleteProduct(req.params)
 
         this.httpResponse.Ok(res, {
             msg: 'Product have been successfully deleted',
