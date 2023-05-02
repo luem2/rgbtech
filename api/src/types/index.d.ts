@@ -26,9 +26,15 @@ export interface IQueryParams {
 
     brand?: string
 
-    price?: number[] | number
+    price_gte?: number
 
-    rating?: number[] | number
+    price_lte?: number
+
+    rating?: number
+
+    rating_gte?: number
+
+    rating_lte?: number
 
     tag?: string
 
