@@ -7,7 +7,7 @@ import { db } from '../database'
 import { verifyToken } from '../helpers/generateToken'
 import { DEFAULT_AVATAR, PICTURES } from '../helpers/constants'
 import { writeNewFile } from '../helpers/fsFunctions'
-import { generateFileName } from '../helpers/filename'
+import { generateFileName } from '../helpers/generateFileName'
 import { HttpError } from '../helpers/customError'
 import { isISOString } from '../helpers'
 

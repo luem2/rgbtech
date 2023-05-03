@@ -3,7 +3,7 @@ import type { AwardSchema } from '../types'
 
 import { db } from '../database'
 import { deleteFile, writeNewFile } from '../helpers/fsFunctions'
-import { generateFileName } from '../helpers/filename'
+import { generateFileName } from '../helpers/generateFileName'
 import { CORE } from '../helpers/constants'
 import { BaseMiddlewares } from '../config/bases'
 

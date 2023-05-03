@@ -5,7 +5,7 @@ export function generateFileName(file: Request['file']) {
         throw new Error('File not found')
     }
 
-    return `${file.fieldname}-${
-        file.originalname.split('.')[0]
-    }-${new Date().toISOString()}.${file.mimetype.split('/')[1]}`
+    return `${file.originalname.split('.')[0]}-${new Date().toISOString()}.${
+        file.mimetype.split('/')[1]
+    }`
 }

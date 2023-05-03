@@ -25,9 +25,9 @@ export class AwardRouter extends BaseRouter<
 
         this.router.put(
             '/',
+            this.auth.checkAdminAuth,
             [
                 multer.single('award'),
-                this.auth.checkAdminAuth,
                 parseRequest('body'),
                 validateSchema(awardSchema),
                 this.middlewares.checkBodyEditAward,
@@ -37,9 +37,9 @@ export class AwardRouter extends BaseRouter<
 
         this.router.post(
             '/',
+            this.auth.checkAdminAuth,
             [
                 multer.single('award'),
-                this.auth.checkAdminAuth,
                 parseRequest('body'),
                 validateSchema(awardSchema),
                 this.middlewares.checkBodyAddAward,
@@ -49,7 +49,8 @@ export class AwardRouter extends BaseRouter<
 
         this.router.delete(
             '/:id',
-            [this.auth.checkAdminAuth, this.middlewares.checkIfAwardExists],
+            this.auth.checkAdminAuth,
+            this.middlewares.checkIfAwardExists,
             this.controllers.deleteAward
         )
     }

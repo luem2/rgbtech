@@ -35,7 +35,7 @@ export class ErrorHandler extends HttpResponse {
                 return
 
             case err instanceof ValidationError:
-                this.BadRequest(res, err)
+                this.BadRequest(res, err.message)
 
                 return
 

@@ -23,15 +23,16 @@ export class BrandRouter extends BaseRouter<
 
         this.router.get(
             '/:name',
-            [this.auth.checkAdminAuth, this.middlewares.checkIfBrandExists],
+            this.auth.checkAdminAuth,
+            this.middlewares.checkIfBrandExists,
             this.controllers.getBrand
         )
 
         this.router.put(
             '/:name',
+            this.auth.checkAdminAuth,
             [
                 multer.single('brand'),
-                this.auth.checkAdminAuth,
                 parseRequest('body'),
                 validateSchema(brandSchema),
                 this.middlewares.checkBodyEditBrand,
@@ -41,9 +42,9 @@ export class BrandRouter extends BaseRouter<
 
         this.router.post(
             '/',
+            this.auth.checkAdminAuth,
             [
                 multer.single('brand'),
-                this.auth.checkAdminAuth,
                 parseRequest('body'),
                 validateSchema(brandSchema),
                 this.middlewares.checkBodyAddBrand,
@@ -53,16 +54,15 @@ export class BrandRouter extends BaseRouter<
 
         this.router.patch(
             '/:name',
-            [
-                this.auth.checkAdminAuth,
-                this.middlewares.checkUpdateBrandAvailability,
-            ],
+            this.auth.checkAdminAuth,
+            this.middlewares.checkUpdateBrandAvailability,
             this.controllers.changeBrandAvailability
         )
 
         this.router.delete(
             '/:name',
-            [this.auth.checkAdminAuth, this.middlewares.checkIfBrandExists],
+            this.auth.checkAdminAuth,
+            this.middlewares.checkIfBrandExists,
             this.controllers.deleteBrand
         )
     }
