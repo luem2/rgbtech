@@ -5,13 +5,14 @@ import type { IQueryParams, ProductSchema } from '../types'
 import { db } from '../database'
 import { deleteFile, writeNewFile } from '../helpers/fsFunctions'
 import { CORE } from '../helpers/constants'
+import { generateFileName } from '../helpers/generateFileName'
 
 export class ProductServices {
-    readonly userInfoSelectedToSubmit: Prisma.ProductSelect
-    readonly adminInfoIncludedToSubmit: Prisma.ProductInclude
+    readonly userInfo: Prisma.ProductSelect
+    readonly adminInfo: Prisma.ProductInclude
 
     constructor() {
-        this.userInfoSelectedToSubmit = {
+        this.userInfo = {
             _count: {
                 select: {
                     usersFavorite: true,
@@ -35,7 +36,8 @@ export class ProductServices {
             brand: true,
             reviews: true,
         }
-        this.adminInfoIncludedToSubmit = {
+
+        this.adminInfo = {
             _count: true,
             brand: true,
             reviews: true,
@@ -54,18 +56,18 @@ export class ProductServices {
                         not: true,
                     },
                 },
-                select: this.userInfoSelectedToSubmit,
+                select: this.userInfo,
             })
         } else
             return await db.product.findMany({
-                include: this.adminInfoIncludedToSubmit,
+                include: this.adminInfo,
             })
     }
 
     async getQueryProducts({ query, userRole }: Request) {
         const queryParams = query as IQueryParams
 
-        const wherePrismaFilter: Prisma.ProductWhereInput = {
+        const filters: Prisma.ProductWhereInput = {
             brand: {
                 name: query.brand?.length
                     ? {
@@ -110,7 +112,7 @@ export class ProductServices {
             },
         }
 
-        const orderByPrismaFilter: Prisma.ProductOrderByWithRelationInput = {
+        const order: Prisma.ProductOrderByWithRelationInput = {
             brand: {
                 name:
                     queryParams.sortBy === 'brand'
@@ -137,20 +139,20 @@ export class ProductServices {
 
         if (userRole === 'ADMIN') {
             return await db.product.findMany({
-                where: wherePrismaFilter,
-                orderBy: orderByPrismaFilter,
-                include: this.adminInfoIncludedToSubmit,
+                where: filters,
+                orderBy: order,
+                include: this.adminInfo,
             })
         } else
             return await db.product.findMany({
                 where: {
-                    ...wherePrismaFilter,
+                    ...filters,
                     disabled: {
                         equals: false,
                     },
                 },
-                orderBy: orderByPrismaFilter,
-                select: this.userInfoSelectedToSubmit,
+                orderBy: order,
+                select: this.userInfo,
             })
     }
 
@@ -208,22 +210,20 @@ export class ProductServices {
         }
     }
 
-    async productUpdate(product: ProductSchema) {
-        const { id, ...body } = product
-
+    async productUpdate({ params, body }: Request) {
         return await db.product.update({
             where: {
-                id,
+                id: params.id,
             },
             data: {
                 ...body,
                 brand: {
                     connect: {
-                        name: product.brand,
+                        name: body.brand,
                     },
                 },
                 tags: {
-                    connectOrCreate: product.tags.map((tag) => ({
+                    connectOrCreate: body.tags.map((tag: string) => ({
                         where: {
                             name: tag,
                         },
@@ -237,7 +237,7 @@ export class ProductServices {
     }
 
     async productPictureUpdate({ file, query }: Request) {
-        const fileName = (file as Express.Multer.File).filename
+        const fileName = generateFileName(file)
 
         writeNewFile(file, {
             nameFolder: CORE,

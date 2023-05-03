@@ -34,7 +34,7 @@ export class ProductControllers extends BaseControllers<ProductServices> {
     }
 
     productUpdate = async (req: Request, res: Response) => {
-        const updatedProduct = await this.services.productUpdate(req.body)
+        const updatedProduct = await this.services.productUpdate(req)
 
         this.httpResponse.Ok(res, {
             msg: 'Product have been successfully updated',

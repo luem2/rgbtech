@@ -4,7 +4,7 @@ import type { ProductSchema } from '../types'
 
 import { db } from '../database'
 import { verifyToken } from '../helpers/generateToken'
-import { generateFileName } from '../helpers/filename'
+import { generateFileName } from '../helpers/generateFileName'
 import { deleteFile, writeNewFile } from '../helpers/fsFunctions'
 import { CORE } from '../helpers/constants'
 import { BaseMiddlewares } from '../config/bases'
@@ -33,23 +33,13 @@ export class ProductMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        const newProduct = req.body as ProductSchema
-
-        if (newProduct.id) {
-            next(
-                new this.HttpError(400, 'This operation does not require an ID')
-            )
-
-            return
-        }
-
-        const productFinded = await db.product.findUnique({
+        const product = await db.product.findUnique({
             where: {
-                name: newProduct.name,
+                name: req.body.name,
             },
         })
 
-        if (productFinded) {
+        if (product) {
             next(new this.HttpError(400, 'The product already exists'))
 
             return
@@ -70,7 +60,7 @@ export class ProductMiddlewares extends BaseMiddlewares {
 
         writeNewFile(req.file, {
             nameFolder: CORE,
-            fileName: req.body.picture.split('/').pop(),
+            fileName,
         })
 
         req.body.picture = `/uploads/core/${fileName}`
@@ -83,20 +73,7 @@ export class ProductMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        const product = req.body as ProductSchema
-
-        if (!product.id) {
-            next(
-                new this.HttpError(
-                    400,
-                    ' This operation requires the product id'
-                )
-            )
-
-            return
-        }
-
-        if (product.picture) {
+        if (req.body.picture) {
             next(
                 new this.HttpError(
                     400,
@@ -107,24 +84,22 @@ export class ProductMiddlewares extends BaseMiddlewares {
             return
         }
 
-        const productFinded = await db.product.findUnique({
+        const product = await db.product.findUnique({
             where: {
-                id: product.id,
+                id: req.params.id,
             },
         })
 
-        if (!productFinded) {
+        if (!product) {
             next(new this.HttpError(404, 'Product not found'))
 
             return
         }
 
-        if (productFinded.name === product.name) {
-            next()
-        } else {
+        if (product.name !== req.body.name) {
             const otherProduct = await db.product.findUnique({
                 where: {
-                    name: product.name,
+                    name: req.body.name,
                 },
             })
 
@@ -133,9 +108,9 @@ export class ProductMiddlewares extends BaseMiddlewares {
 
                 return
             }
-
-            next()
         }
+
+        next()
     }
 
     checkBrandAndTags = async (
@@ -145,13 +120,13 @@ export class ProductMiddlewares extends BaseMiddlewares {
     ) => {
         const product = req.body as ProductSchema
 
-        const brandFinded = await db.brand.findUnique({
+        const brand = await db.brand.findUnique({
             where: {
                 name: product.brand,
             },
         })
 
-        if (!brandFinded) {
+        if (!brand) {
             next(new this.HttpError(401, 'The brand does not exists'))
 
             return
@@ -169,7 +144,7 @@ export class ProductMiddlewares extends BaseMiddlewares {
         })
 
         req.body.tags = product.tags.map(
-            (tag) => tag[0].toUpperCase() + tag.slice(1)
+            (tag) => tag[0].toUpperCase() + tag.slice(1).toLowerCase()
         )
 
         next()

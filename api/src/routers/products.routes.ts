@@ -36,17 +36,6 @@ export class ProductRouter extends BaseRouter<
         )
 
         this.router.put(
-            '/',
-            this.auth.checkAdminAuth,
-            [
-                validateSchema(productSchema),
-                this.middlewares.checkBrandAndTags,
-                this.middlewares.checkBodyEditProduct,
-            ],
-            this.controllers.productUpdate
-        )
-
-        this.router.put(
             '/picture',
             this.auth.checkAdminAuth,
             [
@@ -54,6 +43,18 @@ export class ProductRouter extends BaseRouter<
                 this.middlewares.checkUpdatePictureProduct,
             ],
             this.controllers.productPictureUpdate
+        )
+
+        this.router.put(
+            '/:id',
+            this.auth.checkAdminAuth,
+            [
+                parseRequest('body'),
+                validateSchema(productSchema),
+                this.middlewares.checkBrandAndTags,
+                this.middlewares.checkBodyEditProduct,
+            ],
+            this.controllers.productUpdate
         )
 
         this.router.post(
