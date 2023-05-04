@@ -12,35 +12,36 @@ export class ErrorHandler extends HttpResponse {
         res: Response,
         _next: NextFunction
     ) => {
-        switch (true) {
-            case err instanceof HttpError:
-                if (HttpStatus.BAD_REQUEST) {
+        if (err instanceof HttpError) {
+            switch (err.statusCode) {
+                case HttpStatus.BAD_REQUEST:
                     this.BadRequest(res, err.message)
 
                     return
-                }
 
-                if (HttpStatus.UNAUTHORIZED) {
+                case HttpStatus.UNAUTHORIZED:
                     this.Unauthorized(res, err.message)
 
                     return
-                }
 
-                if (HttpStatus.NOT_FOUND) {
+                case HttpStatus.NOT_FOUND:
                     this.NotFound(res, err.message)
 
                     return
-                }
 
-                return
+                default:
+                    this.InternalServerError(res, err.message)
 
-            case err instanceof ValidationError:
-                this.BadRequest(res, err.message)
-
-                return
-
-            default:
-                this.InternalServerError(res, err.message)
+                    return
+            }
         }
+
+        if (err instanceof ValidationError) {
+            this.BadRequest(res, err.message)
+
+            return
+        }
+
+        this.InternalServerError(res, err.message)
     }
 }
