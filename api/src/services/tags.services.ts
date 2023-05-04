@@ -11,17 +11,6 @@ export class TagServices {
         })
     }
 
-    async getTag({ name }: Request['params']) {
-        return await db.tag.findUnique({
-            where: {
-                name,
-            },
-            include: {
-                _count: true,
-            },
-        })
-    }
-
     async tagUpdate({ params, body }: Request) {
         return await db.tag.update({
             where: {

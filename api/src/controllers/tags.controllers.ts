@@ -18,17 +18,11 @@ export class TagControllers extends BaseControllers<TagServices> {
         })
     }
 
-    getTag = async (req: Request, res: Response) => {
-        const tag = await this.services.getTag(req.params)
-
-        if (tag) {
-            this.httpResponse.Ok(res, {
-                msg: 'The tag has been successfully sent',
-                tag,
-            })
-        } else {
-            this.httpResponse.NotFound(res, 'The tag has not been found')
-        }
+    getTag = async ({ body }: Request, res: Response) => {
+        this.httpResponse.Ok(res, {
+            msg: 'The tag has been successfully sent',
+            tag: body,
+        })
     }
 
     tagUpdate = async (req: Request, res: Response) => {
@@ -36,7 +30,7 @@ export class TagControllers extends BaseControllers<TagServices> {
 
         this.httpResponse.Ok(res, {
             msg: 'The tag has been successfully updated',
-            brand: updatedTag,
+            tag: updatedTag,
         })
     }
 
@@ -45,7 +39,7 @@ export class TagControllers extends BaseControllers<TagServices> {
 
         this.httpResponse.Created(res, {
             msg: 'The tag has been successfully created',
-            brand: newTag,
+            tag: newTag,
         })
     }
 
@@ -54,7 +48,7 @@ export class TagControllers extends BaseControllers<TagServices> {
 
         this.httpResponse.Ok(res, {
             msg: 'The tag has been successfully updated',
-            brand: tagUpdated,
+            tag: tagUpdated,
         })
     }
 
@@ -69,7 +63,7 @@ export class TagControllers extends BaseControllers<TagServices> {
 
         this.httpResponse.Ok(res, {
             msg: 'The tag has been successfully deleted',
-            brand: tagDeleted,
+            tag: tagDeleted,
         })
     }
 }
