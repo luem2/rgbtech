@@ -1,6 +1,7 @@
 import { TagControllers } from '../controllers/tags.controllers'
 import { TagMiddlewares } from '../middlewares/tags.middlewares'
 import { BaseRouter } from '../config/bases'
+import { parseRequest } from '../middlewares'
 
 export class TagRouter extends BaseRouter<TagControllers, TagMiddlewares> {
     constructor() {
@@ -17,28 +18,29 @@ export class TagRouter extends BaseRouter<TagControllers, TagMiddlewares> {
 
         this.router.get(
             '/:name',
-            [this.auth.checkAdminAuth, this.middlewares.normalizeTag],
+            this.auth.checkAdminAuth,
+            this.middlewares.checkIfTagExists,
             this.controllers.getTag
         )
 
         this.router.put(
             '/:name',
+            this.auth.checkAdminAuth,
             [
-                this.auth.checkAdminAuth,
-                this.middlewares.checkNameTag,
-                this.middlewares.normalizeTag,
-                this.middlewares.checkBodyEditTag,
+                parseRequest('body'),
+                this.middlewares.checkIfTagExists,
+                this.middlewares.checkIfTagAlreadyExists,
             ],
             this.controllers.tagUpdate
         )
 
         this.router.post(
             '/',
+            this.auth.checkAdminAuth,
             [
-                this.auth.checkAdminAuth,
-                this.middlewares.checkNameTag,
-                this.middlewares.normalizeTag,
-                this.middlewares.checkBodyAddTag,
+                parseRequest('body'),
+                this.middlewares.checkIfTagAlreadyExists,
+                this.middlewares.checkBodyTag,
             ],
             this.controllers.addTag
         )
@@ -46,15 +48,17 @@ export class TagRouter extends BaseRouter<TagControllers, TagMiddlewares> {
         this.router.delete(
             '/:name',
             this.auth.checkAdminAuth,
+            this.middlewares.checkIfTagExists,
             this.controllers.deleteTag
         )
 
         this.router.patch(
             '/:name',
+            this.auth.checkAdminAuth,
             [
-                this.auth.checkAdminAuth,
-                this.middlewares.normalizeTag,
-                this.middlewares.checkUpdateTagAvailability,
+                parseRequest('body'),
+                this.middlewares.checkIfTagExists,
+                this.middlewares.checkTypeOfDisabledProp,
             ],
             this.controllers.changeTagAvailability
         )
