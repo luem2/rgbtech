@@ -1,39 +1,67 @@
+import type { User } from '@prisma/client'
 import type { Request } from 'express'
 
 import fs from 'fs'
 import path from 'path'
 
-interface ConfigProps {
-    nameFolder: string
-    fileName: string
+import { DEFAULT_AVATAR_PATH } from './constants'
+
+export function writeNewFile(file: Request['file'], pathFile: string) {
+    try {
+        if (typeof file === 'undefined') throw new Error('File not found')
+
+        const nameFile =
+            file.originalname.split('.')[0] +
+            '-' +
+            new Date().toISOString() +
+            '.' +
+            file.mimetype.split('/')[1]
+
+        const absolutePath = path.resolve() + pathFile + nameFile
+
+        fs.writeFile(absolutePath, file.buffer, (err) => {
+            if (err) {
+                throw new Error(err.message)
+            } else {
+                console.info('File was successfully saved')
+                console.info(`File: ${nameFile}`)
+            }
+        })
+
+        return pathFile + nameFile
+    } catch (error) {
+        console.error(error)
+    }
 }
 
-export function writeNewFile(file: Request['file'], config: ConfigProps) {
-    const { fileName, nameFolder } = config
+export function deleteFile(arg: string | User) {
+    try {
+        if (typeof arg === 'string') {
+            const absolutePath = path.resolve() + arg
 
-    if (typeof file === 'undefined') throw new Error('File not found')
+            fs.unlink(absolutePath, (err) => {
+                if (err) {
+                    throw new Error(err.message)
+                } else {
+                    console.info('File was successfully removed')
+                    console.info(`File: ${arg.split('/')[1]}`)
+                }
+            })
+        } else {
+            if (arg.picture !== DEFAULT_AVATAR_PATH) {
+                const absolutePath = path.resolve() + arg.picture
 
-    const pathFile = `${path.resolve()}/uploads/${nameFolder}/${fileName}`
-
-    fs.writeFile(pathFile, file.buffer, (err) => {
-        if (err) {
-            throw new Error(err.message)
+                fs.unlink(absolutePath, (err) => {
+                    if (err) {
+                        throw new Error(err.message)
+                    } else {
+                        console.info('File was successfully removed')
+                        console.info(`File: ${arg.picture.split('/')[1]}`)
+                    }
+                })
+            }
         }
-
-        console.info(`The file was successfully saved in: ${pathFile}`)
-    })
-}
-
-export function deleteFile(config: ConfigProps) {
-    const { fileName, nameFolder } = config
-
-    const pathFile = `${path.resolve()}/uploads/${nameFolder}/${fileName}`
-
-    fs.unlink(pathFile, (err) => {
-        if (err) {
-            console.info(err.message)
-        }
-
-        console.info(`The file ${fileName} was successfully removed`)
-    })
+    } catch (error) {
+        console.error(error)
+    }
 }
