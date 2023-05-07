@@ -6,6 +6,7 @@ import { filePhotoProfileFilter } from '../middlewares'
 
 declare interface Multer extends multer.Multer {
     (options?: multer.Options): RequestHandler
+
     single: (
         fieldname: 'avatar' | 'award' | 'brand' | 'product'
     ) => RequestHandler

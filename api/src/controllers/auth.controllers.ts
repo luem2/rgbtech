@@ -17,16 +17,16 @@ export class AuthControllers extends BaseControllers<AuthServices> {
     }
 
     profile = async (req: Request, res: Response) => {
-        const userProfile = await this.services.getProfile(req.userId)
+        const user = await this.services.getProfile(req.userId)
 
         this.httpResponse.Ok(res, {
             msg: 'User profile was successfully found',
-            user: userProfile,
+            user,
         })
     }
 
     register = async (req: Request, res: Response) => {
-        const newUser = await this.services.register(req.body)
+        const newUser = await this.services.register(req)
 
         this.httpResponse.Created(res, {
             msg: 'User has been successfully created, please confirm your account. We have sent you a confirmation email',
