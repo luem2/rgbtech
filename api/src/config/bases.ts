@@ -35,3 +35,11 @@ export class BaseControllers<T> {
         this.services = new TServices()
     }
 }
+
+export class BaseServices {
+    public HttpError
+
+    constructor() {
+        this.HttpError = HttpError
+    }
+}
