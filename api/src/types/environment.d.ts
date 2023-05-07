@@ -6,9 +6,6 @@ declare global {
             DATABASE_URL: string
             PORT: string
             SECRET: string
-            CLOUDINARY_API_KEY: string
-            CLOUDINARY_API_SECRET: string
-            CLOUDINARY_CLOUD_NAME: string
             PAYPAL_API_CLIENTID: string
             PAYPAL_API_SECRET: string
             PAYPAL_API_URL: string
@@ -16,6 +13,8 @@ declare global {
             NODEMAILER_PASSWORD: string
             ORIGIN_CORS: string
             NODE_ENV: 'development' | 'production'
+            GOOGLE_CLIENT_ID: string
+            GOOGLE_CLIENT_SECRET: string
         }
     }
 }

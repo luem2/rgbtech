@@ -15,6 +15,8 @@ export const config = {
     PAYPAL_API_URL: process.env.PAYPAL_API_URL ?? '',
     NODEMAILER_EMAIL: process.env.NODEMAILER_EMAIL ?? '',
     NODEMAILER_PASSWORD: process.env.NODEMAILER_PASSWORD ?? '',
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID ?? '',
+    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET ?? '',
 }
 
 export abstract class ConfigServer {

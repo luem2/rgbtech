@@ -3,7 +3,7 @@ import type { Prisma } from '@prisma/client'
 export {}
 declare global {
     namespace Express {
-        export interface Request {
+        interface Request {
             userId: string
             userRole: string
             parsedQuery: Record<string, unknown>
@@ -75,3 +75,13 @@ export interface AwardSchema {
     requiredPoints: number
     picture: string
 }
+
+export interface GoogleTokensResult {
+    id_token: string
+    expires_in: number
+    access_token: string
+    refresh_token: string
+    scope: string
+}
+
+export type GetGoogleOAuthURLProps = 'login' | 'register'
