@@ -6,7 +6,6 @@ declare global {
         interface Request {
             userId: string
             userRole: string
-            parsedQuery: Record<string, unknown>
         }
     }
 }
@@ -83,5 +82,3 @@ export interface GoogleTokensResult {
     refresh_token: string
     scope: string
 }
-
-export type GetGoogleOAuthURLProps = 'login' | 'register'

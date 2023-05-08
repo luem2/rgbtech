@@ -11,7 +11,8 @@ declare global {
             PAYPAL_API_URL: string
             NODEMAILER_EMAIL: string
             NODEMAILER_PASSWORD: string
-            ORIGIN_CORS: string
+            API_URL: string
+            CLIENT_URL: string
             NODE_ENV: 'development' | 'production'
             GOOGLE_CLIENT_ID: string
             GOOGLE_CLIENT_SECRET: string

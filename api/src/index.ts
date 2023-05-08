@@ -30,7 +30,7 @@ class ServerBootstrap extends ConfigServer {
     middlewares() {
         this.app.use(
             cors({
-                origin: this.getEnvironment('ORIGIN_CORS'),
+                origin: this.getEnvironment('CLIENT_URL'),
                 credentials: true,
                 methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
                 allowedHeaders: [
