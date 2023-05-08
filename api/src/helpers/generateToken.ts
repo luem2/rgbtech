@@ -12,7 +12,16 @@ export interface ITokenSignProps {
     role: Role
 }
 
-export async function tokenSign({ id, role }: ITokenSignProps) {
+interface GoogleDecodedToken {
+    email: string
+    email_verified: boolean
+    name: string
+    given_name: string
+    family_name: string
+    picture: string
+}
+
+export function signToken({ id, role }: ITokenSignProps) {
     return jwt.sign(
         {
             id,
@@ -25,10 +34,22 @@ export async function tokenSign({ id, role }: ITokenSignProps) {
     )
 }
 
-export async function verifyToken(token: string) {
+export function verifyToken(token: string) {
     try {
         return jwt.verify(token, config.SECRET) as JwtPayload
     } catch (error) {
         throw new HttpError(401, 'Invalid token')
     }
+}
+
+export function verifyTokenWithoutBreaking(token: string) {
+    try {
+        return jwt.verify(token, config.SECRET) as JwtPayload
+    } catch (error) {
+        return null
+    }
+}
+
+export function decodeToken(token: string) {
+    return jwt.decode(token) as GoogleDecodedToken
 }

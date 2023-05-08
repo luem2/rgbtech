@@ -1,10 +1,5 @@
-import {
-    createUserSchema,
-    createUserSchemaWithGoogle,
-    emailSchema,
-    newPasswordSchema,
-} from '../schemas'
-import { validateSchema } from '../middlewares'
+import { createUserSchema, emailSchema, newPasswordSchema } from '../schemas'
+import { validateBirthDateAndCountry, validateSchema } from '../middlewares'
 import { BaseRouter } from '../config/bases'
 import { AuthControllers } from '../controllers/auth.controllers'
 import { AuthMiddlewares } from '../middlewares/auth.middlewares'
@@ -23,6 +18,24 @@ export class AuthRouter extends BaseRouter<AuthControllers, AuthMiddlewares> {
             this.controllers.profile
         )
 
+        this.router.get(
+            '/google-url',
+            [
+                this.middlewares.checkIfUserIsLogged,
+                this.middlewares.getGoogleOAuthURL,
+            ],
+            this.controllers.redirectGooglePrompt
+        )
+
+        this.router.get(
+            '/google-auth',
+            [
+                this.middlewares.getGoogleOAuthToken,
+                this.middlewares.checkGoogleAuth,
+            ],
+            this.controllers.googleAuth
+        )
+
         this.router.put(
             '/account-confirmation',
             [
@@ -39,12 +52,6 @@ export class AuthRouter extends BaseRouter<AuthControllers, AuthMiddlewares> {
         )
 
         this.router.post(
-            '/password-recovery-email',
-            [validateSchema(emailSchema), this.middlewares.checkIfUserExists],
-            this.controllers.passwordRecoveryEmail
-        )
-
-        this.router.post(
             '/login',
             this.middlewares.checkLoginBody,
             this.controllers.login
@@ -56,18 +63,15 @@ export class AuthRouter extends BaseRouter<AuthControllers, AuthMiddlewares> {
                 multer.single('avatar'),
                 validateSchema(createUserSchema),
                 this.middlewares.checkIfUserAlreadyExists,
-                this.middlewares.checkRegisterBody,
+                validateBirthDateAndCountry,
             ],
             this.controllers.register
         )
 
         this.router.post(
-            '/register-google',
-            [
-                validateSchema(createUserSchemaWithGoogle),
-                this.middlewares.userIsAlreadyConfirmed,
-            ],
-            this.controllers.register
+            '/password-recovery-email',
+            [validateSchema(emailSchema), this.middlewares.checkIfUserExists],
+            this.controllers.passwordRecoveryEmail
         )
 
         this.router.delete(

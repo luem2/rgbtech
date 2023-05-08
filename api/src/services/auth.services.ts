@@ -4,16 +4,13 @@ import type { User } from '@prisma/client'
 import bcrypt from 'bcrypt'
 
 import { db } from '../database'
-import { tokenSign } from '../helpers/generateToken'
-import nodemailerService from '../helpers/nodemailer'
-import { deleteFile } from '../helpers/fsFunctions'
-import { DEFAULT_AVATAR, PICTURES } from '../helpers/constants'
+import { signToken } from '../helpers/generateToken'
+import nodemailerService from '../config/nodemailer'
+import { deleteFile, writeNewFile } from '../helpers/fsFunctions'
+import { DEFAULT_AVATAR_PATH, IMAGES_PATH } from '../helpers/constants'
+import { BaseServices } from '../config/bases'
 
-export class AuthServices {
-    async login({ id, role }: User) {
-        return await tokenSign({ id, role })
-    }
-
+export class AuthServices extends BaseServices {
     async getProfile(id: Request['userId']) {
         return await db.user.findUnique({
             where: {
@@ -48,11 +45,18 @@ export class AuthServices {
         })
     }
 
-    async register(user: User) {
+    async login({ id, role }: User) {
+        return signToken({ id, role })
+    }
+
+    async register({ file, body }: Request) {
         const newUser = await db.user.create({
             data: {
-                ...user,
-                password: await bcrypt.hash(user.password, 10),
+                ...body,
+                password: await bcrypt.hash(body.password, 10),
+                picture: file
+                    ? writeNewFile(file, IMAGES_PATH)
+                    : DEFAULT_AVATAR_PATH,
             },
         })
 
@@ -79,7 +83,7 @@ export class AuthServices {
     }
 
     async accountConfirmation(id: Request['userId']) {
-        return await db.user.update({
+        await db.user.update({
             where: {
                 id,
             },
@@ -90,14 +94,7 @@ export class AuthServices {
     }
 
     async deleteUser(user: User) {
-        const userPicture = user.picture.split('/').pop() as string
-
-        if (userPicture !== DEFAULT_AVATAR) {
-            deleteFile({
-                nameFolder: PICTURES,
-                fileName: userPicture,
-            })
-        }
+        deleteFile(user.picture)
 
         return await db.user.delete({
             where: {

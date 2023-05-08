@@ -2,18 +2,27 @@ import type { Request, Response } from 'express'
 
 import { BaseControllers } from '../config/bases'
 import { AuthServices } from '../services/auth.services'
+import { COOKIE_OPTIONS } from '../helpers/constants'
 
 export class AuthControllers extends BaseControllers<AuthServices> {
     constructor() {
         super(AuthServices)
     }
 
-    login = async (req: Request, res: Response) => {
-        const userToken = await this.services.login(req.body)
+    redirectGooglePrompt = ({ params }: Request, res: Response) => {
+        res.redirect(params.url)
+    }
 
-        res.setHeader('Authorization', `Bearer ${userToken}`)
-
-        this.httpResponse.Ok(res, ' User was successfully logged in')
+    googleAuth = async ({ body }: Request, res: Response) => {
+        this.httpResponse.Ok(
+            res,
+            body.user
+                ? {
+                      msg: 'User was successfully created and logged in',
+                      user: body.user,
+                  }
+                : 'User was successfully logged in'
+        )
     }
 
     profile = async (req: Request, res: Response) => {
@@ -23,6 +32,14 @@ export class AuthControllers extends BaseControllers<AuthServices> {
             msg: 'User profile was successfully found',
             user,
         })
+    }
+
+    login = async (req: Request, res: Response) => {
+        const userToken = await this.services.login(req.body)
+
+        res.cookie('token', userToken, COOKIE_OPTIONS)
+
+        this.httpResponse.Ok(res, ' User was successfully logged in')
     }
 
     register = async (req: Request, res: Response) => {
@@ -56,11 +73,11 @@ export class AuthControllers extends BaseControllers<AuthServices> {
     }
 
     deleteUser = async (req: Request, res: Response) => {
-        const userDeleted = await this.services.deleteUser(req.body)
+        const user = await this.services.deleteUser(req.body)
 
         this.httpResponse.Ok(res, {
             msg: 'The user has been successfully deleted',
-            userDeleted,
+            user,
         })
     }
 }
