@@ -9,42 +9,25 @@ import { createBrands } from './brands'
 import { createProducts } from './products'
 
 async function main() {
-    const countriesCount = await db.country.count()
-    const usersCount = await db.user.count()
-    const tagsCount = await db.tag.count()
-    const awardsCount = await db.award.count()
-    const brandsCount = await db.brand.count()
-    const productsCount = await db.product.count()
+    await db.country.deleteMany()
+    await createCountries()
 
-    if (countriesCount !== 250) {
-        await db.country.deleteMany()
-        await createCountries()
-    }
-
-    if (usersCount < 17 && config.NODE_ENV === 'development') {
+    if (config.NODE_ENV === 'development') {
         await db.user.deleteMany()
         await createUsers()
     }
 
-    if (tagsCount !== 19) {
-        await db.tag.deleteMany()
-        await createTags()
-    }
+    await db.tag.deleteMany()
+    await createTags()
 
-    if (awardsCount !== 9) {
-        await db.award.deleteMany()
-        await createAwards()
-    }
+    await db.award.deleteMany()
+    await createAwards()
 
-    if (brandsCount !== 29) {
-        await db.brand.deleteMany()
-        await createBrands()
-    }
+    await db.brand.deleteMany()
+    await createBrands()
 
-    if (productsCount !== 48) {
-        await db.product.deleteMany()
-        await createProducts()
-    }
+    await db.product.deleteMany()
+    await createProducts()
 }
 
 try {
