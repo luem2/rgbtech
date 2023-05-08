@@ -34,10 +34,7 @@ export class AwardServices {
     }
 
     async deleteAward(award: Award) {
-        deleteFile({
-            nameFolder: CORE,
-            fileName: award.picture.split('/').pop() as string,
-        })
+        deleteFile(award.picture)
 
         return await db.award.delete({
             where: {

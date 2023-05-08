@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from 'express'
 
 import { db } from '../database'
-import { generateFileName } from '../helpers/generateFileName'
+import { generateFileName } from '../helpers/normalizeTag'
 import { BaseMiddlewares } from '../config/bases'
 import { deleteFile, writeNewFile } from '../helpers/fsFunctions'
 import { CORE } from '../helpers/constants'

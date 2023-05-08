@@ -4,7 +4,7 @@ import type { ProductSchema } from '../types'
 
 import { db } from '../database'
 import { verifyToken } from '../helpers/generateToken'
-import { generateFileName } from '../helpers/generateFileName'
+import { generateFileName } from '../helpers/normalizeTag'
 import { deleteFile, writeNewFile } from '../helpers/fsFunctions'
 import { CORE } from '../helpers/constants'
 import { BaseMiddlewares } from '../config/bases'
@@ -21,7 +21,7 @@ export class ProductMiddlewares extends BaseMiddlewares {
             const tokenData = await verifyToken(token)
 
             if (tokenData) {
-                req.userRole = (tokenData as JwtPayload).role
+                req.userRole = (tokenData ).role
             }
         }
 

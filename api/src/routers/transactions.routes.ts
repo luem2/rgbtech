@@ -21,17 +21,18 @@ export class TransactionRouter extends BaseRouter<
         this.router.get(
             '/:id',
             this.auth.checkAdminAuth,
+            this.middlewares.checkIfUserExists,
             this.controllers.getTransactionsByUser
         )
 
         this.router.put(
-            '/complete-transaction/:idTransaction',
+            '/complete-transaction/:id',
             this.auth.checkAuth,
             this.controllers.completeTransaction
         )
 
         this.router.put(
-            '/cancel-transaction/:idTransaction',
+            '/cancel-transaction/:id',
             this.auth.checkAuth,
             this.controllers.cancelTransaction
         )

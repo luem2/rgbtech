@@ -1,7 +1,7 @@
 import type { Request } from 'express'
 
 import { db } from '../database'
-import { PaypalApi } from '../helpers/paypal'
+import { PaypalApi } from '../config/paypal'
 
 export class TransactionServices {
     declare paypal

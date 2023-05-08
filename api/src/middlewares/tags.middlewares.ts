@@ -2,7 +2,7 @@ import type { NextFunction, Request, Response } from 'express'
 
 import { db } from '../database'
 import { BaseMiddlewares } from '../config/bases'
-import { normalizeTag } from '../helpers'
+import { normalizeTag } from '../helpers/normalizeTag'
 
 export class TagMiddlewares extends BaseMiddlewares {
     checkBodyTag = async (req: Request, _res: Response, next: NextFunction) => {

@@ -1,6 +1,7 @@
 import type { Request, Response, NextFunction } from 'express'
 
 import { ValidationError } from 'yup'
+import { AxiosError } from 'axios'
 
 import { HttpError } from '../helpers/customError'
 import { HttpResponse, HttpStatus } from '../helpers/httpResponse'
@@ -42,6 +43,17 @@ export class ErrorHandler extends HttpResponse {
             return
         }
 
-        this.InternalServerError(res, err.message)
+        if (err instanceof AxiosError) {
+            this.BadRequest(res, {
+                code: err.code,
+                data: err.response?.data,
+            })
+
+            return
+        }
+
+        this.InternalServerError(res, {
+            message: err.message,
+        })
     }
 }

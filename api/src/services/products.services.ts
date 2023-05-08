@@ -5,7 +5,7 @@ import type { IQueryParams, ProductSchema } from '../types'
 import { db } from '../database'
 import { deleteFile, writeNewFile } from '../helpers/fsFunctions'
 import { CORE } from '../helpers/constants'
-import { generateFileName } from '../helpers/generateFileName'
+import { generateFileName } from '../helpers/normalizeTag'
 
 export class ProductServices {
     readonly userInfo: Prisma.ProductSelect
