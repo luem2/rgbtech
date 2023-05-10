@@ -55,12 +55,6 @@ export class TagControllers extends BaseControllers<TagServices> {
     deleteTag = async (req: Request, res: Response) => {
         const tagDeleted = await this.services.deleteTag(req)
 
-        if (!tagDeleted) {
-            this.httpResponse.NotFound(res, 'The tag has not been found')
-
-            return
-        }
-
         this.httpResponse.Ok(res, {
             msg: 'The tag has been successfully deleted',
             tag: tagDeleted,

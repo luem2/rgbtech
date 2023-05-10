@@ -23,17 +23,6 @@ export class TagRouter extends BaseRouter<TagControllers, TagMiddlewares> {
             this.controllers.getTag
         )
 
-        this.router.put(
-            '/:name',
-            this.auth.checkAdminAuth,
-            [
-                parseRequest('body'),
-                this.middlewares.checkIfTagExists,
-                this.middlewares.checkIfTagAlreadyExists,
-            ],
-            this.controllers.tagUpdate
-        )
-
         this.router.post(
             '/',
             this.auth.checkAdminAuth,
@@ -43,6 +32,17 @@ export class TagRouter extends BaseRouter<TagControllers, TagMiddlewares> {
                 this.middlewares.checkBodyTag,
             ],
             this.controllers.addTag
+        )
+
+        this.router.put(
+            '/:name',
+            this.auth.checkAdminAuth,
+            [
+                parseRequest('body'),
+                this.middlewares.checkIfTagExists,
+                this.middlewares.checkIfTagAlreadyExists,
+            ],
+            this.controllers.tagUpdate
         )
 
         this.router.delete(

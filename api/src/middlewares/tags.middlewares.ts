@@ -6,32 +6,25 @@ import { normalizeTag } from '../helpers/normalizeTag'
 
 export class TagMiddlewares extends BaseMiddlewares {
     checkBodyTag = async (req: Request, _res: Response, next: NextFunction) => {
-        if (!req.body.name) {
-            next(new this.HttpError(401, 'A name for the tag is required'))
+        try {
+            if (!req.body.name)
+                throw new this.HttpError(401, 'A name for the tag is required')
 
-            return
-        }
+            if (typeof req.body.name !== 'string')
+                throw new this.HttpError(401, 'The name must be a string')
 
-        if (typeof req.body.name !== 'string') {
-            next(new this.HttpError(401, 'The name must be a string'))
-
-            return
-        }
-
-        if (req.body.name.length < 2) {
-            next(
-                new this.HttpError(
+            if (req.body.name.length < 2)
+                throw new this.HttpError(
                     401,
                     'The name for the tag must be at least 2 characters'
                 )
-            )
 
-            return
+            req.body.name = normalizeTag(req.body.name)
+
+            next()
+        } catch (error) {
+            next(error)
         }
-
-        req.body.name = normalizeTag(req.body.name)
-
-        next()
     }
 
     checkTypeOfDisabledProp = async (
@@ -39,18 +32,17 @@ export class TagMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        if (typeof req.body.disabled !== 'boolean') {
-            next(
-                new this.HttpError(
+        try {
+            if (typeof req.body.disabled !== 'boolean')
+                throw new this.HttpError(
                     401,
                     'The disabled property must be a boolean'
                 )
-            )
 
-            return
+            next()
+        } catch (error) {
+            next(error)
         }
-
-        next()
     }
 
     checkIfTagExists = async (
@@ -58,26 +50,26 @@ export class TagMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        const tag = await db.tag.findUnique({
-            where: {
-                name: req.params.name,
-            },
-            include: {
-                _count: true,
-            },
-        })
+        try {
+            const tag = await db.tag.findUnique({
+                where: {
+                    name: req.params.name,
+                },
+                include: {
+                    _count: true,
+                },
+            })
 
-        if (!tag) {
-            next(new this.HttpError(404, `The tag doesn't exists`))
+            if (!tag) throw new this.HttpError(404, `The tag doesn't exists`)
 
-            return
+            if (req.method === 'GET') {
+                req.body = tag
+            }
+
+            next()
+        } catch (error) {
+            next(error)
         }
-
-        if (req.method === 'GET') {
-            req.body = tag
-        }
-
-        next()
     }
 
     checkIfTagAlreadyExists = async (
@@ -85,18 +77,22 @@ export class TagMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        const tag = await db.tag.findUnique({
-            where: {
-                name: req.body.name,
-            },
-        })
+        try {
+            if (!req.body.name) {
+                throw new this.HttpError(401, 'A name for the tag is required')
+            }
 
-        if (tag) {
-            next(new this.HttpError(401, 'The tag already exists'))
+            const tag = await db.tag.findUnique({
+                where: {
+                    name: req.body.name,
+                },
+            })
 
-            return
+            if (tag) throw new this.HttpError(401, 'The tag already exists')
+
+            next()
+        } catch (error) {
+            next(error)
         }
-
-        next()
     }
 }
