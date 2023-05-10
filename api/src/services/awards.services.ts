@@ -1,9 +1,9 @@
+import type { Request } from 'express'
 import type { AwardSchema } from '../types'
-import type { Award } from '@prisma/client'
 
 import { db } from '../database'
-import { deleteFile } from '../helpers/fsFunctions'
-import { CORE } from '../helpers/constants'
+import { deleteFile, writeNewFile } from '../helpers/fsFunctions'
+import { AWARDS_PATH } from '../helpers/constants'
 
 export class AwardServices {
     async getAllAwards() {
@@ -14,26 +14,32 @@ export class AwardServices {
         })
     }
 
-    async awardUpdate(award: AwardSchema) {
-        const { id, ...body } = award
+    async awardUpdate({ body, file, params }: Request) {
+        if (file) {
+            deleteFile(params.oldFile)
+            body.picture = writeNewFile(file, AWARDS_PATH)
+        }
 
         return await db.award.update({
             where: {
-                id,
+                id: params.id,
             },
-            data: {
-                ...body,
-            },
+            data: body,
         })
     }
 
-    async addAward(newAward: AwardSchema) {
+    async addAward({ file, body }: Request) {
+        const newAward = body as AwardSchema
+
         return await db.award.create({
-            data: newAward,
+            data: {
+                ...newAward,
+                picture: writeNewFile(file, AWARDS_PATH),
+            },
         })
     }
 
-    async deleteAward(award: Award) {
+    async deleteAward(award: AwardSchema) {
         deleteFile(award.picture)
 
         return await db.award.delete({

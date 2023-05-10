@@ -26,7 +26,7 @@ export class AwardControllers extends BaseControllers<AwardServices> {
     }
 
     awardUpdate = async (req: Request, res: Response) => {
-        const updatedAward = await this.services.awardUpdate(req.body)
+        const updatedAward = await this.services.awardUpdate(req)
 
         this.httpResponse.Ok(res, {
             msg: 'Award have been successfully updated',
@@ -35,7 +35,7 @@ export class AwardControllers extends BaseControllers<AwardServices> {
     }
 
     addAward = async (req: Request, res: Response) => {
-        const newAward = await this.services.addAward(req.body)
+        const newAward = await this.services.addAward(req)
 
         this.httpResponse.Created(res, {
             msg: 'Award have been successfully created',

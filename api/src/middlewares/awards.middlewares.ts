@@ -1,10 +1,7 @@
 import type { Request, Response, NextFunction } from 'express'
-import type { AwardSchema } from '../types'
+import type { Award } from '@prisma/client'
 
 import { db } from '../database'
-import { deleteFile, writeNewFile } from '../helpers/fsFunctions'
-import { generateFileName } from '../helpers/generateFileName'
-import { CORE } from '../helpers/constants'
 import { BaseMiddlewares } from '../config/bases'
 
 export class AwardMiddlewares extends BaseMiddlewares {
@@ -13,44 +10,22 @@ export class AwardMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        const newAward = req.body as AwardSchema
+        try {
+            const award = await db.award.findUnique({
+                where: {
+                    name: req.body.name,
+                },
+            })
 
-        if (newAward.id) {
-            next(
-                new this.HttpError(401, 'This operation does not require an ID')
-            )
+            if (award) throw new this.HttpError(401, 'The award already exists')
 
-            return
+            if (!req.file)
+                throw new this.HttpError(401, 'The image is required')
+
+            next()
+        } catch (error) {
+            next(error)
         }
-
-        const awardFinded = await db.award.findUnique({
-            where: {
-                name: newAward.name,
-            },
-        })
-
-        if (awardFinded) {
-            next(new this.HttpError(401, 'The award already exists'))
-
-            return
-        }
-
-        if (!req.file) {
-            next(new this.HttpError(401, 'The image is required'))
-
-            return
-        }
-
-        const fileName = generateFileName(req.file)
-
-        writeNewFile(req.file, {
-            fileName,
-            nameFolder: CORE,
-        })
-
-        req.body.picture = `/uploads/core/${fileName}`
-
-        next()
     }
 
     checkBodyEditAward = async (
@@ -58,62 +33,35 @@ export class AwardMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        const award = req.body as AwardSchema
-
-        if (!award.id) {
-            next(new this.HttpError(401, 'This operation requires an award id'))
-
-            return
-        }
-
-        const awardFinded = await db.award.findUnique({
-            where: {
-                id: award.id,
-            },
-        })
-
-        if (!awardFinded) {
-            next(new this.HttpError(404, 'The award doesnt exists'))
-
-            return
-        }
-
-        if (awardFinded.name !== award.name) {
-            const otherAward = await db.award.findUnique({
+        try {
+            const award = (await db.award.findUnique({
                 where: {
-                    name: award.name,
+                    id: req.params.id,
                 },
-            })
+            })) as Award
 
-            if (otherAward) {
-                next(
-                    new this.HttpError(
+            if (award.name !== req.body.name) {
+                const otherAward = await db.award.findUnique({
+                    where: {
+                        name: req.body.name,
+                    },
+                })
+
+                if (otherAward)
+                    throw new this.HttpError(
                         401,
                         'The award already exists, please try another name'
                     )
-                )
-
-                return
             }
+
+            if (req.file) {
+                req.params.oldFile = award.picture
+            }
+
+            next()
+        } catch (error) {
+            next(error)
         }
-
-        if (req.file) {
-            const fileName = generateFileName(req.file)
-
-            deleteFile({
-                fileName: awardFinded.picture.split('/').pop() as string,
-                nameFolder: CORE,
-            })
-
-            writeNewFile(req.file, {
-                fileName,
-                nameFolder: CORE,
-            })
-
-            req.body.picture = `/uploads/core/${fileName}`
-        }
-
-        next()
     }
 
     checkIfAwardExists = async (
@@ -121,23 +69,25 @@ export class AwardMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        const award = await db.award.findUnique({
-            where: {
-                id: req.params.id,
-            },
-            include: {
-                _count: true,
-            },
-        })
+        try {
+            const award = await db.award.findUnique({
+                where: {
+                    id: req.params.id,
+                },
+                include: {
+                    _count: true,
+                },
+            })
 
-        if (!award) {
-            next(new this.HttpError(404, 'The award doesnt exists'))
+            if (!award) throw new this.HttpError(404, 'The award doesnt exists')
 
-            return
+            if (req.method !== 'PUT') {
+                req.body = award
+            }
+
+            next()
+        } catch (error) {
+            next(error)
         }
-
-        req.body = award
-
-        next()
     }
 }

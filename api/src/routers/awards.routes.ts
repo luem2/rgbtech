@@ -24,12 +24,13 @@ export class AwardRouter extends BaseRouter<
         )
 
         this.router.put(
-            '/',
+            '/:id',
             this.auth.checkAdminAuth,
             [
                 multer.single('award'),
                 parseRequest('body'),
                 validateSchema(awardSchema),
+                this.middlewares.checkIfAwardExists,
                 this.middlewares.checkBodyEditAward,
             ],
             this.controllers.awardUpdate
