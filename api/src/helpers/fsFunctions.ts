@@ -7,61 +7,58 @@ import path from 'path'
 import { DEFAULT_AVATAR_PATH } from './constants'
 
 export function writeNewFile(file: Request['file'], pathFile: string) {
-    try {
-        if (typeof file === 'undefined') throw new Error('File not found')
+    const image = file as Express.Multer.File
+    const green = '\x1b[32m%s\x1b[0m'
 
-        const nameFile =
-            file.originalname.split('.')[0] +
-            '-' +
-            new Date().toISOString() +
-            '.' +
-            file.mimetype.split('/')[1]
+    const nameFile =
+        image.originalname.split('.')[0] +
+        '-' +
+        new Date().toISOString() +
+        '.' +
+        image.mimetype.split('/')[1]
 
-        const absolutePath = path.resolve() + pathFile + nameFile
+    const absolutePath = path.resolve() + pathFile + nameFile
 
-        fs.writeFile(absolutePath, file.buffer, (err) => {
-            if (err) {
-                throw new Error(err.message)
-            } else {
-                console.info('File was successfully saved')
-                console.info(`File: ${nameFile}`)
-            }
-        })
+    fs.writeFile(absolutePath, image.buffer, (err) => {
+        if (err) {
+            console.info('File could not be created')
+        } else {
+            console.info(green, 'File was successfully saved')
+            console.info(green, nameFile)
+        }
+    })
 
-        return pathFile + nameFile
-    } catch (error) {
-        console.error(error)
-    }
+    return pathFile + nameFile
 }
 
 export function deleteFile(arg: string | User) {
-    try {
-        if (typeof arg === 'string') {
-            const absolutePath = path.resolve() + arg
+    const red = '\x1b[31m%s\x1b[0m'
+
+    if (typeof arg === 'string') {
+        const absolutePath = path.resolve() + arg
+        const nameFile = arg.split('/').at(-1)
+
+        fs.unlink(absolutePath, (err) => {
+            if (err) {
+                console.info('File could not be deleted')
+            } else {
+                console.info(red, 'File was successfully removed:')
+                console.info(red, nameFile)
+            }
+        })
+    } else {
+        if (arg.picture !== DEFAULT_AVATAR_PATH) {
+            const absolutePath = path.resolve() + arg.picture
+            const nameFile = arg.picture.split('/').at(-1)
 
             fs.unlink(absolutePath, (err) => {
                 if (err) {
-                    throw new Error(err.message)
+                    console.info('File could not be deleted')
                 } else {
-                    console.info('File was successfully removed')
-                    console.info(`File: ${arg.split('/')[1]}`)
+                    console.info('File was successfully removed:')
+                    console.info(nameFile)
                 }
             })
-        } else {
-            if (arg.picture !== DEFAULT_AVATAR_PATH) {
-                const absolutePath = path.resolve() + arg.picture
-
-                fs.unlink(absolutePath, (err) => {
-                    if (err) {
-                        throw new Error(err.message)
-                    } else {
-                        console.info('File was successfully removed')
-                        console.info(`File: ${arg.picture.split('/')[1]}`)
-                    }
-                })
-            }
         }
-    } catch (error) {
-        console.error(error)
     }
 }
