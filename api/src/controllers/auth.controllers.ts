@@ -72,6 +72,12 @@ export class AuthControllers extends BaseControllers<AuthServices> {
         this.httpResponse.Ok(res, 'The account has been successfully confirmed')
     }
 
+    logout = async (_req: Request, res: Response) => {
+        res.clearCookie('token')
+
+        this.httpResponse.Ok(res, 'User was successfully logged out')
+    }
+
     deleteUser = async (req: Request, res: Response) => {
         const user = await this.services.deleteUser(req.body)
 

@@ -75,6 +75,12 @@ export class AuthRouter extends BaseRouter<AuthControllers, AuthMiddlewares> {
         )
 
         this.router.delete(
+            '/',
+            this.middlewares.checkAuth,
+            this.controllers.logout
+        )
+
+        this.router.delete(
             '/:id',
             [
                 this.middlewares.checkAdminAuth,

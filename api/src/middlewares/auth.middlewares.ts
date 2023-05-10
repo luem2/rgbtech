@@ -51,7 +51,7 @@ export class AuthMiddlewares {
             if (verifiedToken.role !== 'ADMIN')
                 throw new this.HttpError(
                     401,
-                    'You are not authorized to access this resource'
+                    'You are not authorized to access this resource or perform this operation'
                 )
 
             next()
