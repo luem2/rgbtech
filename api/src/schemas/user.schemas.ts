@@ -22,33 +22,7 @@ export const createUserSchema = object({
             )
             .uppercase()
             .required('Nationality is required'),
-        birthDate: string()
-            .test((value, ctx) => {
-                if (!value) {
-                    return ctx.createError({ message: 'Date is required' })
-                }
-
-                const date = new Date(value)
-
-                if (date.toUTCString() === 'Invalid Date') {
-                    return ctx.createError({ message: 'Invalid Date' })
-                }
-
-                return true
-            })
-            .required('Birthdate is required'),
-    }).noUnknown(),
-}) as unknown as AnySchema
-
-export const createUserSchemaWithGoogle = object({
-    body: object({
-        firstName: string().required('Firstname is required'),
-        lastName: string().required('Lastname is required'),
-        email: string()
-            .email('Must be a valid email')
-            .required('Email is required'),
-        password: string().required(),
-        picture: string().url().required(),
+        birthDate: string().required('Birthdate is required'),
     }).noUnknown(),
 }) as unknown as AnySchema
 
@@ -66,20 +40,6 @@ export const editUserSchema = object({
             )
             .uppercase()
             .required('Nationality is required'),
-        birthDate: string()
-            .test((value, ctx) => {
-                if (!value) {
-                    return ctx.createError({ message: 'Date is required' })
-                }
-
-                const date = new Date(value)
-
-                if (date.toUTCString() === 'Invalid Date') {
-                    return ctx.createError({ message: 'Invalid Date' })
-                }
-
-                return true
-            })
-            .required('Birthdate is required'),
+        birthDate: string().required('Birthdate is required'),
     }).noUnknown(),
 }) as unknown as AnySchema

@@ -2,6 +2,9 @@ import type multer from 'multer'
 import type { Request, Response, NextFunction } from 'express'
 import type { AnySchema } from 'yup'
 
+import { db } from '../database'
+import { HttpError } from '../helpers/customError'
+
 export function filePhotoProfileFilter(
     _req: Request,
     file: Express.Multer.File,
@@ -52,5 +55,37 @@ export function parseRequest(prop: 'body' | 'query') {
         }
 
         next()
+    }
+}
+
+export async function validateBirthDateAndCountry(
+    { body }: Request,
+    _res: Response,
+    next: NextFunction
+) {
+    try {
+        const { birthDate, nationality } = body
+
+        const countries = (
+            await db.country.findMany({
+                select: {
+                    id: true,
+                },
+            })
+        ).map((country) => country.id)
+
+        const date = new Date(birthDate)
+
+        if (date.getFullYear() < 1900)
+            throw new HttpError(401, 'Birth date must be greater than 1900')
+
+        if (!countries.includes(nationality))
+            throw new HttpError(401, 'Invalid nationality')
+
+        body.birthDate = date
+
+        next()
+    } catch (error) {
+        next(error)
     }
 }
