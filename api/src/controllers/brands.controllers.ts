@@ -35,7 +35,7 @@ export class BrandControllers extends BaseControllers<BrandServices> {
     }
 
     addBrand = async (req: Request, res: Response) => {
-        const newBrand = await this.services.addBrand(req.body)
+        const newBrand = await this.services.addBrand(req)
 
         this.httpResponse.Created(res, {
             msg: 'Brand have been successfully created',

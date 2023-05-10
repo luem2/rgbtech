@@ -35,6 +35,7 @@ export class BrandRouter extends BaseRouter<
                 multer.single('brand'),
                 parseRequest('body'),
                 validateSchema(brandSchema),
+                this.middlewares.checkIfBrandExists,
                 this.middlewares.checkBodyEditBrand,
             ],
             this.controllers.brandUpdate
@@ -52,18 +53,21 @@ export class BrandRouter extends BaseRouter<
             this.controllers.addBrand
         )
 
-        this.router.patch(
-            '/:name',
-            this.auth.checkAdminAuth,
-            this.middlewares.checkUpdateBrandAvailability,
-            this.controllers.changeBrandAvailability
-        )
-
         this.router.delete(
             '/:name',
             this.auth.checkAdminAuth,
             this.middlewares.checkIfBrandExists,
             this.controllers.deleteBrand
+        )
+
+        this.router.patch(
+            '/:name',
+            this.auth.checkAdminAuth,
+            [
+                parseRequest('body'),
+                this.middlewares.checkUpdateBrandAvailability,
+            ],
+            this.controllers.changeBrandAvailability
         )
     }
 }

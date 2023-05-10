@@ -2,8 +2,8 @@ import type { Request } from 'express'
 import type { BrandSchema } from '../types'
 
 import { db } from '../database'
-import { deleteFile } from '../helpers/fsFunctions'
-import { CORE } from '../helpers/constants'
+import { deleteFile, writeNewFile } from '../helpers/fsFunctions'
+import { BRANDS_PATH } from '../helpers/constants'
 
 export class BrandServices {
     async getAllBrands() {
@@ -14,7 +14,12 @@ export class BrandServices {
         })
     }
 
-    async brandUpdate({ params, body }: Request) {
+    async brandUpdate({ file, params, body }: Request) {
+        if (file) {
+            deleteFile(params.oldFile)
+            body.logo = writeNewFile(file, BRANDS_PATH)
+        }
+
         return await db.brand.update({
             where: {
                 name: params.name,
@@ -23,9 +28,14 @@ export class BrandServices {
         })
     }
 
-    async addBrand(newBrand: BrandSchema) {
+    async addBrand({ file, body }: Request) {
+        const newBrand = body as BrandSchema
+
         return await db.brand.create({
-            data: newBrand,
+            data: {
+                ...newBrand,
+                logo: writeNewFile(file, BRANDS_PATH),
+            },
         })
     }
 
@@ -41,10 +51,7 @@ export class BrandServices {
     }
 
     async deleteBrand(brand: BrandSchema) {
-        deleteFile({
-            nameFolder: CORE,
-            fileName: brand.logo.split('/').pop() as string,
-        })
+        deleteFile(brand.logo)
 
         return await db.brand.delete({
             where: {
