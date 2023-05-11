@@ -7,51 +7,35 @@ import { db } from '../database'
 import { BaseMiddlewares } from '../config/bases'
 
 export class UserMiddlewares extends BaseMiddlewares {
-    checkBodyProfileUpdate = async (
-        req: Request,
-        _res: Response,
-        next: NextFunction
-    ) => {
-        const user = await db.user.findUnique({
-            where: {
-                id: req.userId,
-            },
-            select: {
-                email: true,
-            },
-        })
-
-        if ((user as User).email !== req.body.email) {
-            const otherUser = await db.user.findUnique({
-                where: {
-                    email: req.body.email,
-                },
-            })
-
-            if (otherUser) {
-                next(
-                    new this.HttpError(
-                        401,
-                        'A user has already registered with the email address entered'
-                    )
-                )
-
-                return
-            }
-        }
-
-        next()
-    }
-
-    checkBirthDateType = async (
+    checkIfUserAlreadyExists = async (
         req: Request,
         _res: Response,
         next: NextFunction
     ) => {
         try {
-            if (typeof req.body.birthDate === 'object') {
-                req.body.birthDate = req.body.birthDate.toISOString()
+            const user = (await db.user.findUnique({
+                where: {
+                    id: req.userId,
+                },
+                select: {
+                    email: true,
+                },
+            })) as User
+
+            if (user.email !== req.body.email) {
+                const otherUser = await db.user.findUnique({
+                    where: {
+                        email: req.body.email,
+                    },
+                })
+
+                if (otherUser)
+                    throw new this.HttpError(
+                        401,
+                        'A user has already registered with the email address entered'
+                    )
             }
+
             next()
         } catch (error) {
             next(error)
@@ -63,32 +47,41 @@ export class UserMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        const user = (await db.user.findUnique({
-            where: {
-                id: req.userId,
-            },
-            select: {
-                password: true,
-            },
-        })) as User
+        try {
+            const user = (await db.user.findUnique({
+                where: {
+                    id: req.userId,
+                },
+                select: {
+                    password: true,
+                },
+            })) as User
 
-        const passwordMatches = await compare(
-            req.body.oldPassword,
-            user.password
-        )
+            if (!user.password) {
+                throw new this.HttpError(
+                    401,
+                    'The user was registered with google, please login with your google account.'
+                )
+            }
 
-        if (!passwordMatches) {
-            next(
-                new this.HttpError(
+            if (!req.body.oldPassword)
+                throw new this.HttpError(400, 'The old password is required')
+
+            const passwordMatches = await compare(
+                req.body.oldPassword,
+                user.password
+            )
+
+            if (!passwordMatches)
+                throw new this.HttpError(
                     401,
                     'The sent password does not match the current password'
                 )
-            )
 
-            return
+            next()
+        } catch (error) {
+            next(error)
         }
-
-        next()
     }
 
     itemAlreadyExistsInCart = async (
@@ -96,22 +89,30 @@ export class UserMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        const user = await db.user.findUnique({
-            where: {
-                id: req.userId,
-            },
-            select: {
-                shoppingCart: true,
-            },
-        })
+        try {
+            const user = await db.user.findUnique({
+                where: {
+                    id: req.userId,
+                },
+                select: {
+                    shoppingCart: true,
+                },
+            })
 
-        const itemRepeated = user?.shoppingCart.find(
-            ({ productId }) => productId === req.body.productId
-        )
+            const itemRepeated = user?.shoppingCart.find(
+                ({ productId }) => productId === req.body.id
+            )
 
-        if (itemRepeated) {
-            next(new this.HttpError(401, 'The item is already in the cart'))
-        } else next()
+            if (itemRepeated)
+                throw new this.HttpError(
+                    401,
+                    'The product is already in the cart'
+                )
+
+            next()
+        } catch (error) {
+            next(error)
+        }
     }
 
     itemAlreadyExistsInFavorites = async (
@@ -119,49 +120,30 @@ export class UserMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        const user = await db.user.findUnique({
-            where: {
-                id: req.userId,
-            },
-            select: {
-                favorites: true,
-            },
-        })
+        try {
+            const user = await db.user.findUnique({
+                where: {
+                    id: req.userId,
+                },
+                select: {
+                    favorites: true,
+                },
+            })
 
-        const itemRepeated = user?.favorites.find(
-            ({ productId }) => productId === req.body.productId
-        )
-
-        if (itemRepeated) {
-            next(
-                new this.HttpError(401, 'The item is already in the favorites')
+            const itemRepeated = user?.favorites.find(
+                ({ productId }) => productId === req.body.id
             )
-        } else next()
-    }
 
-    itemQuantityCannotBeNullOrNegative = async (
-        req: Request,
-        _res: Response,
-        next: NextFunction
-    ) => {
-        if (!req.body.quantity || !Object.keys(req.body.quantity).length) {
-            next(new this.HttpError(401, 'Has not defined an amount'))
-
-            return
-        }
-
-        if (req.body.quantity.set <= 0) {
-            next(
-                new this.HttpError(
+            if (itemRepeated)
+                throw new this.HttpError(
                     401,
-                    'The amount cannot be negative, null or undefined'
+                    'The item is already in the favorites'
                 )
-            )
 
-            return
+            next()
+        } catch (error) {
+            next(error)
         }
-
-        next()
     }
 
     shoppingCartIsAlreadyEmpty = async (
@@ -169,18 +151,26 @@ export class UserMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        const user = await db.user.findUnique({
-            where: {
-                id: req.userId,
-            },
-            select: {
-                shoppingCart: true,
-            },
-        })
+        try {
+            const user = await db.user.findUnique({
+                where: {
+                    id: req.userId,
+                },
+                select: {
+                    shoppingCart: true,
+                },
+            })
 
-        if (!user?.shoppingCart.length) {
-            next(new this.HttpError(401, 'The shopping cart is already empty'))
-        } else next()
+            if (!user?.shoppingCart.length)
+                throw new this.HttpError(
+                    401,
+                    'The shopping cart is already empty'
+                )
+
+            next()
+        } catch (error) {
+            next(error)
+        }
     }
 
     itemNotFoundInsideCart = async (
@@ -188,22 +178,27 @@ export class UserMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        const user = await db.user.findUnique({
-            where: {
-                id: req.userId,
-            },
-            select: {
-                shoppingCart: true,
-            },
-        })
+        try {
+            const user = await db.user.findUnique({
+                where: {
+                    id: req.userId,
+                },
+                select: {
+                    shoppingCart: true,
+                },
+            })
 
-        const product = user?.shoppingCart.find(
-            ({ productId }) => productId === req.params.productId
-        )
+            const product = user?.shoppingCart.find(
+                ({ productId }) => productId === req.params.id
+            )
 
-        if (!product) {
-            next(new this.HttpError(401, 'Product not found inside cart'))
-        } else next()
+            if (!product)
+                throw new this.HttpError(401, 'Product not found inside cart')
+
+            next()
+        } catch (error) {
+            next(error)
+        }
     }
 
     favoritesIsAlreadyEmpty = async (
@@ -211,20 +206,26 @@ export class UserMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        const user = await db.user.findUnique({
-            where: {
-                id: req.userId,
-            },
-            select: {
-                favorites: true,
-            },
-        })
+        try {
+            const user = await db.user.findUnique({
+                where: {
+                    id: req.userId,
+                },
+                select: {
+                    favorites: true,
+                },
+            })
 
-        if (!user?.favorites.length) {
-            next(
-                new this.HttpError(401, `The user's favorites is already empty`)
-            )
-        } else next()
+            if (!user?.favorites.length)
+                throw new this.HttpError(
+                    401,
+                    `The user's favorites is already empty`
+                )
+
+            next()
+        } catch (error) {
+            next(error)
+        }
     }
 
     itemNotFoundInsideFavorites = async (
@@ -232,22 +233,30 @@ export class UserMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        const user = await db.user.findUnique({
-            where: {
-                id: req.userId,
-            },
-            select: {
-                favorites: true,
-            },
-        })
+        try {
+            const user = await db.user.findUnique({
+                where: {
+                    id: req.userId,
+                },
+                select: {
+                    favorites: true,
+                },
+            })
 
-        const product = user?.favorites.find(
-            ({ productId }) => productId === req.params.productId
-        )
+            const product = user?.favorites.find(
+                ({ productId }) => productId === req.params.id
+            )
 
-        if (!product) {
-            next(new this.HttpError(401, 'Product not found inside favorites'))
-        } else next()
+            if (!product)
+                throw new this.HttpError(
+                    401,
+                    'Product not found inside favorites'
+                )
+
+            next()
+        } catch (error) {
+            next(error)
+        }
     }
 
     checkReviewBody = async (
@@ -255,71 +264,53 @@ export class UserMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        if (!req.body.rating || !req.body.comment) {
-            next(new this.HttpError(400, 'There are missing fields'))
+        try {
+            if (!req.body.rating || !req.body.comment)
+                throw new this.HttpError(400, 'There are missing fields')
 
-            return
-        }
-
-        const user = await db.user.findUnique({
-            where: {
-                id: req.userId,
-            },
-            select: {
-                reviews: true,
-            },
-        })
-
-        const reviewExists = user?.reviews.find(
-            ({ productId }) => productId === req.body.productId
-        )
-
-        if (reviewExists) {
-            next(
-                new this.HttpError(
-                    401,
-                    'There is already a review for this product'
-                )
-            )
-        } else next()
-    }
-
-    checkHistoryLength = async (
-        req: Request,
-        _res: Response,
-        next: NextFunction
-    ) => {
-        const user = await db.user.findUnique({
-            where: {
-                id: req.userId,
-            },
-            select: {
-                history: true,
-            },
-        })
-
-        if (user?.history.length === 20) {
-            const oldestProductVisited = user.history.shift()
-
-            await db.user.update({
+            const user = await db.user.findUnique({
                 where: {
                     id: req.userId,
                 },
-                data: {
-                    history: {
-                        delete: {
-                            userId_productId: {
-                                userId: req.userId,
-                                productId:
-                                    oldestProductVisited?.productId as string,
+                select: {
+                    reviews: true,
+                    transactions: {
+                        include: {
+                            order: {
+                                select: {
+                                    productId: true,
+                                },
                             },
                         },
                     },
                 },
             })
-        }
 
-        next()
+            const purchasedProduct = user?.transactions
+                .map(({ order }) => order)
+                .flat()
+                .find(({ productId }) => productId === req.body.id)
+
+            if (!purchasedProduct)
+                throw new this.HttpError(
+                    401,
+                    'The user has not purchased this product yet'
+                )
+
+            const reviewExists = user?.reviews.find(
+                ({ productId }) => productId === req.body.id
+            )
+
+            if (reviewExists)
+                throw new this.HttpError(
+                    401,
+                    'There is already a review for this product'
+                )
+
+            next()
+        } catch (error) {
+            next(error)
+        }
     }
 
     changeUpdateUserAvailability = async (
@@ -327,30 +318,25 @@ export class UserMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        const userFinded = await db.user.findUnique({
-            where: {
-                id: req.params.userId,
-            },
-        })
+        try {
+            const user = await db.user.findUnique({
+                where: {
+                    id: req.body.id,
+                },
+            })
 
-        if (!userFinded) {
-            next(new this.HttpError(404, `The user doesn't exists`))
+            if (!user) throw new this.HttpError(404, 'User not found')
 
-            return
-        }
-
-        if (typeof req.body.disabled !== 'boolean') {
-            next(
-                new this.HttpError(
+            if (typeof req.body.disabled !== 'boolean')
+                throw new this.HttpError(
                     400,
                     'The disabled property is required and must be a boolean'
                 )
-            )
 
-            return
+            next()
+        } catch (error) {
+            next(error)
         }
-
-        next()
     }
 
     checkClaimAward = async (
@@ -358,63 +344,169 @@ export class UserMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        if (!req.query.id) {
-            next(new this.HttpError(400, 'The award id is required'))
+        try {
+            const award = await db.award.findUnique({
+                where: {
+                    id: req.params.id,
+                },
+                select: {
+                    name: true,
+                    requiredPoints: true,
+                },
+            })
 
-            return
+            if (!award) throw new this.HttpError(404, 'The award not found')
+
+            const user = await db.user.findUnique({
+                where: {
+                    id: req.userId,
+                },
+                select: {
+                    RGBpoints: true,
+                    awards: true,
+                },
+            })
+
+            if (!user) throw new this.HttpError(404, 'The user not found')
+
+            const awardClaimed = user.awards.find(
+                (userAward) => userAward.id === req.params.id
+            )
+
+            if (awardClaimed)
+                throw new this.HttpError(401, 'The award is already claimed')
+
+            if (user.RGBpoints < award.requiredPoints)
+                throw new this.HttpError(401, 'Insufficient RGBPoints')
+
+            req.body.userPointsUpdated = user.RGBpoints - award.requiredPoints
+            req.body.award = award
+
+            next()
+        } catch (error) {
+            next(error)
         }
+    }
 
-        const award = await db.award.findUnique({
-            where: {
-                id: req.query.id as string,
-            },
-            select: {
-                name: true,
-                requiredPoints: true,
-            },
-        })
+    checkIfProductExists = async (
+        req: Request,
+        _res: Response,
+        next: NextFunction
+    ) => {
+        try {
+            const id = req.body.id ?? req.params.id
 
-        if (!award) {
-            next(new this.HttpError(404, 'The award not found'))
+            const product = await db.product.findUnique({
+                where: {
+                    id,
+                },
+            })
 
-            return
+            if (!product) throw new this.HttpError(404, 'The product not found')
+
+            next()
+        } catch (error) {
+            next(error)
         }
+    }
 
-        const user = await db.user.findUnique({
-            where: {
-                id: req.userId,
-            },
-            select: {
-                RGBpoints: true,
-                awards: true,
-            },
-        })
+    checkProductExistsInCartAndQuantity = async (
+        req: Request,
+        _res: Response,
+        next: NextFunction
+    ) => {
+        try {
+            const user = await db.user.findUnique({
+                where: {
+                    id: req.userId,
+                },
+                select: {
+                    shoppingCart: true,
+                },
+            })
 
-        if (!user) {
-            next(new this.HttpError(404, 'The user not found'))
+            const product = user?.shoppingCart.find(
+                ({ productId }) => productId === req.params.id
+            )
 
-            return
+            if (!product)
+                throw new this.HttpError(
+                    401,
+                    'The product is not in the user cart'
+                )
+
+            if (!req.body.quantity)
+                throw new this.HttpError(401, 'Has not defined an amount')
+
+            if (req.body.quantity <= 0)
+                throw new this.HttpError(
+                    401,
+                    'The amount cannot be negative or null'
+                )
+
+            next()
+        } catch (error) {
+            next(error)
         }
+    }
 
-        const awardFound = user.awards.find(
-            (userAward) => userAward.id === req.query.id
-        )
+    checkIfHistoryIsAlreadyEmpty = async (
+        req: Request,
+        _res: Response,
+        next: NextFunction
+    ) => {
+        try {
+            const user = await db.user.findUnique({
+                where: {
+                    id: req.userId,
+                },
+                select: {
+                    history: true,
+                },
+            })
 
-        if (awardFound) {
-            next(new this.HttpError(401, 'The award is already claimed'))
+            if (!user?.history.length)
+                throw new this.HttpError(
+                    401,
+                    'The user history is already empty'
+                )
 
-            return
+            next()
+        } catch (error) {
+            next(error)
         }
+    }
 
-        if (user.RGBpoints < award.requiredPoints) {
-            next(new this.HttpError(401, 'Insufficient RGBPoints'))
+    checkIfUserIsLoggedWithGoogle = async (
+        req: Request,
+        _res: Response,
+        next: NextFunction
+    ) => {
+        try {
+            const user = await db.user.findUnique({
+                where: {
+                    id: req.userId,
+                },
+                select: {
+                    google: true,
+                },
+            })
 
-            return
+            if (user?.google && req.body.email)
+                throw new this.HttpError(
+                    401,
+                    'Cannot change the email, cause this account was logged with google'
+                )
+
+            if (user?.google && req.file)
+                throw new this.HttpError(
+                    401,
+                    'Cannot change the profile photo, because you are logged with google'
+                )
+
+            next()
+        } catch (error) {
+            next(error)
         }
-
-        req.body.userPointsUpdated = user.RGBpoints - award.requiredPoints
-        req.body.awardClaimed = award
-
-        next()
     }
 }
