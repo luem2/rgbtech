@@ -2,10 +2,11 @@ import type { Request } from 'express'
 import type { User } from '@prisma/client'
 
 import { db } from '../database'
-import { PICTURES } from '../helpers/constants'
-import { deleteFile } from '../helpers/fsFunctions'
+import { AVATARS_PATH } from '../helpers/constants'
+import { deleteFile, writeNewFile } from '../helpers/fsFunctions'
+import { BaseServices } from '../config/bases'
 
-export class UserServices {
+export class UserServices extends BaseServices {
     async getAllUsers() {
         return await db.user.findMany({
             include: {
@@ -22,15 +23,7 @@ export class UserServices {
     }
 
     async updateProfile({ userId, body }: Request) {
-        const { nationality, ...bodyUser } = body as User
-
-        const countryFounded = await db.country.findUnique({
-            where: {
-                id: nationality,
-            },
-        })
-
-        if (!countryFounded) return null
+        const { nationality, ...bodyUser } = body
 
         return await db.user.update({
             where: {
@@ -48,31 +41,27 @@ export class UserServices {
     }
 
     async changeProfilePhoto({ userId, file }: Request) {
-        const user = await db.user.findUnique({
+        if (!file) {
+            throw new this.HttpError(401, 'No file provided')
+        }
+
+        const user = (await db.user.findUnique({
             where: {
                 id: userId,
             },
             select: {
                 picture: true,
             },
-        })
+        })) as User
 
-        if (!user) return null
+        deleteFile(user.picture)
 
-        const oldFileName = user.picture?.split('/').pop() as string
-        const fileName = (file as Express.Multer.File).filename
-
-        deleteFile({
-            nameFolder: PICTURES,
-            fileName: oldFileName,
-        })
-
-        return await db.user.update({
+        await db.user.update({
             where: {
                 id: userId,
             },
             data: {
-                picture: `/uploads/${PICTURES}/${fileName}`,
+                picture: writeNewFile(file, AVATARS_PATH),
             },
         })
     }
@@ -96,7 +85,7 @@ export class UserServices {
             data: {
                 shoppingCart: {
                     create: {
-                        productId: body.productId,
+                        productId: body.id,
                         quantity: 1,
                     },
                 },
@@ -104,9 +93,7 @@ export class UserServices {
         })
     }
 
-    async modifyItemQuantity({ userId, body }: Request) {
-        const quantity = body.quantity
-
+    async modifyItemQuantity({ userId, body, params }: Request) {
         await db.user.update({
             where: {
                 id: userId,
@@ -117,11 +104,13 @@ export class UserServices {
                         where: {
                             userId_productId: {
                                 userId,
-                                productId: body.productId,
+                                productId: params.id,
                             },
                         },
                         data: {
-                            quantity,
+                            quantity: {
+                                set: body.quantity,
+                            },
                         },
                     },
                 },
@@ -130,8 +119,6 @@ export class UserServices {
     }
 
     async deleteItemFromCart({ userId, params }: Request) {
-        const productId = params.productId
-
         await db.user.update({
             where: {
                 id: userId,
@@ -141,7 +128,7 @@ export class UserServices {
                     delete: {
                         userId_productId: {
                             userId,
-                            productId,
+                            productId: params.id,
                         },
                     },
                 },
@@ -181,7 +168,7 @@ export class UserServices {
             data: {
                 favorites: {
                     create: {
-                        productId: body.productId,
+                        productId: body.id,
                     },
                 },
             },
@@ -189,8 +176,6 @@ export class UserServices {
     }
 
     async deleteItemFromFavorites({ userId, params }: Request) {
-        const productId = params.productId
-
         await db.user.update({
             where: {
                 id: userId,
@@ -200,7 +185,7 @@ export class UserServices {
                     delete: {
                         userId_productId: {
                             userId,
-                            productId,
+                            productId: params.id,
                         },
                     },
                 },
@@ -240,7 +225,7 @@ export class UserServices {
             data: {
                 reviews: {
                     create: {
-                        productId: body.productId,
+                        productId: body.id,
                         comment: body.comment,
                         rating: body.rating,
                     },
@@ -271,33 +256,18 @@ export class UserServices {
         })
     }
 
-    async addLastVisitedToHistory({ userId, body }: Request) {
-        await db.user.update({
-            where: {
-                id: userId,
-            },
-            data: {
-                history: {
-                    create: {
-                        productId: body.productId,
-                    },
-                },
-            },
-        })
-    }
-
-    async changeUserAvailability({ params, body }: Request) {
+    async changeUserAvailability({ id, disabled }: Request['body']) {
         return await db.user.update({
             where: {
-                id: params.userId,
+                id,
             },
             data: {
-                disabled: body.disabled,
+                disabled,
             },
         })
     }
 
-    async claimAward({ userId, query, body }: Request) {
+    async claimAward({ userId, params, body }: Request) {
         return await db.user.update({
             where: {
                 id: userId,
@@ -306,11 +276,24 @@ export class UserServices {
             data: {
                 awards: {
                     connect: {
-                        id: query.id as string,
+                        id: params.id,
                     },
                 },
 
                 RGBpoints: body.userPointsUpdated,
+            },
+        })
+    }
+
+    async cleanHistory(id: Request['userId']) {
+        await db.user.update({
+            where: {
+                id,
+            },
+            data: {
+                history: {
+                    deleteMany: {},
+                },
             },
         })
     }
