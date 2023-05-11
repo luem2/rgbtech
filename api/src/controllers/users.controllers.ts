@@ -1,4 +1,4 @@
-import type { Request, Response } from 'express'
+import type { NextFunction, Request, Response } from 'express'
 
 import { AuthServices } from '../services/auth.services'
 import { UserServices } from '../services/users.services'
@@ -16,19 +16,14 @@ export class UserControllers extends BaseControllers<UserServices> {
         const allUsers = await this.services.getAllUsers()
 
         this.httpResponse.Ok(res, {
-            users: allUsers,
+            msg: 'Users were correctly sent',
             count: allUsers.length,
+            users: allUsers,
         })
     }
 
     profileUpdate = async (req: Request, res: Response) => {
         const profileEdited = await this.services.updateProfile(req)
-
-        if (!profileEdited) {
-            this.httpResponse.BadRequest(res, 'Country sent is invalid')
-
-            return
-        }
 
         this.httpResponse.Ok(res, {
             msg: 'The profile was successfully updated',
@@ -42,22 +37,21 @@ export class UserControllers extends BaseControllers<UserServices> {
         this.httpResponse.Ok(res, 'The password was successfully updated')
     }
 
-    changeProfilePhoto = async (req: Request, res: Response) => {
-        if (!req.file) {
-            this.httpResponse.BadRequest(res, 'The image was not sent')
+    changeProfilePhoto = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) => {
+        try {
+            await this.services.changeProfilePhoto(req)
 
-            return
+            this.httpResponse.Ok(
+                res,
+                'The profile photo was successfully updated'
+            )
+        } catch (error) {
+            next(error)
         }
-
-        const userUpdated = await this.services.changeProfilePhoto(req)
-
-        if (!userUpdated) {
-            this.httpResponse.BadRequest(res, 'User not found')
-
-            return
-        }
-
-        this.httpResponse.Ok(res, 'The profile photo was successfully updated')
     }
 
     getShoppingCart = async (req: Request, res: Response) => {
@@ -72,11 +66,9 @@ export class UserControllers extends BaseControllers<UserServices> {
     addItemToCart = async (req: Request, res: Response) => {
         await this.services.addItemToCart(req)
 
-        const product = req.body.productId as string
-
         this.httpResponse.Created(
             res,
-            `The item ${product} has been added to cart`
+            `The item product has been added to cart`
         )
     }
 
@@ -87,14 +79,9 @@ export class UserControllers extends BaseControllers<UserServices> {
     }
 
     deleteItemFromCart = async (req: Request, res: Response) => {
-        const product = req.params.productId
-
         await this.services.deleteItemFromCart(req)
 
-        this.httpResponse.Ok(
-            res,
-            `The item ${product} has been deleted from cart`
-        )
+        this.httpResponse.Ok(res, 'The product has been deleted from cart')
     }
 
     cleanShoppingCart = async (req: Request, res: Response) => {
@@ -104,34 +91,27 @@ export class UserControllers extends BaseControllers<UserServices> {
     }
 
     getFavorites = async (req: Request, res: Response) => {
-        const favorites = await this.services.getFavorites(req.userId)
+        const user = await this.services.getFavorites(req.userId)
 
         this.httpResponse.Ok(res, {
             msg: `The user's favorites was successfully submitted`,
-            favorites,
+            favorites: user?.favorites,
         })
     }
 
     addItemToFavorites = async (req: Request, res: Response) => {
         await this.services.addItemToFavorites(req)
 
-        const product = req.body.productId as string
-
         this.httpResponse.Created(
             res,
-            `The item ${product} has been added to favorites`
+            `The item product has been added to favorites`
         )
     }
 
     deleteItemFromFavorites = async (req: Request, res: Response) => {
-        const product = req.params.productId
-
         await this.services.deleteItemFromFavorites(req)
 
-        this.httpResponse.Ok(
-            res,
-            `The item ${product} has been deleted from favorites`
-        )
+        this.httpResponse.Ok(res, 'The product has been deleted from favorites')
     }
 
     cleanFavorites = async (req: Request, res: Response) => {
@@ -154,7 +134,7 @@ export class UserControllers extends BaseControllers<UserServices> {
 
         this.httpResponse.Created(res, {
             msg: 'The review has been posted',
-            reviewAdded: req.body,
+            review: req.body,
         })
     }
 
@@ -176,21 +156,12 @@ export class UserControllers extends BaseControllers<UserServices> {
         })
     }
 
-    addLastVisitedToHistory = async (req: Request, res: Response) => {
-        await this.services.addLastVisitedToHistory(req)
-
-        this.httpResponse.Created(res, {
-            msg: 'The last product visited has been added to history',
-            productAdded: req.body.productId,
-        })
-    }
-
     changeUserAvailability = async (req: Request, res: Response) => {
-        const productDisabled = await this.services.changeUserAvailability(req)
+        const userUpdated = await this.services.changeUserAvailability(req.body)
 
         this.httpResponse.Ok(res, {
             msg: 'The user have been successfully updated',
-            product: productDisabled,
+            user: userUpdated,
         })
     }
 
@@ -199,7 +170,13 @@ export class UserControllers extends BaseControllers<UserServices> {
 
         this.httpResponse.Ok(res, {
             msg: 'Award was successfully claimed',
-            awardClaimed: req.body.awardClaimed,
+            award: req.body.award,
         })
+    }
+
+    cleanHistory = async (req: Request, res: Response) => {
+        await this.services.cleanHistory(req.userId)
+
+        this.httpResponse.Ok(res, `The user's history was cleaned`)
     }
 }
