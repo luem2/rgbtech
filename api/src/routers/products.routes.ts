@@ -18,7 +18,7 @@ export class ProductRouter extends BaseRouter<
         this.router.get(
             '/',
             [
-                this.middlewares.getProductsAuthMiddleware,
+                this.middlewares.checkIfUserIsLogged,
                 parseRequest('query'),
                 validateSchema(querySchema),
                 this.middlewares.checkQuerySchema,
@@ -29,14 +29,28 @@ export class ProductRouter extends BaseRouter<
         this.router.get(
             '/:id',
             [
-                this.middlewares.getProductsAuthMiddleware,
+                this.middlewares.checkIfUserIsLogged,
                 this.middlewares.checkIfProductExists,
+                this.middlewares.ifUserLoggedPushToHistory,
             ],
             this.controllers.getProduct
         )
 
+        this.router.post(
+            '/',
+            this.auth.checkAdminAuth,
+            [
+                multer.single('product'),
+                parseRequest('body'),
+                validateSchema(productSchema),
+                this.middlewares.checkBrandAndTags,
+                this.middlewares.checkBodyAddProduct,
+            ],
+            this.controllers.addProduct
+        )
+
         this.router.put(
-            '/picture',
+            '/picture/:id',
             this.auth.checkAdminAuth,
             [
                 multer.single('product'),
@@ -57,19 +71,6 @@ export class ProductRouter extends BaseRouter<
             this.controllers.productUpdate
         )
 
-        this.router.post(
-            '/',
-            this.auth.checkAdminAuth,
-            [
-                multer.single('product'),
-                parseRequest('body'),
-                validateSchema(productSchema),
-                this.middlewares.checkBrandAndTags,
-                this.middlewares.checkBodyAddProduct,
-            ],
-            this.controllers.addProduct
-        )
-
         this.router.delete(
             '/:id',
             this.auth.checkAdminAuth,
@@ -81,6 +82,7 @@ export class ProductRouter extends BaseRouter<
             '/:id',
             this.auth.checkAdminAuth,
             [
+                parseRequest('body'),
                 this.middlewares.checkIfProductExists,
                 this.middlewares.checkUpdateProductAvailability,
             ],

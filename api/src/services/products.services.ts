@@ -4,8 +4,7 @@ import type { IQueryParams, ProductSchema } from '../types'
 
 import { db } from '../database'
 import { deleteFile, writeNewFile } from '../helpers/fsFunctions'
-import { CORE } from '../helpers/constants'
-import { generateFileName } from '../helpers/normalizeTag'
+import { PRODUCTS_PATH } from '../helpers/constants'
 
 export class ProductServices {
     readonly userInfo: Prisma.ProductSelect
@@ -236,25 +235,24 @@ export class ProductServices {
         })
     }
 
-    async productPictureUpdate({ file, query }: Request) {
-        const fileName = generateFileName(file)
-
-        writeNewFile(file, {
-            nameFolder: CORE,
-            fileName,
-        })
+    async productPictureUpdate({ file, params, body }: Request) {
+        deleteFile(body.oldFile)
 
         return await db.product.update({
             where: {
-                id: query.id as string,
+                id: params.id,
             },
             data: {
-                picture: `/uploads/${CORE}/${fileName}`,
+                picture: writeNewFile(file, PRODUCTS_PATH),
             },
         })
     }
 
-    async addProduct(newProduct: ProductSchema) {
+    async addProduct({ file, body }: Request) {
+        const newProduct = body as ProductSchema
+
+        newProduct.picture = writeNewFile(file, PRODUCTS_PATH)
+
         return await db.product.create({
             data: {
                 ...newProduct,
@@ -288,28 +286,12 @@ export class ProductServices {
         })
     }
 
-    async deleteProduct({ id }: Request['params']) {
-        const product = (await db.product.findUnique({
-            where: {
-                id,
-            },
-            select: {
-                picture: true,
-            },
-        })) as {
-            picture: string
-        }
-
-        const fileName = product.picture.split('/').pop() as string
-
-        deleteFile({
-            nameFolder: CORE,
-            fileName,
-        })
+    async deleteProduct({ body, params }: Request) {
+        deleteFile(body.picture)
 
         return await db.product.delete({
             where: {
-                id,
+                id: params.id,
             },
         })
     }
