@@ -1,31 +1,30 @@
 import type { Request, Response, NextFunction } from 'express'
-import type { JwtPayload } from 'jsonwebtoken'
 import type { ProductSchema } from '../types'
 
 import { db } from '../database'
 import { verifyToken } from '../helpers/generateToken'
-import { generateFileName } from '../helpers/normalizeTag'
-import { deleteFile, writeNewFile } from '../helpers/fsFunctions'
-import { CORE } from '../helpers/constants'
 import { BaseMiddlewares } from '../config/bases'
 
 export class ProductMiddlewares extends BaseMiddlewares {
-    getProductsAuthMiddleware = async (
+    checkIfUserIsLogged = async (
         req: Request,
         _res: Response,
         next: NextFunction
     ) => {
-        const token = req.headers.authorization?.split(' ').pop()
+        try {
+            const { token } = req.cookies
 
-        if (token) {
-            const tokenData = await verifyToken(token)
+            if (token) {
+                const tokenData = verifyToken(token)
 
-            if (tokenData) {
-                req.userRole = (tokenData ).role
+                req.userId = tokenData.id
+                req.userRole = tokenData.role
             }
-        }
 
-        next()
+            next()
+        } catch (error) {
+            next(error)
+        }
     }
 
     checkBodyAddProduct = async (
@@ -33,39 +32,26 @@ export class ProductMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        const product = await db.product.findUnique({
-            where: {
-                name: req.body.name,
-            },
-        })
+        try {
+            const product = await db.product.findUnique({
+                where: {
+                    name: req.body.name,
+                },
+            })
 
-        if (product) {
-            next(new this.HttpError(400, 'The product already exists'))
+            if (product)
+                throw new this.HttpError(400, 'The product already exists')
 
-            return
-        }
-
-        if (!req.file) {
-            next(
-                new this.HttpError(
+            if (!req.file)
+                throw new this.HttpError(
                     401,
                     'The product needs an image to be added'
                 )
-            )
 
-            return
+            next()
+        } catch (error) {
+            next(error)
         }
-
-        const fileName = generateFileName(req.file)
-
-        writeNewFile(req.file, {
-            nameFolder: CORE,
-            fileName,
-        })
-
-        req.body.picture = `/uploads/core/${fileName}`
-
-        next()
     }
 
     checkBodyEditProduct = async (
@@ -73,44 +59,36 @@ export class ProductMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        if (req.body.picture) {
-            next(
-                new this.HttpError(
+        try {
+            if (req.body.picture)
+                throw new this.HttpError(
                     400,
-                    'This operation can not change the picture'
+                    'This endpoint can not change the picture'
                 )
-            )
 
-            return
-        }
-
-        const product = await db.product.findUnique({
-            where: {
-                id: req.params.id,
-            },
-        })
-
-        if (!product) {
-            next(new this.HttpError(404, 'Product not found'))
-
-            return
-        }
-
-        if (product.name !== req.body.name) {
-            const otherProduct = await db.product.findUnique({
+            const product = await db.product.findUnique({
                 where: {
-                    name: req.body.name,
+                    id: req.params.id,
                 },
             })
 
-            if (otherProduct) {
-                next(new this.HttpError(400, 'The product already exists'))
+            if (!product) throw new this.HttpError(404, 'Product not found')
 
-                return
+            if (product.name !== req.body.name) {
+                const otherProduct = await db.product.findUnique({
+                    where: {
+                        name: req.body.name,
+                    },
+                })
+
+                if (otherProduct)
+                    throw new this.HttpError(400, 'The product already exists')
             }
-        }
 
-        next()
+            next()
+        } catch (error) {
+            next(error)
+        }
     }
 
     checkBrandAndTags = async (
@@ -118,36 +96,34 @@ export class ProductMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        const product = req.body as ProductSchema
+        try {
+            const product = req.body as ProductSchema
 
-        const brand = await db.brand.findUnique({
-            where: {
-                name: product.brand,
-            },
-        })
+            const brand = await db.brand.findUnique({
+                where: {
+                    name: product.brand,
+                },
+            })
 
-        if (!brand) {
-            next(new this.HttpError(401, 'The brand does not exists'))
+            if (!brand)
+                throw new this.HttpError(401, 'The brand does not exists')
 
-            return
-        }
-
-        product.tags.forEach((tag) => {
-            if (tag.length < 2) {
-                next(
-                    new this.HttpError(
+            product.tags.forEach((tag) => {
+                if (tag.length < 2)
+                    throw new this.HttpError(
                         401,
                         'The tag must have at least 2 letters'
                     )
-                )
-            }
-        })
+            })
 
-        req.body.tags = product.tags.map(
-            (tag) => tag[0].toUpperCase() + tag.slice(1).toLowerCase()
-        )
+            req.body.tags = product.tags.map(
+                (tag) => tag[0].toUpperCase() + tag.slice(1).toLowerCase()
+            )
 
-        next()
+            next()
+        } catch (error) {
+            next(error)
+        }
     }
 
     checkUpdateProductAvailability = async (
@@ -155,18 +131,17 @@ export class ProductMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        if (typeof req.body.disabled !== 'boolean') {
-            next(
-                new this.HttpError(
+        try {
+            if (typeof req.body.disabled !== 'boolean')
+                throw new this.HttpError(
                     401,
                     'The disabled property must be a boolean'
                 )
-            )
 
-            return
+            next()
+        } catch (error) {
+            next(error)
         }
-
-        next()
     }
 
     checkQuerySchema = async (
@@ -174,34 +149,28 @@ export class ProductMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        if (Object.keys(req.query).length) {
-            if (req.query.sortBy && !req.query.sortOrder) {
-                next(
-                    new this.HttpError(
+        try {
+            if (Object.keys(req.query).length) {
+                if (req.query.sortBy && !req.query.sortOrder)
+                    throw new this.HttpError(
                         401,
-                        'The sortOrder property is needed to perform the operation'
+                        'The sortOrder property is needed, if you want sort the results'
                     )
-                )
 
-                return
+                if (
+                    req.query.rating &&
+                    (req.query.rating_gte ?? req.query.rating_lte)
+                )
+                    throw new this.HttpError(
+                        401,
+                        'The rating property can not coexist with gte or lte properties'
+                    )
             }
 
-            if (
-                req.query.rating &&
-                (req.query.rating_gte ?? req.query.rating_lte)
-            ) {
-                next(
-                    new this.HttpError(
-                        401,
-                        'The rating property can not have gte or lte properties'
-                    )
-                )
-
-                return
-            }
+            next()
+        } catch (error) {
+            next(error)
         }
-
-        next()
     }
 
     checkUpdatePictureProduct = async (
@@ -209,44 +178,27 @@ export class ProductMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        if (!req.query.id) {
-            next(
-                new this.HttpError(
-                    401,
-                    'Product id is needed to perform the operation'
-                )
-            )
+        try {
+            const product = await db.product.findUnique({
+                where: {
+                    id: req.params.id,
+                },
+                select: {
+                    picture: true,
+                },
+            })
 
-            return
+            if (!product) throw new this.HttpError(404, 'Product not found')
+
+            if (!req.file)
+                throw new this.HttpError(401, 'The new product image is needed')
+
+            req.body.oldFile = product.picture
+
+            next()
+        } catch (error) {
+            next(error)
         }
-
-        const product = await db.product.findUnique({
-            where: {
-                id: req.query.id as string,
-            },
-            select: {
-                picture: true,
-            },
-        })
-
-        if (!product) {
-            next(new this.HttpError(404, 'Product not found'))
-
-            return
-        }
-
-        if (!req.file) {
-            next(new this.HttpError(401, 'The new product image is needed'))
-
-            return
-        }
-
-        deleteFile({
-            nameFolder: CORE,
-            fileName: product.picture.split('/').pop() as string,
-        })
-
-        next()
     }
 
     checkIfProductExists = async (
@@ -254,18 +206,81 @@ export class ProductMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        const product = await db.product.findUnique({
-            where: {
-                id: req.params.id,
-            },
-        })
+        try {
+            const product = await db.product.findUnique({
+                where: {
+                    id: req.params.id,
+                },
+            })
 
-        if (!product) {
-            next(new this.HttpError(404, 'Product not found'))
+            if (!product) throw new this.HttpError(404, 'Product not found')
 
-            return
+            if (req.method === 'DELETE') {
+                req.body.picture = product.picture
+            }
+
+            next()
+        } catch (error) {
+            next(error)
         }
+    }
 
+    ifUserLoggedPushToHistory = async (
+        req: Request,
+        _res: Response,
+        next: NextFunction
+    ) => {
+        if (req.userId) {
+            const pathRequest = req.headers.origin?.split('/')
+
+            // TODO: SIMULAR CON FRONTEND PETICION PARA VER EL VALOR DE ORIGIN U ORIGINS.
+            console.log('req.headers', req.headers)
+            console.log('pathRequest', pathRequest)
+
+            if (!pathRequest?.includes('dashboard')) {
+                const user = await db.user.findUnique({
+                    where: {
+                        id: req.userId,
+                    },
+                    select: {
+                        history: true,
+                    },
+                })
+
+                if (user?.history.length === 20) {
+                    const oldestProductVisited = user.history.shift()
+
+                    await db.user.update({
+                        where: {
+                            id: req.userId,
+                        },
+                        data: {
+                            history: {
+                                create: {
+                                    productId: req.params.id,
+                                },
+                                delete: {
+                                    id: oldestProductVisited?.id,
+                                },
+                            },
+                        },
+                    })
+                } else
+                    await db.user.update({
+                        where: {
+                            id: req.userId,
+                        },
+
+                        data: {
+                            history: {
+                                create: {
+                                    productId: req.params.id,
+                                },
+                            },
+                        },
+                    })
+            }
+        }
         next()
     }
 }
