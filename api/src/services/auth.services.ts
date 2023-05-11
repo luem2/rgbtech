@@ -7,7 +7,7 @@ import { db } from '../database'
 import { signToken } from '../helpers/generateToken'
 import nodemailerService from '../config/nodemailer'
 import { deleteFile, writeNewFile } from '../helpers/fsFunctions'
-import { DEFAULT_AVATAR_PATH, IMAGES_PATH } from '../helpers/constants'
+import { AVATARS_PATH, DEFAULT_AVATAR_PATH } from '../helpers/constants'
 import { BaseServices } from '../config/bases'
 
 export class AuthServices extends BaseServices {
@@ -55,7 +55,7 @@ export class AuthServices extends BaseServices {
                 ...body,
                 password: await bcrypt.hash(body.password, 10),
                 picture: file
-                    ? writeNewFile(file, IMAGES_PATH)
+                    ? writeNewFile(file, AVATARS_PATH)
                     : DEFAULT_AVATAR_PATH,
             },
         })

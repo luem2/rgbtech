@@ -1,4 +1,3 @@
-import type { User } from '@prisma/client'
 import type { Request } from 'express'
 
 import fs from 'fs'
@@ -31,13 +30,13 @@ export function writeNewFile(file: Request['file'], pathFile: string) {
     return pathFile + nameFile
 }
 
-export function deleteFile(arg: string | User) {
+export function deleteFile(pathFile: string) {
     const red = '\x1b[31m%s\x1b[0m'
 
-    if (typeof arg === 'string') {
-        const absolutePath = path.resolve() + arg
-        const nameFile = arg.split('/').at(-1)
+    const absolutePath = path.resolve() + pathFile
+    const nameFile = pathFile.split('/').at(-1)
 
+    if (pathFile !== DEFAULT_AVATAR_PATH) {
         fs.unlink(absolutePath, (err) => {
             if (err) {
                 console.info('File could not be deleted')
@@ -46,19 +45,5 @@ export function deleteFile(arg: string | User) {
                 console.info(red, nameFile)
             }
         })
-    } else {
-        if (arg.picture !== DEFAULT_AVATAR_PATH) {
-            const absolutePath = path.resolve() + arg.picture
-            const nameFile = arg.picture.split('/').at(-1)
-
-            fs.unlink(absolutePath, (err) => {
-                if (err) {
-                    console.info('File could not be deleted')
-                } else {
-                    console.info('File was successfully removed:')
-                    console.info(nameFile)
-                }
-            })
-        }
     }
 }

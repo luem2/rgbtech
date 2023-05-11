@@ -52,7 +52,7 @@ export class ProductControllers extends BaseControllers<ProductServices> {
     }
 
     addProduct = async (req: Request, res: Response) => {
-        const newProduct = await this.services.addProduct(req.body)
+        const newProduct = await this.services.addProduct(req)
 
         this.httpResponse.Created(res, {
             msg: 'Product have been successfully created',
@@ -72,7 +72,7 @@ export class ProductControllers extends BaseControllers<ProductServices> {
     }
 
     deleteProduct = async (req: Request, res: Response) => {
-        const deletedProduct = await this.services.deleteProduct(req.params)
+        const deletedProduct = await this.services.deleteProduct(req)
 
         this.httpResponse.Ok(res, {
             msg: 'Product have been successfully deleted',

@@ -2,10 +2,7 @@ import type { CookieOptions } from 'express'
 
 import { config } from '../config'
 
-export const LOGIN = 'login'
-export const REGISTER = 'register'
-
-export const DEFAULT_AVATAR_PATH = '/uploads/images/default_avatar.png'
+export const DEFAULT_AVATAR_PATH = '/uploads/avatars/default_avatar.png'
 export const AVATARS_PATH = '/uploads/avatars/'
 
 export const AWARDS_PATH = '/uploads/core/awards/'

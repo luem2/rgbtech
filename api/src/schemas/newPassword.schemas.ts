@@ -4,6 +4,7 @@ import { object, string } from 'yup'
 
 export default object({
     body: object({
+        oldPassword: string(),
         newPassword: string()
             .required('Password is required')
             .min(8, 'The password must be at least 8 characters long')
