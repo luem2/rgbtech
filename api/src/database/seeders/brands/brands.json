@@ -1,118 +1,118 @@
 [
     {
         "name": "Corsair",
-        "logo": "/uploads/core/brand-corsair-logo.png"
+        "logo": "/uploads/core/brands/corsair.png"
     },
     {
         "name": "Gigabyte",
-        "logo": "/uploads/core/brand-gigabyte-logo.png"
+        "logo": "/uploads/core/brands/gigabyte.png"
     },
     {
         "name": "Razer",
-        "logo": "/uploads/core/brand-razer-logo.png"
+        "logo": "/uploads/core/brands/razer.png"
     },
     {
         "name": "Acer",
-        "logo": "/uploads/core/brand-acer-logo.png"
+        "logo": "/uploads/core/brands/acer.png"
     },
     {
         "name": "ASUS",
-        "logo": "/uploads/core/brand-asus-logo.png"
+        "logo": "/uploads/core/brands/asus.png"
     },
     {
         "name": "Beyerdynamic",
-        "logo": "/uploads/core/brand-beyerdynamic-logo.png"
+        "logo": "/uploads/core/brands/beyerdynamic.png"
     },
     {
         "name": "Blue",
-        "logo": "/uploads/core/brand-blue-logo.png"
+        "logo": "/uploads/core/brands/blue.png"
     },
     {
         "name": "Cooler Master",
-        "logo": "/uploads/core/brand-coolerMaster-logo.png"
+        "logo": "/uploads/core/brands/coolerMaster.png"
     },
     {
         "name": "Dowinx",
-        "logo": "/uploads/core/brand-dowinx-logo.png"
+        "logo": "/uploads/core/brands/dowinx.png"
     },
     {
         "name": "EVGA",
-        "logo": "/uploads/core/brand-evga-logo.png"
+        "logo": "/uploads/core/brands/evga.png"
     },
     {
         "name": "Focusrite",
-        "logo": "/uploads/core/brand-focusrite-logo.png"
+        "logo": "/uploads/core/brands/focusrite.png"
     },
     {
         "name": "Samsung",
-        "logo": "/uploads/core/brand-samsung-logo.png"
+        "logo": "/uploads/core/brands/samsung.png"
     },
     {
         "name": "MSI",
-        "logo": "/uploads/core/brand-msi-logo.png"
+        "logo": "/uploads/core/brands/msi.png"
     },
     {
         "name": "Logitech",
-        "logo": "/uploads/core/brand-logitech-logo.png"
+        "logo": "/uploads/core/brands/logitech.png"
     },
     {
         "name": "HP",
-        "logo": "/uploads/core/brand-hp-logo.png"
+        "logo": "/uploads/core/brands/hp.png"
     },
     {
         "name": "LG",
-        "logo": "/uploads/core/brand-lg-logo.png"
+        "logo": "/uploads/core/brands/lg.png"
     },
     {
         "name": "Killabee",
-        "logo": "/uploads/core/brand-killabee-logo.png"
+        "logo": "/uploads/core/brands/killabee.png"
     },
     {
         "name": "Furmax",
-        "logo": "/uploads/core/brand-furmax-logo.png"
+        "logo": "/uploads/core/brands/furmax.png"
     },
     {
         "name": "Sunsky",
-        "logo": "/uploads/core/brand-sunsky-logo.png"
+        "logo": "/uploads/core/brands/sunsky.png"
     },
     {
         "name": "Shure",
-        "logo": "/uploads/core/brand-shure-logo.png"
+        "logo": "/uploads/core/brands/shure.png"
     },
     {
         "name": "Sennheiser",
-        "logo": "/uploads/core/brand-sennheiser-logo.png"
+        "logo": "/uploads/core/brands/sennheiser.png"
     },
     {
         "name": "Motus",
-        "logo": "/uploads/core/brand-motus-logo.png"
+        "logo": "/uploads/core/brands/motus.png"
     },
     {
         "name": "M-Audio",
-        "logo": "/uploads/core/brand-mAudio-logo.png"
+        "logo": "/uploads/core/brands/mAudio.png"
     },
     {
         "name": "Lenovo",
-        "logo": "/uploads/core/brand-lenovo-logo.png"
+        "logo": "/uploads/core/brands/lenovo.png"
     },
     {
         "name": "Klipsch",
-        "logo": "/uploads/core/brand-klipsch-logo.png"
+        "logo": "/uploads/core/brands/klipsch.png"
     },
     {
         "name": "JBL",
-        "logo": "/uploads/core/brand-jbl-logo.png"
+        "logo": "/uploads/core/brands/jbl.png"
     },
     {
         "name": "HyperX",
-        "logo": "/uploads/core/brand-hyperX-logo.png"
+        "logo": "/uploads/core/brands/hyperX.png"
     },
     {
         "name": "Homall",
-        "logo": "/uploads/core/brand-homall-logo.png"
+        "logo": "/uploads/core/brands/homall.png"
     },
     {
         "name": "GameSir",
-        "logo": "/uploads/core/brand-gameSir-logo.png"
+        "logo": "/uploads/core/brands/gameSir.png"
     }
 ]

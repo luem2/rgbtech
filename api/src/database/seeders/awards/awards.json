@@ -8,7 +8,7 @@
             "width": "11.5cm",
             "adjustable": true
         },
-        "picture": "/uploads/core/award-support_supports_cell_phone.png"
+        "picture": "/uploads/core/awards/support_phone.png"
     },
     {
         "name": "Led ring light",
@@ -19,7 +19,7 @@
             "LEDQuantity": "120",
             "itIsRechargeable": "No"
         },
-        "picture": "/uploads/core/award-led_ring_light.png"
+        "picture": "/uploads/core/awards/led_ring_light.png"
     },
     {
         "name": "Headphones in-ear wireless F9-5",
@@ -32,7 +32,7 @@
             "batteryLife": "5 hs",
             "waterproof": "Yes"
         },
-        "picture": "/uploads/core/award-Headphones_in-ear_wireless_F9-5.png"
+        "picture": "/uploads/core/awards/headphones.png"
     },
     {
         "name": "Beanie with bluetooth",
@@ -45,7 +45,7 @@
             "washable": "Yes",
             "RGBTechOriginal": true
         },
-        "picture": "/uploads/core/award-beanie_with_bluetooth.png"
+        "picture": "/uploads/core/awards/beanie.png"
     },
     {
         "name": "Headphone stand",
@@ -56,7 +56,7 @@
             "compatibleDevices": "Headphones",
             "material": "Rubber Glass Polycarbonate Wood"
         },
-        "picture": "/uploads/core/award-headphone_stand.png"
+        "picture": "/uploads/core/awards/headphone_stand.png"
     },
     {
         "name": "SABRENT Hub USB-C 3.0",
@@ -67,7 +67,7 @@
             "USB": "3.0",
             "dualSlot": "SD y TF + 3 hubs USB"
         },
-        "picture": "/uploads/core/award-SABRENT_Hub_USB-C_3.0.png"
+        "picture": "/uploads/core/awards/sabrent.png"
     },
     {
         "name": "Led strip lights",
@@ -78,7 +78,7 @@
             "LightSourceType": "LED",
             "PowerSource": "Corded Electric"
         },
-        "picture": "/uploads/core/award-led_strip_lights.png"
+        "picture": "/uploads/core/awards/led_strip_lights.png"
     },
     {
         "name": "RGBtech T-Shirt Logo",
@@ -88,7 +88,7 @@
             "color": "white",
             "RGBTechOriginal": true
         },
-        "picture": "/uploads/core/award-rgbremera.png"
+        "picture": "/uploads/core/awards/rgb_remera.png"
     },
     {
         "name": "RGBtech T-Shirt Logo Background",
@@ -98,6 +98,6 @@
             "color": "white",
             "RGBTechOriginal": true
         },
-        "picture": "/uploads/core/award-remera_astro.png"
+        "picture": "/uploads/core/awards/remera_astro.png"
     }
 ]
