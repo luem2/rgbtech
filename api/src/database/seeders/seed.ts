@@ -8,29 +8,35 @@ import { createAwards } from './awards'
 import { createBrands } from './brands'
 import { createProducts } from './products'
 
+type TableNamesArr = Array<{ tablename: string }>
+
+async function truncateTables() {
+    const tablenames =
+        await db.$queryRaw<TableNamesArr>`SELECT tablename FROM pg_tables WHERE schemaname='public'`
+
+    const tables = tablenames
+        .map(({ tablename }) => tablename)
+        .filter((name) => name !== '_prisma_migrations')
+        .map((name) => `"public"."${name}"`)
+        .join(', ')
+
+    await db.$executeRawUnsafe(`TRUNCATE TABLE ${tables} CASCADE;`)
+}
+
 async function main() {
-    await db.country.deleteMany()
     await createCountries()
+    await createTags()
+    await createAwards()
+    await createBrands()
+    await createProducts()
 
     if (config.NODE_ENV === 'development') {
-        await db.user.deleteMany()
         await createUsers()
     }
-
-    await db.tag.deleteMany()
-    await createTags()
-
-    await db.award.deleteMany()
-    await createAwards()
-
-    await db.brand.deleteMany()
-    await createBrands()
-
-    await db.product.deleteMany()
-    await createProducts()
 }
 
 try {
+    truncateTables()
     main()
 } catch (error) {
     console.error(error)
