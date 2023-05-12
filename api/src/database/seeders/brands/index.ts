@@ -12,7 +12,5 @@ export async function createBrands() {
     } catch (error) {
         console.error(error)
         process.exit(1)
-    } finally {
-        await db.$disconnect()
     }
 }
