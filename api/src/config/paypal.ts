@@ -38,7 +38,7 @@ export class PaypalApi {
             }),
         })
 
-        return await this.handleResponse(response)
+        return this.handleResponse(response)
     }
 
     async capturePayment(orderId: string) {
@@ -52,7 +52,7 @@ export class PaypalApi {
             },
         })
 
-        return await this.handleResponse(response)
+        return this.handleResponse(response)
     }
 
     async generateAccessToken() {
@@ -75,7 +75,7 @@ export class PaypalApi {
         return jsonData.access_token as string
     }
 
-    async handleResponse(response: AxiosResponse) {
+    handleResponse(response: AxiosResponse) {
         if (response.status === 200 || response.status === 201) {
             return response.data
         }
