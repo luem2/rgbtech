@@ -15,14 +15,21 @@ export class TransactionRouter extends BaseRouter<
         this.router.get(
             '/',
             this.auth.checkAdminAuth,
-            this.controllers.getAllTransactions
+            this.controllers.getAllUsersTransactions
         )
 
         this.router.get(
             '/:id',
             this.auth.checkAdminAuth,
             this.middlewares.checkIfUserExists,
-            this.controllers.getTransactionsByUser
+            this.controllers.getUserTransactions
+        )
+
+        this.router.post(
+            '/create-order',
+            this.auth.checkAuth,
+            this.middlewares.checkCreateOrder,
+            this.controllers.createOrder
         )
 
         this.router.put(
@@ -35,12 +42,6 @@ export class TransactionRouter extends BaseRouter<
             '/cancel-transaction/:id',
             this.auth.checkAuth,
             this.controllers.cancelTransaction
-        )
-
-        this.router.post(
-            '/create-order',
-            [this.auth.checkAuth, this.middlewares.checkCreateOrder],
-            this.controllers.createOrder
         )
     }
 }

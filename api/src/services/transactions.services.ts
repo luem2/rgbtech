@@ -10,7 +10,7 @@ export class TransactionServices {
         this.paypal = new PaypalApi()
     }
 
-    async getAllTransactions() {
+    async getAllUsersTransactions() {
         return await db.transactions.findMany({
             include: {
                 _count: true,
@@ -19,7 +19,7 @@ export class TransactionServices {
         })
     }
 
-    async getTransactionsByUser({ id }: Request['params']) {
+    async getUserTransactions({ id }: Request['params']) {
         return await db.user.findUnique({
             where: {
                 id,
