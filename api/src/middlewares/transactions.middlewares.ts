@@ -10,28 +10,49 @@ export class TransactionMiddlewares extends BaseMiddlewares {
         _res: Response,
         next: NextFunction
     ) => {
-        const user = (await db.user.findUnique({
-            where: {
-                id: req.userId,
-            },
-            select: {
-                shoppingCart: true,
-            },
-        })) as { shoppingCart: CartItem[] }
+        try {
+            const user = (await db.user.findUnique({
+                where: {
+                    id: req.userId,
+                },
+                select: {
+                    shoppingCart: true,
+                },
+            })) as { shoppingCart: CartItem[] }
 
-        if (!user.shoppingCart.length) {
-            next(new this.HttpError(400, 'Cart is empty'))
+            if (!user.shoppingCart.length)
+                throw new this.HttpError(400, 'Cart is empty')
 
-            return
+            const newOrder = user.shoppingCart.map((p) => ({
+                productId: p.productId,
+                amount: p.quantity,
+            }))
+
+            req.body = newOrder
+
+            next()
+        } catch (error) {
+            next(error)
         }
+    }
 
-        const newOrder = user.shoppingCart.map((p) => ({
-            productId: p.productId,
-            amount: p.quantity,
-        }))
+    checkIfUserExists = async (
+        req: Request,
+        _res: Response,
+        next: NextFunction
+    ) => {
+        try {
+            const user = await db.user.findUnique({
+                where: {
+                    id: req.params.id,
+                },
+            })
 
-        req.body = newOrder
+            if (!user) throw new this.HttpError(404, 'User not found')
 
-        next()
+            next()
+        } catch (error) {
+            next(error)
+        }
     }
 }

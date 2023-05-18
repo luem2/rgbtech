@@ -8,8 +8,8 @@ export class TransactionControllers extends BaseControllers<TransactionServices>
         super(TransactionServices)
     }
 
-    getAllTransactions = async (_req: Request, res: Response) => {
-        const allTransactions = await this.services.getAllTransactions()
+    getAllUsersTransactions = async (_req: Request, res: Response) => {
+        const allTransactions = await this.services.getAllUsersTransactions()
 
         this.httpResponse.Ok(res, {
             msg: 'Transactions were successfully sent',
@@ -17,8 +17,8 @@ export class TransactionControllers extends BaseControllers<TransactionServices>
         })
     }
 
-    getTransactionsByUser = async (req: Request, res: Response) => {
-        const user = await this.services.getTransactionsByUser(req.params)
+    getUserTransactions = async (req: Request, res: Response) => {
+        const user = await this.services.getUserTransactions(req.params)
 
         this.httpResponse.Ok(res, {
             msg: 'Transactions were successfully sent',
