@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from 'express'
-import type { CartItem } from '@prisma/client'
+import type { IPurchaseUnits } from '../types'
 
 import { BaseMiddlewares } from '../config/bases'
 import { db } from '../database'
@@ -11,16 +11,20 @@ export class TransactionMiddlewares extends BaseMiddlewares {
         next: NextFunction
     ) => {
         try {
-            const user = (await db.user.findUnique({
+            const user = await db.user.findUnique({
                 where: {
                     id: req.userId,
                 },
                 select: {
-                    shoppingCart: true,
+                    shoppingCart: {
+                        include: {
+                            product: true,
+                        },
+                    },
                 },
-            })) as { shoppingCart: CartItem[] }
+            })
 
-            if (!user.shoppingCart.length)
+            if (!user?.shoppingCart.length)
                 throw new this.HttpError(400, 'Cart is empty')
 
             const newOrder = user.shoppingCart.map((p) => ({
@@ -28,7 +32,29 @@ export class TransactionMiddlewares extends BaseMiddlewares {
                 amount: p.quantity,
             }))
 
-            req.body = newOrder
+            req.body.newOrder = newOrder
+
+            const paypalDetails: IPurchaseUnits = user.shoppingCart.map(
+                (p) => ({
+                    description:
+                        'Please read the purchase details carefully to confirm your purchase. Thanks you for shopping at RGBTech.',
+                    amount: {
+                        currency_code: 'USD',
+                        value: p.product.price.toString(),
+                    },
+                    items: user.shoppingCart.map((p) => ({
+                        name: p.product.name,
+                        description: p.product.description,
+                        unit_amount: {
+                            currency_code: 'USD',
+                            value: p.product.price.toString(),
+                        },
+                        quantity: p.quantity.toString(),
+                    })),
+                })
+            )
+
+            req.body.paypalDetails = paypalDetails
 
             next()
         } catch (error) {

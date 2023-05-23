@@ -33,13 +33,13 @@ export class TransactionRouter extends BaseRouter<
         )
 
         this.router.put(
-            '/complete-transaction/:id',
+            '/complete-order/:id',
             this.auth.checkAuth,
             this.controllers.completeTransaction
         )
 
-        this.router.put(
-            '/cancel-transaction/:id',
+        this.router.delete(
+            '/cancel-order/:id',
             this.auth.checkAuth,
             this.controllers.cancelTransaction
         )
