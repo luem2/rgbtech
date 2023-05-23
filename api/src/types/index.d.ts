@@ -82,3 +82,30 @@ export interface GoogleTokensResult {
     refresh_token: string
     scope: string
 }
+
+export type IPurchaseUnits = Array<{
+    description: string
+    amount: {
+        currency_code: string
+        value: string
+    }
+    items: Array<{
+        name: string
+        description: string
+        quantity: string
+        unit_amount: {
+            currency_code: string
+            value: string
+        }
+    }>
+}>
+
+export interface CreateOrderOutput {
+    id: string
+    status: string
+    links: Array<{
+        href: string
+        rel: string
+        method: string
+    }>
+}

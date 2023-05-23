@@ -1,4 +1,5 @@
 import type { AxiosResponse } from 'axios'
+import type { IPurchaseUnits } from '../types'
 
 import axios from 'axios'
 
@@ -16,7 +17,7 @@ export class PaypalApi {
         axios.defaults.method = 'post'
     }
 
-    async createOrder() {
+    async createOrder(purchase_units: IPurchaseUnits) {
         const accessToken = await this.generateAccessToken()
 
         const response = await axios({
@@ -25,17 +26,10 @@ export class PaypalApi {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${accessToken}`,
             },
-            data: JSON.stringify({
+            data: {
                 intent: 'CAPTURE',
-                purchase_units: [
-                    {
-                        amount: {
-                            currency_code: 'USD',
-                            value: '100.00',
-                        },
-                    },
-                ],
-            }),
+                purchase_units,
+            },
         })
 
         return this.handleResponse(response)
@@ -64,6 +58,7 @@ export class PaypalApi {
             url: '/v1/oauth2/token',
             headers: {
                 Authorization: `Basic ${auth}`,
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
             data: {
                 grant_type: 'client_credentials',
