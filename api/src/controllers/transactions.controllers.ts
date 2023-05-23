@@ -27,12 +27,9 @@ export class TransactionControllers extends BaseControllers<TransactionServices>
     }
 
     createOrder = async (req: Request, res: Response) => {
-        const newOrder = await this.services.createOrder(req)
+        const { links } = await this.services.createOrder(req)
 
-        this.httpResponse.Created(res, {
-            msg: 'Order successfully created',
-            order: newOrder,
-        })
+        res.redirect(links[1].href)
     }
 
     completeTransaction = async (req: Request, res: Response) => {
