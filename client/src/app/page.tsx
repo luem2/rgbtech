@@ -1,3 +1,7 @@
 export default function Home() {
-    return <h1>RGBTech</h1>
+    return (
+        <>
+            <h2>RGBTech</h2>
+        </>
+    )
 }

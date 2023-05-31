@@ -1,5 +1,9 @@
-import './globals.css'
 import { Inter } from 'next/font/google'
+
+import { Header } from '@/components/Header'
+import { Providers } from '@/components/Providers'
+
+import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -8,14 +12,19 @@ export const metadata = {
     description: 'Ecommerce of technology products.',
 }
 
-export default function RootLayout({
-    children,
-}: {
+interface Props {
     children: React.ReactNode
-}) {
+}
+
+export default function RootLayout({ children }: Props) {
     return (
         <html lang='en'>
-            <body className={inter.className}>{children}</body>
+            <body className={inter.className}>
+                <Providers>
+                    <Header />
+                    {children}
+                </Providers>
+            </body>
         </html>
     )
 }
