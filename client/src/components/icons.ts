@@ -7,7 +7,9 @@ export {
     BsFillSunFill,
     BsFillMoonFill,
     BsSearch,
+    BsFillPeopleFill,
 } from 'react-icons/bs'
+export { BiLogIn, BiLinkExternal } from 'react-icons/bi'
 export { ImCart } from 'react-icons/im'
 export {
     FaShoppingCart,
