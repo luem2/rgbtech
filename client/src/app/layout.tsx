@@ -1,7 +1,6 @@
 import { Inter } from 'next/font/google'
 
-import { Header } from '@/components/Header'
-import { Providers } from '@/components/Providers'
+import { Header, Providers } from '@/components'
 
 import './globals.css'
 
@@ -19,7 +18,7 @@ interface Props {
 export default function RootLayout({ children }: Props) {
     return (
         <html lang='en'>
-            <body className={inter.className}>
+            <body className={`relative pb-40 min-h-screen ${inter.className}`}>
                 <Providers>
                     <Header />
                     {children}
