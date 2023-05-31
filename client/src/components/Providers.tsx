@@ -6,7 +6,7 @@ interface Props {
     children: React.ReactNode
 }
 
-export function Providers({ children }: Props) {
+export default function Providers({ children }: Props) {
     return (
         <ThemeProvider attribute='class' enableSystem={true}>
             {children}

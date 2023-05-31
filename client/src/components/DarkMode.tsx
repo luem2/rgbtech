@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 
 import { BsFillSunFill, BsFillMoonFill } from '@/components/icons'
 
-export function DarkMode() {
+export default function DarkMode() {
     const [mounted, setMounted] = useState(false)
     const { systemTheme, theme, setTheme } = useTheme()
 
@@ -17,21 +17,25 @@ export function DarkMode() {
 
     const currentTheme = theme === 'system' ? systemTheme : theme
 
-    return (
-        <>
-            {currentTheme === 'dark' ? (
-                <BsFillSunFill
-                    className='text-yellow-400 hover:cursor-pointer'
-                    size={20}
-                    onClick={() => setTheme('light')}
-                />
-            ) : (
-                <BsFillMoonFill
-                    className='text-gray-900 hover:cursor-pointer'
-                    size={20}
-                    onClick={() => setTheme('dark')}
-                />
-            )}
-        </>
+    return currentTheme === 'dark' ? (
+        <button
+            className='flex hover:bg-slate-100 hover:dark:bg-slate-700 rounded-md justify-center items-center w-8 h-8'
+            onClick={() => setTheme('light')}
+        >
+            <BsFillSunFill
+                className='text-yellow-400 hover:cursor-pointer'
+                size={20}
+            />
+        </button>
+    ) : (
+        <button
+            className='flex hover:bg-slate-100 hover:dark:bg-slate-700 rounded-md justify-center items-center w-8 h-8'
+            onClick={() => setTheme('dark')}
+        >
+            <BsFillMoonFill
+                className='text-gray-900 hover:cursor-pointer'
+                size={20}
+            />
+        </button>
     )
 }

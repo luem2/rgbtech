@@ -1,19 +1,19 @@
-import { DarkMode } from './DarkMode'
-import { AccessButton } from './buttons'
+import { LoginInButton } from '@/components/buttons'
+import { DarkMode } from '@/components'
 
-import {
-    BsFillSuitHeartFill,
-    BsFillCartFill,
-    FaUser,
-} from '@/components/icons/'
+// import {
+//     BsFillSuitHeartFill,
+//     BsFillCartFill,
+//     FaUser,
+// } from '@/components/icons/'
 
-export function UserMenu() {
+export default function UserMenu() {
     return (
-        <section className='flex items-center gap-4'>
+        <section className='flex items-center gap-2'>
             <DarkMode />
 
             {/* When user is not logged */}
-            <AccessButton />
+            <LoginInButton />
 
             {/* When user is logged */}
             {/* <div className='flex items-center gap-2'>
