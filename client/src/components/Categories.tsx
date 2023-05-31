@@ -1,3 +1,3 @@
-export function Categories() {
+export default function Categories() {
     return <nav>Categories</nav>
 }
