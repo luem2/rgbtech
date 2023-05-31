@@ -1,0 +1,13 @@
+export * as PS5 from './PS5.png'
+export * as PC_GAMER from './pc-gamer.png'
+export * as ASUS_NOTEBOOK from './asus-notebook-gaming.png'
+export * as MSI_NOTEBOOK from './msi-notebook-gaming.png'
+export * as KEYBOARD from './keyboard.png'
+export * as JOYSTICK from './joystick.png'
+
+export * as RESPONSIVE_PS5 from './responsive-PS5.png'
+export * as RESPONSIVE_PC_GAMER from './responsive-pc-gamer.png'
+export * as RESPONSIVE_ASUS_NOTEBOOK from './responsive-asus-notebook-gaming.png'
+export * as RESPONSIVE_MSI_NOTEBOOK from './responsive-msi-notebook-gaming.png'
+export * as RESPONSIVE_KEYBOARD from './responsive-keyboard.png'
+export * as RESPONSIVE_JOYSTICK from './responsive-joystick.png'
